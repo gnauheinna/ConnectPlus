@@ -1,10 +1,10 @@
 import { StatusBar } from "expo-status-bar";
-import * as React from "react";
+import React, { Component } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-
+import { View, Text } from "react-native";
 import { getApps, initializeApp } from "firebase/app";
-import "firebase/compat/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 /// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -25,20 +25,55 @@ if (getApps().length === 0) {
 import LandingScreen from "./components/auth/Landing";
 import RegisterScreen from "./components/auth/Register";
 
-///stack navigator
-const Stack = createStackNavigator();
-export default function App() {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Landing">
-        {/*tells navigator the first page go to when page is launched is landing */}
-        <Stack.Screen
-          name="Landing"
-          component={LandingScreen}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen name="Register" component={RegisterScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
+export class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      loaded: false,
+      loggedIn: false,
+    };
+  }
+
+  componentDidMount() {
+    const auth = getAuth();
+    auth.onAuthStateChanged((user) => {
+      if (!user) {
+        this.setState({
+          loggedIn: false,
+          loaded: true,
+        });
+      } else {
+        this.setState({
+          loggedIn: true,
+          loaded: true,
+        });
+      }
+    });
+  }
+
+  render() {
+    const { loggedIn, loaded } = this.state;
+    if (!loaded) {
+      return (
+        <View style={{ flex: 1, justifyContent: "center" }}>
+          <Text>Loading</Text>
+        </View>
+      );
+    }
+    return (
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Landing">
+          {/*tells navigator the first page go to when page is launched is landing */}
+          <Stack.Screen
+            name="Landing"
+            component={LandingScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen name="Register" component={RegisterScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    );
+  }
 }
+
+export default App;
