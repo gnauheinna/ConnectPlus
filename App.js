@@ -22,6 +22,8 @@ if (getApps().length === 0) {
   initializeApp(firebaseConfig);
 }
 
+const Stack = createStackNavigator();
+
 import LandingScreen from "./components/auth/Landing";
 import RegisterScreen from "./components/auth/Register";
 
@@ -60,18 +62,25 @@ export class App extends Component {
         </View>
       );
     }
+    if (!loggedIn) {
+      return (
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName="Landing">
+            {/*tells navigator the first page go to when page is launched is landing */}
+            <Stack.Screen
+              name="Landing"
+              component={LandingScreen}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen name="Register" component={RegisterScreen} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      );
+    }
     return (
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName="Landing">
-          {/*tells navigator the first page go to when page is launched is landing */}
-          <Stack.Screen
-            name="Landing"
-            component={LandingScreen}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen name="Register" component={RegisterScreen} />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <View style={{ flex: 1, justifyContent: "center" }}>
+        <Text>User is logged in</Text>
+      </View>
     );
   }
 }
