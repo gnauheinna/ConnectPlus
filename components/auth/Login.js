@@ -1,8 +1,11 @@
 import React, { Component } from "react";
 import { View, Button, TextInput } from "react-native";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { firebaseApp, firebaseConfig } from "../../firebase";
+import { collection, addDoc, getFirestore } from "firebase/firestore";
 
-export default class Login extends Component {
+const auth = getAuth();
+export default class LoginScreen extends Component {
   constructor(props) {
     super(props);
 
@@ -14,7 +17,6 @@ export default class Login extends Component {
   }
 
   onSignUp() {
-    const auth = getAuth();
     const { email, password } = this.state;
     SignInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
