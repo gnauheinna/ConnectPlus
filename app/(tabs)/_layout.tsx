@@ -1,7 +1,7 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Link, Tabs } from 'expo-router';
 import { Pressable, useColorScheme } from 'react-native';
-
+import PlusButton from '../../components/postButton';
 import Colors from '../../constants/Colors';
 
 /**
@@ -46,7 +46,14 @@ export default function TabLayout() {
       <Tabs.Screen
         name="resources"
         options={{
-          title: 'Resources',
+          title: 'Resource',
+          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="post"
+        options={{
+          title: 'Post',
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
         }}
       />

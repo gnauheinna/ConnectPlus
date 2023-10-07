@@ -1,5 +1,5 @@
-import { StyleSheet } from 'react-native';
-
+import React, { useState } from 'react'; 
+import { StyleSheet, TextInput} from 'react-native';
 import EditScreenInfo from '../../components/EditScreenInfo';
 import { Text, View } from '../../components/Themed';
 
