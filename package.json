@@ -43,7 +43,9 @@
     "typescript": "^5.1.3"
   },
   "overrides": {
-    "react-refresh": "~0.14.0"
+    "react-refresh": "~0.14.0",
+    "metro": "0.76.0",
+    "metro-resolver": "0.76.0"
   },
   "resolutions": {
     "react-refresh": "~0.14.0"

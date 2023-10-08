@@ -1,32 +1,51 @@
-import React, { useState } from 'react'; 
-import { Button, StyleSheet, TextInput} from 'react-native';
-import EditScreenInfo from '../../components/EditScreenInfo';
-import { Text, View } from '../../components/Themed';
+import React, { useState } from "react";
+import { Button, StyleSheet, TextInput } from "react-native";
+import EditScreenInfo from "../../components/EditScreenInfo";
+import { Text, View } from "../../components/Themed";
 
 export default function TabOneScreen() {
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Post</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/(tabs)/post.tsx" />
-
-
-      <Text style={[styles.title, { color: 'grey', fontWeight: 'bold', fontSize: 12}]}>TITLE</Text>
-      <TextInput
-        style={[styles.input, { borderWidth: 1, borderColor: '#ccc' }]}
-        placeholder="Enter Title"
-        value={title}
-        onChangeText={text => setTitle(text)}
+      <View
+        style={styles.separator}
+        lightColor="#eee"
+        darkColor="rgba(255,255,255,0.1)"
       />
 
-      <Text style={[styles.title, { color: 'grey', fontWeight: 'bold', fontSize: 12}]}>DESCRIPTION</Text>
+      <Text
+        style={[
+          styles.title,
+          { color: "grey", fontWeight: "bold", fontSize: 12 },
+        ]}
+      >
+        TITLE
+      </Text>
       <TextInput
-        style={[styles.input, { height: 150, borderWidth: 1, borderColor: '#ccc'}]}
+        style={[styles.input, { borderWidth: 1, borderColor: "#ccc" }]}
+        placeholder="Enter Title"
+        value={title}
+        onChangeText={(text) => setTitle(text)}
+      />
+
+      <Text
+        style={[
+          styles.title,
+          { color: "grey", fontWeight: "bold", fontSize: 12 },
+        ]}
+      >
+        DESCRIPTION
+      </Text>
+      <TextInput
+        style={[
+          styles.input,
+          { height: 150, borderWidth: 1, borderColor: "#ccc" },
+        ]}
         placeholder="Enter Content"
         value={content}
-        onChangeText={text => setContent(text)}
+        onChangeText={(text) => setContent(text)}
       />
 
       <View style={[styles.postBtn]}>
@@ -37,7 +56,6 @@ export default function TabOneScreen() {
           color="white"
         />
       </View>
-
     </View>
   );
 }
@@ -45,27 +63,29 @@ export default function TabOneScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   title: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   separator: {
     marginVertical: 30,
     height: 1,
-    width: '80%',
+    width: "80%",
   },
   input: {
     borderWidth: 1,
-    borderColor: 'gray',
+    borderColor: "gray",
     borderRadius: 5,
     padding: 10,
-    width: '80%',
+    width: "80%",
     marginVertical: 10,
   },
   postBtn: {
-    backgroundColor: 'black', borderRadius: 10, padding: 5,
+    backgroundColor: "black",
+    borderRadius: 10,
+    padding: 5,
   },
 });
