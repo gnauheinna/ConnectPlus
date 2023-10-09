@@ -1,6 +1,7 @@
 import { View, Text, Button, TextField } from "react-native-ui-lib";
 import React, { useState } from "react";
 import { StyleSheet, TextInput } from "react-native";
+import { Link, useRouter } from "expo-router";
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -15,8 +16,12 @@ export default function IndexScreen() {
   const [loginError, setLoginError] = useState(null);
   const [signupError, setSignupError] = useState(null);
   const provider = new GoogleAuthProvider();
-
+  const router = useRouter();
   const auth = getAuth();
+  function nextpage() {
+    router.push("/profile");
+  }
+
   function LogIn() {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
@@ -24,6 +29,7 @@ export default function IndexScreen() {
         const user = userCredential.user;
         console.log("logged In!");
         setLoginError(null);
+        nextpage();
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -67,6 +73,11 @@ export default function IndexScreen() {
         const user = userCredential.user;
         console.log("signed up!");
         setSignupError(null);
+        return (
+          <View>
+            <Link href="./(tabs)/profile" asChild></Link>
+          </View>
+        );
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -111,13 +122,15 @@ export default function IndexScreen() {
           onPress={LogIn}
         />
         <Button link text70 white label="Sign Up" marginT-20 onPress={SignUp} />
-        <Button
-          text70
-          white
-          background-yellow10
-          label="Google Login"
-          onPress={GoogleLogin}
-        />
+        <View marginT-100 center>
+          <Button
+            text70
+            white
+            background-yellow10
+            label="Google Login"
+            onPress={GoogleLogin}
+          />
+        </View>
       </View>
     </View>
   );
