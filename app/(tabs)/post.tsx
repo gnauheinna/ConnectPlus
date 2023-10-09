@@ -8,6 +8,7 @@ import { getFirestore, collection, addDoc } from "firebase/firestore";
 export default function PostScreen() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
   const handlePost = async () => {
     // Get a reference to the Firebase database
@@ -25,6 +26,12 @@ export default function PostScreen() {
     // Clear the input fields
     setTitle('');
     setContent('');
+    // Show the success message
+    setShowSuccessMessage(true);
+    // Hide the success message after a few seconds
+    setTimeout(() => {
+      setShowSuccessMessage(false);
+    }, 3000);
   };
 
   return (
@@ -77,6 +84,13 @@ export default function PostScreen() {
           color="black"
         />
       </View>
+
+      <View>
+        {showSuccessMessage && (
+            <Text style={styles.successMessage}>Post successful!</Text>
+        )}
+</View>
+
     </View>
   );
 }
@@ -105,8 +119,12 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   postBtn: {
-    // backgroundColor: "black",
     borderRadius: 10,
     padding: 5,
+  },
+  successMessage: {
+    color: "green", 
+    marginTop: 10,
+    fontSize: 16,
   },
 });
