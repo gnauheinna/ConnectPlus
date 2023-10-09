@@ -9,6 +9,8 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
 } from "firebase/auth";
+import { getApps } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
 
 export default function IndexScreen() {
   const [email, setEmail] = useState("");
@@ -18,6 +20,8 @@ export default function IndexScreen() {
   const provider = new GoogleAuthProvider();
   const router = useRouter();
   const auth = getAuth();
+  const db = getFirestore();
+
   function nextpage() {
     router.push("/profile");
   }
@@ -48,6 +52,7 @@ export default function IndexScreen() {
           const token = credential.accessToken;
           // The signed-in user info.
           const user = result.user;
+          nextpage();
         }
         console.log("Signed In with Google");
 
@@ -73,11 +78,8 @@ export default function IndexScreen() {
         const user = userCredential.user;
         console.log("signed up!");
         setSignupError(null);
-        return (
-          <View>
-            <Link href="./(tabs)/profile" asChild></Link>
-          </View>
-        );
+
+        nextpage();
       })
       .catch((error) => {
         const errorCode = error.code;
