@@ -1,16 +1,61 @@
-import React, { useState } from "react";
-import { StyleSheet, TextInput } from "react-native";
+import React, { useState, useEffect} from "react";
+import { StyleSheet, TextInput, FlatList } from "react-native";
 import { Text, View } from "../../components/Themed";
+import { getFirestore, collection, getDocs } from "firebase/firestore";
+
+type Post = {
+  title: string;
+  content: string;
+};
 
 export default function CommunityScreen() {
+
+  function PostList() {
+    const [posts, setPosts] = useState<Post[]>([]);
+    useEffect(() => {
+      const db = getFirestore();
+      const postsCollection = collection(db, 'posts');
+
+      const fetchData = async () => {
+        try {
+          const querySnapshot = await getDocs(postsCollection);
+          const postData: any[] = [];
+
+          querySnapshot.forEach((doc) => {
+            postData.push(doc.data());
+          });
+
+          setPosts(postData);
+        } catch (error) {
+          console.error('Error fetching posts:', error);
+        }
+      };
+      // Call the fetchData function to retrieve posts when the component mounts
+      fetchData();
+    }, []);
+  
+    return (
+      <FlatList
+        data={posts}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={({ item }) => (
+          <View>
+            <Text>{item.title}</Text>
+            <Text>{item.content}</Text>
+          </View>
+        )}
+      />
+    );
+  }
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Community</Text>
+    <View>
+      <Text>Community</Text>
       <View
-        style={styles.separator}
         lightColor="#eee"
         darkColor="rgba(255,255,255,0.1)"
       />
+      <PostList />
     </View>
   );
 }
