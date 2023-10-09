@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { StyleSheet, TextInput } from "react-native";
-import EditScreenInfo from "../../components/EditScreenInfo";
 import { Text, View } from "../../components/Themed";
 
-export default function TabOneScreen() {
+export default function CommunityScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Community</Text>
