@@ -2,10 +2,31 @@ import React, { useState } from "react";
 import { Button, StyleSheet, TextInput } from "react-native";
 import EditScreenInfo from "../../components/EditScreenInfo";
 import { Text, View } from "../../components/Themed";
+import { getApps } from "firebase/app";
+import { getFirestore, collection, addDoc } from "firebase/firestore";
 
 export default function PostScreen() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+
+  const handlePost = async () => {
+    // Get a reference to the Firebase database
+    const db = getFirestore();
+    const postsCollection = collection(db, "posts");
+    // Create a new post object
+    const newPost = {
+      title,
+      content,
+      // timestamp
+      // user ID
+    };
+    // Push the new post to the database
+    await addDoc(postsCollection, newPost);
+    // Clear the input fields
+    setTitle('');
+    setContent('');
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Post</Text>
@@ -52,8 +73,8 @@ export default function PostScreen() {
         <Button
           title="Post"
           accessibilityLabel="increment"
-          // onPress={onIncrement}
-          color="white"
+          onPress={handlePost}
+          color="black"
         />
       </View>
     </View>
@@ -84,7 +105,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   postBtn: {
-    backgroundColor: "black",
+    // backgroundColor: "black",
     borderRadius: 10,
     padding: 5,
   },
