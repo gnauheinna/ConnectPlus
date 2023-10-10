@@ -10,17 +10,66 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { getApps } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import {
+  getFirestore,
+  collection,
+  serverTimestamp,
+  addDoc,
+} from "firebase/firestore";
 
 export default function IndexScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState(null);
   const [signupError, setSignupError] = useState(null);
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const provider = new GoogleAuthProvider();
   const router = useRouter();
   const auth = getAuth();
-  const db = getFirestore();
+
+  const handleNewUserEmail = async () => {
+    // get a instance of Firebase db
+    const db = getFirestore();
+    const userCollection = collection(db, "users");
+    // create new object
+    const newUser = {
+      email,
+      password,
+      timestamp: serverTimestamp(),
+      //name, major, year, interest
+    };
+
+    await addDoc(userCollection, newUser);
+    setEmail("");
+    setPassword("");
+    // Show the success message
+    setShowSuccessMessage(true);
+    setTimeout(() => {
+      setShowSuccessMessage(false);
+    }, 3000);
+  };
+
+  const handleNewUserGoogle = async () => {
+    // get a instance of Firebase db
+    const db = getFirestore();
+    const userCollection = collection(db, "users");
+    // create new object
+    const newUser = {
+      email,
+      password,
+      timestamp: serverTimestamp(),
+      //name, major, year, interest
+    };
+
+    await addDoc(userCollection, newUser);
+    setEmail("");
+    setPassword("");
+    // Show the success message
+    setShowSuccessMessage(true);
+    setTimeout(() => {
+      setShowSuccessMessage(false);
+    }, 3000);
+  };
 
   function nextpage() {
     router.push("/profile");
@@ -78,7 +127,7 @@ export default function IndexScreen() {
         const user = userCredential.user;
         console.log("signed up!");
         setSignupError(null);
-
+        handleNewUserEmail();
         nextpage();
       })
       .catch((error) => {
