@@ -44,7 +44,15 @@ export default function CommunityScreen() {
             <View style={styles.titleTimestampContainer}>
                 <Text style={styles.title}>{item.title}</Text>
                 {item.timestamp && (
-                <Text style={styles.timestamp}>{item.timestamp.toDate().toLocaleString()}</Text>
+                <Text style={styles.timestamp}>
+                  {item.timestamp.toDate().toLocaleString('en-US', {
+                    year: 'numeric',
+                    month: 'numeric',
+                    day: 'numeric',
+                    hour: 'numeric',
+                    minute: 'numeric',
+                  })}
+                </Text>
                 )}
             </View>
             <Text style={styles.content}>{item.content}</Text>
