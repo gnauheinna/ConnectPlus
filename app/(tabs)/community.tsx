@@ -43,6 +43,7 @@ export default function CommunityScreen() {
           <View style={styles.container}>
             <View style={styles.titleTimestampContainer}>
                 <Text style={styles.title}>{item.title}</Text>
+
                 {item.timestamp && (
                 <Text style={styles.timestamp}>
                   {item.timestamp.toDate().toLocaleString('en-US', {
@@ -53,6 +54,7 @@ export default function CommunityScreen() {
                     minute: 'numeric',
                   })}
                 </Text>
+
                 )}
             </View>
             <Text style={styles.content}>{item.content}</Text>
@@ -81,22 +83,23 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginBottom: 48,
+    borderWidth: 1, 
+    borderColor: "gray",
+    borderRadius: 5, 
+    padding: 16,
+    width: 500,
   },
   title: {
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: "bold",
     marginRight: 48,
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
+    textAlign: "left",
   },
   titleTimestampContainer: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    marginBottom: 5,
+    marginBottom: 20,
   },
   timestamp: {
     fontSize: 12,
@@ -104,5 +107,6 @@ const styles = StyleSheet.create({
   },
   content: {
     fontSize: 16,
+    textAlign: "left",
   },
 });
