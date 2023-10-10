@@ -40,12 +40,15 @@ export default function CommunityScreen() {
         data={posts}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item }) => (
-          <View>
-            <Text>{item.title}</Text>
-            <Text>{item.content}</Text>
-            {item.timestamp && (
-              <Text>{item.timestamp.toDate().toLocaleString()}</Text>
-            )}
+          <View style={styles.container}>
+            <View style={styles.titleTimestampContainer}>
+                <Text style={styles.title}>{item.title}</Text>
+                {item.timestamp && (
+                <Text style={styles.timestamp}>{item.timestamp.toDate().toLocaleString()}</Text>
+                )}
+            </View>
+            <Text style={styles.content}>{item.content}</Text>
+    
           </View>
         )}
       />
@@ -54,7 +57,7 @@ export default function CommunityScreen() {
 
   return (
     <View>
-      <Text>Community</Text>
+      <Text></Text>
       <View
         lightColor="#eee"
         darkColor="rgba(255,255,255,0.1)"
@@ -69,14 +72,29 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    marginBottom: 48,
   },
   title: {
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: "bold",
+    marginRight: 48,
   },
   separator: {
     marginVertical: 30,
     height: 1,
     width: "80%",
+  },
+  titleTimestampContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginBottom: 5,
+  },
+  timestamp: {
+    fontSize: 12,
+    color: "gray",
+  },
+  content: {
+    fontSize: 16,
   },
 });
