@@ -1,11 +1,12 @@
 import React, { useState, useEffect} from "react";
 import { StyleSheet, TextInput, FlatList } from "react-native";
 import { Text, View } from "../../components/Themed";
-import { getFirestore, collection, getDocs } from "firebase/firestore";
+import { getFirestore, collection, getDocs, Timestamp } from "firebase/firestore";
 
 type Post = {
   title: string;
   content: string;
+  timestamp: Timestamp;
 };
 
 export default function CommunityScreen() {
@@ -42,6 +43,9 @@ export default function CommunityScreen() {
           <View>
             <Text>{item.title}</Text>
             <Text>{item.content}</Text>
+            {item.timestamp && (
+              <Text>{item.timestamp.toDate().toLocaleString()}</Text>
+            )}
           </View>
         )}
       />

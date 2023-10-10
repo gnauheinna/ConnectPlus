@@ -3,7 +3,7 @@ import { Button, StyleSheet, TextInput } from "react-native";
 import EditScreenInfo from "../../components/EditScreenInfo";
 import { Text, View } from "../../components/Themed";
 import { getApps } from "firebase/app";
-import { getFirestore, collection, addDoc } from "firebase/firestore";
+import { getFirestore, collection, serverTimestamp, addDoc } from "firebase/firestore";
 
 export default function PostScreen() {
   const [title, setTitle] = useState("");
@@ -18,7 +18,7 @@ export default function PostScreen() {
     const newPost = {
       title,
       content,
-      // timestamp
+      timestamp: serverTimestamp(),
       // user ID
     };
     // Push the new post to the database
