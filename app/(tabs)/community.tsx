@@ -2,6 +2,7 @@ import React, { useState, useEffect} from "react";
 import { StyleSheet, TextInput, FlatList, ScrollView } from "react-native";
 import { Text, View } from "../../components/Themed";
 import { getFirestore, collection, getDocs, Timestamp, doc, updateDoc} from "firebase/firestore";
+import { AuthErrorCodes } from "firebase/auth";
 
 type Post = {
   title: string;
@@ -37,79 +38,68 @@ export default function CommunityScreen() {
       // Call the fetchData function to retrieve posts when the component mounts
       fetchData();
     }, []);
-
-    // const updateUpvote = async (post: Post) => {
-    //   // Update the upvotes for the post in Firestore
-    //   const postRef = doc(db, "posts");
-    //   await updateDoc(postRef, { upvotes: post.upvotes + 1 });
-
-    //   // Update the state with the new upvotes count
-    //   setPosts((prevPosts) =>
-    //     prevPosts.map((p) =>
-    //       p.id === post.id ? { ...p, upvotes: p.upvotes + 1 } : p
-    //     )
-    //   );
-    // };
   
     return (
-      <FlatList
-        data={posts}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={({ item }) => (
-          <View style={styles.container}>
-            <View style={styles.titleTimestampContainer}>
+      <ScrollView contentContainerStyle={styles.container}>
+        <FlatList
+          data={posts}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({ item }) => (
+            <View style={styles.itemContainer}>
+              <View style={styles.titleTimestampContainer}>
                 <Text style={styles.title}>{item.title}</Text>
-
                 {item.timestamp && (
-                <Text style={styles.timestamp}>
-                  {item.timestamp.toDate().toLocaleString('en-US', {
-                    year: 'numeric',
-                    month: 'numeric',
-                    day: 'numeric',
-                    hour: 'numeric',
-                    minute: 'numeric',
-                  })}
-                </Text>
-
+                  <Text style={styles.timestamp}>
+                    {item.timestamp.toDate().toLocaleString('en-US', {
+                      year: 'numeric',
+                      month: 'numeric',
+                      day: 'numeric',
+                      hour: 'numeric',
+                      minute: 'numeric',
+                    })}
+                  </Text>
                 )}
+              </View>
+              <Text style={styles.content}>{item.content}</Text>
             </View>
-            <Text style={styles.content}>{item.content}</Text>
-            {/* <Button title="👍" onPress={() => updateUpvote(item)} />
-            <Button title="👎" onPress={() => updateDownvote(item)} /> */}
-          </View>
-        )}
-      />
+          )}
+        />
+      </ScrollView>
     );
   }
-
+  
   return (
-    <ScrollView>
-    <View>
-      <Text></Text>
-      <View
-        lightColor="#eee"
-        darkColor="rgba(255,255,255,0.1)"
-      />
-      <PostList />
-    </View>
+    <ScrollView contentContainerStyle={styles.screen}>
+      <View style={styles.communityTop}>This area is reserved for the title of this page, the search bar, and other information</View>
+      <View>
+        <PostList />
+      </View>
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  screen: {
     flex: 1,
-    alignItems: "center",
+  },
+  container: {
+    flexGrow: 1,
     justifyContent: "center",
-    marginBottom: 48,
-    borderWidth: 1, 
+    alignItems: "center",
+  },
+  itemContainer: {
+    borderWidth: 1,
     borderColor: "gray",
-    borderRadius: 5, 
+    borderRadius: 5,
     padding: 16,
-    width: 500,
+    width: 300,
+    marginBottom: 20,
+  },
+  communityTop: {
+    backgroundColor: 'pink',
   },
   title: {
-    fontSize: 22,
+    fontSize: 18,
     fontWeight: "bold",
     marginRight: 48,
     textAlign: "left",
@@ -125,7 +115,7 @@ const styles = StyleSheet.create({
     color: "gray",
   },
   content: {
-    fontSize: 16,
+    fontSize: 14,
     textAlign: "left",
   },
 });
