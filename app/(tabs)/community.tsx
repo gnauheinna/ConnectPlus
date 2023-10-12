@@ -1,27 +1,30 @@
 import React, { useState, useEffect} from "react";
-import { StyleSheet, TextInput, FlatList } from "react-native";
+import { StyleSheet, TextInput, FlatList, ScrollView } from "react-native";
 import { Text, View } from "../../components/Themed";
-import { getFirestore, collection, getDocs, Timestamp } from "firebase/firestore";
+import { getFirestore, collection, getDocs, Timestamp, doc, updateDoc} from "firebase/firestore";
 
 type Post = {
   title: string;
   content: string;
   timestamp: Timestamp;
+  upvotes: number;
+  downvotes: number;
 };
 
 export default function CommunityScreen() {
 
+  const db = getFirestore();
+
   function PostList() {
     const [posts, setPosts] = useState<Post[]>([]);
     useEffect(() => {
-      const db = getFirestore();
       const postsCollection = collection(db, 'posts');
 
       const fetchData = async () => {
         try {
           const querySnapshot = await getDocs(postsCollection);
           const postData: any[] = [];
-
+          
           querySnapshot.forEach((doc) => {
             postData.push(doc.data());
           });
@@ -34,6 +37,19 @@ export default function CommunityScreen() {
       // Call the fetchData function to retrieve posts when the component mounts
       fetchData();
     }, []);
+
+    // const updateUpvote = async (post: Post) => {
+    //   // Update the upvotes for the post in Firestore
+    //   const postRef = doc(db, "posts");
+    //   await updateDoc(postRef, { upvotes: post.upvotes + 1 });
+
+    //   // Update the state with the new upvotes count
+    //   setPosts((prevPosts) =>
+    //     prevPosts.map((p) =>
+    //       p.id === post.id ? { ...p, upvotes: p.upvotes + 1 } : p
+    //     )
+    //   );
+    // };
   
     return (
       <FlatList
@@ -58,7 +74,8 @@ export default function CommunityScreen() {
                 )}
             </View>
             <Text style={styles.content}>{item.content}</Text>
-    
+            {/* <Button title="👍" onPress={() => updateUpvote(item)} />
+            <Button title="👎" onPress={() => updateDownvote(item)} /> */}
           </View>
         )}
       />
@@ -66,6 +83,7 @@ export default function CommunityScreen() {
   }
 
   return (
+    <ScrollView>
     <View>
       <Text></Text>
       <View
@@ -74,6 +92,7 @@ export default function CommunityScreen() {
       />
       <PostList />
     </View>
+    </ScrollView>
   );
 }
 

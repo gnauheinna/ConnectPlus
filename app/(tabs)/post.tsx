@@ -19,6 +19,8 @@ export default function PostScreen() {
       title,
       content,
       timestamp: serverTimestamp(),
+      upvotes: 0,
+      downvotes: 0,
       // user ID
     };
     // Push the new post to the database
