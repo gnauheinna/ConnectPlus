@@ -1,96 +1,138 @@
 import React, { useState, useEffect} from "react";
-import { StyleSheet, TextInput, FlatList } from "react-native";
+import { StyleSheet, TextInput, FlatList, ScrollView } from "react-native";
 import { Text, View } from "../../components/Themed";
-import { getFirestore, collection, getDocs, Timestamp } from "firebase/firestore";
+import { getFirestore, collection, getDocs, Timestamp, doc, updateDoc} from "firebase/firestore";
+import { AuthErrorCodes } from "firebase/auth";
+import{ post } from '../context/PostContext';
+import {FontAwesome5, Feather} from "@expo/vector-icons";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 type Post = {
   title: string;
   content: string;
   timestamp: Timestamp;
+  upvotes: number;
+  downvotes: number;
 };
 
 export default function CommunityScreen() {
 
+  const db = getFirestore();
+
+  // This function will fetch all of the posts in the database and print them out
   function PostList() {
-    const [posts, setPosts] = useState<Post[]>([]);
+    const [allPosts, setAllPosts] = useState<Post[]>([]);
     useEffect(() => {
-      const db = getFirestore();
       const postsCollection = collection(db, 'posts');
 
       const fetchData = async () => {
         try {
           const querySnapshot = await getDocs(postsCollection);
           const postData: any[] = [];
-
+          
           querySnapshot.forEach((doc) => {
             postData.push(doc.data());
           });
 
-          setPosts(postData);
+          setAllPosts(postData);
         } catch (error) {
           console.error('Error fetching posts:', error);
         }
       };
-      // Call the fetchData function to retrieve posts when the component mounts
       fetchData();
     }, []);
   
     return (
-      <FlatList
-        data={posts}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={({ item }) => (
-          <View style={styles.container}>
-            <View style={styles.titleTimestampContainer}>
+      <ScrollView contentContainerStyle={styles.container}>
+        <FlatList
+          data={allPosts}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({ item }) => (
+            <View style={styles.itemContainer}>
+              <View style={styles.titleTimestampContainer}>
                 <Text style={styles.title}>{item.title}</Text>
-
                 {item.timestamp && (
-                <Text style={styles.timestamp}>
-                  {item.timestamp.toDate().toLocaleString('en-US', {
-                    year: 'numeric',
-                    month: 'numeric',
-                    day: 'numeric',
-                    hour: 'numeric',
-                    minute: 'numeric',
-                  })}
-                </Text>
-
+                  <Text style={styles.timestamp}>
+                    {item.timestamp.toDate().toLocaleString('en-US', {
+                      year: 'numeric',
+                      month: 'numeric',
+                      day: 'numeric',
+                      hour: 'numeric',
+                      minute: 'numeric',
+                    })}
+                  </Text>
                 )}
+              </View>
+              <Text style={styles.content}>{item.content}</Text>
+              <View style={styles.iconsOnPosts}>
+                <TouchableOpacity style={styles.iconWrapper}>
+                  <FontAwesome5 name="comment" size={24} color="black" />
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.iconWrapper}>
+                  <Feather name="bookmark" size={28} color="black" />
+                </TouchableOpacity>
+              </View>
             </View>
-            <Text style={styles.content}>{item.content}</Text>
-    
-          </View>
-        )}
-      />
+          )}
+        />
+      </ScrollView>
     );
   }
-
+  
   return (
-    <View>
-      <Text></Text>
-      <View
-        lightColor="#eee"
-        darkColor="rgba(255,255,255,0.1)"
-      />
-      <PostList />
+  <ScrollView>
+    {/* Display the horizontal sub-navigation bar on top of the posts */}
+    <View style={styles.horizontalSubNavContainer}>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          <TouchableOpacity style={styles.horizontalSubNav}>
+            <Text>All</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.horizontalSubNav}>
+            <Text>Financial</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.horizontalSubNav}>
+            <Text>Academic</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.horizontalSubNav}>
+            <Text>Student Life</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.horizontalSubNav}>
+            <Text>Career</Text>
+          </TouchableOpacity>
+        </ScrollView>
     </View>
+    {/* Call the function PostList and print out all of the posts in the database */}
+    <ScrollView style={styles.screen}>
+        <PostList />
+    </ScrollView>
+  </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
+  screen: {
+    // flex: 1,
+    marginLeft: 20,
+    marginRight: 20,
+    backgroundColor: 'white',
+  },
   container: {
-    flex: 1,
-    alignItems: "center",
+    flexGrow: 1,
     justifyContent: "center",
-    marginBottom: 48,
-    borderWidth: 1, 
+    alignItems: "center",
+  },
+  itemContainer: {
+    borderWidth: 1,
     borderColor: "gray",
-    borderRadius: 5, 
+    borderRadius: 5,
     padding: 16,
-    width: 500,
+    marginBottom: 20,
+  },
+  communityTop: {
+    // backgroundColor: 'pink',
   },
   title: {
-    fontSize: 22,
+    fontSize: 18,
     fontWeight: "bold",
     marginRight: 48,
     textAlign: "left",
@@ -99,14 +141,40 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    marginBottom: 20,
+    marginBottom: 30,
   },
   timestamp: {
     fontSize: 12,
     color: "gray",
   },
   content: {
-    fontSize: 16,
+    fontSize: 14,
     textAlign: "left",
+  },
+  iconsOnPosts: {
+    flexDirection: 'row', 
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  iconWrapper: {
+    marginHorizontal: 8, 
+  },
+  horizontalSubNavContainer: {
+    marginLeft: 20,
+    position: 'sticky',
+    top: 0,
+    zIndex: 1,
+    backgroundColor: 'white',
+  },
+  horizontalSubNav: {
+    borderWidth: 1, 
+    borderColor: 'black', 
+    borderRadius: 30,
+    padding: 10,
+    marginBottom: 15,
+    marginTop: 15,
+    marginRight: 10,
+    alignItems: 'center', 
   },
 });
