@@ -67,7 +67,7 @@ export default function CommunityScreen() {
       <ScrollView contentContainerStyle={styles.container}>
         <FlatList
           data={allPosts}
-          renderItem={({ item, index }) => (<PopularPost title={item.title} content={item.content} timestamp={item.timestamp} comments={item.comments}/>)}/>
+          renderItem={({ item, index }) => (<PopularPost postId={item.postId} title={item.title} content={item.content} timestamp={item.timestamp} comments={item.comments}/>)}/>
       </ScrollView>
     );
   }

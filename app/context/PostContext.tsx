@@ -1,6 +1,7 @@
 import { Timestamp } from "firebase/firestore";
 
 export interface post {
+  postId: number;
   title: string;
   content: string;
   timestamp: Timestamp;
@@ -9,7 +10,7 @@ export interface post {
   // downvotes: number;
   // savePost?: () => void;
   // unSavePost?: () => void;
-  // makeComment?: () => void;
+  makeComment?: () => void;
 }
 
 export interface comment{

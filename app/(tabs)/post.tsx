@@ -4,6 +4,7 @@ import EditScreenInfo from "../../components/EditScreenInfo";
 import { Text, View } from "../../components/Themed";
 import { getApps } from "firebase/app";
 import { getFirestore, collection, serverTimestamp, addDoc } from "firebase/firestore";
+import { v4 as uuidv4 } from 'uuid';
 
 export default function PostScreen() {
   const [title, setTitle] = useState("");
@@ -13,15 +14,14 @@ export default function PostScreen() {
   const handlePost = async () => {
     // Get a reference to the Firebase database
     const db = getFirestore();
+    const postId = uuidv4();
     const postsCollection = collection(db, "posts");
     // Create a new post object
     const newPost = {
+      postId,
       title,
       content,
       timestamp: serverTimestamp(),
-      upvotes: 0,
-      downvotes: 0,
-      // user ID
     };
     // Push the new post to the database
     await addDoc(postsCollection, newPost);
