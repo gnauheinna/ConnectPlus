@@ -1,27 +1,48 @@
-import React, { useState, useEffect} from "react";
-import { StyleSheet, TextInput, FlatList, ScrollView } from "react-native";
+import React, { useState, useEffect, FC} from "react";
+import { StyleSheet, TextInput, FlatList, ScrollView, Modal } from "react-native";
 import { Text, View } from "../../components/Themed";
 import { getFirestore, collection, getDocs, Timestamp, doc, updateDoc} from "firebase/firestore";
 import { AuthErrorCodes } from "firebase/auth";
-import{ post } from '../context/PostContext';
+import{ post, comment } from '../context/PostContext';
 import {FontAwesome5, Feather} from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
-type Post = {
-  title: string;
-  content: string;
-  timestamp: Timestamp;
-  upvotes: number;
-  downvotes: number;
-};
+const PopularPost: FC<post> = (props) => (
+  <View style={styles.itemContainer}>
+    <View style={styles.titleTimestampContainer}>
+      <Text style={styles.title}>{props.title}</Text>
+          {props.timestamp && (
+          <Text style={styles.timestamp}>
+            {props.timestamp.toDate().toLocaleString('en-US', {
+              year: 'numeric',
+              month: 'numeric',
+              day: 'numeric',
+              hour: 'numeric',
+              minute: 'numeric',
+              })}
+          </Text>)}
+    </View>
+    <Text style={styles.content}>{props.content}</Text>
+    <View style={styles.iconsOnPosts}>
+      <TouchableOpacity style={styles.iconWrapper}>
+        <FontAwesome5 name="comment" size={24} color="black" />
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.iconWrapper}>
+        <Feather name="bookmark" size={28} color="black" />
+      </TouchableOpacity>
+    </View>
+  </View>
+)
 
 export default function CommunityScreen() {
 
+  const [commentModalVisible, setCommentModalVisible] = useState<boolean>(false);
   const db = getFirestore();
 
   // This function will fetch all of the posts in the database and print them out
   function PostList() {
-    const [allPosts, setAllPosts] = useState<Post[]>([]);
+    const [allPosts, setAllPosts] = useState<post[]>([]);
+
     useEffect(() => {
       const postsCollection = collection(db, 'posts');
 
@@ -46,39 +67,11 @@ export default function CommunityScreen() {
       <ScrollView contentContainerStyle={styles.container}>
         <FlatList
           data={allPosts}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item }) => (
-            <View style={styles.itemContainer}>
-              <View style={styles.titleTimestampContainer}>
-                <Text style={styles.title}>{item.title}</Text>
-                {item.timestamp && (
-                  <Text style={styles.timestamp}>
-                    {item.timestamp.toDate().toLocaleString('en-US', {
-                      year: 'numeric',
-                      month: 'numeric',
-                      day: 'numeric',
-                      hour: 'numeric',
-                      minute: 'numeric',
-                    })}
-                  </Text>
-                )}
-              </View>
-              <Text style={styles.content}>{item.content}</Text>
-              <View style={styles.iconsOnPosts}>
-                <TouchableOpacity style={styles.iconWrapper}>
-                  <FontAwesome5 name="comment" size={24} color="black" />
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.iconWrapper}>
-                  <Feather name="bookmark" size={28} color="black" />
-                </TouchableOpacity>
-              </View>
-            </View>
-          )}
-        />
+          renderItem={({ item, index }) => (<PopularPost title={item.title} content={item.content} timestamp={item.timestamp} comments={item.comments}/>)}/>
       </ScrollView>
     );
   }
-  
+
   return (
   <ScrollView>
     {/* Display the horizontal sub-navigation bar on top of the posts */}
@@ -105,6 +98,12 @@ export default function CommunityScreen() {
     <ScrollView style={styles.screen}>
         <PostList />
     </ScrollView>
+
+    <Modal visible={commentModalVisible}>
+      <View>
+        <Text>Comment Modal</Text>
+      </View>
+    </Modal>
   </ScrollView>
   );
 }
