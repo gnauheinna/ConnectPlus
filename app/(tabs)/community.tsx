@@ -80,9 +80,9 @@ export default function CommunityScreen() {
   }
   
   return (
-  <View>
-    <ScrollView contentContainerStyle={styles.horizontalSubNavContainer}>
-      <View style={styles.communityTop}>
+  <ScrollView>
+    {/* Display the horizontal sub-navigation bar on top of the posts */}
+    <View style={styles.horizontalSubNavContainer}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           <TouchableOpacity style={styles.horizontalSubNav}>
             <Text>All</Text>
@@ -100,15 +100,12 @@ export default function CommunityScreen() {
             <Text>Career</Text>
           </TouchableOpacity>
         </ScrollView>
-      </View>
-    </ScrollView>
-
-    <ScrollView>
-      <View style={styles.screen}>
+    </View>
+    {/* Call the function PostList and print out all of the posts in the database */}
+    <ScrollView style={styles.screen}>
         <PostList />
-      </View>
     </ScrollView>
-  </View>
+  </ScrollView>
   );
 }
 
@@ -117,6 +114,7 @@ const styles = StyleSheet.create({
     // flex: 1,
     marginLeft: 20,
     marginRight: 20,
+    backgroundColor: 'white',
   },
   container: {
     flexGrow: 1,
@@ -143,7 +141,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    marginBottom: 20,
+    marginBottom: 30,
   },
   timestamp: {
     fontSize: 12,
@@ -164,14 +162,18 @@ const styles = StyleSheet.create({
   },
   horizontalSubNavContainer: {
     marginLeft: 20,
+    position: 'sticky',
+    top: 0,
+    zIndex: 1,
+    backgroundColor: 'white',
   },
   horizontalSubNav: {
     borderWidth: 1, 
     borderColor: 'black', 
     borderRadius: 30,
     padding: 10,
-    marginBottom: 10,
-    marginTop: 10,
+    marginBottom: 15,
+    marginTop: 15,
     marginRight: 10,
     alignItems: 'center', 
   },
