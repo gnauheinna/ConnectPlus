@@ -19,8 +19,9 @@ export default function CommunityScreen() {
 
   const db = getFirestore();
 
+  // This function will fetch all of the posts in the database and print them out
   function PostList() {
-    const [posts, setPosts] = useState<Post[]>([]);
+    const [allPosts, setAllPosts] = useState<Post[]>([]);
     useEffect(() => {
       const postsCollection = collection(db, 'posts');
 
@@ -33,19 +34,18 @@ export default function CommunityScreen() {
             postData.push(doc.data());
           });
 
-          setPosts(postData);
+          setAllPosts(postData);
         } catch (error) {
           console.error('Error fetching posts:', error);
         }
       };
-      // Call the fetchData function to retrieve posts when the component mounts
       fetchData();
     }, []);
   
     return (
       <ScrollView contentContainerStyle={styles.container}>
         <FlatList
-          data={posts}
+          data={allPosts}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => (
             <View style={styles.itemContainer}>
@@ -80,18 +80,43 @@ export default function CommunityScreen() {
   }
   
   return (
-    <ScrollView contentContainerStyle={styles.screen}>
-      <View style={styles.communityTop}>This area is reserved for the title of this page, the search bar, and other information</View>
-      <View>
+  <View>
+    <ScrollView contentContainerStyle={styles.horizontalSubNavContainer}>
+      <View style={styles.communityTop}>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          <TouchableOpacity style={styles.horizontalSubNav}>
+            <Text>All</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.horizontalSubNav}>
+            <Text>Financial</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.horizontalSubNav}>
+            <Text>Academic</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.horizontalSubNav}>
+            <Text>Student Life</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.horizontalSubNav}>
+            <Text>Career</Text>
+          </TouchableOpacity>
+        </ScrollView>
+      </View>
+    </ScrollView>
+
+    <ScrollView>
+      <View style={styles.screen}>
         <PostList />
       </View>
     </ScrollView>
+  </View>
   );
 }
 
 const styles = StyleSheet.create({
   screen: {
-    flex: 1,
+    // flex: 1,
+    marginLeft: 20,
+    marginRight: 20,
   },
   container: {
     flexGrow: 1,
@@ -103,11 +128,10 @@ const styles = StyleSheet.create({
     borderColor: "gray",
     borderRadius: 5,
     padding: 16,
-    width: 300,
     marginBottom: 20,
   },
   communityTop: {
-    backgroundColor: 'pink',
+    // backgroundColor: 'pink',
   },
   title: {
     fontSize: 18,
@@ -137,5 +161,18 @@ const styles = StyleSheet.create({
   },
   iconWrapper: {
     marginHorizontal: 8, 
+  },
+  horizontalSubNavContainer: {
+    marginLeft: 20,
+  },
+  horizontalSubNav: {
+    borderWidth: 1, 
+    borderColor: 'black', 
+    borderRadius: 30,
+    padding: 10,
+    marginBottom: 10,
+    marginTop: 10,
+    marginRight: 10,
+    alignItems: 'center', 
   },
 });
