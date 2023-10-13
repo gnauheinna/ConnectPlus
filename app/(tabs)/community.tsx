@@ -5,6 +5,7 @@ import { getFirestore, collection, getDocs, Timestamp, doc, updateDoc} from "fir
 import { AuthErrorCodes } from "firebase/auth";
 import{ post } from '../context/PostContext';
 import {FontAwesome5, Feather} from "@expo/vector-icons";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 type Post = {
   title: string;
@@ -64,12 +65,12 @@ export default function CommunityScreen() {
               </View>
               <Text style={styles.content}>{item.content}</Text>
               <View style={styles.iconsOnPosts}>
-                <View style={styles.iconWrapper}>
+                <TouchableOpacity style={styles.iconWrapper}>
                   <FontAwesome5 name="comment" size={24} color="black" />
-                </View>
-                <View style={styles.iconWrapper}>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.iconWrapper}>
                   <Feather name="bookmark" size={28} color="black" />
-                </View>
+                </TouchableOpacity>
               </View>
             </View>
           )}
@@ -135,6 +136,6 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   iconWrapper: {
-    marginHorizontal: 5, 
+    marginHorizontal: 8, 
   },
 });
