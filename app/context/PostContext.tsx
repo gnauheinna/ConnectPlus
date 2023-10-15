@@ -1,7 +1,9 @@
 import { Timestamp } from "firebase/firestore";
+import { GestureResponderEvent } from "react-native";
 
 export interface post {
-  postId: number;
+  // onPress: (((event: GestureResponderEvent) => void) & (() => void)) | undefined;
+  // postId: number;
   title: string;
   content: string;
   timestamp: Timestamp;
@@ -10,7 +12,7 @@ export interface post {
   // downvotes: number;
   // savePost?: () => void;
   // unSavePost?: () => void;
-  makeComment?: () => void;
+  // makeComment?: () => void;
 }
 
 export interface comment{

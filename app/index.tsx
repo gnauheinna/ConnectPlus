@@ -11,6 +11,10 @@ import {
 } from "firebase/auth";
 import { getApps } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import CommunityScreen from './(tabs)/community'
+
 
 export default function IndexScreen() {
   const [email, setEmail] = useState("");
@@ -21,6 +25,7 @@ export default function IndexScreen() {
   const router = useRouter();
   const auth = getAuth();
   const db = getFirestore();
+  const Stack = createNativeStackNavigator();
 
   function nextpage() {
     router.push("/profile");
@@ -134,6 +139,12 @@ export default function IndexScreen() {
           />
         </View>
       </View>
+      <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Community" component={CommunityScreen} />
+        {/* <Stack.Screen name="PostDetail" component={PostDetailScreen} /> */}
+      </Stack.Navigator>
+    </NavigationContainer>
     </View>
   );
 }

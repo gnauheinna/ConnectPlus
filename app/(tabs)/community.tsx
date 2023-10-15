@@ -6,8 +6,11 @@ import { AuthErrorCodes } from "firebase/auth";
 import{ post, comment } from '../context/PostContext';
 import {FontAwesome5, Feather} from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { useNavigation } from '@react-navigation/native';
+
 
 const PopularPost: FC<post> = (props) => (
+  
   <View style={styles.itemContainer}>
     <View style={styles.titleTimestampContainer}>
       <Text style={styles.title}>{props.title}</Text>
@@ -67,7 +70,7 @@ export default function CommunityScreen() {
       <ScrollView contentContainerStyle={styles.container}>
         <FlatList
           data={allPosts}
-          renderItem={({ item, index }) => (<PopularPost postId={item.postId} title={item.title} content={item.content} timestamp={item.timestamp} comments={item.comments}/>)}/>
+          renderItem={({ item, index }) => (<PopularPost title={item.title} content={item.content} timestamp={item.timestamp} comments={item.comments}/>)}/>
       </ScrollView>
     );
   }
@@ -98,12 +101,6 @@ export default function CommunityScreen() {
     <ScrollView style={styles.screen}>
         <PostList />
     </ScrollView>
-
-    <Modal visible={commentModalVisible}>
-      <View>
-        <Text>Comment Modal</Text>
-      </View>
-    </Modal>
   </ScrollView>
   );
 }
