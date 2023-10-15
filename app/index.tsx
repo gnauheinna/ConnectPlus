@@ -74,6 +74,9 @@ export default function IndexScreen() {
   function nextpage() {
     router.push("/profile");
   }
+  function createUser() {
+    router.push("/onBoarding2");
+  }
 
   function LogIn() {
     signInWithEmailAndPassword(auth, email, password)
@@ -128,7 +131,7 @@ export default function IndexScreen() {
         console.log("signed up!");
         setSignupError(null);
         handleNewUserEmail();
-        nextpage();
+        createUser();
       })
       .catch((error) => {
         const errorCode = error.code;
