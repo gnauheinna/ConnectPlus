@@ -6,13 +6,13 @@ import { AuthErrorCodes } from "firebase/auth";
 import{ post } from '../context/PostContext';
 import {FontAwesome5, Feather} from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { Avatar, Button, Card } from 'react-native-paper';
 
 type Post = {
+  postId: string;
   title: string;
   content: string;
   timestamp: Timestamp;
-  upvotes: number;
-  downvotes: number;
 };
 
 export default function CommunityScreen() {
@@ -48,7 +48,7 @@ export default function CommunityScreen() {
           data={allPosts}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => (
-            <View style={styles.itemContainer}>
+            <Card style={styles.itemContainer} >
               <View style={styles.titleTimestampContainer}>
                 <Text style={styles.title}>{item.title}</Text>
                 {item.timestamp && (
@@ -72,7 +72,7 @@ export default function CommunityScreen() {
                   <Feather name="bookmark" size={28} color="black" />
                 </TouchableOpacity>
               </View>
-            </View>
+            </Card>
           )}
         />
       </ScrollView>
@@ -123,10 +123,16 @@ const styles = StyleSheet.create({
   },
   itemContainer: {
     borderWidth: 1,
-    borderColor: "gray",
+    borderColor: "#CAC4D0",
     borderRadius: 5,
     padding: 16,
     marginBottom: 20,
+    flex: 1.5,
+    backgroundColor: '#FEF7FF',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
   },
   communityTop: {
     // backgroundColor: 'pink',
@@ -155,7 +161,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row', 
     justifyContent: 'flex-end',
     alignItems: 'center',
-    marginTop: 20,
+    marginTop: 30,
+    flex: 1.3,
+    backgroundColor: '#E6DBF3',
+    borderWidth: 0,
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
   },
   iconWrapper: {
     marginHorizontal: 8, 
