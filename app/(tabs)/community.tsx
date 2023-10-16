@@ -84,7 +84,7 @@ export default function CommunityScreen() {
     {/* Display the horizontal sub-navigation bar on top of the posts */}
     <View style={styles.horizontalSubNavContainer}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          <TouchableOpacity style={styles.horizontalSubNav}>
+          <TouchableOpacity style={styles.horizontalSubNavSelected}>
             <Text>All</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.horizontalSubNav}>
@@ -148,6 +148,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     marginBottom: 30,
+    backgroundColor: '#FEF7FF',
   },
   timestamp: {
     fontSize: 12,
@@ -162,11 +163,12 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'center',
     marginTop: 30,
-    flex: 1.3,
+    // flex: 1.3,
     backgroundColor: '#E6DBF3',
     borderWidth: 0,
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
+    bottom: 0,
   },
   iconWrapper: {
     marginHorizontal: 8, 
@@ -180,12 +182,22 @@ const styles = StyleSheet.create({
   },
   horizontalSubNav: {
     borderWidth: 1, 
-    borderColor: 'black', 
+    borderColor: 'black',
     borderRadius: 30,
     padding: 10,
     marginBottom: 15,
     marginTop: 15,
     marginRight: 10,
     alignItems: 'center', 
+  },
+  horizontalSubNavSelected: {
+    borderWidth: 0, 
+    borderRadius: 30,
+    padding: 10,
+    marginBottom: 15,
+    marginTop: 15,
+    marginRight: 10,
+    alignItems: 'center', 
+    backgroundColor: '#FFD465',
   },
 });
