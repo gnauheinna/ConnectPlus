@@ -1,13 +1,18 @@
 /* fonts */
 export const FontFamily = {
   interRegular: "Inter-Regular",
+  stolzl: "Stolzl",
 };
 /* font sizes */
 export const FontSize = {
-  size_5xl_4: 24,
+  size_base_3: 16,
 };
 /* Colors */
 export const Color = {
+  colorGray_100: "#828282",
+  colorGray_200: "#818181",
+  colorBlack: "#000",
+  colorMediumslateblue: "#6b68ff",
   colorWhite: "#fff",
   colorDarkgray: "#9b9b9b",
   colorGainsboro_100: "#d9d9d9",
@@ -15,7 +20,5 @@ export const Color = {
 };
 /* border radiuses */
 export const Border = {
-  br_5xs_2: 7,
-  br_mid_9: 18,
-  br_xl: 20,
+  br_8xs: 5,
 };
