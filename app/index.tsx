@@ -79,7 +79,7 @@ export default function IndexScreen() {
     router.push("/profile");
   }
   function createUser() {
-    router.push("/onBoarding2");
+    router.push("/onBoarding1");
   }
 
   function LogIn() {
@@ -111,7 +111,7 @@ export default function IndexScreen() {
           nextpage();
         }
         console.log("Signed In with Google");
-
+        // check if user exists, if not direct to onBoarding 1
         // IdP data available using getAdditionalUserInfo(result)
         // ...
       })
@@ -170,7 +170,7 @@ export default function IndexScreen() {
         contentFit="cover"
         source={require("../assets/images/ellipse-10.png")}
       />
-      <Pressable style={styles.createAccount} onPress={SignUp}>
+      <Pressable style={styles.createAccount} onPress={createUser}>
         <Text>Create Account</Text>
       </Pressable>
       <Text style={[styles.email, styles.emailTypo]}>Email</Text>
@@ -192,12 +192,12 @@ export default function IndexScreen() {
       <Image
         style={[styles.vectorIcon, styles.vectorIconLayout]}
         contentFit="cover"
-        source={require("../assets/images/vector1.png")}
+        source={require("../assets/images/vector.png")}
       />
       <Pressable onPress={GoogleLogin}>
         <Image
           style={[styles.vectorIcon1, styles.vectorIcon1Layout]}
-          source={require("../assets/images/vector.png")}
+          source={require("../assets/images/vector1.png")}
         />
       </Pressable>
       <TextInput
