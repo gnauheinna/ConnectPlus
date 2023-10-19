@@ -3,6 +3,7 @@ import { StyleSheet, TextInput, FlatList, ScrollView, View, Text } from "react-n
 import { getFirestore, collection, getDocs, Timestamp, doc, getDoc} from "firebase/firestore";
 import {FontAwesome5, Feather} from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { Card } from 'react-native-paper';
 
 // Defines the properties that the IndividualPost component expects: title, content and timestamp
 interface IndividualPostProps {
@@ -10,11 +11,12 @@ interface IndividualPostProps {
   title: string;
   content: string;
   timestamp: Date;
+  onPress?: () => void;
 }
 
-const IndividualPost: React.FC<IndividualPostProps> = ({ title, content, timestamp }) => {
+const IndividualPost: React.FC<IndividualPostProps> = ({ title, content, timestamp, onPress }) => {
     return (
-      <View style={styles.itemContainer}>
+      <Card style={styles.itemContainer}>
         <View style={styles.titleTimestampContainer}>
           <Text style={styles.title}>{title}</Text>
           <Text style={styles.timestamp}>
@@ -36,7 +38,7 @@ const IndividualPost: React.FC<IndividualPostProps> = ({ title, content, timesta
             <Feather name="bookmark" size={28} color="black" />
           </TouchableOpacity>
         </View>
-      </View>
+      </Card>
     );
   };
   

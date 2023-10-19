@@ -4,8 +4,7 @@ import { Pressable, useColorScheme } from 'react-native';
 import PlusButton from '../../components/postButton';
 import Colors from '../../constants/Colors';
 import { AntDesign } from '@expo/vector-icons'
-import { Ionicons } from '@expo/vector-icons'; 
-
+import { Ionicons } from '@expo/vector-icons';
 
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
@@ -26,13 +25,14 @@ export default function TabLayout() {
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
       }}>
       <Tabs.Screen
-        name="community"
+        name="community" // Update the name to include the folder path
         options={{
           title: 'Community',
           tabBarIcon: ({ color }) => <Ionicons name="people" size={26} color="black" />,
           headerRight: () => (
             <Link href="/modal" asChild>
               <Pressable>
+                
                 {({ pressed }) => (
                   <FontAwesome
                     name="info-circle"
@@ -75,6 +75,6 @@ export default function TabLayout() {
         }}
       />
     </Tabs>
-    
+
   );
 }
