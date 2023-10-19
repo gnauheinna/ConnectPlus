@@ -1,12 +1,16 @@
 import React, { useState, useEffect} from "react";
 import { StyleSheet, TextInput, FlatList, ScrollView } from "react-native";
-import { Text, View } from "../../components/Themed";
+import { Text, View } from "../../../components/Themed";
 import { getFirestore, collection, getDocs, Timestamp, doc, updateDoc} from "firebase/firestore";
 import { AuthErrorCodes } from "firebase/auth";
-import{ post } from '../context/PostContext';
 import {FontAwesome5, Feather} from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Avatar, Button, Card } from 'react-native-paper';
+import IndividualPost from '../../../components/individualPost'
+import { useRouter } from "expo-router";
+import { initializeApp, getApps } from "firebase/app";
+import { firebaseConfig } from "../../../firebase"
+
 
 type Post = {
   postId: string;
@@ -15,13 +19,24 @@ type Post = {
   timestamp: Timestamp;
 };
 
+const router = useRouter();
+const db = getFirestore(); 
+
+function showPostDetails() {
+    router.push("../../postDetails");
+}
+
 export default function CommunityScreen() {
 
-  const db = getFirestore();
+  const [allPosts, setAllPosts] = useState<Post[]>([]);
+
+  if (getApps() == null) {
+    const app = initializeApp(firebaseConfig);
+  }
 
   // This function will fetch all of the posts in the database and print them out
   function PostList() {
-    const [allPosts, setAllPosts] = useState<Post[]>([]);
+    
     useEffect(() => {
       const postsCollection = collection(db, 'posts');
 
@@ -48,31 +63,12 @@ export default function CommunityScreen() {
           data={allPosts}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => (
-            <Card style={styles.itemContainer} >
-              <View style={styles.titleTimestampContainer}>
-                <Text style={styles.title}>{item.title}</Text>
-                {item.timestamp && (
-                  <Text style={styles.timestamp}>
-                    {item.timestamp.toDate().toLocaleString('en-US', {
-                      year: 'numeric',
-                      month: 'numeric',
-                      day: 'numeric',
-                      hour: 'numeric',
-                      minute: 'numeric',
-                    })}
-                  </Text>
-                )}
-              </View>
-              <Text style={styles.content}>{item.content}</Text>
-              <View style={styles.iconsOnPosts}>
-                <TouchableOpacity style={styles.iconWrapper}>
-                  <FontAwesome5 name="comment" size={24} color="black" />
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.iconWrapper}>
-                  <Feather name="bookmark" size={28} color="black" />
-                </TouchableOpacity>
-              </View>
-            </Card>
+            <IndividualPost
+            title={item.title}
+            content={item.content}
+            timestamp={item.timestamp.toDate()}
+            onPress={showPostDetails}
+            />            
           )}
         />
       </ScrollView>
@@ -201,3 +197,4 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFD465',
   },
 });
+
