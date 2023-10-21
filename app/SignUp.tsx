@@ -78,6 +78,7 @@ const SignupForm = () => {
       // Passwords match
       SignUp();
       handleNewUserEmail();
+      router.push("/Interest");
     } else {
       // Passwords don't match
       Alert.alert("Error", "Passwords do not match");

@@ -31,28 +31,6 @@ export default function IndexScreen() {
   const router = useRouter();
   const auth = getAuth();
 
-  const handleNewUserEmail = async () => {
-    // get a instance of Firebase db
-    const db = getFirestore();
-    const userCollection = collection(db, "users");
-    // create new object
-    const newUser = {
-      email,
-      password,
-      timestamp: serverTimestamp(),
-      //name, major, year, interest
-    };
-
-    await addDoc(userCollection, newUser);
-    setEmail("");
-    setPassword("");
-    // Show the success message
-    setShowSuccessMessage(true);
-    setTimeout(() => {
-      setShowSuccessMessage(false);
-    }, 3000);
-  };
-
   const handleNewUserGoogle = async () => {
     // get a instance of Firebase db
     const db = getFirestore();
@@ -79,7 +57,7 @@ export default function IndexScreen() {
     router.push("/profile");
   }
   function createUser() {
-    router.push("/onBoarding1");
+    router.push("/SignUp");
   }
 
   function LogIn() {
@@ -124,24 +102,6 @@ export default function IndexScreen() {
         // The AuthCredential type that was used.
         const credential = GoogleAuthProvider.credentialFromError(error);
         // ...
-      });
-  }
-
-  function SignUp() {
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed up
-        const user = userCredential.user;
-        console.log("signed up!");
-        setSignupError(null);
-        handleNewUserEmail();
-        createUser();
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        setSignupError(errorMessage);
-        console.log(errorCode + errorMessage);
       });
   }
 

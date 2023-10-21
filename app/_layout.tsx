@@ -12,7 +12,7 @@ import { useColorScheme } from "react-native";
 import { Text } from "../components/Themed";
 import { initializeApp, getApps } from "firebase/app";
 import { firebaseConfig } from "../firebase";
-import onBoarding2Screen from "./onBoarding2";
+import onBoarding2Screen from "./Interest";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -64,8 +64,8 @@ function RootLayoutNav() {
         //
         <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="onBoarding1" options={{ headerShown: false }} />
-        <Stack.Screen name="onBoarding2" options={{ headerShown: false }} />
+        <Stack.Screen name="SignUp" options={{ headerShown: false }} />
+        <Stack.Screen name="Interest" options={{ headerShown: false }} />
         <Stack.Screen name="modal" options={{ presentation: "modal" }} />
       </Stack>
     </ThemeProvider>
