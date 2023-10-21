@@ -1,33 +1,103 @@
 import React, { useState } from "react";
-import { View, Text, Button, StyleSheet } from "react-native";
-import { TextInput } from 'react-native-paper';
+import { View, Text, Button, StyleSheet, Alert } from "react-native";
+import { TextInput } from "react-native-paper";
+import { useRouter } from "expo-router";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from "firebase/auth";
+import { getApps } from "firebase/app";
+import {
+  getFirestore,
+  collection,
+  serverTimestamp,
+  addDoc,
+} from "firebase/firestore";
 
 const SignupForm = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [signupError, setSignupError] = useState(null);
   const [major, setMajor] = useState("");
   const [year, setYear] = useState("");
 
+  const router = useRouter();
+  const auth = getAuth();
+
+  const handleNewUserEmail = async () => {
+    // get a instance of Firebase db
+    const db = getFirestore();
+    const userCollection = collection(db, "users");
+    // create new object
+    const newUser = {
+      email,
+      password,
+      timestamp: serverTimestamp(),
+      name,
+      major,
+      year,
+    };
+
+    await addDoc(userCollection, newUser);
+    setEmail("");
+    setPassword("");
+    setName("");
+    setMajor("");
+    setYear("");
+    // Show the success message
+    setShowSuccessMessage(true);
+    setTimeout(() => {
+      setShowSuccessMessage(false);
+    }, 3000);
+  };
+
+  function SignUp() {
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed up
+        const user = userCredential.user;
+        console.log("signed up!");
+        setSignupError(null);
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        setSignupError(errorMessage);
+        console.log(errorCode + errorMessage);
+      });
+  }
+
   const handleSignup = () => {
-    // Handle signup logic here
+    if (password === confirmPassword) {
+      // Passwords match
+      SignUp();
+      handleNewUserEmail();
+    } else {
+      // Passwords don't match
+      Alert.alert("Error", "Passwords do not match");
+    }
   };
 
   return (
     <View style={styles.container}>
-      <Text style={[styles.textAboveInput]}>First Name</Text>
+      <Text style={[styles.textAboveInput]}>Name</Text>
       <TextInput
         style={[styles.input]}
-        mode='outlined'
+        mode="outlined"
         value={name}
         onChangeText={(name) => setName(name)}
-        underlineColor='transparent'
+        underlineColor="transparent"
       />
-      <Text style={[styles.textAboveInput]}>Last Name</Text>
+      <Text style={[styles.textAboveInput]}>Email</Text>
       <TextInput
         style={styles.input}
-        mode='outlined'
+        mode="outlined"
         value={email}
         onChangeText={(email) => setEmail(email)}
         // placeholder="example@gmail.com"
@@ -35,7 +105,7 @@ const SignupForm = () => {
       <Text style={[styles.textAboveInput]}>Password</Text>
       <TextInput
         style={styles.input}
-        mode='outlined'
+        mode="outlined"
         secureTextEntry
         value={password}
         onChangeText={(password) => setPassword(password)}
@@ -44,7 +114,7 @@ const SignupForm = () => {
       <Text style={[styles.textAboveInput]}>Confirm Password</Text>
       <TextInput
         style={styles.input}
-        mode='outlined'
+        mode="outlined"
         secureTextEntry
         value={confirmPassword}
         onChangeText={(confirmPassword) => setConfirmPassword(confirmPassword)}
@@ -53,7 +123,7 @@ const SignupForm = () => {
       <Text style={[styles.textAboveInput]}>Major</Text>
       <TextInput
         style={styles.input}
-        mode='outlined'
+        mode="outlined"
         value={major}
         onChangeText={(major) => setMajor(major)}
         // placeholder="Computer Science"
@@ -61,7 +131,7 @@ const SignupForm = () => {
       <Text style={[styles.textAboveInput]}>Year</Text>
       <TextInput
         style={styles.input}
-        mode='outlined'
+        mode="outlined"
         value={year}
         onChangeText={(year) => setYear(year)}
         // placeholder="Senior"
