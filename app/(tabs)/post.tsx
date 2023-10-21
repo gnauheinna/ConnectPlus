@@ -4,6 +4,7 @@ import EditScreenInfo from "../../components/EditScreenInfo";
 import { Text, View } from "../../components/Themed";
 import { getApps } from "firebase/app";
 import { getFirestore, collection, serverTimestamp, addDoc } from "firebase/firestore";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default function PostScreen() {
   const [title, setTitle] = useState("");
@@ -38,54 +39,37 @@ export default function PostScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Post</Text>
-      <View
-        style={styles.separator}
-        lightColor="#eee"
-        darkColor="rgba(255,255,255,0.1)"
-      />
-
-      <Text
-        style={[
-          styles.title,
-          { color: "grey", fontWeight: "bold", fontSize: 12 },
-        ]}
-      >
-        TITLE
-      </Text>
       <TextInput
-        style={[styles.input, { borderWidth: 1, borderColor: "#ccc" }]}
+        style={[styles.inputTitle]}
         placeholder="Enter Title"
+        placeholderTextColor="#888888"
         value={title}
         onChangeText={(text) => setTitle(text)}
       />
 
-      <Text
-        style={[
-          styles.title,
-          { color: "grey", fontWeight: "bold", fontSize: 12 },
-        ]}
-      >
-        DESCRIPTION
-      </Text>
       <TextInput
-        style={[
-          styles.input,
-          { height: 150, borderWidth: 1, borderColor: "#ccc" },
-        ]}
-        placeholder="Enter Content"
+        style={[styles.inputContent,]}
+        placeholder="body text"
+        placeholderTextColor="#888888"
         value={content}
         onChangeText={(text) => setContent(text)}
+        multiline={true}
+        numberOfLines={10} 
       />
 
-      <View style={[styles.postBtn]}>
+<View style={[styles.button]}>
         <Button
           title="Post"
-          accessibilityLabel="increment"
+          // accessibilityLabel="increment"
           onPress={handlePost}
-          color="black"
+          color="#FFC940"
         />
-      </View>
+    </View>
+
+
+{/* <TouchableOpacity style={styles.button}>
+      <Text style={styles.buttonText}>{title}</Text>
+    </TouchableOpacity> */}
 
       <View>
         {showSuccessMessage && (
@@ -112,17 +96,32 @@ const styles = StyleSheet.create({
     height: 1,
     width: "80%",
   },
-  input: {
-    borderWidth: 1,
-    borderColor: "gray",
-    borderRadius: 5,
+  inputTitle: {
     padding: 10,
     width: "80%",
     marginVertical: 10,
+    fontSize: 32,
+    fontWeight: "bold",
+    marginBottom: -10,
+    outlineColor: "white",
   },
-  postBtn: {
-    borderRadius: 10,
+  inputContent: {
+    padding: 10,
+    width: "80%",
+    fontSize: 24,
+    outlineColor: "white",
+  },
+  button:{
+    backgroundColor: "#FFC940",
     padding: 5,
+    borderRadius: 5,
+    width: 80,
+    justifyContent: "flex-end",
+  },
+  buttonText: {
+    color: "black",
+    fontSize: 16,
+    fontWeight: "bold",
   },
   successMessage: {
     color: "green", 
