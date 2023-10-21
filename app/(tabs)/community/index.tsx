@@ -76,7 +76,8 @@ export default function CommunityScreen() {
   }
   
   return (
-  <ScrollView>
+  // <ScrollView>
+    <ScrollView>
     {/* Display the horizontal sub-navigation bar on top of the posts */}
     <View style={styles.horizontalSubNavContainer}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -98,16 +99,16 @@ export default function CommunityScreen() {
         </ScrollView>
     </View>
     {/* Call the function PostList and print out all of the posts in the database */}
-    <ScrollView style={styles.screen}>
+    <View style={styles.screen}>
         <PostList />
+    </View>
     </ScrollView>
-  </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   screen: {
-    // flex: 1,
+    flex: 1,
     marginLeft: 20,
     marginRight: 20,
     backgroundColor: 'white',
@@ -116,6 +117,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: 'white',
   },
   itemContainer: {
     borderWidth: 1,
@@ -129,9 +131,6 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 20,
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
-  },
-  communityTop: {
-    // backgroundColor: 'pink',
   },
   title: {
     fontSize: 18,
@@ -153,18 +152,6 @@ const styles = StyleSheet.create({
   content: {
     fontSize: 14,
     textAlign: "left",
-  },
-  iconsOnPosts: {
-    flexDirection: 'row', 
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    marginTop: 30,
-    // flex: 1.3,
-    backgroundColor: '#E6DBF3',
-    borderWidth: 0,
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
-    bottom: 0,
   },
   iconWrapper: {
     marginHorizontal: 8, 
@@ -196,5 +183,6 @@ const styles = StyleSheet.create({
     alignItems: 'center', 
     backgroundColor: '#FFD465',
   },
+  
 });
 

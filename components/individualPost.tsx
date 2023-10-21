@@ -3,7 +3,7 @@ import { StyleSheet, TextInput, FlatList, ScrollView, View, Text } from "react-n
 import { getFirestore, collection, getDocs, Timestamp, doc, getDoc} from "firebase/firestore";
 import {FontAwesome5, Feather} from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { Card } from 'react-native-paper';
+import { Card, Avatar, IconButton } from 'react-native-paper';
 
 // Defines the properties that the IndividualPost component expects: title, content and timestamp
 interface IndividualPostProps {
@@ -16,7 +16,14 @@ interface IndividualPostProps {
 
 const IndividualPost: React.FC<IndividualPostProps> = ({ title, content, timestamp, onPress }) => {
     return (
-      <Card style={styles.itemContainer}>
+      <View style={{...styles.itemContainer}}>
+        <Card.Title
+          title="Name"
+          subtitle="Intro"
+          left={(props) => <Avatar.Icon {...props} icon="folder" />}
+          right={(props) => <IconButton {...props} icon="dots-vertical" onPress={() => {}} />}
+          style={{marginLeft: -10}}
+        />
         <View style={styles.titleTimestampContainer}>
           <Text style={styles.title}>{title}</Text>
           <Text style={styles.timestamp}>
@@ -30,6 +37,7 @@ const IndividualPost: React.FC<IndividualPostProps> = ({ title, content, timesta
           </Text>
         </View>
         <Text style={styles.content}>{content}</Text>
+      
         <View style={styles.iconsOnPosts}>
           <TouchableOpacity style={styles.iconWrapper}>
             <FontAwesome5 name="comment" size={24} color="black" />
@@ -38,7 +46,7 @@ const IndividualPost: React.FC<IndividualPostProps> = ({ title, content, timesta
             <Feather name="bookmark" size={28} color="black" />
           </TouchableOpacity>
         </View>
-      </Card>
+      </View>
     );
   };
   
@@ -53,10 +61,12 @@ const styles = StyleSheet.create({
     },
     itemContainer: {
       borderWidth: 1,
-      borderColor: "gray",
-      borderRadius: 5,
+      borderRadius: 12,
       padding: 16,
       marginBottom: 20,
+      borderColor: "#CAC4D0",
+      backgroundColor: "#FEF7FF",
+      paddingBottom: 0, 
     },
     title: {
       fontSize: 18,
@@ -83,8 +93,13 @@ const styles = StyleSheet.create({
       justifyContent: 'flex-end',
       alignItems: 'center',
       marginTop: 20,
+      backgroundColor: '#E6DBF3',
+      borderBottomLeftRadius: 12,
+      borderBottomRightRadius: 12,
     },
     iconWrapper: {
       marginHorizontal: 8, 
+      paddingTop: 10,
+      paddingBottom: 10,
     },
   });
