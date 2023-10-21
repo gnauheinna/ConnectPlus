@@ -1,16 +1,22 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, TextInput, FlatList, ScrollView } from "react-native";
 import { Text, View } from "../../../components/Themed";
-import { getFirestore, collection, getDocs, Timestamp, doc, updateDoc} from "firebase/firestore";
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  Timestamp,
+  doc,
+  updateDoc,
+} from "firebase/firestore";
 import { AuthErrorCodes } from "firebase/auth";
-import {FontAwesome5, Feather} from "@expo/vector-icons";
+import { FontAwesome5, Feather } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { Avatar, Button, Card } from 'react-native-paper';
-import IndividualPost from '../../../components/individualPost'
+import { Avatar, Button, Card } from "react-native-paper";
+import IndividualPost from "../../../components/individualPost";
 import { useRouter } from "expo-router";
 import { initializeApp, getApps } from "firebase/app";
-import { firebaseConfig } from "../../../firebase"
-
+import { firebaseConfig } from "../../../firebase";
 
 type Post = {
   postId: string;
@@ -20,14 +26,13 @@ type Post = {
 };
 
 const router = useRouter();
-const db = getFirestore(); 
+const db = getFirestore();
 
 function showPostDetails() {
-    router.push("../../postDetails");
+  router.push("../../postDetails");
 }
 
 export default function CommunityScreen() {
-
   const [allPosts, setAllPosts] = useState<Post[]>([]);
 
   if (getApps() == null) {
@@ -35,51 +40,32 @@ export default function CommunityScreen() {
   }
 
   // This function will fetch all of the posts in the database and print them out
-  function PostList() {
-    
-    useEffect(() => {
-      const postsCollection = collection(db, 'posts');
+  const fetchData = async () => {
+    try {
+      const postsCollection = collection(db, "posts");
+      const querySnapshot = await getDocs(postsCollection);
+      const postData: any[] = [];
 
-      const fetchData = async () => {
-        try {
-          const querySnapshot = await getDocs(postsCollection);
-          const postData: any[] = [];
-          
-          querySnapshot.forEach((doc) => {
-            postData.push(doc.data());
-          });
+      querySnapshot.forEach((doc) => {
+        postData.push(doc.data());
+      });
 
-          setAllPosts(postData);
-        } catch (error) {
-          console.error('Error fetching posts:', error);
-        }
-      };
-      fetchData();
-    }, []);
-  
-    return (
-      <ScrollView contentContainerStyle={styles.container}>
-        <FlatList
-          data={allPosts}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item }) => (
-            <IndividualPost
-            title={item.title}
-            content={item.content}
-            timestamp={item.timestamp.toDate()}
-            onPress={showPostDetails}
-            />            
-          )}
-        />
-      </ScrollView>
-    );
-  }
-  
+      setAllPosts(postData);
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+    }
+  };
+
+  // Call the fetchData function when the component mounts and when the page is refreshed
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
-  // <ScrollView>
+    // <ScrollView>
     <ScrollView>
-    {/* Display the horizontal sub-navigation bar on top of the posts */}
-    <View style={styles.horizontalSubNavContainer}>
+      {/* Display the horizontal sub-navigation bar on top of the posts */}
+      <View style={styles.horizontalSubNavContainer}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           <TouchableOpacity style={styles.horizontalSubNavSelected}>
             <Text>All</Text>
@@ -97,11 +83,22 @@ export default function CommunityScreen() {
             <Text>Career</Text>
           </TouchableOpacity>
         </ScrollView>
-    </View>
-    {/* Call the function PostList and print out all of the posts in the database */}
-    <View style={styles.screen}>
-        <PostList />
-    </View>
+      </View>
+      {/* render the FlatList directly*/}
+      <View style={styles.screen}>
+        <FlatList
+          data={allPosts}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({ item }) => (
+            <IndividualPost
+              title={item.title}
+              content={item.content}
+              timestamp={item.timestamp.toDate()}
+              onPress={showPostDetails}
+            />
+          )}
+        />
+      </View>
     </ScrollView>
   );
 }
@@ -111,13 +108,13 @@ const styles = StyleSheet.create({
     flex: 1,
     marginLeft: 20,
     marginRight: 20,
-    backgroundColor: 'white',
+    backgroundColor: "white",
   },
   container: {
     flexGrow: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: 'white',
+    backgroundColor: "white",
   },
   itemContainer: {
     borderWidth: 1,
@@ -126,7 +123,7 @@ const styles = StyleSheet.create({
     padding: 16,
     marginBottom: 20,
     flex: 1.5,
-    backgroundColor: '#FEF7FF',
+    backgroundColor: "#FEF7FF",
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     borderBottomLeftRadius: 20,
@@ -143,7 +140,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     marginBottom: 30,
-    backgroundColor: '#FEF7FF',
+    backgroundColor: "#FEF7FF",
   },
   timestamp: {
     fontSize: 12,
@@ -154,35 +151,33 @@ const styles = StyleSheet.create({
     textAlign: "left",
   },
   iconWrapper: {
-    marginHorizontal: 8, 
+    marginHorizontal: 8,
   },
   horizontalSubNavContainer: {
     marginLeft: 20,
-    position: 'sticky',
+    position: "sticky",
     top: 0,
     zIndex: 1,
-    backgroundColor: 'white',
+    backgroundColor: "white",
   },
   horizontalSubNav: {
-    borderWidth: 1, 
-    borderColor: 'black',
+    borderWidth: 1,
+    borderColor: "black",
     borderRadius: 30,
     padding: 10,
     marginBottom: 15,
     marginTop: 15,
     marginRight: 10,
-    alignItems: 'center', 
+    alignItems: "center",
   },
   horizontalSubNavSelected: {
-    borderWidth: 0, 
+    borderWidth: 0,
     borderRadius: 30,
     padding: 10,
     marginBottom: 15,
     marginTop: 15,
     marginRight: 10,
-    alignItems: 'center', 
-    backgroundColor: '#FFD465',
+    alignItems: "center",
+    backgroundColor: "#FFD465",
   },
-  
 });
-
