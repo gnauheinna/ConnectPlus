@@ -17,6 +17,7 @@ import IndividualPost from "../../../components/individualPost";
 import { useRouter } from "expo-router";
 import { initializeApp, getApps } from "firebase/app";
 import { firebaseConfig } from "../../../firebase";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 type Post = {
   postId: string;
@@ -35,6 +36,8 @@ function showPostDetails() {
 export default function CommunityScreen() {
   const [allPosts, setAllPosts] = useState<Post[]>([]);
 
+  const auth = getAuth();
+
   if (getApps() == null) {
     const app = initializeApp(firebaseConfig);
   }
@@ -42,15 +45,24 @@ export default function CommunityScreen() {
   // This function will fetch all of the posts in the database and print them out
   const fetchData = async () => {
     try {
-      const postsCollection = collection(db, "posts");
-      const querySnapshot = await getDocs(postsCollection);
-      const postData: any[] = [];
+      onAuthStateChanged(auth, async (user) => {
+        if (user) {
+          // User is signed in
+          const uid = user.uid;
+          const postsCollection = collection(db, "posts");
+          const querySnapshot = await getDocs(postsCollection);
+          const postData: any[] = [];
 
-      querySnapshot.forEach((doc) => {
-        postData.push(doc.data());
+          querySnapshot.forEach((doc) => {
+            postData.push(doc.data());
+          });
+
+          setAllPosts(postData);
+        } else {
+          // User is signed out
+          console.log("User not logged in");
+        }
       });
-
-      setAllPosts(postData);
     } catch (error) {
       console.error("Error fetching posts:", error);
     }
