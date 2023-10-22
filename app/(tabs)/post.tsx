@@ -114,9 +114,10 @@ const styles = StyleSheet.create({
   },
   inputContent: {
     padding: 10,
-    width: "80%",
-    fontSize: 24,
+    width: "100%",
+    fontSize: 18,
     outlineColor: "white",
+    marginTop: 10,
   },
   postBtn: {
     backgroundColor: "#FFC940",
@@ -145,6 +146,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     alignSelf: "flex-end",
     marginBottom: 300,
+    marginTop: 50,
   },
   addTagText: {
     fontSize: 18,

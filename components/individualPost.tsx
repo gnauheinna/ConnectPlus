@@ -4,6 +4,7 @@ import { getFirestore, collection, getDocs, Timestamp, doc, getDoc} from "fireba
 import {FontAwesome5, Feather} from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Card, Avatar, IconButton } from 'react-native-paper';
+import { Image } from "react-native";
 
 // Defines the properties that the IndividualPost component expects: title, content and timestamp
 interface IndividualPostProps {
@@ -17,15 +18,20 @@ interface IndividualPostProps {
 const IndividualPost: React.FC<IndividualPostProps> = ({ title, content, timestamp, onPress }) => {
     return (
       <View style={{...styles.itemContainer}}>
-        <Card.Title
-          title="Name"
-          subtitle="Intro"
-          left={(props) => <Avatar.Icon {...props} icon="folder" />}
-          right={(props) => <IconButton {...props} icon="dots-vertical" onPress={() => {}} />}
-          style={{marginLeft: -10}}
-        />
+        {/* Display the user's profile image, name, and intro on the top */}
+        <View style={styles.userContainer}>
+          <Image style={styles.profileImg} source={require("../assets/images/profileImg.png")} />
+          <View style={styles.userInfoContainer}>
+            <Text style={styles.userName}>Name</Text>
+            <Text style={styles.userIntro}>Intro</Text>
+          </View>
+        </View>
+
         <View style={styles.titleTimestampContainer}>
+         {/* Display the title of the post */}
           <Text style={styles.title}>{title}</Text>
+
+          {/* Display the timestamp of the post */}
           <Text style={styles.timestamp}>
             {timestamp.toLocaleString('en-US', {
               year: 'numeric',
@@ -36,15 +42,20 @@ const IndividualPost: React.FC<IndividualPostProps> = ({ title, content, timesta
             })}
           </Text>
         </View>
+
+        {/* Display the content of the post */}
         <Text style={styles.content}>{content}</Text>
-      
-        <View style={styles.iconsOnPosts}>
-          <TouchableOpacity style={styles.iconWrapper}>
-            <FontAwesome5 name="comment" size={24} color="black" />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.iconWrapper}>
-            <Feather name="bookmark" size={28} color="black" />
-          </TouchableOpacity>
+
+        
+        <View style={{ padding: 0 }}>
+          <View style={styles.iconsOnPosts}>
+            <TouchableOpacity style={styles.iconWrapper}>
+              <FontAwesome5 name="comment" size={24} color="black" />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.iconWrapper}>
+              <Feather name="bookmark" size={28} color="black" />
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     );
@@ -67,6 +78,27 @@ const styles = StyleSheet.create({
       borderColor: "#CAC4D0",
       backgroundColor: "#FEF7FF",
       paddingBottom: 0, 
+    },
+    userContainer:{
+      flexDirection: "row",
+      marginBottom: 20,
+    },
+    profileImg: {
+      width: 48,
+      height: 48,
+      marginRight: 10,
+    },
+    userInfoContainer:{
+      justifyContent: "center",
+    },
+    userName:{
+      fontSize: 18,
+      fontWeight: "500",
+      marginBottom: 5,
+    },
+    userIntro:{
+      fontSize: 14,
+      color: "#888888",
     },
     title: {
       fontSize: 18,
@@ -96,6 +128,7 @@ const styles = StyleSheet.create({
       backgroundColor: '#E6DBF3',
       borderBottomLeftRadius: 12,
       borderBottomRightRadius: 12,
+      paddingHorizontal: 0,
     },
     iconWrapper: {
       marginHorizontal: 8, 

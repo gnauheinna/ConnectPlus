@@ -77,46 +77,50 @@ export default function CommunityScreen() {
     // <ScrollView>
     <ScrollView>
       {/* Display the horizontal sub-navigation bar on top of the posts */}
-      <View style={styles.horizontalSubNavContainer}>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          <TouchableOpacity style={styles.horizontalSubNavSelected}>
-            <Text>All</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.horizontalSubNav}>
-            <Text>Financial</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.horizontalSubNav}>
-            <Text>Academic</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.horizontalSubNav}>
-            <Text>Student Life</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.horizontalSubNav}>
-            <Text>Career</Text>
-          </TouchableOpacity>
-        </ScrollView>
+      <View>
+        <View style={styles.horizontalSubNavMainContainer}>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            <TouchableOpacity style={styles.horizontalSubNavSelected}>
+              <Text>All</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.horizontalSubNav}>
+              <Text>Financial</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.horizontalSubNav}>
+              <Text>Academic</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.horizontalSubNav}>
+              <Text>Student Life</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.horizontalSubNav}>
+              <Text>Career</Text>
+            </TouchableOpacity>
+          </ScrollView>
+        </View>
       </View>
       {/* render the FlatList directly*/}
-      <View style={styles.screen}>
-        <FlatList
-          data={allPosts}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item }) => (
-            <IndividualPost
-              title={item.title}
-              content={item.content}
-              timestamp={item.timestamp.toDate()}
-              onPress={showPostDetails}
-            />
-          )}
-        />
+      <View style={styles.container}>
+        <View style={styles.mainContainer}>
+          <FlatList
+            data={allPosts}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({ item }) => (
+              <IndividualPost
+                title={item.title}
+                content={item.content}
+                timestamp={item.timestamp.toDate()}
+                onPress={showPostDetails}
+              />
+            )}
+          />
+        </View>
       </View>
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  screen: {
+  mainContainer: {
     flex: 1,
     marginLeft: 20,
     marginRight: 20,
@@ -128,44 +132,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "white",
   },
-  itemContainer: {
-    borderWidth: 1,
-    borderColor: "#CAC4D0",
-    borderRadius: 5,
-    padding: 16,
-    marginBottom: 20,
-    flex: 1.5,
-    backgroundColor: "#FEF7FF",
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginRight: 48,
-    textAlign: "left",
-  },
-  titleTimestampContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    marginBottom: 30,
-    backgroundColor: "#FEF7FF",
-  },
-  timestamp: {
-    fontSize: 12,
-    color: "gray",
-  },
-  content: {
-    fontSize: 14,
-    textAlign: "left",
-  },
-  iconWrapper: {
-    marginHorizontal: 8,
-  },
-  horizontalSubNavContainer: {
+  horizontalSubNavMainContainer: {
     marginLeft: 20,
     position: "sticky",
     top: 0,
