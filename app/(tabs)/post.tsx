@@ -17,11 +17,12 @@ export default function PostScreen() {
     const postsCollection = collection(db, "posts");
     // Create a new post object
     const newPost = {
+      // postId
       title,
       content,
       timestamp: serverTimestamp(),
-      upvotes: 0,
-      downvotes: 0,
+      // upvotes: 0,
+      // downvotes: 0,
       // user ID
     };
     // Push the new post to the database
@@ -38,45 +39,46 @@ export default function PostScreen() {
   };
 
   return (
-    <View style={styles.container}>
-      <TextInput
-        style={[styles.inputTitle]}
-        placeholder="Enter Title"
-        placeholderTextColor="#888888"
-        value={title}
-        onChangeText={(text) => setTitle(text)}
-      />
+    <View style={{backgroundColor: "white"}}>
+      <View style={styles.mainContainer}>
 
-      <TextInput
-        style={[styles.inputContent,]}
-        placeholder="body text"
-        placeholderTextColor="#888888"
-        value={content}
-        onChangeText={(text) => setContent(text)}
-        multiline={true}
-        numberOfLines={10} 
-      />
+        {/* Post Button */}
+        <TouchableOpacity style={styles.postBtn} onPress={handlePost}>
+            <Text style={styles.postText}>Post</Text>
+        </TouchableOpacity>
 
-<View style={[styles.button]}>
-        <Button
-          title="Post"
-          // accessibilityLabel="increment"
-          onPress={handlePost}
-          color="#FFC940"
+        {/* Enter the title of the post */}
+        <TextInput
+          style={[styles.inputTitle]}
+          placeholder="Enter Title"
+          placeholderTextColor="#888888"
+          value={title}
+          onChangeText={(text) => setTitle(text)}
         />
-    </View>
 
+        {/* Enter the content of the post */}
+        <TextInput
+          style={[styles.inputContent,]}
+          placeholder="body text"
+          placeholderTextColor="#888888"
+          value={content}
+          onChangeText={(text) => setContent(text)}
+          multiline={true}
+          numberOfLines={10} 
+        />
 
-{/* <TouchableOpacity style={styles.button}>
-      <Text style={styles.buttonText}>{title}</Text>
-    </TouchableOpacity> */}
+        {/* Add a tag for this post: Financial, Academics, Student Life, or Career */}
+        <TouchableOpacity style={styles.addTagBtn}>
+            <Text style={styles.addTagText}>Add a Tag</Text>
+        </TouchableOpacity>
 
-      <View>
-        {showSuccessMessage && (
-            <Text style={styles.successMessage}>Post successful!</Text>
-        )}
-</View>
+        {/* Display a success message after clicking the Post button */}
+        <View>
+          {showSuccessMessage && (
+              <Text style={styles.successMessage}>Post successful!</Text>)}
+        </View>
 
+      </View>
     </View>
   );
 }
@@ -84,8 +86,13 @@ export default function PostScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: "white",
+  },
+  mainContainer: {
+    flex: 1,
+    justifyContent: "flex-start",
+    marginLeft: 40,
+    marginRight: 40,
   },
   title: {
     fontSize: 20,
@@ -111,17 +118,39 @@ const styles = StyleSheet.create({
     fontSize: 24,
     outlineColor: "white",
   },
-  button:{
+  postBtn: {
     backgroundColor: "#FFC940",
+    marginTop: 40,
+    marginBottom: 40,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
     padding: 5,
-    borderRadius: 5,
+    borderRadius: 20,
     width: 80,
     justifyContent: "flex-end",
+    alignSelf: "flex-end",
   },
-  buttonText: {
-    color: "black",
-    fontSize: 16,
-    fontWeight: "bold",
+  postText: {
+    fontSize: 18,
+    alignSelf: 'center',
+  },
+  addTagBtn:{
+    borderColor: "#FFC940",
+    borderWidth: 1.5,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    padding: 5,
+    borderRadius: 20,
+    width: 130,
+    justifyContent: "flex-end",
+    alignSelf: "flex-end",
+    marginBottom: 300,
+  },
+  addTagText: {
+    fontSize: 18,
+    color: "#FFC940",
+    alignSelf: 'center',
+    fontWeight: "500",
   },
   successMessage: {
     color: "green", 
