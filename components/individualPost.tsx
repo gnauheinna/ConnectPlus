@@ -47,7 +47,7 @@ const IndividualPost: React.FC<IndividualPostProps> = ({ title, content, timesta
         <Text style={styles.content}>{content}</Text>
 
         
-        <View style={{ padding: 0 }}>
+        {/* <View style={{ padding: 0 }}>
           <View style={styles.iconsOnPosts}>
             <TouchableOpacity style={styles.iconWrapper}>
               <FontAwesome5 name="comment" size={24} color="black" />
@@ -56,7 +56,7 @@ const IndividualPost: React.FC<IndividualPostProps> = ({ title, content, timesta
               <Feather name="bookmark" size={28} color="black" />
             </TouchableOpacity>
           </View>
-        </View>
+        </View> */}
       </View>
     );
   };
@@ -72,9 +72,10 @@ const styles = StyleSheet.create({
     },
     itemContainer: {
       borderWidth: 1,
-      borderRadius: 12,
+      borderTopLeftRadius: 12, 
+      borderTopRightRadius: 12, 
       padding: 16,
-      marginBottom: 20,
+      borderBottomColor: "transparent", 
       borderColor: "#CAC4D0",
       backgroundColor: "#FEF7FF",
       paddingBottom: 0, 
@@ -119,6 +120,7 @@ const styles = StyleSheet.create({
     content: {
       fontSize: 14,
       textAlign: "left",
+      marginBottom: 20,
     },
     iconsOnPosts: {
       flexDirection: 'row', 

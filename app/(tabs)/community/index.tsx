@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, TextInput, FlatList, ScrollView } from "react-native";
+import { StyleSheet, TextInput, FlatList, ScrollView, Image } from "react-native";
 import { Text, View } from "../../../components/Themed";
 import {
   getFirestore,
@@ -78,6 +78,9 @@ export default function CommunityScreen() {
     <ScrollView>
       {/* Display the horizontal sub-navigation bar on top of the posts */}
       <View>
+        <Text style={styles.communityBigTitle}>Community</Text>
+      </View>
+      <View>
         <View style={styles.horizontalSubNavMainContainer}>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             <TouchableOpacity style={styles.horizontalSubNavSelected}>
@@ -105,12 +108,24 @@ export default function CommunityScreen() {
             data={allPosts}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item }) => (
+            <View>
               <IndividualPost
                 title={item.title}
                 content={item.content}
                 timestamp={item.timestamp.toDate()}
                 onPress={showPostDetails}
               />
+              {/* Displays the upvotes/downvotes feature, the comment icon, and the save icon */}
+              <View style={styles.iconsOnPosts}>
+                <TouchableOpacity style={styles.iconWrapper}>
+                  <Image style={styles.icons} source={require("../../../assets/images/comment.png")} />
+                  {/* <FontAwesome5 name="comment" size={24} color="black" /> */}
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.iconWrapper}>
+                  <Feather name="bookmark" size={28} color="black" />
+                </TouchableOpacity>
+              </View>
+            </View>
             )}
           />
         </View>
@@ -127,10 +142,19 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   container: {
-    flexGrow: 1,
+    flex: 1,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "white",
+  },
+  communityBigTitle:{
+    marginLeft: 20,
+    marginRight: 20,
+    fontSize: 42,
+    color: "#453B4F",
+    fontWeight:"bold",
+    marginTop: 20,
+    marginBottom: 20,
   },
   horizontalSubNavMainContainer: {
     marginLeft: 20,
@@ -158,5 +182,25 @@ const styles = StyleSheet.create({
     marginRight: 10,
     alignItems: "center",
     backgroundColor: "#FFD465",
+  },
+  iconsOnPosts: {
+    flexDirection: 'row', 
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    backgroundColor: '#E6DBF3',
+    borderBottomLeftRadius: 12,
+    borderBottomRightRadius: 12,
+    paddingHorizontal: 0,
+    marginBottom: 20,
+  },
+  iconWrapper: {
+    marginHorizontal: 8, 
+    paddingTop: 10,
+    paddingBottom: 10,
+  },
+  icons: {
+    width: 28,
+    height: 28,
+    resizeMode: "contain", 
   },
 });
