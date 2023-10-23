@@ -144,9 +144,9 @@ export default function IndexScreen() {
             <Text style={[styles.rememberMeText]}>Remember me</Text>
       </View>
 
-      {/* Create Account Button */}
-      <TouchableOpacity style={styles.createAccountBtn} onPress={createUser}>
-          <Text style={styles.createAccountText}>Create Account</Text>
+      {/* Sign In Button */}
+      <TouchableOpacity style={styles.createAccountBtn} onPress={LogIn}>
+          <Text style={styles.createAccountText}>Sign In</Text>
       </TouchableOpacity>
 
       {/* Divider for 3rd Party Login Options */}
@@ -168,10 +168,10 @@ export default function IndexScreen() {
         </TouchableOpacity>
       </View>
 
-       {/* Switch to Sign In Option */}
+       {/* Switch to Sign Up Option */}
       <View style={[styles.switchToSignIn]}>
-        <Text style={{fontSize: 16}}>Already have an account? </Text>
-        <Text style={{fontSize: 16, fontWeight: "bold"}}>Sign In</Text>
+        <Text style={{fontSize: 16}}>Don't have an account? </Text>
+        <Text style={{fontSize: 16, fontWeight: "bold"}}>Sign Up</Text>
       </View>
       </View>
     </LinearGradient>
