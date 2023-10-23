@@ -67,7 +67,7 @@ export default function Login() {
     router.push("/profile");
   }
   function createUser() {
-    router.push("/SignUp");
+    router.push("/signup");
   }
 
   function LogIn() {
@@ -158,7 +158,7 @@ export default function Login() {
           <Text style={[styles.rememberMeText]}>Remember me</Text>
         </View>
 
-        {/* Create Account Button */}
+        {/* Sign In Button */}
         <TouchableOpacity style={styles.createAccountBtn} onPress={LogIn}>
           <Text style={styles.createAccountText}>Sign In</Text>
         </TouchableOpacity>
@@ -188,13 +188,11 @@ export default function Login() {
           </TouchableOpacity>
         </View>
 
-        {/* Switch to Sign In Option */}
+        {/* Switch to Sign Up Option */}
         <View style={[styles.switchToSignIn]}>
           <Text style={{ fontSize: 16 }}>Don't have an account? </Text>
           <TouchableOpacity onPress={createUser}>
-            <Text style={{ fontSize: 16, fontWeight: "bold" }}>
-              Create An Account
-            </Text>
+            <Text style={{ fontSize: 16, fontWeight: "bold" }}>Sign Up</Text>
           </TouchableOpacity>
         </View>
       </View>
