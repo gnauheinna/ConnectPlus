@@ -109,39 +109,39 @@ export default function IndexScreen() {
   return (
   <LinearGradient locations={[0, 1]} colors={["#fff9e9", "#fff"]}>
       <View style={styles.container}>
-      {/* ConnectPlus Logo */}
-      <Image style={[styles.connectPlusLogo]} source={require("../assets/images/connectPlusLogo.png")} />
+          {/* ConnectPlus Logo */}
+          <Image style={[styles.connectPlusLogo]} source={require("../assets/images/connectPlusLogo.png")} />
 
-      {/* Welcome Message */}
-      <Text style={styles.welcomeMessage}>{`Welcome to Connect+ `}</Text>
+          {/* Welcome Message */}
+          <Text style={styles.welcomeMessage}>{`Welcome to Connect+ `}</Text>
 
-      {/* Email Input */}
-      <Text style={[styles.inputTitle]}>Email</Text>
-      <TextInput
-        style={[styles.input]}
-        value={email}
-        onChangeText={(email) => setEmail(email)}
-        // placeholder="example@gmail.com"
-      ></TextInput>
+          {/* Email Input */}
+          <Text style={[styles.inputTitle]}>Email</Text>
+          <TextInput
+            style={[styles.input]}
+            value={email}
+            onChangeText={(email) => setEmail(email)}
+            // placeholder="example@gmail.com"
+          ></TextInput>
 
-      {/* Password Input */}
-      <Text style={[styles.inputTitle]}>Password</Text>
-      <TextInput
-        style={[styles.input]}
-        secureTextEntry
-        value={password}
-        onChangeText={(password) => setPassword(password)}
-        // placeholder="123456"
-      ></TextInput>
+          {/* Password Input */}
+          <Text style={[styles.inputTitle]}>Password</Text>
+          <TextInput
+            style={[styles.input]}
+            secureTextEntry
+            value={password}
+            onChangeText={(password) => setPassword(password)}
+            // placeholder="123456"
+          ></TextInput>
 
-      {/* Checkbox + Remember Me Text */}
-      <View style={styles.rememberMeContainer}>
-        <CheckBox
-            checked={false} // Set the initial checked state here
-            onPress={() => {}} 
-            containerStyle={styles.checkboxContainer}
-        />
-        <Text style={[styles.rememberMeText]}>Remember me</Text>
+          {/* Checkbox + Remember Me Text */}
+          <View style={styles.rememberMeContainer}>
+            <CheckBox
+                checked={false} // Set the initial checked state here
+                onPress={() => {}} 
+                containerStyle={styles.checkboxContainer}
+            />
+            <Text style={[styles.rememberMeText]}>Remember me</Text>
       </View>
 
       {/* Create Account Button */}

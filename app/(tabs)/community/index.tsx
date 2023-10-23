@@ -56,7 +56,7 @@ export default function CommunityScreen() {
           querySnapshot.forEach((doc) => {
             postData.push(doc.data());
           });
-
+          console.log("User logged in");
           setAllPosts(postData);
         } else {
           // User is signed out

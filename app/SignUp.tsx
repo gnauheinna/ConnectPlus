@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { View, Text, Button, StyleSheet, Alert } from "react-native";
 import { TextInput } from "react-native-paper";
 import { useRouter } from "expo-router";
+import { TouchableOpacity } from "react-native";
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -16,6 +17,8 @@ import {
   serverTimestamp,
   addDoc,
 } from "firebase/firestore";
+import { LinearGradient } from "expo-linear-gradient";
+import { Image } from "react-native";
 
 const SignupForm = () => {
   const [name, setName] = useState("");
@@ -86,92 +89,115 @@ const SignupForm = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={[styles.textAboveInput]}>Name</Text>
-      <TextInput
-        style={[styles.input]}
-        mode="outlined"
-        value={name}
-        onChangeText={(name) => setName(name)}
-        underlineColor="transparent"
-      />
-      <Text style={[styles.textAboveInput]}>Email</Text>
-      <TextInput
-        style={styles.input}
-        mode="outlined"
-        value={email}
-        onChangeText={(email) => setEmail(email)}
-        // placeholder="example@gmail.com"
-      ></TextInput>
-      <Text style={[styles.textAboveInput]}>Password</Text>
-      <TextInput
-        style={styles.input}
-        mode="outlined"
-        secureTextEntry
-        value={password}
-        onChangeText={(password) => setPassword(password)}
-        // placeholder="123456"
-      ></TextInput>
-      <Text style={[styles.textAboveInput]}>Confirm Password</Text>
-      <TextInput
-        style={styles.input}
-        mode="outlined"
-        secureTextEntry
-        value={confirmPassword}
-        onChangeText={(confirmPassword) => setConfirmPassword(confirmPassword)}
-        // placeholder="123456"
-      ></TextInput>
-      <Text style={[styles.textAboveInput]}>Major</Text>
-      <TextInput
-        style={styles.input}
-        mode="outlined"
-        value={major}
-        onChangeText={(major) => setMajor(major)}
-        // placeholder="Computer Science"
-      ></TextInput>
-      <Text style={[styles.textAboveInput]}>Year</Text>
-      <TextInput
-        style={styles.input}
-        mode="outlined"
-        value={year}
-        onChangeText={(year) => setYear(year)}
-        // placeholder="Senior"
-      ></TextInput>
-      <View style={[styles.nextButton, { marginTop: 30 }]}>
-        <Button title="Next" onPress={handleSignup} />
-      </View>
+    <LinearGradient locations={[0, 1]} colors={["#fff9e9", "#fff"]}>
+      <View style={styles.container}>
+          <Text style={[styles.title]}>Create Your Account</Text>
+          <Text style={[styles.subTitle]}>Lorem ipsum dolor sit amet consectetur. Quisque mi metus aliquam sed neque.</Text>
+
+        <View style={{marginTop: 5}}>
+          <View style={[styles.inputContainer]}>
+              <Image style={[styles.signUpIcons]} source={require("../assets/images/signUpIcons/name.png")} />
+              <TextInput placeholder="Name" style={[styles.input]} value={name} onChangeText={(name) => setName(name)} placeholderTextColor="#A3A3A3"/>
+          </View>
+        </View>
+
+        <View style={{marginTop: 5}}>
+          <View style={[styles.inputContainer]}>
+              <Image style={[styles.signUpIcons]} source={require("../assets/images/signUpIcons/email.png")} />
+              <TextInput placeholder="Email" style={[styles.input]} value={email} onChangeText={(email) => setEmail(email)} placeholderTextColor="#A3A3A3"/>
+          </View>
+        </View>
+
+        <View style={{marginTop: 5}}>
+          <View style={[styles.inputContainer]}>
+              <Image style={[styles.signUpIcons]} source={require("../assets/images/signUpIcons/password.png")} />
+              <TextInput placeholder="Password" style={[styles.input]} value={password} onChangeText={(password) => setPassword(password)} placeholderTextColor="#A3A3A3"/>
+          </View>
+        </View>
+
+        <View style={{marginTop: 5}}>
+          <View style={[styles.inputContainer]}>
+              <Image style={[styles.signUpIcons]} source={require("../assets/images/signUpIcons/password.png")} />
+              <TextInput placeholder="Confirm Password" style={[styles.input]} value={confirmPassword} onChangeText={(confirmPassword) => setConfirmPassword(confirmPassword)} placeholderTextColor="#A3A3A3"/>
+          </View>
+        </View>
+
+        <View style={{marginTop: 5}}>
+          <View style={[styles.inputContainer]}>
+              <Image style={[styles.signUpIcons]} source={require("../assets/images/signUpIcons/major.png")} />
+              <TextInput placeholder="Major" style={[styles.input]} value={major} onChangeText={(major) => setMajor(major)} placeholderTextColor="#A3A3A3"/>
+          </View>
+        </View>
+
+        <View style={{marginTop: 5}}>
+          <View style={[styles.inputContainer]}>
+              <Image style={[styles.signUpIcons]} source={require("../assets/images/signUpIcons/password.png")} />
+              <TextInput placeholder="Year" style={[styles.input]} value={year} onChangeText={(year) => setYear(year)} placeholderTextColor="#A3A3A3"/>
+          </View>
+        </View>
+
+      <TouchableOpacity style={styles.nextButton} onPress={handleSignup}>
+          <Text style={styles.nextButtonText}>Next</Text>
+      </TouchableOpacity>
+
     </View>
+    </LinearGradient>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 16,
-    backgroundColor: "white",
+    justifyContent: "flex-start",
+    padding: 40,
+    marginTop: 50,
   },
-  textAboveInput: {
+  inputContainer:{
+    flexDirection: "row",
+  },
+  title:{
+    fontSize: 28,
     fontWeight: "bold",
-    fontSize: 12,
-    textAlign: "left",
-    alignSelf: "flex-start",
-    marginLeft: "10%",
+    marginBottom: 20,
+    color: "#453B4F",
+  },
+  subTitle:{
+    fontSize: 16,
+    marginBottom: 30,
+    color: "#453B4F",
+  },
+  signUpIcons:{
+    width: 26,
+    height: 26,
+    position: "absolute",
+    resizeMode: "contain", 
+    alignSelf: "center",
   },
   input: {
-    // borderWidth: 1,
-    // borderColor: "#FFD465",
     borderRadius: 5,
-    // padding: 10,
+    paddingLeft: 30,
     width: "80%",
     marginVertical: 10,
-    backgroundColor: "white",
+    backgroundColor: "transparent",
+    borderBottomWidth: 0.5,
+    borderColor: "#E3E3E3",
+    flex: 1,
+    fontSize: 16,
   },
   nextButton: {
-    backgroundColor: "#FFD465",
-    borderRadius: 5,
+    backgroundColor: "#FFC940",
+    marginTop: 40,
+    marginBottom: 40,
+    width: 240,
+    borderRadius: 25,
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    alignSelf: 'center',
   },
+  nextButtonText:{
+    fontSize: 18,
+    alignSelf: 'center',
+  }
 });
 
 export default SignupForm;
