@@ -78,6 +78,7 @@ profileImg:{
     justifyContent: "center",
     marginRight: -70,
     marginTop: 100,
+    marginHorizontal: -61,
 },
 profileImage:{
     width:120,
@@ -85,6 +86,7 @@ profileImage:{
     borderRadius:100,
     overflow:"hidden",
     justifyContent: "center",
+    marginHorizontal: -10,
 },
 editBtn:{
     backgroundColor:"#41444B",
