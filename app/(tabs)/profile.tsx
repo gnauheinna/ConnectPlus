@@ -5,17 +5,8 @@ import { Color, FontFamily, Padding, Border, FontSize } from "./ProfileStyles";
 import { Card, ListItem, Button, Icon } from 'react-native-elements'
 import CardContent from 'react-native-paper/lib/typescript/components/Card/CardContent';
 import { TouchableOpacity } from "react-native-gesture-handler";
-/*
-using material ui library, help me to create a profile page using typescript in react native
-first step create a container for the page
-second step create a title bar
-third step create a profile image
-fourth step create a name on top of the profile image
-fifth step create a bio section
-sixth step create a horizontal scroll view display 3 sections:"Posts","Mentions","About"
-seventh step create a card as a placeholder for About section
-help me write code for the profile page
-*/
+import IndividualPost from "../../components/individualPost";
+
 
 
 export default function App() {
@@ -31,8 +22,7 @@ return (
             <View style={styles.profileImg}>
                 <Image
                 source={require('../../assets/images/profile/avatars--3d-avatar-12.png')}
-                style={styles.profileImage}
-                resizeMode="center"/>
+                style={styles.profileImage}/>
                 {/* Display the icon for editing the profile picture */}
                 <TouchableOpacity style={styles.editBtn}>
                     <MaterialIcons name="edit" size={20} color="#ffffff" />
@@ -42,19 +32,27 @@ return (
             {/* Display the user's full name */}
             <View style={styles.infoContainer}>
                 <Text style={[styles.userName]}>Jane Jones</Text>
+
                 <Text style={[styles.userIntro]}>Class of 2024, Data Science Major</Text>
+                
             </View>
         </LinearGradient>
-    {/* </View> */}
 
-    <View style={styles.horizontalBar}>
-        {/* <View style={styles.tagBox}> */}
-            <Text style={[styles.horizontalBarOptions, { marginRight: 20 }]}>Posts</Text>
-        {/* </View> */}
-        {/* <View style={styles.tagBox}> */}
-            <Text style={[styles.horizontalBarOptions]}>Mentions</Text>
-        {/* </View> */}
-    </View>
+            {/* Display Posts and Mentions */}
+            <View style={styles.horizontalBar}>
+                <TouchableOpacity style={styles.postsContainer}>
+                    <Text>Posts</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.mentionsContainer}>
+                    <Text>Mentions</Text>
+                </TouchableOpacity>
+            </View>
+            {/* Display only the Borderline */}
+            <View style={styles.borderLine}></View>
+               
+
+                
+
 </View>
 );
 }
@@ -67,16 +65,17 @@ profileInfoContainer:{
     flex:1,
     padding: 0,
     marginBottom: 0,
+    height: "100%",
+    width:"100%",
 },
-titleBar:{
-    justifyContent:"space-between",
-    marginTop:24,
-    marginHorizontal:16,
-},
+// titleBar:{
+//     justifyContent:"space-between",
+//     marginTop:24,
+//     marginHorizontal:16,
+// },
 profileImg:{
     flexDirection: "row",
     justifyContent: "center",
-    alignSelf: "center",
     marginRight: -70,
     marginTop: 100,
 },
@@ -85,6 +84,7 @@ profileImage:{
     height:120,
     borderRadius:100,
     overflow:"hidden",
+    justifyContent: "center",
 },
 editBtn:{
     backgroundColor:"#41444B",
@@ -115,12 +115,30 @@ infoContainer:{
 },
 horizontalBar:{
     flexDirection:"row",
-    alignSelf:"center",
-    marginTop: 32,
+    justifyContent:"space-evenly",
+    marginTop: 20,
 },
-horizontalBarOptions: {
-    fontSize: 16,
+// horizontalBarOptions: {
+//     padding: 10,
+//     borderBottomColor: "black",
+//     borderBottomWidth: 2,
+//     marginTop: -17,
+// },
+postsContainer:{
+    padding: 10,
+    marginTop: -17,
+    fontWeight: 'bold', 
 },
+borderLine: {
+    borderBottomColor: "black",
+    borderBottomWidth: 2,
+    width: 150,
+},
+mentionsContainer:{
+    padding: 10,
+    marginTop: -17,
+    fontWeight: 'bold', 
+}
 })
 
 
