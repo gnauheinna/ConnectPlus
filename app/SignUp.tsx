@@ -33,6 +33,7 @@ const SignupForm = () => {
   const router = useRouter();
   const auth = getAuth();
 
+  // saves user data to firestore
   const handleNewUserEmail = async () => {
     // get a instance of Firebase db
     const db = getFirestore();
@@ -60,6 +61,7 @@ const SignupForm = () => {
     }, 3000);
   };
 
+  //triggers Firebase Auth to create new user
   function SignUp() {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
