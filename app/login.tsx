@@ -1,5 +1,5 @@
 import { View, Text, Button, TextField } from "react-native-ui-lib";
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { StyleSheet, TextInput, Pressable } from "react-native";
 import { Link, useRouter } from "expo-router";
 import { TouchableOpacity } from "react-native";
@@ -12,6 +12,7 @@ import {
   signInWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
+  onAuthStateChanged,
 } from "firebase/auth";
 import { getApps } from "firebase/app";
 import {
@@ -21,16 +22,22 @@ import {
   addDoc,
 } from "firebase/firestore";
 import { CheckBox } from "react-native-elements";
+import { useNavigation } from "expo-router";
+import { AuthContext } from "./AuthContext";
 
-export default function IndexScreen() {
+export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState(null);
   const [signupError, setSignupError] = useState(null);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   const provider = new GoogleAuthProvider();
   const router = useRouter();
   const auth = getAuth();
+
+  const { setLoggedIn } = useContext(AuthContext);
 
   const handleNewUserGoogle = async () => {
     // get a instance of Firebase db
@@ -43,6 +50,8 @@ export default function IndexScreen() {
       timestamp: serverTimestamp(),
       //name, major, year, interest
     };
+
+    const navigation = useNavigation();
 
     await addDoc(userCollection, newUser);
     setEmail("");
@@ -68,6 +77,7 @@ export default function IndexScreen() {
         const user = userCredential.user;
         console.log("logged In!");
         setLoginError(null);
+        setIsLoggedIn(true);
         nextpage();
       })
       .catch((error) => {
@@ -84,6 +94,7 @@ export default function IndexScreen() {
         // This gives you a Google Access Token. You can use it to access the Google API.
         const credential = GoogleAuthProvider.credentialFromResult(result);
         if (credential != null) {
+          setIsLoggedIn(true);
           const token = credential.accessToken;
           // The signed-in user info.
           const user = result.user;
@@ -107,72 +118,81 @@ export default function IndexScreen() {
   }
 
   return (
-  <LinearGradient locations={[0, 1]} colors={["#fff9e9", "#fff"]}>
+    <LinearGradient locations={[0, 1]} colors={["#fff9e9", "#fff"]}>
       <View style={styles.container}>
-          {/* ConnectPlus Logo */}
-          <Image style={[styles.connectPlusLogo]} source={require("../assets/images/connectPlusLogo.png")} />
+        {/* ConnectPlus Logo */}
+        <Image
+          style={[styles.connectPlusLogo]}
+          source={require("../assets/images/connectPlusLogo.png")}
+        />
 
-          {/* Welcome Message */}
-          <Text style={styles.welcomeMessage}>{`Welcome to Connect+ `}</Text>
+        {/* Welcome Message */}
+        <Text style={styles.welcomeMessage}>{`Welcome to Connect+ `}</Text>
 
-          {/* Email Input */}
-          <Text style={[styles.inputTitle]}>Email</Text>
-          <TextInput
-            style={[styles.input]}
-            value={email}
-            onChangeText={(email) => setEmail(email)}
-            // placeholder="example@gmail.com"
-          ></TextInput>
+        {/* Email Input */}
+        <Text style={[styles.inputTitle]}>Email</Text>
+        <TextInput
+          style={[styles.input]}
+          value={email}
+          onChangeText={(email) => setEmail(email)}
+          // placeholder="example@gmail.com"
+        ></TextInput>
 
-          {/* Password Input */}
-          <Text style={[styles.inputTitle]}>Password</Text>
-          <TextInput
-            style={[styles.input]}
-            secureTextEntry
-            value={password}
-            onChangeText={(password) => setPassword(password)}
-            // placeholder="123456"
-          ></TextInput>
+        {/* Password Input */}
+        <Text style={[styles.inputTitle]}>Password</Text>
+        <TextInput
+          style={[styles.input]}
+          secureTextEntry
+          value={password}
+          onChangeText={(password) => setPassword(password)}
+          // placeholder="123456"
+        ></TextInput>
 
-          {/* Checkbox + Remember Me Text */}
-          <View style={styles.rememberMeContainer}>
-            <CheckBox
-                checked={false} // Set the initial checked state here
-                onPress={() => {}} 
-                containerStyle={styles.checkboxContainer}
+        {/* Checkbox + Remember Me Text */}
+        <View style={styles.rememberMeContainer}>
+          <CheckBox
+            checked={false} // Set the initial checked state here
+            onPress={() => {}}
+            containerStyle={styles.checkboxContainer}
+          />
+          <Text style={[styles.rememberMeText]}>Remember me</Text>
+        </View>
+
+        {/* Create Account Button */}
+        <TouchableOpacity style={styles.createAccountBtn} onPress={createUser}>
+          <Text style={styles.createAccountText}>Create Account</Text>
+        </TouchableOpacity>
+
+        {/* Divider for 3rd Party Login Options */}
+        <View style={styles.orDivider}>
+          <View style={styles.line}></View>
+          <Text style={{ marginHorizontal: 5 }}>OR</Text>
+          <View style={styles.line}></View>
+        </View>
+
+        <View style={[styles.thirdPartyLogIn]}>
+          {/* Google Login Button */}
+          <TouchableOpacity onPress={GoogleLogin}>
+            <Image
+              source={require("../assets/images/googleLogo.png")}
+              style={[styles.thirdPartyIcon]}
             />
-            <Text style={[styles.rememberMeText]}>Remember me</Text>
-      </View>
+          </TouchableOpacity>
+          <View style={{ width: 50 }}></View>
+          {/* Kerberos Login Button */}
+          <TouchableOpacity>
+            <Image
+              source={require("../assets/images/kerberosLogo.png")}
+              style={[styles.thirdPartyIcon]}
+            />
+          </TouchableOpacity>
+        </View>
 
-      {/* Sign In Button */}
-      <TouchableOpacity style={styles.createAccountBtn} onPress={LogIn}>
-          <Text style={styles.createAccountText}>Sign In</Text>
-      </TouchableOpacity>
-
-      {/* Divider for 3rd Party Login Options */}
-      <View style={styles.orDivider}>
-          <View style={styles.line}></View>
-          <Text style={{ marginHorizontal: 5}}>OR</Text>
-          <View style={styles.line}></View>
-      </View>
-
-      <View style={[styles.thirdPartyLogIn]}>
-        {/* Google Login Button */}
-        <TouchableOpacity onPress={GoogleLogin}>
-          <Image source={require("../assets/images/googleLogo.png")} style={[styles.thirdPartyIcon]}/>
-        </TouchableOpacity>
-        <View style={{width: 50}}></View>
-        {/* Kerberos Login Button */}
-        <TouchableOpacity>
-          <Image source={require("../assets/images/kerberosLogo.png")} style={[styles.thirdPartyIcon]}/>
-        </TouchableOpacity>
-      </View>
-
-       {/* Switch to Sign Up Option */}
-      <View style={[styles.switchToSignIn]}>
-        <Text style={{fontSize: 16}}>Don't have an account? </Text>
-        <Text style={{fontSize: 16, fontWeight: "bold"}}>Sign Up</Text>
-      </View>
+        {/* Switch to Sign In Option */}
+        <View style={[styles.switchToSignIn]}>
+          <Text style={{ fontSize: 16 }}>Already have an account? </Text>
+          <Text style={{ fontSize: 16, fontWeight: "bold" }}>Sign In</Text>
+        </View>
       </View>
     </LinearGradient>
   );
@@ -184,15 +204,15 @@ const styles = StyleSheet.create({
     marginLeft: 40,
     marginRight: 40,
   },
-  connectPlusLogo:{
-    height: 120, 
+  connectPlusLogo: {
+    height: 120,
     width: 150,
     position: "relative",
-    justifyContent: 'center', 
-    alignSelf: 'center',
+    justifyContent: "center",
+    alignSelf: "center",
     marginTop: 50,
     marginBottom: 50,
-    resizeMode: "contain", 
+    resizeMode: "contain",
   },
   welcomeMessage: {
     fontSize: 28,
@@ -202,7 +222,7 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
   inputTitle: {
-    color: "#000000", 
+    color: "#000000",
     fontSize: 16,
   },
   input: {
@@ -214,7 +234,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     height: 40,
   },
-  rememberMeContainer:{
+  rememberMeContainer: {
     flexDirection: "row",
     justifyContent: "flex-end",
     alignItems: "center",
@@ -234,11 +254,11 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     paddingVertical: 12,
     paddingHorizontal: 20,
-    alignSelf: 'center',
+    alignSelf: "center",
   },
   createAccountText: {
     fontSize: 18,
-    alignSelf: 'center',
+    alignSelf: "center",
   },
   orDivider: {
     marginVertical: 20,
@@ -247,29 +267,29 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 30,
   },
-  line:{
+  line: {
     height: 1,
     width: 40,
     backgroundColor: "#828282",
   },
-  thirdPartyLogIn:{
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+  thirdPartyLogIn: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
     marginBottom: 40,
   },
-  thirdPartyIcon:{
+  thirdPartyIcon: {
     borderRadius: 50,
     backgroundColor: "#FEF7FF",
     width: 60,
     height: 60,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
-  switchToSignIn:{
+  switchToSignIn: {
     flexDirection: "row",
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     marginBottom: 30,
     fontSize: 18,
   },

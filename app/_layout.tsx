@@ -8,11 +8,12 @@ import { NavigationContainer } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from "expo-router";
 import { useEffect } from "react";
-import { useColorScheme } from "react-native";
+import { View, useColorScheme } from "react-native";
 import { Text } from "../components/Themed";
 import { initializeApp, getApps } from "firebase/app";
 import { firebaseConfig } from "../firebase";
 import onBoarding2Screen from "./Interest";
+import { AuthProvider } from "./AuthContext";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -30,6 +31,7 @@ SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
   if (getApps() == null) {
     const app = initializeApp(firebaseConfig);
+    if (!app) return <View />;
   }
 
   const [loaded, error] = useFonts({
@@ -52,7 +54,11 @@ export default function RootLayout() {
     return null;
   }
 
-  return <RootLayoutNav />;
+  return (
+    <AuthProvider>
+      <RootLayoutNav />
+    </AuthProvider>
+  );
 }
 
 function RootLayoutNav() {
@@ -60,9 +66,8 @@ function RootLayoutNav() {
 
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <Stack initialRouteName="index">
-        //
-        <Stack.Screen name="index" options={{ headerShown: false }} />
+      <Stack initialRouteName="login">
+        <Stack.Screen name="login" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="SignUp" options={{ headerShown: false }} />
         <Stack.Screen name="Interest" options={{ headerShown: false }} />
