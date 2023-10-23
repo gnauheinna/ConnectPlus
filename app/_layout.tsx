@@ -12,7 +12,7 @@ import { View, useColorScheme } from "react-native";
 import { Text } from "../components/Themed";
 import { initializeApp, getApps } from "firebase/app";
 import { firebaseConfig } from "../firebase";
-import onBoarding2Screen from "./Interest";
+import interestScreen from "./Interest";
 import { AuthProvider } from "./AuthContext";
 
 export {
