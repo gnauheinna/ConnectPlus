@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, TextInput, FlatList, ScrollView, Image } from "react-native";
+import {
+  StyleSheet,
+  TextInput,
+  FlatList,
+  ScrollView,
+  Image,
+} from "react-native";
 import { Text, View } from "../../../components/Themed";
 import {
   getFirestore,
@@ -26,15 +32,9 @@ type Post = {
   timestamp: Timestamp;
 };
 
-const router = useRouter();
-const db = getFirestore();
-
-function showPostDetails() {
-  router.push("../../postDetails");
-}
-
 export default function CommunityScreen() {
-  const [allPosts, setAllPosts] = useState<Post[]>([]);
+  const router = useRouter();
+  const db = getFirestore();
 
   const auth = getAuth();
 
@@ -42,39 +42,33 @@ export default function CommunityScreen() {
     const app = initializeApp(firebaseConfig);
   }
 
-  // This function will fetch all of the posts in the database and print them out
-  const fetchData = async () => {
-    try {
-      onAuthStateChanged(auth, async (user) => {
-        if (user) {
-          // User is signed in
-          const uid = user.uid;
-          const postsCollection = collection(db, "posts");
-          const querySnapshot = await getDocs(postsCollection);
-          const postData: any[] = [];
+  function showPostDetails() {
+    router.push("../../postDetails");
+  }
+  const [allPosts, setAllPosts] = useState<Post[]>([]);
+  const [user, setUser] = useState<any>();
 
-          querySnapshot.forEach((doc) => {
-            postData.push(doc.data());
-          });
-
-          setAllPosts(postData);
-        } else {
-          // User is signed out
-          console.log("User not logged in");
-        }
-      });
-    } catch (error) {
-      console.error("Error fetching posts:", error);
-    }
-  };
-
-  // Call the fetchData function when the component mounts and when the page is refreshed
   useEffect(() => {
-    fetchData();
-  }, []);
+    // Define the fetchData function here to use the state and props
+    const loadPosts = async () => {
+      setUser(auth.currentUser);
+      if (user) {
+        const postsCollection = collection(db, "posts");
+        const querySnapshot = await getDocs(postsCollection);
+        const postData: Post[] = [];
+        querySnapshot.forEach((doc) => {
+          postData.push(doc.data() as Post);
+        });
+        setAllPosts(postData);
+      } else {
+        console.log("User not logged in");
+      }
+    };
+    // Call the fetchData function when the component mounts
+    loadPosts();
+  }, [user]);
 
   return (
-    // <ScrollView>
     <ScrollView>
       {/* Display the horizontal sub-navigation bar on top of the posts */}
       <View>
@@ -108,24 +102,27 @@ export default function CommunityScreen() {
             data={allPosts}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item }) => (
-            <View>
-              <IndividualPost
-                title={item.title}
-                content={item.content}
-                timestamp={item.timestamp.toDate()}
-                onPress={showPostDetails}
-              />
-              {/* Displays the upvotes/downvotes feature, the comment icon, and the save icon */}
-              <View style={styles.iconsOnPosts}>
-                <TouchableOpacity style={styles.iconWrapper}>
-                  <Image style={styles.icons} source={require("../../../assets/images/comment.png")} />
-                  {/* <FontAwesome5 name="comment" size={24} color="black" /> */}
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.iconWrapper}>
-                  <Feather name="bookmark" size={28} color="black" />
-                </TouchableOpacity>
+              <View>
+                <IndividualPost
+                  title={item.title}
+                  content={item.content}
+                  timestamp={item.timestamp.toDate()}
+                  onPress={showPostDetails}
+                />
+                {/* Displays the upvotes/downvotes feature, the comment icon, and the save icon */}
+                <View style={styles.iconsOnPosts}>
+                  <TouchableOpacity style={styles.iconWrapper}>
+                    <Image
+                      style={styles.icons}
+                      source={require("../../../assets/images/comment.png")}
+                    />
+                    {/* <FontAwesome5 name="comment" size={24} color="black" /> */}
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles.iconWrapper}>
+                    <Feather name="bookmark" size={28} color="black" />
+                  </TouchableOpacity>
+                </View>
               </View>
-            </View>
             )}
           />
         </View>
@@ -147,12 +144,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "white",
   },
-  communityBigTitle:{
+  communityBigTitle: {
     marginLeft: 20,
     marginRight: 20,
     fontSize: 42,
     color: "#453B4F",
-    fontWeight:"bold",
+    fontWeight: "bold",
     marginTop: 20,
     marginBottom: 20,
   },
@@ -184,23 +181,23 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFD465",
   },
   iconsOnPosts: {
-    flexDirection: 'row', 
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    backgroundColor: '#E6DBF3',
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    alignItems: "center",
+    backgroundColor: "#E6DBF3",
     borderBottomLeftRadius: 12,
     borderBottomRightRadius: 12,
     paddingHorizontal: 0,
     marginBottom: 20,
   },
   iconWrapper: {
-    marginHorizontal: 8, 
+    marginHorizontal: 8,
     paddingTop: 10,
     paddingBottom: 10,
   },
   icons: {
     width: 28,
     height: 28,
-    resizeMode: "contain", 
+    resizeMode: "contain",
   },
 });
