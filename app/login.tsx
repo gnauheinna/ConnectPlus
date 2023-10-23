@@ -159,8 +159,8 @@ export default function Login() {
         </View>
 
         {/* Create Account Button */}
-        <TouchableOpacity style={styles.createAccountBtn} onPress={createUser}>
-          <Text style={styles.createAccountText}>Create Account</Text>
+        <TouchableOpacity style={styles.createAccountBtn} onPress={LogIn}>
+          <Text style={styles.createAccountText}>Sign In</Text>
         </TouchableOpacity>
 
         {/* Divider for 3rd Party Login Options */}
@@ -190,8 +190,12 @@ export default function Login() {
 
         {/* Switch to Sign In Option */}
         <View style={[styles.switchToSignIn]}>
-          <Text style={{ fontSize: 16 }}>Already have an account? </Text>
-          <Text style={{ fontSize: 16, fontWeight: "bold" }}>Sign In</Text>
+          <Text style={{ fontSize: 16 }}>Don't have an account? </Text>
+          <TouchableOpacity onPress={createUser}>
+            <Text style={{ fontSize: 16, fontWeight: "bold" }}>
+              Create An Account
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
     </LinearGradient>
