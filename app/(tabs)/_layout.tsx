@@ -62,15 +62,17 @@ export default function TabLayout() {
           ),
         }}
       />
-      <Tabs.Screen
-        name="post"
-        options={{
-          title: "Post",
-          tabBarIcon: ({ color }) => (
-            <AntDesign name="pluscircleo" size={24} color="black" />
-          ),
-        }}
-      />
+      {isLoggedIn && (
+        <Tabs.Screen
+          name="post"
+          options={{
+            title: "Post",
+            tabBarIcon: ({ color }) => (
+              <AntDesign name="pluscircleo" size={24} color="black" />
+            ),
+          }}
+        />
+      )}
       <Tabs.Screen
         name="messages"
         options={{
