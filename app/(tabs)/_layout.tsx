@@ -7,6 +7,7 @@ import { AntDesign } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { useContext } from "react";
 import { AuthContext } from "../AuthContext";
+import { UserContext } from "../context/UserContext";
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
  */
@@ -20,6 +21,7 @@ function TabBarIcon(props: {
 export default function TabLayout() {
   const colorScheme = useColorScheme();
   const { isLoggedIn } = useContext(AuthContext);
+  const { user } = useContext(UserContext);
 
   return (
     <Tabs
@@ -27,7 +29,7 @@ export default function TabLayout() {
         tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
       }}
     >
-      {isLoggedIn && (
+      {isLoggedIn && user && (
         <Tabs.Screen
           name="community" // Update the name to include the folder path
           options={{
@@ -73,24 +75,28 @@ export default function TabLayout() {
           }}
         />
       )}
-      <Tabs.Screen
-        name="messages"
-        options={{
-          title: "Messages",
-          tabBarIcon: ({ color }) => (
-            <AntDesign name="message1" size={24} color="black" />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="profile"
-        options={{
-          title: "Profile",
-          tabBarIcon: ({ color }) => (
-            <AntDesign name="idcard" size={24} color="black" />
-          ),
-        }}
-      />
+      {isLoggedIn && (
+        <Tabs.Screen
+          name="messages"
+          options={{
+            title: "Messages",
+            tabBarIcon: ({ color }) => (
+              <AntDesign name="message1" size={24} color="black" />
+            ),
+          }}
+        />
+      )}
+      {isLoggedIn && (
+        <Tabs.Screen
+          name="profile"
+          options={{
+            title: "Profile",
+            tabBarIcon: ({ color }) => (
+              <AntDesign name="idcard" size={24} color="black" />
+            ),
+          }}
+        />
+      )}
     </Tabs>
   );
 }

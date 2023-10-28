@@ -1,11 +1,4 @@
-// UserContext.js
-import React, {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-  ReactNode,
-} from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { initializeApp, getApps } from "firebase/app";
 import {
@@ -16,9 +9,9 @@ import {
   doc,
   updateDoc,
 } from "firebase/firestore";
+import { Text, View } from "../components/Themed";
 
-// represents the shape of the context value
-type UserContextType = {
+type User11Type = {
   user: {
     name: string;
     email: string;
@@ -33,19 +26,12 @@ type UserContextType = {
   }) => void;
 };
 
-// createz a new context object and
-const UserContext = createContext<UserContextType>({
-  user: { name: "", email: "", major: "", year: "" },
-  setUser: () => {},
-});
-
-const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export default function UserScreen() {
   const auth = getAuth();
   const Currentuser = auth.currentUser;
   const db = getFirestore();
 
   const [userID, setUserID] = useState<any>();
-
   const [user, setUser] = useState({
     name: "",
     email: "",
@@ -53,14 +39,19 @@ const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     year: "",
   });
 
-  setUserID(Currentuser?.uid);
   useEffect(() => {
-    // Fetch user data from the "users" collection in Firebase
-    const fetchUser = async () => {
-      try {
-        if (userID) {
+    console.log("bboo");
+    console.log(Currentuser);
+    setUserID(Currentuser?.uid);
+  }, []); // Only run this effect once when the component mounts
+
+  // Fetch user data from the "users" collection in Firebase
+  useEffect(() => {
+    if (userID) {
+      const fetchUser = async () => {
+        try {
           const usersCollection = collection(db, "users");
-          const userInfo = await getDoc(userID);
+          const userInfo = await getDoc(doc(db, "users", userID));
           console.log("nihao");
           console.log(userInfo);
           setUser(
@@ -71,28 +62,22 @@ const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
               year: string;
             }
           );
-        } else {
-          console.log("no user");
+        } catch (error) {
+          console.error("Error fetching user data:", error);
           setUser({ name: "", email: "", major: "", year: "" });
         }
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-        setUser({ name: "", email: "", major: "", year: "" });
-      }
-    };
+      };
 
-    fetchUser();
-  }, []);
+      fetchUser();
+    } else {
+      console.log("no user");
+      setUser({ name: "", email: "", major: "", year: "" });
+    }
+  }, [userID]);
 
   return (
-    <UserContext.Provider value={{ user, setUser }}>
-      {children}
-    </UserContext.Provider>
+    <View>
+      <Text>User</Text>
+    </View>
   );
-};
-
-const useUser = () => {
-  return useContext(UserContext);
-};
-
-export { UserProvider, useUser, UserContext };
+}

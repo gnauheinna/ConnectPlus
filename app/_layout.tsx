@@ -12,7 +12,6 @@ import { View, useColorScheme } from "react-native";
 import { Text } from "../components/Themed";
 import { initializeApp, getApps } from "firebase/app";
 import { firebaseConfig } from "../firebase";
-import interestScreen from "./Interest";
 import { AuthProvider } from "./AuthContext";
 
 export {
@@ -70,7 +69,8 @@ function RootLayoutNav() {
         <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="SignUp" options={{ headerShown: false }} />
-        <Stack.Screen name="Interest" options={{ headerShown: false }} />
+        <Stack.Screen name="interest" options={{ headerShown: false }} />
+        <Stack.Screen name="user" options={{ headerShown: false }} />
         <Stack.Screen name="postdetails" options={{ headerShown: false }} />
       </Stack>
     </ThemeProvider>

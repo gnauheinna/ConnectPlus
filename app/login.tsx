@@ -73,6 +73,10 @@ export default function Login() {
     router.push("/signup");
   }
 
+  function toUser() {
+    router.push("/user");
+  }
+
   function LogIn() {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
@@ -183,7 +187,7 @@ export default function Login() {
           </TouchableOpacity>
           <View style={{ width: 50 }}></View>
           {/* Kerberos Login Button */}
-          <TouchableOpacity>
+          <TouchableOpacity onPress={toUser}>
             <Image
               source={require("../assets/images/kerberosLogo.png")}
               style={[styles.thirdPartyIcon]}

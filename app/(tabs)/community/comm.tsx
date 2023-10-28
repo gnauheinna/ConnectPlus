@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   StyleSheet,
   TextInput,
@@ -24,6 +24,7 @@ import { useRouter } from "expo-router";
 import { initializeApp, getApps } from "firebase/app";
 import { firebaseConfig } from "../../../firebase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { UserContext } from "../../context/UserContext";
 
 type Post = {
   postId: string;
@@ -38,6 +39,9 @@ export default function CommunityScreen() {
 
   const auth = getAuth();
 
+  const { user } = useContext(UserContext);
+  console.log("ciao");
+  console.log(user);
   if (getApps() == null) {
     const app = initializeApp(firebaseConfig);
   }
@@ -46,12 +50,12 @@ export default function CommunityScreen() {
     router.push("../../postDetails");
   }
   const [allPosts, setAllPosts] = useState<Post[]>([]);
-  const [user, setUser] = useState<any>();
+  const [user1, setUser1] = useState<any>();
 
   useEffect(() => {
     // Define the fetchData function here to use the state and props
     const loadPosts = async () => {
-      setUser(auth.currentUser);
+      setUser1(auth.currentUser);
       if (user) {
         const postsCollection = collection(db, "posts");
         const querySnapshot = await getDocs(postsCollection);
