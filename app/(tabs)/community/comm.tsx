@@ -113,7 +113,6 @@ export default function CommunityScreen() {
                   title={item.title}
                   content={item.content}
                   timestamp={item.timestamp.toDate()}
-                  onPress={showPostDetails}
                 />
                 {/* Displays the upvotes/downvotes feature, the comment icon, and the save icon */}
                 <View style={styles.iconsOnPosts}>

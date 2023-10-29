@@ -6,9 +6,13 @@ import {FontAwesome5, Feather} from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import IndividualPost from "../components/individualPost";
 import IndividualComment from "../components/individualComment";
+import { useRouter } from "expo-router";
 
 const PostDetails = () =>{
-
+  // const router = useRouter();
+  //   function backToCommunityPage() {
+  //     router.push("/community/comm");
+  //   }
   return (
   <View>
 

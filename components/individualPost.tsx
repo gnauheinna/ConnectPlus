@@ -5,6 +5,7 @@ import {FontAwesome5, Feather} from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Card, Avatar, IconButton } from 'react-native-paper';
 import { Image } from "react-native";
+import { useRouter } from "expo-router";
 
 // Defines the properties that the IndividualPost component expects: title, content and timestamp
 interface IndividualPostProps {
@@ -12,52 +13,45 @@ interface IndividualPostProps {
   title: string;
   content: string;
   timestamp: Date;
-  onPress?: () => void;
 }
 
-const IndividualPost: React.FC<IndividualPostProps> = ({ title, content, timestamp, onPress }) => {
+const IndividualPost: React.FC<IndividualPostProps> = ({ title, content, timestamp }) => {
+    const router = useRouter();
+    function viewPostDetails() {
+      router.push("/postdetails");
+    }
     return (
-      <View style={{...styles.itemContainer}}>
-        {/* Display the user's profile image, name, and intro on the top */}
-        <View style={styles.userContainer}>
-          <Image style={styles.profileImg} source={require("../assets/images/profileImg.png")} />
-          <View style={styles.userInfoContainer}>
-            <Text style={styles.userName}>Name</Text>
-            <Text style={styles.userIntro}>Intro</Text>
+      <TouchableOpacity onPress={viewPostDetails}>
+        <View style={{...styles.itemContainer}}>
+          {/* Display the user's profile image, name, and intro on the top */}
+          <View style={styles.userContainer}>
+            <Image style={styles.profileImg} source={require("../assets/images/profileImg.png")} />
+            <View style={styles.userInfoContainer}>
+              <Text style={styles.userName}>Name</Text>
+              <Text style={styles.userIntro}>Intro</Text>
+            </View>
           </View>
-        </View>
 
-        <View style={styles.titleTimestampContainer}>
-         {/* Display the title of the post */}
-          <Text style={styles.title}>{title}</Text>
+          <View style={styles.titleTimestampContainer}>
+          {/* Display the title of the post */}
+            <Text style={styles.title}>{title}</Text>
 
-          {/* Display the timestamp of the post */}
-          <Text style={styles.timestamp}>
-            {timestamp.toLocaleString('en-US', {
-              year: 'numeric',
-              month: 'numeric',
-              day: 'numeric',
-              hour: 'numeric',
-              minute: 'numeric',
-            })}
-          </Text>
-        </View>
-
-        {/* Display the content of the post */}
-        <Text style={styles.content}>{content}</Text>
-
-        
-        {/* <View style={{ padding: 0 }}>
-          <View style={styles.iconsOnPosts}>
-            <TouchableOpacity style={styles.iconWrapper}>
-              <FontAwesome5 name="comment" size={24} color="black" />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.iconWrapper}>
-              <Feather name="bookmark" size={28} color="black" />
-            </TouchableOpacity>
+            {/* Display the timestamp of the post */}
+            <Text style={styles.timestamp}>
+              {timestamp.toLocaleString('en-US', {
+                year: 'numeric',
+                month: 'numeric',
+                day: 'numeric',
+                hour: 'numeric',
+                minute: 'numeric',
+              })}
+            </Text>
           </View>
-        </View> */}
-      </View>
+          
+          {/* Display the content of the post */}
+          <Text style={styles.content}>{content}</Text>
+        </View>
+      </TouchableOpacity>
     );
   };
   
