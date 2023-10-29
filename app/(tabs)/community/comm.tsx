@@ -43,11 +43,10 @@ export default function CommunityScreen() {
   const auth = getAuth();
 
   const [allPosts, setAllPosts] = useState<Post[]>([]);
-  const [user1, setUser1] = useState<any>();
   const { user, setUser } = useUser();
 
   useEffect(() => {
-    console.log("nihaooo");
+    console.log("comm: user");
     console.log(user);
     //setUser1(user);
   }, [user]);
@@ -59,7 +58,6 @@ export default function CommunityScreen() {
   useEffect(() => {
     // Define the fetchData function here to use the state and props
     const loadPosts = async () => {
-      setUser1(auth.currentUser);
       if (user) {
         const postsCollection = collection(db, "posts");
         const querySnapshot = await getDocs(postsCollection);
