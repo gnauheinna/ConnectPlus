@@ -13,6 +13,7 @@ import { Text } from "../components/Themed";
 import { initializeApp, getApps } from "firebase/app";
 import { firebaseConfig } from "../firebase";
 import { AuthProvider } from "./AuthContext";
+import { UserProvider } from "./context/UserContext";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -55,7 +56,9 @@ export default function RootLayout() {
 
   return (
     <AuthProvider>
-      <RootLayoutNav />
+      <UserProvider>
+        <RootLayoutNav />
+      </UserProvider>
     </AuthProvider>
   );
 }

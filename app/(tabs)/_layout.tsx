@@ -54,16 +54,17 @@ export default function TabLayout() {
           }}
         />
       )}
-
-      <Tabs.Screen
-        name="resources"
-        options={{
-          title: "Resource",
-          tabBarIcon: ({ color }) => (
-            <AntDesign name="filetext1" size={24} color="black" />
-          ),
-        }}
-      />
+      {isLoggedIn && (
+        <Tabs.Screen
+          name="resources"
+          options={{
+            title: "Resource",
+            tabBarIcon: ({ color }) => (
+              <AntDesign name="filetext1" size={24} color="black" />
+            ),
+          }}
+        />
+      )}
       {isLoggedIn && (
         <Tabs.Screen
           name="post"

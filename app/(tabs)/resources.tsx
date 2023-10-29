@@ -3,10 +3,10 @@ import { StyleSheet } from "react-native";
 import EditScreenInfo from "../../components/EditScreenInfo";
 import { Text, View } from "../../components/Themed";
 
-export default function ResourcesScreen() {
+export default function MessageScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Resources</Text>
+      <Text style={styles.title}>Messages</Text>
       <View
         style={styles.separator}
         lightColor="#eee"

@@ -25,6 +25,8 @@ import { CheckBox } from "react-native-elements";
 import { useNavigation } from "expo-router";
 import { AuthContext } from "./AuthContext";
 
+import { UserProvider } from "./context/UserContext";
+
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

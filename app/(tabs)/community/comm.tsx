@@ -24,7 +24,7 @@ import { useRouter } from "expo-router";
 import { initializeApp, getApps } from "firebase/app";
 import { firebaseConfig } from "../../../firebase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { UserContext } from "../../context/UserContext";
+import { UserContext, UserProvider } from "../../context/UserContext";
 
 type Post = {
   postId: string;
@@ -34,23 +34,27 @@ type Post = {
 };
 
 export default function CommunityScreen() {
-  const router = useRouter();
-  const db = getFirestore();
-
-  const auth = getAuth();
-
-  const { user } = useContext(UserContext);
-  console.log("ciao");
-  console.log(user);
   if (getApps() == null) {
     const app = initializeApp(firebaseConfig);
   }
 
+  const router = useRouter();
+  const db = getFirestore();
+  const auth = getAuth();
+
+  const [allPosts, setAllPosts] = useState<Post[]>([]);
+  const [user1, setUser1] = useState<any>();
+  const [user, setUser] = useContext(UserContext);
+
+  useEffect(() => {
+    console.log("nihaooo");
+    console.log(user);
+    //setUser1(user);
+  }, [user]);
+
   function showPostDetails() {
     router.push("../../postDetails");
   }
-  const [allPosts, setAllPosts] = useState<Post[]>([]);
-  const [user1, setUser1] = useState<any>();
 
   useEffect(() => {
     // Define the fetchData function here to use the state and props
@@ -73,65 +77,67 @@ export default function CommunityScreen() {
   }, [user]);
 
   return (
-    <ScrollView>
-      {/* Display the horizontal sub-navigation bar on top of the posts */}
-      <View>
-        <Text style={styles.communityBigTitle}>Community</Text>
-      </View>
-      <View>
-        <View style={styles.horizontalSubNavMainContainer}>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            <TouchableOpacity style={styles.horizontalSubNavSelected}>
-              <Text>All</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.horizontalSubNav}>
-              <Text>Financial</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.horizontalSubNav}>
-              <Text>Academic</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.horizontalSubNav}>
-              <Text>Student Life</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.horizontalSubNav}>
-              <Text>Career</Text>
-            </TouchableOpacity>
-          </ScrollView>
+    <UserProvider>
+      <ScrollView>
+        {/* Display the horizontal sub-navigation bar on top of the posts */}
+        <View>
+          <Text style={styles.communityBigTitle}>Community</Text>
         </View>
-      </View>
-      {/* render the FlatList directly*/}
-      <View style={styles.container}>
-        <View style={styles.mainContainer}>
-          <FlatList
-            data={allPosts}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item }) => (
-              <View>
-                <IndividualPost
-                  title={item.title}
-                  content={item.content}
-                  timestamp={item.timestamp.toDate()}
-                  onPress={showPostDetails}
-                />
-                {/* Displays the upvotes/downvotes feature, the comment icon, and the save icon */}
-                <View style={styles.iconsOnPosts}>
-                  <TouchableOpacity style={styles.iconWrapper}>
-                    <Image
-                      style={styles.icons}
-                      source={require("../../../assets/images/comment.png")}
-                    />
-                    {/* <FontAwesome5 name="comment" size={24} color="black" /> */}
-                  </TouchableOpacity>
-                  <TouchableOpacity style={styles.iconWrapper}>
-                    <Feather name="bookmark" size={28} color="black" />
-                  </TouchableOpacity>
+        <View>
+          <View style={styles.horizontalSubNavMainContainer}>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+              <TouchableOpacity style={styles.horizontalSubNavSelected}>
+                <Text>All</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.horizontalSubNav}>
+                <Text>Financial</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.horizontalSubNav}>
+                <Text>Academic</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.horizontalSubNav}>
+                <Text>Student Life</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.horizontalSubNav}>
+                <Text>Career</Text>
+              </TouchableOpacity>
+            </ScrollView>
+          </View>
+        </View>
+        {/* render the FlatList directly*/}
+        <View style={styles.container}>
+          <View style={styles.mainContainer}>
+            <FlatList
+              data={allPosts}
+              keyExtractor={(item, index) => index.toString()}
+              renderItem={({ item }) => (
+                <View>
+                  <IndividualPost
+                    title={item.title}
+                    content={item.content}
+                    timestamp={item.timestamp.toDate()}
+                    onPress={showPostDetails}
+                  />
+                  {/* Displays the upvotes/downvotes feature, the comment icon, and the save icon */}
+                  <View style={styles.iconsOnPosts}>
+                    <TouchableOpacity style={styles.iconWrapper}>
+                      <Image
+                        style={styles.icons}
+                        source={require("../../../assets/images/comment.png")}
+                      />
+                      {/* <FontAwesome5 name="comment" size={24} color="black" /> */}
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.iconWrapper}>
+                      <Feather name="bookmark" size={28} color="black" />
+                    </TouchableOpacity>
+                  </View>
                 </View>
-              </View>
-            )}
-          />
+              )}
+            />
+          </View>
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </UserProvider>
   );
 }
 

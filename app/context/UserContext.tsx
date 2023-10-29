@@ -31,21 +31,28 @@ type UserContextType = {
     major: string;
     year: string;
   }) => void;
+  [Symbol.iterator]: () => Iterator<any>;
 };
+if (getApps() == null) {
+  const app = initializeApp();
+}
 
-// createz a new context object and
-const UserContext = createContext<UserContextType>({
+// Create an instance of UserContextType and assign it to a variable
+const userContextInstance: UserContextType = {
   user: { name: "", email: "", major: "", year: "" },
   setUser: () => {},
-});
-
+  [Symbol.iterator]: function* () {
+    yield this.user;
+    yield this.setUser;
+  },
+};
+const UserContext = createContext(userContextInstance);
 const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const auth = getAuth();
   const Currentuser = auth.currentUser;
   const db = getFirestore();
 
   const [userID, setUserID] = useState<any>();
-
   const [user, setUser] = useState({
     name: "",
     email: "",
@@ -53,39 +60,50 @@ const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     year: "",
   });
 
-  setUserID(Currentuser?.uid);
   useEffect(() => {
-    // Fetch user data from the "users" collection in Firebase
-    const fetchUser = async () => {
+    console.log("bboo");
+    console.log(Currentuser);
+    setUserID(Currentuser?.uid);
+  }, [Currentuser]); // Only run this effect once when the component mounts
+
+  // Fetch user data from the "users" collection in Firebase
+  useEffect(() => {
+    const fetchUser = async (): Promise<void> => {
       try {
         if (userID) {
+          // Add null check for userID
+          console.log("aaaaaa");
           const usersCollection = collection(db, "users");
-          const userInfo = await getDoc(userID);
-          console.log("nihao");
-          console.log(userInfo);
-          setUser(
-            userInfo.data() as {
-              name: string;
-              email: string;
-              major: string;
-              year: string;
-            }
-          );
-        } else {
-          console.log("no user");
-          setUser({ name: "", email: "", major: "", year: "" });
+          const userInfo = await getDoc(doc(db, "users", userID));
+          const userData = userInfo.data() as {
+            name: string;
+            email: string;
+            major: string;
+            year: string;
+          };
+          setUser(userData);
+          console.log(userData);
+          console.log(user);
         }
       } catch (error) {
         console.error("Error fetching user data:", error);
         setUser({ name: "", email: "", major: "", year: "" });
       }
     };
+    // Clean up the listener when the component unmounts
+    return (): void => {
+      fetchUser();
+    };
+  }, [userID]);
 
-    fetchUser();
-  }, []);
+  useEffect(() => {
+    console.log("aooo");
+    console.log(user);
+    //setUser1(user);
+  }, [user]);
 
   return (
-    <UserContext.Provider value={{ user, setUser }}>
+    <UserContext.Provider value={userContextInstance}>
       {children}
     </UserContext.Provider>
   );
