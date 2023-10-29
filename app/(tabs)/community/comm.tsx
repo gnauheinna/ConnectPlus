@@ -24,7 +24,7 @@ import { useRouter } from "expo-router";
 import { initializeApp, getApps } from "firebase/app";
 import { firebaseConfig } from "../../../firebase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { UserContext, UserProvider } from "../../context/UserContext";
+import { useUser } from "../../context/UserContext";
 
 type Post = {
   postId: string;
@@ -44,7 +44,7 @@ export default function CommunityScreen() {
 
   const [allPosts, setAllPosts] = useState<Post[]>([]);
   const [user1, setUser1] = useState<any>();
-  const [user, setUser] = useContext(UserContext);
+  const { user, setUser } = useUser();
 
   useEffect(() => {
     console.log("nihaooo");
@@ -77,67 +77,65 @@ export default function CommunityScreen() {
   }, [user]);
 
   return (
-    <UserProvider>
-      <ScrollView>
-        {/* Display the horizontal sub-navigation bar on top of the posts */}
-        <View>
-          <Text style={styles.communityBigTitle}>Community</Text>
+    <ScrollView>
+      {/* Display the horizontal sub-navigation bar on top of the posts */}
+      <View>
+        <Text style={styles.communityBigTitle}>Community</Text>
+      </View>
+      <View>
+        <View style={styles.horizontalSubNavMainContainer}>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            <TouchableOpacity style={styles.horizontalSubNavSelected}>
+              <Text>All</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.horizontalSubNav}>
+              <Text>Financial</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.horizontalSubNav}>
+              <Text>Academic</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.horizontalSubNav}>
+              <Text>Student Life</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.horizontalSubNav}>
+              <Text>Career</Text>
+            </TouchableOpacity>
+          </ScrollView>
         </View>
-        <View>
-          <View style={styles.horizontalSubNavMainContainer}>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              <TouchableOpacity style={styles.horizontalSubNavSelected}>
-                <Text>All</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.horizontalSubNav}>
-                <Text>Financial</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.horizontalSubNav}>
-                <Text>Academic</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.horizontalSubNav}>
-                <Text>Student Life</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.horizontalSubNav}>
-                <Text>Career</Text>
-              </TouchableOpacity>
-            </ScrollView>
-          </View>
-        </View>
-        {/* render the FlatList directly*/}
-        <View style={styles.container}>
-          <View style={styles.mainContainer}>
-            <FlatList
-              data={allPosts}
-              keyExtractor={(item, index) => index.toString()}
-              renderItem={({ item }) => (
-                <View>
-                  <IndividualPost
-                    title={item.title}
-                    content={item.content}
-                    timestamp={item.timestamp.toDate()}
-                    onPress={showPostDetails}
-                  />
-                  {/* Displays the upvotes/downvotes feature, the comment icon, and the save icon */}
-                  <View style={styles.iconsOnPosts}>
-                    <TouchableOpacity style={styles.iconWrapper}>
-                      <Image
-                        style={styles.icons}
-                        source={require("../../../assets/images/comment.png")}
-                      />
-                      {/* <FontAwesome5 name="comment" size={24} color="black" /> */}
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.iconWrapper}>
-                      <Feather name="bookmark" size={28} color="black" />
-                    </TouchableOpacity>
-                  </View>
+      </View>
+      {/* render the FlatList directly*/}
+      <View style={styles.container}>
+        <View style={styles.mainContainer}>
+          <FlatList
+            data={allPosts}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({ item }) => (
+              <View>
+                <IndividualPost
+                  title={item.title}
+                  content={item.content}
+                  timestamp={item.timestamp.toDate()}
+                  onPress={showPostDetails}
+                />
+                {/* Displays the upvotes/downvotes feature, the comment icon, and the save icon */}
+                <View style={styles.iconsOnPosts}>
+                  <TouchableOpacity style={styles.iconWrapper}>
+                    <Image
+                      style={styles.icons}
+                      source={require("../../../assets/images/comment.png")}
+                    />
+                    {/* <FontAwesome5 name="comment" size={24} color="black" /> */}
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles.iconWrapper}>
+                    <Feather name="bookmark" size={28} color="black" />
+                  </TouchableOpacity>
                 </View>
-              )}
-            />
-          </View>
+              </View>
+            )}
+          />
         </View>
-      </ScrollView>
-    </UserProvider>
+      </View>
+    </ScrollView>
   );
 }
 

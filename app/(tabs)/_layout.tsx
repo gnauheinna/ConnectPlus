@@ -7,7 +7,7 @@ import { AntDesign } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { useContext } from "react";
 import { AuthContext } from "../AuthContext";
-import { UserContext } from "../context/UserContext";
+import { useUser, UserProvider } from "../context/UserContext";
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
  */
@@ -21,83 +21,85 @@ function TabBarIcon(props: {
 export default function TabLayout() {
   const colorScheme = useColorScheme();
   const { isLoggedIn } = useContext(AuthContext);
-  const { user } = useContext(UserContext);
+  const { user } = useUser();
 
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
-      }}
-    >
-      {isLoggedIn && user && (
-        <Tabs.Screen
-          name="community" // Update the name to include the folder path
-          options={{
-            title: "Community",
-            tabBarIcon: ({ color }) => (
-              <Ionicons name="people" size={26} color="black" />
-            ),
-            headerRight: () => (
-              <Link href="/modal" asChild>
-                <Pressable>
-                  {({ pressed }) => (
-                    <FontAwesome
-                      name="info-circle"
-                      size={25}
-                      color={Colors[colorScheme ?? "light"].text}
-                      style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-                    />
-                  )}
-                </Pressable>
-              </Link>
-            ),
-          }}
-        />
-      )}
-      {isLoggedIn && (
-        <Tabs.Screen
-          name="resources"
-          options={{
-            title: "Resource",
-            tabBarIcon: ({ color }) => (
-              <AntDesign name="filetext1" size={24} color="black" />
-            ),
-          }}
-        />
-      )}
-      {isLoggedIn && (
-        <Tabs.Screen
-          name="post"
-          options={{
-            title: "Post",
-            tabBarIcon: ({ color }) => (
-              <AntDesign name="pluscircleo" size={24} color="black" />
-            ),
-          }}
-        />
-      )}
-      {isLoggedIn && (
-        <Tabs.Screen
-          name="messages"
-          options={{
-            title: "Messages",
-            tabBarIcon: ({ color }) => (
-              <AntDesign name="message1" size={24} color="black" />
-            ),
-          }}
-        />
-      )}
-      {isLoggedIn && (
-        <Tabs.Screen
-          name="profile"
-          options={{
-            title: "Profile",
-            tabBarIcon: ({ color }) => (
-              <AntDesign name="idcard" size={24} color="black" />
-            ),
-          }}
-        />
-      )}
-    </Tabs>
+    <UserProvider>
+      <Tabs
+        screenOptions={{
+          tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
+        }}
+      >
+        {isLoggedIn && user && (
+          <Tabs.Screen
+            name="community" // Update the name to include the folder path
+            options={{
+              title: "Community",
+              tabBarIcon: ({ color }) => (
+                <Ionicons name="people" size={26} color="black" />
+              ),
+              headerRight: () => (
+                <Link href="/modal" asChild>
+                  <Pressable>
+                    {({ pressed }) => (
+                      <FontAwesome
+                        name="info-circle"
+                        size={25}
+                        color={Colors[colorScheme ?? "light"].text}
+                        style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
+                      />
+                    )}
+                  </Pressable>
+                </Link>
+              ),
+            }}
+          />
+        )}
+        {isLoggedIn && (
+          <Tabs.Screen
+            name="resources"
+            options={{
+              title: "Resource",
+              tabBarIcon: ({ color }) => (
+                <AntDesign name="filetext1" size={24} color="black" />
+              ),
+            }}
+          />
+        )}
+        {isLoggedIn && (
+          <Tabs.Screen
+            name="post"
+            options={{
+              title: "Post",
+              tabBarIcon: ({ color }) => (
+                <AntDesign name="pluscircleo" size={24} color="black" />
+              ),
+            }}
+          />
+        )}
+        {isLoggedIn && (
+          <Tabs.Screen
+            name="messages"
+            options={{
+              title: "Messages",
+              tabBarIcon: ({ color }) => (
+                <AntDesign name="message1" size={24} color="black" />
+              ),
+            }}
+          />
+        )}
+        {isLoggedIn && (
+          <Tabs.Screen
+            name="profile"
+            options={{
+              title: "Profile",
+              tabBarIcon: ({ color }) => (
+                <AntDesign name="idcard" size={24} color="black" />
+              ),
+            }}
+          />
+        )}
+      </Tabs>
+    </UserProvider>
   );
 }
