@@ -1,7 +1,7 @@
 import { View, Text, Button, TextField } from "react-native-ui-lib";
 import React, { useState, useEffect, useContext } from "react";
 import { StyleSheet, TextInput, Pressable } from "react-native";
-import { Link, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import { TouchableOpacity } from "react-native";
 import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
@@ -22,7 +22,6 @@ import {
   addDoc,
 } from "firebase/firestore";
 import { CheckBox } from "react-native-elements";
-import { useNavigation } from "expo-router";
 import { AuthContext } from "./AuthContext";
 
 import { UserProvider } from "./context/UserContext";
@@ -52,8 +51,6 @@ export default function Login() {
       timestamp: serverTimestamp(),
       //name, major, year, interest
     };
-
-    const navigation = useNavigation();
 
     await addDoc(userCollection, newUser);
     setEmail("");

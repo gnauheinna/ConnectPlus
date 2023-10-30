@@ -35,6 +35,10 @@ const SignupForm = () => {
   const [year, setYear] = useState("");
   const [userID, setUserID] = useState("");
   const [user, setUser] = useState<User | null>(null);
+  const [academic, setAcademic] = useState(false);
+  const [financial, setFinancial] = useState(false);
+  const [studentLife, setStudentLife] = useState(false);
+  const [career, setCareer] = useState(false);
 
   const router = useRouter();
   const auth = getAuth();
@@ -47,6 +51,10 @@ const SignupForm = () => {
     name,
     major,
     year,
+    academic,
+    financial,
+    career,
+    studentLife,
   };
 
   //triggers Firebase Auth to create new user
