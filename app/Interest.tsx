@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { StyleSheet, View, Text, TextInput } from "react-native";
 import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
@@ -39,21 +39,33 @@ export default function interestScreen() {
     router.push("/profile");
   }
 
-  function AcademicChoosen() {
+  function AcademicChosen() {
     setAIsChecked(!AIsChecked);
   }
+  useEffect(() => {
+    console.log("Academic: ", AIsChecked);
+  }, [AIsChecked]);
 
-  function FinancialChoosen() {
+  function FinancialChosen() {
     setFIsChecked(!FIsChecked);
   }
+  useEffect(() => {
+    console.log("Financial: ", FIsChecked);
+  }, [FIsChecked]);
 
-  function CareerChoosen() {
+  function CareerChosen() {
     setCIsChecked(!CIsChecked);
   }
+  useEffect(() => {
+    console.log("Career: ", CIsChecked);
+  }, [CIsChecked]);
 
-  function StuLifeChoosen() {
+  function StuLifeChosen() {
     setSIsChecked(!SIsChecked);
   }
+  useEffect(() => {
+    console.log("Student Life: ", SIsChecked);
+  }, [SIsChecked]);
 
   return (
     <LinearGradient
@@ -62,50 +74,67 @@ export default function interestScreen() {
       colors={["#fff9e9", "#fff"]}
     >
       <View style={styles.mainContainer}>
-        <Text style={[styles.title]}>Last Step!</Text>
-        <Text style={[styles.subTitle]}>
-          Tell us more about you! What are your interest? (please select at
-          least one!)
-        </Text>
-        {/* Academic Button */}
+        <Text style={[styles.title]}>Last Steps</Text>
+        <Text style={[styles.subTitle]}>Tell us more about you! What are your interests? Please select at least one.</Text>
         <View style={styles.interestBoxContainer}>
-          <TouchableOpacity
-            style={styles.interestBox}
-            onPress={AcademicChoosen}
-          >
-            <TouchableOpacity style={styles.checkbox}>
-              <Image source={require("../assets/images/checkbox.png")} />
-            </TouchableOpacity>
+          
+          {/* Academic Button */}
+          {AIsChecked ? (
+          // Render this when AIsChecked is true
+          <TouchableOpacity style={styles.interestBoxSelected} onPress={AcademicChosen}>
+            <Image style={styles.interestIcons} source={require("../assets/images/interestIcons/academic.png")} />
             <Text style={styles.interestText}>Academics</Text>
           </TouchableOpacity>
+        ) : (
+          // Render this when AIsChecked is false
+          <TouchableOpacity style={styles.interestBox} onPress={AcademicChosen}>
+            <Image style={styles.interestIcons} source={require("../assets/images/interestIcons/academic.png")} />
+            <Text style={styles.interestText}>Academics</Text>
+          </TouchableOpacity>)}
+
           {/* Career Button */}
-          <TouchableOpacity style={styles.interestBox} onPress={CareerChoosen}>
+          {CIsChecked ? (
+          // Render this when CIsChecked is true
+          <TouchableOpacity style={styles.interestBoxSelected} onPress={CareerChosen}>
+            <Image style={styles.interestIcons} source={require("../assets/images/interestIcons/career.png")} />
             <Text style={styles.interestText}>Career</Text>
-            <TouchableOpacity style={styles.checkbox} onPress={CareerChoosen}>
-              <Image source={require("../assets/images/checkbox.png")} />
-            </TouchableOpacity>
           </TouchableOpacity>
+        ) : (
+          // Render this when CIsChecked is false
+          <TouchableOpacity style={styles.interestBox} onPress={CareerChosen}>
+            <Image style={styles.interestIcons} source={require("../assets/images/interestIcons/career.png")} />
+            <Text style={styles.interestText}>Career</Text>
+          </TouchableOpacity>)}
+
           {/* Financial Button */}
-          <TouchableOpacity
-            style={styles.interestBox}
-            onPress={FinancialChoosen}
-          >
+          {FIsChecked ? (
+          // Render this when FIsChecked is true
+          <TouchableOpacity style={styles.interestBoxSelected} onPress={FinancialChosen}>
+            <Image style={styles.interestIcons} source={require("../assets/images/interestIcons/financial.png")} />
             <Text style={styles.interestText}>Financial</Text>
-            <TouchableOpacity
-              style={styles.checkbox}
-              onPress={FinancialChoosen}
-            >
-              <Image source={require("../assets/images/checkbox.png")} />
-            </TouchableOpacity>
           </TouchableOpacity>
+        ) : (
+          // Render this when FIsChecked is false
+          <TouchableOpacity style={styles.interestBox} onPress={FinancialChosen}>
+            <Image style={styles.interestIcons} source={require("../assets/images/interestIcons/financial.png")} />
+            <Text style={styles.interestText}>Financial</Text>
+          </TouchableOpacity>)}
+
           {/* Student Life Button */}
-          <TouchableOpacity style={styles.interestBox} onPress={StuLifeChoosen}>
+          {SIsChecked ? (
+          // Render this when SIsChecked is true
+          <TouchableOpacity style={styles.interestBoxSelected} onPress={StuLifeChosen}>
+            <Image style={styles.interestIcons} source={require("../assets/images/interestIcons/stulife.png")} />
             <Text style={styles.interestText}>Student Life</Text>
-            <TouchableOpacity style={styles.checkbox} onPress={StuLifeChoosen}>
-              <Image source={require("../assets/images/checkbox.png")} />
-            </TouchableOpacity>
           </TouchableOpacity>
+        ) : (
+          // Render this when SIsChecked is false
+          <TouchableOpacity style={styles.interestBox} onPress={StuLifeChosen}>
+            <Image style={styles.interestIcons} source={require("../assets/images/interestIcons/stulife.png")} />
+            <Text style={styles.interestText}>Student Life</Text>
+          </TouchableOpacity>)}
         </View>
+
         {/* Done Button */}
         <TouchableOpacity style={styles.doneButton} onPress={nextPage}>
           <Text style={styles.doneButtonText}>Done</Text>
@@ -144,20 +173,39 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "space-between",
   },
-  interestBox: {
-    backgroundColor: "#FFC940",
+  interestBoxSelected: {
     width: 145,
     height: 120,
     marginBottom: 20,
+    borderWidth: 1.5,
     borderRadius: 10,
+    borderColor: "#FFC940",
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: "#FFEAB6",
+  },
+  interestBox: {
+    width: 145,
+    height: 120,
+    marginBottom: 20,
+    borderWidth: 1.5,
+    borderRadius: 10,
+    borderColor: "#453B4F",
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  interestIcons:{
+    width: 70,
+    height: 70,
+    marginBottom: 10,
+    resizeMode: "contain",
   },
   interestText: {
-    color: "white",
-    fontSize: 18,
-    fontWeight: "bold",
-    position: "absolute",
-    bottom: 10,
-    left: 10,
+    color: "#453B4F",
+    fontSize: 16,
+    fontWeight: "400",
+    justifyContent: "center",
+    alignItems: "center",
   },
   checkbox: {
     borderRadius: 30,

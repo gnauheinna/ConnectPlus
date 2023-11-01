@@ -13,8 +13,8 @@ interface IndividualCommentProps {
   // profile picture
   content: string;
   // timestamp: Date;
-  // onPress?: () => void;
 }
+
 
 const IndividualComment: React.FC<IndividualCommentProps> = ({ username, intro, content }) => {
     return (
@@ -70,8 +70,8 @@ const styles = StyleSheet.create({
       borderLeftColor: "transparent",
       borderRightColor: "transparent",
       paddingBottom: 0, 
-      marginLeft: 40,
-      marginRight: 40,
+      // marginLeft: 40,
+      // marginRight: 40,
     },
     userContainer:{
       marginTop: 10,

@@ -51,10 +51,6 @@ export default function CommunityScreen() {
     //setUser1(user);
   }, [user]);
 
-  function showPostDetails() {
-    router.push("../../postDetails");
-  }
-
   useEffect(() => {
     // Define the fetchData function here to use the state and props
     const loadPosts = async () => {
