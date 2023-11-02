@@ -27,31 +27,36 @@ const IndividualPost: React.FC<IndividualPostProps> = ({ name, intro, title, con
         <View style={{...styles.itemContainer}}>
           {/* Display the user's profile image, name, and intro on the top */}
           <View style={styles.userContainer}>
-            <Image style={styles.profileImg} source={require("../assets/images/profileImg.png")} />
-            <View style={styles.userInfoContainer}>
-              <Text style={styles.userName}>{name}</Text>
-              <Text style={styles.userIntro}>{intro}</Text>
+            <View style={styles.userInfo}>
+              <Image style={styles.profileImg} source={require("../assets/images/profileImg.png")} />
+              <View style={styles.userNameAndIntro}>
+                <Text style={styles.userName}>{name}</Text>
+                <Text style={styles.userIntro}>{intro}</Text>
+              </View>
+            </View>
+            {/* Display the tag that is associated with the post to the right of the user's information */}
+            <View style={styles.tagContainer}>
+              <Text style={styles.tagText}>Academic</Text>
             </View>
           </View>
 
           <View style={styles.titleTimestampContainer}>
           {/* Display the title of the post */}
             <Text style={styles.title}>{title}</Text>
+          </View>
+          
+          {/* Display the content of the post */}
+          <Text style={styles.content}>{content}</Text>
 
-            {/* Display the timestamp of the post */}
-            <Text style={styles.timestamp}>
+          {/* Display the timestamp of the post */}
+          <Text style={styles.timestamp}>
               {timestamp.toLocaleString('en-US', {
-                year: 'numeric',
-                month: 'numeric',
+                month: 'long',
                 day: 'numeric',
                 hour: 'numeric',
                 minute: 'numeric',
               })}
             </Text>
-          </View>
-          
-          {/* Display the content of the post */}
-          <Text style={styles.content}>{content}</Text>
         </View>
       </TouchableOpacity>
     );
@@ -79,22 +84,26 @@ const styles = StyleSheet.create({
     userContainer:{
       flexDirection: "row",
       marginBottom: 20,
+      justifyContent: "space-between",
     },
     profileImg: {
       width: 48,
       height: 48,
       marginRight: 10,
     },
-    userInfoContainer:{
+    userInfo: {
+      flexDirection: "row",
+    },
+    userNameAndIntro:{
       justifyContent: "center",
     },
     userName:{
-      fontSize: 18,
+      fontSize: 16,
       fontWeight: "500",
       marginBottom: 5,
     },
     userIntro:{
-      fontSize: 14,
+      fontSize: 12,
       color: "#888888",
     },
     title: {
@@ -107,16 +116,28 @@ const styles = StyleSheet.create({
       flexDirection: "row",
       alignItems: "center",
       justifyContent: "space-between",
-      marginBottom: 30,
+      marginBottom: 10,
     },
     timestamp: {
       fontSize: 12,
       color: "gray",
+      marginBottom: 10,
     },
     content: {
       fontSize: 14,
       textAlign: "left",
-      marginBottom: 20,
+      marginBottom: 10,
+    },
+    tagContainer: {
+      backgroundColor: "#FFD465",
+      width: 100,
+      borderRadius: 25,
+      paddingVertical: 12,
+      alignSelf: "flex-end",
+    },
+    tagText: {
+      fontSize: 14,
+      alignSelf: "center",
     },
     iconsOnPosts: {
       flexDirection: 'row', 
