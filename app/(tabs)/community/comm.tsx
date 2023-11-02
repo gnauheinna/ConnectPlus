@@ -103,16 +103,19 @@ export default function CommunityScreen() {
                   name={item.userName}
                   intro={"hi! I'm annie"}
                 />
-                {/* Displays the the comment icon and the save icon */}
                 <View style={styles.iconsOnPosts}>
-                  <TouchableOpacity style={styles.iconWrapper}>
-                    <Image
-                      style={styles.icons}
-                      source={require("../../../assets/images/comment.png")}
-                    />
+                  {/* Displays the upvote/downvote system */}
+                  <TouchableOpacity style={styles.voteSystemContainer}>
+                    <View style={styles.voteIconsContainer}>
+                      <Image style={styles.upvoteIcon} source={require("../../../assets/images/upvote.png")} />
+                      <Text style={styles.voteNumber}>42</Text>
+                      <View style={styles.verticalLine} />
+                      <Image style={styles.downvoteIcon} source={require("../../../assets/images/downvote.png")} />
+                    </View>
                   </TouchableOpacity>
+                  {/* Displays the the comment icon */}
                   <TouchableOpacity style={styles.iconWrapper}>
-                    <Feather name="bookmark" size={28} color="black" />
+                    <Image style={styles.icons} source={require("../../../assets/images/comment.png")}/>
                   </TouchableOpacity>
                 </View>
               </View>
@@ -182,9 +185,37 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#FFD465",
   },
+  voteSystemContainer:{
+    marginLeft: 16,
+    borderWidth: 1.5,
+    backgroundColor: "white",
+    borderColor: "#9286B1",
+    width: 120,
+    height: 35,
+    borderRadius: 20,
+    resizeMode: "contain",
+    paddingLeft: 15,
+    paddingRight: 15,
+  },
+  voteIconsContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "transparent",
+  },
+  voteNumber: {
+    marginLeft: 8,
+    fontWeight: "400",
+  },
+  verticalLine: {
+    width: 1.5,
+    height: 33,
+    backgroundColor: "#9286B1",
+    marginRight: 8,
+    marginLeft: 8,
+  },
   iconsOnPosts: {
     flexDirection: "row",
-    justifyContent: "flex-end",
+    justifyContent: "space-between",
     alignItems: "center",
     backgroundColor: "#E6DBF3",
     borderBottomLeftRadius: 12,
@@ -196,6 +227,16 @@ const styles = StyleSheet.create({
     marginHorizontal: 8,
     paddingTop: 10,
     paddingBottom: 10,
+  },
+  upvoteIcon:{
+    width: 22,
+    height: 22,
+    resizeMode: "contain",
+  },
+  downvoteIcon: {
+    width: 22,
+    height: 22,
+    resizeMode: "contain",
   },
   icons: {
     width: 28,
@@ -211,7 +252,7 @@ const styles = StyleSheet.create({
   postBtn: {
     width: 50,
     height: 50,
-    backgroundColor: "#FFD465",
+    backgroundColor: "#3A3340",
     padding: 10,
     borderRadius: 50,
     justifyContent: "center",
@@ -219,6 +260,6 @@ const styles = StyleSheet.create({
   },
   postBtnText: {
     color: "white",
-    fontSize: 34,
+    fontSize: 32,
   },
 });
