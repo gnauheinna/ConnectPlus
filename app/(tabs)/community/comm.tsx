@@ -71,7 +71,7 @@ export default function CommunityScreen() {
   }, [user]);
 
   return (
-    <ScrollView>
+    <View style={styles.outermostContainer}>
       {/* Display the horizontal sub-navigation bar on top of the posts */}
       <View>
         <Text style={styles.communityBigTitle}>Community</Text>
@@ -102,6 +102,7 @@ export default function CommunityScreen() {
         <View style={styles.mainContainer}>
           <FlatList
             data={allPosts}
+            showsVerticalScrollIndicator={false}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item }) => (
               <View>
@@ -110,29 +111,33 @@ export default function CommunityScreen() {
                   content={item.content}
                   timestamp={item.timestamp.toDate()}
                 />
-                {/* Displays the upvotes/downvotes feature, the comment icon, and the save icon */}
+                {/* Displays the the comment icon and the save icon */}
                 <View style={styles.iconsOnPosts}>
                   <TouchableOpacity style={styles.iconWrapper}>
-                    <Image
-                      style={styles.icons}
-                      source={require("../../../assets/images/comment.png")}
-                    />
-                    {/* <FontAwesome5 name="comment" size={24} color="black" /> */}
+                    <Image style={styles.icons} source={require("../../../assets/images/comment.png")}/>
                   </TouchableOpacity>
                   <TouchableOpacity style={styles.iconWrapper}>
                     <Feather name="bookmark" size={28} color="black" />
                   </TouchableOpacity>
                 </View>
-              </View>
-            )}
-          />
+              </View>)}/>
         </View>
+        {/* Post button */}
+        <View style={styles.postBtnContainer}>
+          <TouchableOpacity style={styles.postBtn}>
+            <Text style={styles.postBtnText}>+</Text>
+          </TouchableOpacity>
       </View>
-    </ScrollView>
+      </View>
+    </View>
+    
   );
 }
 
 const styles = StyleSheet.create({
+  outermostContainer:{
+    flex: 1,
+  },
   mainContainer: {
     flex: 1,
     marginLeft: 20,
@@ -200,5 +205,24 @@ const styles = StyleSheet.create({
     width: 28,
     height: 28,
     resizeMode: "contain",
+  },
+  postBtnContainer:{
+    position: 'absolute',
+    backgroundColor: 'transparent',
+    bottom: 20,
+    right: 20,
+  },
+  postBtn: {
+    width: 50,
+    height: 50,
+    backgroundColor: '#FFD465',
+    padding: 10,
+    borderRadius: 50,
+    justifyContent: 'center', 
+    alignItems: 'center',
+  },
+  postBtnText: {
+    color: 'white',
+    fontSize: 34,
   },
 });
