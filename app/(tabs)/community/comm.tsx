@@ -53,6 +53,7 @@ export default function CommunityScreen() {
         querySnapshot.forEach((doc) => {
           postData.push(doc.data() as Post);
         });
+        postData.sort((a, b) => b.timestamp.toMillis() - a.timestamp.toMillis());
         setAllPosts(postData);
       } else {
         console.log("User not logged in");

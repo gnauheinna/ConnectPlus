@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Button, StyleSheet, TextInput } from "react-native";
 import EditScreenInfo from "../components/EditScreenInfo";
 import { Text, View } from "../components/Themed";
@@ -6,15 +6,22 @@ import { getApps } from "firebase/app";
 import { getFirestore, collection, serverTimestamp, addDoc } from "firebase/firestore";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useRouter } from "expo-router";
+import { useUser } from "./context/UserContext";
 
 const postQuestions = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const { user, setUser } = useUser();
   // const router = useRouter();
   // function directToComm() {
   //   router.push("/community/comm");
   // }
+
+  useEffect(() => {
+    console.log("post: ");
+    console.log(user);
+  }, [user]);
 
   const handlePost = async () => {
     // Get a reference to the Firebase database
@@ -25,7 +32,7 @@ const postQuestions = () => {
       title,
       content,
       timestamp: serverTimestamp(),
-      // user ID
+      fullName: user.name,
     };
     // Push the new post to the database
     await addDoc(postsCollection, newPost);

@@ -10,12 +10,14 @@ import { useRouter } from "expo-router";
 // Defines the properties that the IndividualPost component expects: title, content and timestamp
 interface IndividualPostProps {
   // postId: string;
+  name: string;
+  intro: string;
   title: string;
   content: string;
   timestamp: Date;
 }
 
-const IndividualPost: React.FC<IndividualPostProps> = ({ title, content, timestamp }) => {
+const IndividualPost: React.FC<IndividualPostProps> = ({ name, intro, title, content, timestamp }) => {
     const router = useRouter();
     function viewPostDetails() {
       router.push("/postdetails");
@@ -27,8 +29,8 @@ const IndividualPost: React.FC<IndividualPostProps> = ({ title, content, timesta
           <View style={styles.userContainer}>
             <Image style={styles.profileImg} source={require("../assets/images/profileImg.png")} />
             <View style={styles.userInfoContainer}>
-              <Text style={styles.userName}>Name</Text>
-              <Text style={styles.userIntro}>Intro</Text>
+              <Text style={styles.userName}>{name}</Text>
+              <Text style={styles.userIntro}>{intro}</Text>
             </View>
           </View>
 
