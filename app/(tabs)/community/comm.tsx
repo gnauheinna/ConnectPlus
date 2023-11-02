@@ -1,20 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
-import {
-  StyleSheet,
-  TextInput,
-  FlatList,
-  ScrollView,
-  Image,
-} from "react-native";
+import { StyleSheet, TextInput, FlatList, ScrollView, Image } from "react-native";
 import { Text, View } from "../../../components/Themed";
-import {
-  getFirestore,
-  collection,
-  getDocs,
-  Timestamp,
-  doc,
-  updateDoc,
-} from "firebase/firestore";
+import { getFirestore, collection, getDocs, Timestamp, doc, updateDoc,} from "firebase/firestore";
 import { AuthErrorCodes } from "firebase/auth";
 import { FontAwesome5, Feather } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -25,6 +12,7 @@ import { initializeApp, getApps } from "firebase/app";
 import { firebaseConfig } from "../../../firebase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useUser } from "../../context/UserContext";
+import postQuestions from "../../post"
 
 type Post = {
   postId: string;
@@ -44,6 +32,10 @@ export default function CommunityScreen() {
 
   const [allPosts, setAllPosts] = useState<Post[]>([]);
   const { user, setUser } = useUser();
+
+  function directToPost() {
+    router.push("/post");
+  }
 
   useEffect(() => {
     console.log("comm: user");
@@ -124,13 +116,12 @@ export default function CommunityScreen() {
         </View>
         {/* Post button */}
         <View style={styles.postBtnContainer}>
-          <TouchableOpacity style={styles.postBtn}>
+          <TouchableOpacity style={styles.postBtn} onPress={directToPost}>
             <Text style={styles.postBtnText}>+</Text>
           </TouchableOpacity>
       </View>
       </View>
     </View>
-    
   );
 }
 

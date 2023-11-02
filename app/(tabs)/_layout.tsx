@@ -66,7 +66,7 @@ export default function TabLayout() {
             }}
           />
         )}
-        {isLoggedIn && (
+        {/* {isLoggedIn && (
           <Tabs.Screen
             name="post"
             options={{
@@ -76,7 +76,7 @@ export default function TabLayout() {
               ),
             }}
           />
-        )}
+        )} */}
         {isLoggedIn && (
           <Tabs.Screen
             name="messages"

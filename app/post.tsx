@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Button, StyleSheet, TextInput } from "react-native";
-import EditScreenInfo from "../../components/EditScreenInfo";
-import { Text, View } from "../../components/Themed";
+import EditScreenInfo from "../components/EditScreenInfo";
+import { Text, View } from "../components/Themed";
 import { getApps } from "firebase/app";
 import { getFirestore, collection, serverTimestamp, addDoc } from "firebase/firestore";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
-export default function PostScreen() {
+const postQuestions = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
@@ -17,7 +17,6 @@ export default function PostScreen() {
     const postsCollection = collection(db, "posts");
     // Create a new post object
     const newPost = {
-      // postId
       title,
       content,
       timestamp: serverTimestamp(),
@@ -80,6 +79,8 @@ export default function PostScreen() {
     </View>
   );
 }
+
+export default postQuestions;
 
 const styles = StyleSheet.create({
   container: {
