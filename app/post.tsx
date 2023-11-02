@@ -5,11 +5,16 @@ import { Text, View } from "../components/Themed";
 import { getApps } from "firebase/app";
 import { getFirestore, collection, serverTimestamp, addDoc } from "firebase/firestore";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { useRouter } from "expo-router";
 
 const postQuestions = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  // const router = useRouter();
+  // function directToComm() {
+  //   router.push("/community/comm");
+  // }
 
   const handlePost = async () => {
     // Get a reference to the Firebase database
@@ -33,6 +38,8 @@ const postQuestions = () => {
     setTimeout(() => {
       setShowSuccessMessage(false);
     }, 3000);
+    // Direct back to the community page
+    // directToComm();
   };
 
   return (
@@ -68,12 +75,6 @@ const postQuestions = () => {
         <TouchableOpacity style={styles.addTagBtn}>
             <Text style={styles.addTagText}>Add a Tag</Text>
         </TouchableOpacity>
-
-        {/* Display a success message after clicking the Post button */}
-        <View>
-          {showSuccessMessage && (
-              <Text style={styles.successMessage}>Post successful!</Text>)}
-        </View>
 
       </View>
     </View>
