@@ -30,6 +30,17 @@ export default function TabLayout() {
           tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
         }}
       >
+        {isLoggedIn && (
+          <Tabs.Screen
+            name="journeys"
+            options={{
+              title: "Journeys",
+              tabBarIcon: ({ color }) => (
+                <AntDesign name="filetext1" size={24} color="black" />
+              ),
+            }}
+          />
+        )}
         {isLoggedIn && user && (
           <Tabs.Screen
             name="community" // Update the name to include the folder path
@@ -41,42 +52,10 @@ export default function TabLayout() {
               headerRight: () => (
                 <Link href="/modal" asChild>
                   <Pressable>
-                    {({ pressed }) => (
-                      <FontAwesome
-                        name="info-circle"
-                        size={25}
-                        color={Colors[colorScheme ?? "light"].text}
-                        style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-                      />
-                    )}
+                    {({ pressed }) => (<FontAwesome name="info-circle" size={25} color={Colors[colorScheme ?? "light"].text} style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }} />)}
                   </Pressable>
-                </Link>
-              ),
-            }}
-          />
+                </Link>),}}/>
         )}
-        {isLoggedIn && (
-          <Tabs.Screen
-            name="resources"
-            options={{
-              title: "Resource",
-              tabBarIcon: ({ color }) => (
-                <AntDesign name="filetext1" size={24} color="black" />
-              ),
-            }}
-          />
-        )}
-        {/* {isLoggedIn && (
-          <Tabs.Screen
-            name="post"
-            options={{
-              title: "Post",
-              tabBarIcon: ({ color }) => (
-                <AntDesign name="pluscircleo" size={24} color="black" />
-              ),
-            }}
-          />
-        )} */}
         {isLoggedIn && (
           <Tabs.Screen
             name="messages"
