@@ -39,10 +39,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       {/* <View style={styles.profileInfoContainer}> */}
-      <LinearGradient
-        style={styles.profileInfoContainer}
-        locations={[0, 1]}
-        colors={["#fff", "#ffe59a"]}
+      <LinearGradient style={styles.profileInfoContainer} locations={[0, 1]} colors={["#fff", "#ffe59a"]}
       >
         {/* Display the user's profile picture */}
         <View style={styles.profileImg}>
@@ -109,17 +106,15 @@ const styles = StyleSheet.create({
   },
   profileInfoContainer: {
     flex: 1,
-    padding: 0,
-    marginBottom: 0,
     height: "100%",
     width: "100%",
+    justifyContent: "center",
+    alignSelf: "center",
+    paddingVertical: 40,
   },
   profileImg: {
     flexDirection: "row",
     justifyContent: "center",
-    marginRight: -70,
-    marginTop: 100,
-    marginHorizontal: -61,
   },
   profileImage: {
     width: 120,
@@ -160,7 +155,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     alignSelf: "center",
-    marginBottom: 30,
   },
   individualInterest:{
     marginRight: 10,
