@@ -54,11 +54,12 @@ export default function CommunityScreen() {
   useEffect(() => {
     // Define the fetchData function here to use the state and props
     const loadPosts = async () => {
+      console.log("kkkk");
       setAllPosts(posts);
     };
     // Call the fetchData function when the component mounts
     loadPosts();
-  }, []);
+  }, [posts]);
 
   return (
     <View style={styles.outermostContainer}>
