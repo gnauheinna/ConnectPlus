@@ -100,7 +100,7 @@ export default function CommunityScreen() {
                   title={item.title}
                   content={item.content}
                   timestamp={item.timestamp.toDate()}
-                  name={"annie"}
+                  name={item.userName}
                   intro={"hi! I'm annie"}
                 />
                 {/* Displays the the comment icon and the save icon */}

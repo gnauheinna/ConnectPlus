@@ -3,23 +3,31 @@ import { Button, StyleSheet, TextInput } from "react-native";
 import EditScreenInfo from "../components/EditScreenInfo";
 import { Text, View } from "../components/Themed";
 import { getApps } from "firebase/app";
-import { getFirestore, collection, serverTimestamp, addDoc } from "firebase/firestore";
+import {
+  getFirestore,
+  collection,
+  serverTimestamp,
+  addDoc,
+  updateDoc,
+} from "firebase/firestore";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useRouter } from "expo-router";
 import { useUser } from "./context/UserContext";
 
-const postQuestions = () => {
+export default function postQuestions() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const { user, setUser } = useUser();
+  const [userName, setUserName] = useState("");
+  const [userID, setUserID] = useState("");
   // const router = useRouter();
   // function directToComm() {
   //   router.push("/community/comm");
   // }
 
   useEffect(() => {
-    console.log("post: ");
+    console.log("post user: ");
     console.log(user);
   }, [user]);
 
@@ -32,13 +40,22 @@ const postQuestions = () => {
       title,
       content,
       timestamp: serverTimestamp(),
-      fullName: user.name,
+      userName: user.name,
+      userID: user.userID,
     };
+
+    setUserName(user.name);
+    setUserID(user.userID);
     // Push the new post to the database
-    await addDoc(postsCollection, newPost);
+    const newPostRef = await addDoc(postsCollection, newPost);
+    const postID = newPostRef.id;
+    // Update the document with the postID field
+    await updateDoc(newPostRef, { postID });
     // Clear the input fields
-    setTitle('');
-    setContent('');
+    setTitle("");
+    setContent("");
+    setUserName("");
+    setUserID("");
     // Show the success message
     setShowSuccessMessage(true);
     // Hide the success message after a few seconds
@@ -50,12 +67,11 @@ const postQuestions = () => {
   };
 
   return (
-    <View style={{backgroundColor: "white"}}>
+    <View style={{ backgroundColor: "white" }}>
       <View style={styles.mainContainer}>
-
         {/* Post Button */}
         <TouchableOpacity style={styles.postBtn} onPress={handlePost}>
-            <Text style={styles.postText}>Post</Text>
+          <Text style={styles.postText}>Post</Text>
         </TouchableOpacity>
 
         {/* Enter the title of the post */}
@@ -69,26 +85,23 @@ const postQuestions = () => {
 
         {/* Enter the content of the post */}
         <TextInput
-          style={[styles.inputContent,]}
+          style={[styles.inputContent]}
           placeholder="body text"
           placeholderTextColor="#888888"
           value={content}
           onChangeText={(text) => setContent(text)}
           multiline={true}
-          numberOfLines={10} 
+          numberOfLines={10}
         />
 
         {/* Add a tag for this post: Financial, Academics, Student Life, or Career */}
         <TouchableOpacity style={styles.addTagBtn}>
-            <Text style={styles.addTagText}>Add a Tag</Text>
+          <Text style={styles.addTagText}>Add a Tag</Text>
         </TouchableOpacity>
-
       </View>
     </View>
   );
 }
-
-export default postQuestions;
 
 const styles = StyleSheet.create({
   container: {
@@ -140,9 +153,9 @@ const styles = StyleSheet.create({
   },
   postText: {
     fontSize: 18,
-    alignSelf: 'center',
+    alignSelf: "center",
   },
-  addTagBtn:{
+  addTagBtn: {
     borderColor: "#FFC940",
     borderWidth: 1.5,
     paddingVertical: 10,
@@ -158,11 +171,11 @@ const styles = StyleSheet.create({
   addTagText: {
     fontSize: 18,
     color: "#FFC940",
-    alignSelf: 'center',
+    alignSelf: "center",
     fontWeight: "500",
   },
   successMessage: {
-    color: "green", 
+    color: "green",
     marginTop: 10,
     fontSize: 16,
   },

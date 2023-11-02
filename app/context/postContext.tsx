@@ -25,6 +25,7 @@ export type Post = {
   postID: string;
   tag: string;
   timestamp: Timestamp;
+  userName: string;
 };
 
 interface PostContextValue {
