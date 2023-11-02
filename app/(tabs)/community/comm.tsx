@@ -54,7 +54,6 @@ export default function CommunityScreen() {
   useEffect(() => {
     // Define the fetchData function here to use the state and props
     const loadPosts = async () => {
-      console.log("kkkk");
       setAllPosts(posts);
     };
     // Call the fetchData function when the component mounts
@@ -111,6 +110,9 @@ export default function CommunityScreen() {
                       style={styles.icons}
                       source={require("../../../assets/images/comment.png")}
                     />
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles.iconWrapper}>
+                    <Feather name="bookmark" size={28} color="black" />
                   </TouchableOpacity>
                 </View>
               </View>
@@ -209,7 +211,7 @@ const styles = StyleSheet.create({
   postBtn: {
     width: 50,
     height: 50,
-    backgroundColor: "#3A3340",
+    backgroundColor: "#FFD465",
     padding: 10,
     borderRadius: 50,
     justifyContent: "center",
