@@ -77,7 +77,7 @@ export default function interestScreen() {
         <Text style={[styles.title]}>Last Steps</Text>
         <Text style={[styles.subTitle]}>Tell us more about you! What are your interests? Please select at least one.</Text>
         <View style={styles.interestBoxContainer}>
-          
+
           {/* Academic Button */}
           {AIsChecked ? (
           // Render this when AIsChecked is true
@@ -136,9 +136,16 @@ export default function interestScreen() {
         </View>
 
         {/* Done Button */}
+        {!AIsChecked && !FIsChecked && !SIsChecked && !CIsChecked ? (
+          // Render this when none of the interests is selected
+          <TouchableOpacity style={styles.doneButtonDisabled} onPress={nextPage}>
+          <Text style={styles.doneButtonTextDisabled}>Done</Text>
+        </TouchableOpacity>
+        ) : (
         <TouchableOpacity style={styles.doneButton} onPress={nextPage}>
           <Text style={styles.doneButtonText}>Done</Text>
-        </TouchableOpacity>
+        </TouchableOpacity>)}
+
       </View>
     </LinearGradient>
   );
@@ -209,6 +216,21 @@ const styles = StyleSheet.create({
   },
   checkbox: {
     borderRadius: 30,
+  },
+  doneButtonDisabled:{
+    backgroundColor: "#DADADA",
+    marginTop: 40,
+    marginBottom: 40,
+    width: 240,
+    borderRadius: 25,
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    alignSelf: "center",
+  },
+  doneButtonTextDisabled:{
+    color: "#9B9B9B",
+    fontSize: 18,
+    alignSelf: "center",
   },
   doneButton: {
     backgroundColor: "#FFC940",
