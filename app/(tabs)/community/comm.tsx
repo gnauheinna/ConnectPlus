@@ -111,9 +111,6 @@ export default function CommunityScreen() {
                       source={require("../../../assets/images/comment.png")}
                     />
                   </TouchableOpacity>
-                  <TouchableOpacity style={styles.iconWrapper}>
-                    <Feather name="bookmark" size={28} color="black" />
-                  </TouchableOpacity>
                 </View>
               </View>
             )}
@@ -211,7 +208,7 @@ const styles = StyleSheet.create({
   postBtn: {
     width: 50,
     height: 50,
-    backgroundColor: "#FFD465",
+    backgroundColor: "#3A3340",
     padding: 10,
     borderRadius: 50,
     justifyContent: "center",
