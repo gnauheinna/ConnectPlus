@@ -21,11 +21,19 @@ export default function App() {
   const [name, setName] = useState("");
   const [year, setYear] = useState("");
   const [major, setMajor] = useState("");
+  const [academic, setAcademic] = useState(false);
+  const [career, setCareer] = useState(false);
+  const [financial, setFinancial] = useState(false);
+  const [studentLife, setStudentLife] = useState(false);
 
   useEffect(() => {
     setName(user.name);
     setMajor(user.major);
     setYear(user.year);
+    setAcademic(user.academic);
+    setCareer(user.career);
+    setFinancial(user.financial);
+    setStudentLife(user.studentLife);
   }, [user]);
 
   return (
@@ -56,7 +64,29 @@ export default function App() {
             Class of {year}, {major} Major
           </Text>
         </View>
+
+          {/* Display the user's interests */}
+        <TouchableOpacity style={styles.interestsContainer}>
+            {user.academic && (
+              <View style={styles.individualInterest}>
+                <Text style={styles.interestText}>Academic</Text>
+              </View>)}
+            {user.career && (
+              <View style={styles.individualInterest}>
+                <Text style={styles.interestText}>Career</Text>
+              </View>)}
+            {user.financial && (
+              <View style={styles.individualInterest}>
+                <Text style={styles.interestText}>Financial</Text>
+              </View>)}
+            {user.studentLife && (
+              <View style={styles.individualInterest}>
+                <Text style={styles.interestText}>Student Life</Text>
+              </View>)}
+        </TouchableOpacity>
+
       </LinearGradient>
+
 
       {/* Display Posts and Mentions */}
       <View style={styles.horizontalBar}>
@@ -84,11 +114,6 @@ const styles = StyleSheet.create({
     height: "100%",
     width: "100%",
   },
-  // titleBar:{
-  //     justifyContent:"space-between",
-  //     marginTop:24,
-  //     marginHorizontal:16,
-  // },
   profileImg: {
     flexDirection: "row",
     justifyContent: "center",
@@ -124,24 +149,35 @@ const styles = StyleSheet.create({
   userIntro: {
     fontSize: 16,
     color: "#000000",
-    marginBottom: 30,
+    marginBottom: 10,
   },
   infoContainer: {
     alignSelf: "center",
     alignItems: "center",
     marginTop: 16,
   },
+  interestsContainer:{
+    alignItems: "center",
+    flexDirection: "row",
+    alignSelf: "center",
+    marginBottom: 30,
+  },
+  individualInterest:{
+    marginRight: 10,
+    backgroundColor: "#F6F5F0",
+    borderRadius: 25,
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+  },
+  interestText:{
+    color: "#3A3340",
+    fontWeight: "500",
+  },
   horizontalBar: {
     flexDirection: "row",
     justifyContent: "space-evenly",
     marginTop: 20,
   },
-  // horizontalBarOptions: {
-  //     padding: 10,
-  //     borderBottomColor: "black",
-  //     borderBottomWidth: 2,
-  //     marginTop: -17,
-  // },
   postsContainer: {
     padding: 10,
     marginTop: -17,
