@@ -25,6 +25,7 @@ import { CheckBox } from "react-native-elements";
 import { AuthContext } from "./AuthContext";
 
 import { UserProvider } from "./context/UserContext";
+import { usePostContext } from "./context/postContext";
 
 export default function Login() {
   const [email, setEmail] = useState("");

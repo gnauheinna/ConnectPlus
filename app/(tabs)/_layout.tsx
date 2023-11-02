@@ -8,6 +8,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useContext } from "react";
 import { AuthContext } from "../AuthContext";
 import { useUser, UserProvider } from "../context/UserContext";
+import { PostProvider } from "../context/postContext";
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
  */
@@ -24,61 +25,76 @@ export default function TabLayout() {
   const { user } = useUser();
 
   return (
-    <UserProvider>
-      <Tabs
-        screenOptions={{
-          tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
-        }}
-      >
-        {isLoggedIn && (
-          <Tabs.Screen
-            name="journeys"
-            options={{
-              title: "Journeys",
-              tabBarIcon: ({ color }) => (
-                <AntDesign name="filetext1" size={24} color="black" />
-              ),
-            }}
-          />
-        )}
-        {isLoggedIn && user && (
-          <Tabs.Screen
-            name="community" // Update the name to include the folder path
-            options={{
-              title: "Community",
-              tabBarIcon: ({ color }) => (
-                <Ionicons name="people" size={26} color="black" />
-              ),
-              headerRight: () => (
-                <Link href="/modal" asChild>
-                  <Pressable>
-                    {({ pressed }) => (<FontAwesome name="info-circle" size={25} color={Colors[colorScheme ?? "light"].text} style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }} />)}
-                  </Pressable>
-                </Link>),}}/>
-        )}
-        {isLoggedIn && (
-          <Tabs.Screen
-            name="messages"
-            options={{
-              title: "Messages",
-              tabBarIcon: ({ color }) => (
-                <AntDesign name="message1" size={24} color="black" />
-              ),
-            }}
-          />
-        )}
-        {isLoggedIn && (
-          <Tabs.Screen
-            name="profile"
-            options={{
-              title: "Profile",
-              tabBarIcon: ({ color }) => (
-                <AntDesign name="idcard" size={24} color="black" />
-              ),
-            }}
-          />
-        )}
-      </Tabs>
-    </UserProvider>
+    <PostProvider>
+      <UserProvider>
+        <Tabs
+          screenOptions={{
+            tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
+          }}
+        >
+          {isLoggedIn && (
+            <Tabs.Screen
+              name="journeys"
+              options={{
+                title: "Journeys",
+                tabBarIcon: ({ color }) => (
+                  <AntDesign name="filetext1" size={24} color="black" />
+                ),
+              }}
+            />
+          )}
+          {isLoggedIn && user && (
+            <Tabs.Screen
+              name="community" // Update the name to include the folder path
+              options={{
+                title: "Community",
+                tabBarIcon: ({ color }) => (
+                  <Ionicons name="people" size={26} color="black" />
+                ),
+                headerRight: () => (
+                  <Link href="/modal" asChild>
+                    <Pressable>
+                      {({ pressed }) => (
+                        <FontAwesome
+                          name="info-circle"
+                          size={25}
+                          color={Colors[colorScheme ?? "light"].text}
+                          style={{
+                            marginRight: 15,
+                            opacity: pressed ? 0.5 : 1,
+                          }}
+                        />
+                      )}
+                    </Pressable>
+                  </Link>
+                ),
+              }}
+            />
+          )}
+          {isLoggedIn && (
+            <Tabs.Screen
+              name="messages"
+              options={{
+                title: "Messages",
+                tabBarIcon: ({ color }) => (
+                  <AntDesign name="message1" size={24} color="black" />
+                ),
+              }}
+            />
+          )}
+          {isLoggedIn && (
+            <Tabs.Screen
+              name="profile"
+              options={{
+                title: "Profile",
+                tabBarIcon: ({ color }) => (
+                  <AntDesign name="idcard" size={24} color="black" />
+                ),
+              }}
+            />
+          )}
+        </Tabs>
+      </UserProvider>
+    </PostProvider>
   );
 }

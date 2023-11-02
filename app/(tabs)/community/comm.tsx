@@ -1,7 +1,20 @@
 import React, { useState, useEffect, useContext } from "react";
-import { StyleSheet, TextInput, FlatList, ScrollView, Image } from "react-native";
+import {
+  StyleSheet,
+  TextInput,
+  FlatList,
+  ScrollView,
+  Image,
+} from "react-native";
 import { Text, View } from "../../../components/Themed";
-import { getFirestore, collection, getDocs, Timestamp, doc, updateDoc,} from "firebase/firestore";
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  Timestamp,
+  doc,
+  updateDoc,
+} from "firebase/firestore";
 import { AuthErrorCodes } from "firebase/auth";
 import { FontAwesome5, Feather } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -12,26 +25,21 @@ import { initializeApp, getApps } from "firebase/app";
 import { firebaseConfig } from "../../../firebase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useUser } from "../../context/UserContext";
-import postQuestions from "../../post"
-
-type Post = {
-  postId: string;
-  title: string;
-  content: string;
-  timestamp: Timestamp;
-};
+import postQuestions from "../../post";
+import { Post, usePostContext } from "../../context/postContext";
 
 export default function CommunityScreen() {
   if (getApps() == null) {
     const app = initializeApp(firebaseConfig);
   }
 
+  const { posts, loading } = usePostContext();
+
   const router = useRouter();
   const db = getFirestore();
   const auth = getAuth();
-
-  const [allPosts, setAllPosts] = useState<Post[]>([]);
   const { user, setUser } = useUser();
+  const [allPosts, setAllPosts] = useState<Post[]>([]);
 
   function directToPost() {
     router.push("/post");
@@ -46,22 +54,11 @@ export default function CommunityScreen() {
   useEffect(() => {
     // Define the fetchData function here to use the state and props
     const loadPosts = async () => {
-      if (user) {
-        const postsCollection = collection(db, "posts");
-        const querySnapshot = await getDocs(postsCollection);
-        const postData: Post[] = [];
-        querySnapshot.forEach((doc) => {
-          postData.push(doc.data() as Post);
-        });
-        postData.sort((a, b) => b.timestamp.toMillis() - a.timestamp.toMillis());
-        setAllPosts(postData);
-      } else {
-        console.log("User not logged in");
-      }
+      setAllPosts(posts);
     };
     // Call the fetchData function when the component mounts
     loadPosts();
-  }, [user]);
+  }, []);
 
   return (
     <View style={styles.outermostContainer}>
@@ -103,31 +100,38 @@ export default function CommunityScreen() {
                   title={item.title}
                   content={item.content}
                   timestamp={item.timestamp.toDate()}
+                  name={"annie"}
+                  intro={"hi! I'm annie"}
                 />
                 {/* Displays the the comment icon and the save icon */}
                 <View style={styles.iconsOnPosts}>
                   <TouchableOpacity style={styles.iconWrapper}>
-                    <Image style={styles.icons} source={require("../../../assets/images/comment.png")}/>
+                    <Image
+                      style={styles.icons}
+                      source={require("../../../assets/images/comment.png")}
+                    />
                   </TouchableOpacity>
                   <TouchableOpacity style={styles.iconWrapper}>
                     <Feather name="bookmark" size={28} color="black" />
                   </TouchableOpacity>
                 </View>
-              </View>)}/>
+              </View>
+            )}
+          />
         </View>
         {/* Post button */}
         <View style={styles.postBtnContainer}>
           <TouchableOpacity style={styles.postBtn} onPress={directToPost}>
             <Text style={styles.postBtnText}>+</Text>
           </TouchableOpacity>
-      </View>
+        </View>
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  outermostContainer:{
+  outermostContainer: {
     flex: 1,
   },
   mainContainer: {
@@ -198,23 +202,23 @@ const styles = StyleSheet.create({
     height: 28,
     resizeMode: "contain",
   },
-  postBtnContainer:{
-    position: 'absolute',
-    backgroundColor: 'transparent',
+  postBtnContainer: {
+    position: "absolute",
+    backgroundColor: "transparent",
     bottom: 20,
     right: 20,
   },
   postBtn: {
     width: 50,
     height: 50,
-    backgroundColor: '#FFD465',
+    backgroundColor: "#FFD465",
     padding: 10,
     borderRadius: 50,
-    justifyContent: 'center', 
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   postBtnText: {
-    color: 'white',
+    color: "white",
     fontSize: 34,
   },
 });
