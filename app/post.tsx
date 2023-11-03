@@ -7,6 +7,8 @@ import { getFirestore, collection, serverTimestamp, addDoc, updateDoc,} from "fi
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useRouter } from "expo-router";
 import { useUser } from "./context/UserContext";
+import { Image } from "expo-image";
+import { getBackgroundColor } from "react-native-ui-lib/src/helpers/AvatarHelper";
 
 export default function postQuestions() {
   const [title, setTitle] = useState("");
@@ -16,6 +18,11 @@ export default function postQuestions() {
   const [userName, setUserName] = useState("");
   const [userID, setUserID] = useState("");
   const [tag, setTag] = useState("");
+  const [AButtonVisible, setAButtonVisible] = useState(true);
+  const [FButtonVisible, setFButtonVisible] = useState(true);
+  const [CButtonVisible, setCButtonVisible] = useState(true);
+  const [SButtonVisible, setSButtonVisible] = useState(true);
+  const [CrossButtonVisible, setCrossButtonVisible] = useState(false);
   // const router = useRouter();
   // function directToComm() {
   //   router.push("/community/comm");
@@ -65,24 +72,47 @@ export default function postQuestions() {
 
   const AIsSelected = () => {
     setTag("Academic")
-    // make the other button disappear
+    setCrossButtonVisible(true);
+    setFButtonVisible(false);
+    setCButtonVisible(false);
+    setSButtonVisible(false);
     // change the background color of this button yellow
   };
 
   const FIsSelected = () => {
     setTag("Financial")
+    setCrossButtonVisible(true);
+    setAButtonVisible(false);
+    setCButtonVisible(false);
+    setSButtonVisible(false);
   };
 
   const CIsSelected = () => {
     setTag("Career")
+    setCrossButtonVisible(true);
+    setAButtonVisible(false);
+    setFButtonVisible(false);
+    setSButtonVisible(false);
   };
 
   const StuLifeIsSelected = () => {
     setTag("Student Life")
+    setCrossButtonVisible(true);
+    setAButtonVisible(false);
+    setCButtonVisible(false);
+    setFButtonVisible(false);
+  };
+
+  const makeAllTagsAppear = () => {
+    setCrossButtonVisible(false);
+    setAButtonVisible(true);
+    setCButtonVisible(true);
+    setFButtonVisible(true);
+    setSButtonVisible(true);
   };
 
   return (
-    <View style={{ backgroundColor: "white" }}>
+    <View style={styles.container}>
       <View style={styles.mainContainer}>
         {/* Post Button */}
         <TouchableOpacity style={styles.postBtn} onPress={handlePost}>
@@ -112,21 +142,66 @@ export default function postQuestions() {
         {/* Add a tag for this post: Financial, Academics, Student Life, or Career */}
         <Text style={styles.selectTagText}>Select a Tag</Text>
         <View style={styles.addTagContainer}>
-            <TouchableOpacity style={styles.addTagBtn} onPress={AIsSelected}>
-              <Text style={styles.addTagText}>Academic</Text>
-            </TouchableOpacity>
 
-            <TouchableOpacity style={styles.addTagBtn} onPress={FIsSelected}>
-              <Text style={styles.addTagText}>Financial</Text>
-              </TouchableOpacity>
+            {AButtonVisible && (
+                  <View style={CrossButtonVisible && styles.crossBtnContainer}>
+                    <TouchableOpacity style={CrossButtonVisible ? styles.addTagBtnActive : styles.addTagBtn} onPress={AIsSelected}>
+                      <Text style={CrossButtonVisible ? styles.addTagTextActive : styles.addTagText}>Academic</Text>
+                    </TouchableOpacity>
+                    {CrossButtonVisible && (
+                    <View style={styles.crossBtnSubContainer}>
+                      <TouchableOpacity style={styles.crossBtn} onPress={makeAllTagsAppear}>
+                        <Image style={styles.crossIcon} source={require("../assets/images/cross.png")} />
+                      </TouchableOpacity>
+                    </View>
+                    )}
+                </View>
+            )}
+
+            {FButtonVisible && (
+                <View style={CrossButtonVisible && styles.crossBtnContainer}>
+                    <TouchableOpacity style={CrossButtonVisible ? styles.addTagBtnActive : styles.addTagBtn} onPress={FIsSelected}>
+                      <Text style={CrossButtonVisible ? styles.addTagTextActive : styles.addTagText}>Financial</Text>
+                    </TouchableOpacity>
+                    {CrossButtonVisible && (
+                    <View style={styles.crossBtnSubContainer}>
+                      <TouchableOpacity style={styles.crossBtn} onPress={makeAllTagsAppear}>
+                        <Image style={styles.crossIcon} source={require("../assets/images/cross.png")} />
+                      </TouchableOpacity>
+                    </View>
+                    )}
+                </View>
+            )}
             
-            <TouchableOpacity style={styles.addTagBtn} onPress={CIsSelected}>
-              <Text style={styles.addTagText}>Career</Text>
-            </TouchableOpacity>
+            {CButtonVisible && (
+                <View style={CrossButtonVisible && styles.crossBtnContainer}>
+                    <TouchableOpacity style={CrossButtonVisible ? styles.addTagBtnActive : styles.addTagBtn} onPress={CIsSelected}>
+                      <Text style={CrossButtonVisible ? styles.addTagTextActive : styles.addTagText}>Career</Text>
+                    </TouchableOpacity>
+                    {CrossButtonVisible && (
+                      <View style={styles.crossBtnSubContainer}>
+                        <TouchableOpacity style={styles.crossBtn} onPress={makeAllTagsAppear}>
+                          <Image style={styles.crossIcon} source={require("../assets/images/cross.png")} />
+                        </TouchableOpacity>
+                      </View>
+                    )}
+                </View>
+            )}
 
-            <TouchableOpacity style={styles.addTagBtn} onPress={StuLifeIsSelected}>
-              <Text style={styles.addTagText}>Student Life</Text>
-            </TouchableOpacity>
+            {SButtonVisible && (
+                <View style={CrossButtonVisible && styles.crossBtnContainer}>
+                    <TouchableOpacity style={CrossButtonVisible ? styles.addTagBtnActive : styles.addTagBtn} onPress={StuLifeIsSelected}>
+                      <Text style={CrossButtonVisible ? styles.addTagTextActive : styles.addTagText}>Student Life</Text>
+                    </TouchableOpacity>
+                    {CrossButtonVisible && (
+                      <View style={styles.crossBtnSubContainer}>
+                        <TouchableOpacity style={styles.crossBtn} onPress={makeAllTagsAppear}>
+                          <Image style={styles.crossIcon} source={require("../assets/images/cross.png")} />
+                        </TouchableOpacity>
+                      </View>
+                    )}
+              </View>
+            )}  
         </View>
       </View>
     </View>
@@ -139,19 +214,14 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   mainContainer: {
-    flex: 1,
     justifyContent: "flex-start",
+    backgroundColor: "white",
     marginLeft: 40,
     marginRight: 40,
   },
   title: {
     fontSize: 20,
     fontWeight: "bold",
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
   },
   inputTitle: {
     padding: 10,
@@ -170,7 +240,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   postBtn: {
-    backgroundColor: "#FFC940",
+    backgroundColor: "#E2B8E0",
     marginTop: 40,
     marginBottom: 40,
     paddingVertical: 10,
@@ -186,9 +256,20 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   addTagContainer:{
-    flex: 1,
+    // flex: 1,
     flexDirection: "row",
     flexWrap: "wrap",
+  },
+  crossBtnContainer: {
+    flexDirection: "row",
+  },
+  crossBtnSubContainer:{
+    justifyContent: "center",
+    alignSelf: "center",
+  },
+  addTagSubContainer:{
+    flex: 1,
+    flexDirection: "row",
   },
   selectTagText:{
     fontSize: 18,
@@ -205,10 +286,38 @@ const styles = StyleSheet.create({
     marginRight: 8,
     marginVertical: 8,
   },
+  addTagBtnActive: {
+    backgroundColor: "#FFC940",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 20,
+    marginRight: 8,
+    marginVertical: 8,
+  },
   addTagText: {
     fontSize: 16,
     color: "#FFC940",
     alignSelf: "center",
     fontWeight: "500",
+  },
+  addTagTextActive: {
+    fontSize: 16,
+    color: "#3A3340",
+    alignSelf: "center",
+    fontWeight: "500",
+  },
+  crossBtn: {
+    width: 36,
+    height: 36,
+    borderRadius: 20,
+    padding: 4,
+    backgroundColor: "#FFF6E0",
+    justifyContent: "center",
+    alignSelf: "center",
+  },
+  crossIcon:{
+    width: 14,
+    height: 14,
+    alignSelf: "center",
   },
 });
