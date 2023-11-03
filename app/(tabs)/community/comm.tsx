@@ -1,20 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
-import {
-  StyleSheet,
-  TextInput,
-  FlatList,
-  ScrollView,
-  Image,
-} from "react-native";
+import { StyleSheet, TextInput, FlatList, ScrollView, Image,} from "react-native";
 import { Text, View } from "../../../components/Themed";
-import {
-  getFirestore,
-  collection,
-  getDocs,
-  Timestamp,
-  doc,
-  updateDoc,
-} from "firebase/firestore";
+import { getFirestore, collection, getDocs, Timestamp, doc, updateDoc,} from "firebase/firestore";
 import { AuthErrorCodes } from "firebase/auth";
 import { FontAwesome5, Feather } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -96,27 +83,22 @@ export default function CommunityScreen() {
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item }) => (
               <View>
-                <IndividualPost
-                  title={item.title}
-                  content={item.content}
-                  timestamp={item.timestamp.toDate()}
-                  name={item.userName}
-                  intro={"hi! I'm annie"}
-                />
+                {/* Displays the post */}
+                <IndividualPost postId={item.postID} />
                 <View style={styles.iconsOnPosts}>
-                  {/* Displays the upvote/downvote system */}
-                  <TouchableOpacity style={styles.voteSystemContainer}>
-                    <View style={styles.voteIconsContainer}>
-                      <Image style={styles.upvoteIcon} source={require("../../../assets/images/upvote.png")} />
-                      <Text style={styles.voteNumber}>42</Text>
-                      <View style={styles.verticalLine} />
-                      <Image style={styles.downvoteIcon} source={require("../../../assets/images/downvote.png")} />
-                    </View>
-                  </TouchableOpacity>
-                  {/* Displays the the comment icon */}
-                  <TouchableOpacity style={styles.iconWrapper}>
-                    <Image style={styles.icons} source={require("../../../assets/images/comment.png")}/>
-                  </TouchableOpacity>
+                {/* Displays the upvote/downvote system */}
+                <TouchableOpacity style={styles.voteSystemContainer}>
+                  <View style={styles.voteIconsContainer}>
+                    <Image style={styles.upvoteIcon} source={require("../../../assets/images/upvote.png")} />
+                    <Text style={styles.voteNumber}>42</Text>
+                    <View style={styles.verticalLine} />
+                    <Image style={styles.downvoteIcon} source={require("../../../assets/images/downvote.png")} />
+                  </View>
+                </TouchableOpacity>
+                {/* Displays the the comment icon */}
+                <TouchableOpacity style={styles.iconWrapper}>
+                  <Image style={styles.icons} source={require("../../../assets/images/comment.png")}/>
+                </TouchableOpacity>
                 </View>
               </View>
             )}

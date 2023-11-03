@@ -3,13 +3,7 @@ import { Button, StyleSheet, TextInput } from "react-native";
 import EditScreenInfo from "../components/EditScreenInfo";
 import { Text, View } from "../components/Themed";
 import { getApps } from "firebase/app";
-import {
-  getFirestore,
-  collection,
-  serverTimestamp,
-  addDoc,
-  updateDoc,
-} from "firebase/firestore";
+import { getFirestore, collection, serverTimestamp, addDoc, updateDoc,} from "firebase/firestore";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useRouter } from "expo-router";
 import { useUser } from "./context/UserContext";
@@ -21,6 +15,7 @@ export default function postQuestions() {
   const { user, setUser } = useUser();
   const [userName, setUserName] = useState("");
   const [userID, setUserID] = useState("");
+  const [tag, setTag] = useState("");
   // const router = useRouter();
   // function directToComm() {
   //   router.push("/community/comm");
@@ -42,6 +37,7 @@ export default function postQuestions() {
       timestamp: serverTimestamp(),
       userName: user.name,
       userID: user.userID,
+      tag,
     };
 
     setUserName(user.name);
@@ -56,6 +52,7 @@ export default function postQuestions() {
     setContent("");
     setUserName("");
     setUserID("");
+    setTag("");
     // Show the success message
     setShowSuccessMessage(true);
     // Hide the success message after a few seconds
@@ -64,6 +61,24 @@ export default function postQuestions() {
     }, 3000);
     // Direct back to the community page
     // directToComm();
+  };
+
+  const AIsSelected = () => {
+    setTag("Academic")
+    // make the other button disappear
+    // change the background color of this button yellow
+  };
+
+  const FIsSelected = () => {
+    setTag("Financial")
+  };
+
+  const CIsSelected = () => {
+    setTag("Career")
+  };
+
+  const StuLifeIsSelected = () => {
+    setTag("Student Life")
   };
 
   return (
@@ -95,9 +110,24 @@ export default function postQuestions() {
         />
 
         {/* Add a tag for this post: Financial, Academics, Student Life, or Career */}
-        <TouchableOpacity style={styles.addTagBtn}>
-          <Text style={styles.addTagText}>Add a Tag</Text>
-        </TouchableOpacity>
+        <Text style={styles.selectTagText}>Select a Tag</Text>
+        <View style={styles.addTagContainer}>
+            <TouchableOpacity style={styles.addTagBtn} onPress={AIsSelected}>
+              <Text style={styles.addTagText}>Academic</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.addTagBtn} onPress={FIsSelected}>
+              <Text style={styles.addTagText}>Financial</Text>
+              </TouchableOpacity>
+            
+            <TouchableOpacity style={styles.addTagBtn} onPress={CIsSelected}>
+              <Text style={styles.addTagText}>Career</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.addTagBtn} onPress={StuLifeIsSelected}>
+              <Text style={styles.addTagText}>Student Life</Text>
+            </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
@@ -155,28 +185,30 @@ const styles = StyleSheet.create({
     fontSize: 18,
     alignSelf: "center",
   },
+  addTagContainer:{
+    flex: 1,
+    flexDirection: "row",
+    flexWrap: "wrap",
+  },
+  selectTagText:{
+    fontSize: 18,
+    color: "#3A3340",
+    fontWeight: "500",
+    marginBottom: 8,
+  },
   addTagBtn: {
     borderColor: "#FFC940",
     borderWidth: 1.5,
     paddingVertical: 10,
     paddingHorizontal: 20,
-    padding: 5,
     borderRadius: 20,
-    width: 130,
-    justifyContent: "flex-end",
-    alignSelf: "flex-end",
-    marginBottom: 300,
-    marginTop: 50,
+    marginRight: 8,
+    marginVertical: 8,
   },
   addTagText: {
-    fontSize: 18,
+    fontSize: 16,
     color: "#FFC940",
     alignSelf: "center",
     fontWeight: "500",
-  },
-  successMessage: {
-    color: "green",
-    marginTop: 10,
-    fontSize: 16,
   },
 });

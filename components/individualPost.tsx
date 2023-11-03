@@ -6,24 +6,39 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { Card, Avatar, IconButton } from 'react-native-paper';
 import { Image } from "react-native";
 import { useRouter } from "expo-router";
+import { useUser } from "../app/context/UserContext";
+import { usePostContext } from "../app/context/postContext";
 
-// Defines the properties that the IndividualPost component expects: title, content and timestamp
 interface IndividualPostProps {
-  // postId: string;
-  name: string;
-  intro: string;
-  title: string;
-  content: string;
-  timestamp: Date;
+  postId: string;
 }
 
-const IndividualPost: React.FC<IndividualPostProps> = ({ name, intro, title, content, timestamp }) => {
+const IndividualPost: React.FC<IndividualPostProps> = ({ postId }) => {
     const router = useRouter();
     function viewPostDetails() {
       router.push("/postdetails");
     }
+
+    // User UserContext
+    const { user } = useUser();
+    const [name, setName] = useState("");
+    const [year, setYear] = useState("");
+    const [major, setMajor] = useState("");
+    // User PostContext
+    const { posts, loading } = usePostContext();
+    const [tag, setTag] = useState("");
+    const post = posts.find((post) => post.postID === postId);
+  
+    useEffect(() => {
+      setName(user.name);
+      setMajor(user.major);
+      setYear(user.year);
+      if (post) { setTag(post.tag); }
+    }, [user, posts, postId]);
+
     return (
       <TouchableOpacity onPress={viewPostDetails}>
+        {post && (
         <View style={{...styles.itemContainer}}>
           {/* Display the user's profile image, name, and intro on the top */}
           <View style={styles.userContainer}>
@@ -31,33 +46,39 @@ const IndividualPost: React.FC<IndividualPostProps> = ({ name, intro, title, con
               <Image style={styles.profileImg} source={require("../assets/images/profileImg.png")} />
               <View style={styles.userNameAndIntro}>
                 <Text style={styles.userName}>{name}</Text>
-                <Text style={styles.userIntro}>{intro}</Text>
+                <Text style={styles.userIntro}>{major}</Text>
               </View>
             </View>
             {/* Display the tag that is associated with the post to the right of the user's information */}
             <View style={styles.tagContainer}>
-              <Text style={styles.tagText}>Academic</Text>
+              {post.tag && (
+                // <View style={styles.individualInterest}>
+                <View>
+                  <Text style={styles.tagText}>{post.tag}</Text>
+                </View>)}
             </View>
           </View>
 
           <View style={styles.titleTimestampContainer}>
           {/* Display the title of the post */}
-            <Text style={styles.title}>{title}</Text>
+            <Text style={styles.title}>{post.title}</Text>
           </View>
           
           {/* Display the content of the post */}
-          <Text style={styles.content}>{content}</Text>
+          <Text style={styles.content}>{post.content}</Text>
 
           {/* Display the timestamp of the post */}
           <Text style={styles.timestamp}>
-              {timestamp.toLocaleString('en-US', {
-                month: 'long',
-                day: 'numeric',
-                hour: 'numeric',
-                minute: 'numeric',
-              })}
-            </Text>
+          {post.timestamp && new Date(post.timestamp.toDate()).toLocaleString("en-US", {
+            month: "long",
+            day: "numeric",
+            hour: "numeric",
+            minute: "numeric",
+          })}
+          </Text>
+
         </View>
+        )}
       </TouchableOpacity>
     );
   };
@@ -130,14 +151,27 @@ const styles = StyleSheet.create({
     },
     tagContainer: {
       backgroundColor: "#FFD465",
-      width: 100,
+      width: 130,
       borderRadius: 25,
       paddingVertical: 12,
       alignSelf: "flex-end",
     },
     tagText: {
-      fontSize: 14,
+      fontSize: 16,
       alignSelf: "center",
+      fontWeight: "400",
+    },
+    interestsContainer:{
+      alignItems: "center",
+      flexDirection: "row",
+      alignSelf: "center",
+    },
+    individualInterest:{
+      marginRight: 10,
+      backgroundColor: "#F6F5F0",
+      borderRadius: 25,
+      paddingVertical: 10,
+      paddingHorizontal: 16,
     },
     iconsOnPosts: {
       flexDirection: 'row', 

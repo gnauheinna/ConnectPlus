@@ -1,23 +1,10 @@
 // UserContext.js
-import React, {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-  ReactNode,
-} from "react";
+import React, { createContext, useContext, useEffect, useState, ReactNode,} from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { initializeApp, getApps } from "firebase/app";
-import {
-  getFirestore,
-  collection,
-  getDocs,
-  Timestamp,
-  doc,
-  updateDoc,
-} from "firebase/firestore";
+import { getFirestore, collection, getDocs, Timestamp, doc, updateDoc,} from "firebase/firestore";
 
-// represents the shape of the context value
+// Represents the shape of the context value
 export type Post = {
   userID: string;
   title: string;
