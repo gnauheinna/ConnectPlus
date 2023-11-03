@@ -23,10 +23,10 @@ export default function postQuestions() {
   const [CButtonVisible, setCButtonVisible] = useState(true);
   const [SButtonVisible, setSButtonVisible] = useState(true);
   const [CrossButtonVisible, setCrossButtonVisible] = useState(false);
-  // const router = useRouter();
-  // function directToComm() {
-  //   router.push("/community/comm");
-  // }
+  const router = useRouter();
+  function directToComm() {
+    router.push("/community/comm");
+  }
 
   useEffect(() => {
     console.log("post user: ");
@@ -114,15 +114,22 @@ export default function postQuestions() {
   return (
     <View style={styles.container}>
       <View style={styles.mainContainer}>
-        {/* Post Button */}
-        <TouchableOpacity style={styles.postBtn} onPress={handlePost}>
-          <Text style={styles.postText}>Post</Text>
-        </TouchableOpacity>
+       
+        <View style={styles.backPostContainer}>
+          {/* Back Button */}
+          <TouchableOpacity style={styles.backBtn} onPress={directToComm}>
+              <Image style={styles.backIcon} source={require("../assets/images/back.png")} />
+          </TouchableOpacity>
+          {/* Post Button */}
+          <TouchableOpacity style={styles.postBtn} onPress={handlePost}>
+            <Text style={styles.postText}>Post</Text>
+          </TouchableOpacity>
+        </View>
 
         {/* Enter the title of the post */}
         <TextInput
           style={[styles.inputTitle]}
-          placeholder="Enter Title"
+          placeholder="Title"
           placeholderTextColor="#888888"
           value={title}
           onChangeText={(text) => setTitle(text)}
@@ -131,7 +138,7 @@ export default function postQuestions() {
         {/* Enter the content of the post */}
         <TextInput
           style={[styles.inputContent]}
-          placeholder="body text"
+          placeholder="What is your question?"
           placeholderTextColor="#888888"
           value={content}
           onChangeText={(text) => setContent(text)}
@@ -219,6 +226,27 @@ const styles = StyleSheet.create({
     marginLeft: 40,
     marginRight: 40,
   },
+  backPostContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 20,
+  },
+  backBtn: {
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    marginTop: 40,
+    marginBottom: 40,
+    borderRadius: 20,
+    justifyContent: "flex-start",
+    alignSelf: "flex-start",
+  },
+  backIcon: {
+    width: 24,
+    height: 24,
+    justifyContent: "center",
+    alignSelf: "center",
+    resizeMode: "contain",
+  },
   title: {
     fontSize: 20,
     fontWeight: "bold",
@@ -256,7 +284,6 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   addTagContainer:{
-    // flex: 1,
     flexDirection: "row",
     flexWrap: "wrap",
   },
