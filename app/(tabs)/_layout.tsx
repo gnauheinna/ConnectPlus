@@ -27,11 +27,7 @@ export default function TabLayout() {
   return (
     <PostProvider>
       <UserProvider>
-        <Tabs
-          screenOptions={{
-            tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
-          }}
-        >
+        <Tabs screenOptions={{ tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint, }}>
           {isLoggedIn && (
             <Tabs.Screen
               name="journeys"
