@@ -43,9 +43,9 @@ export default function TabLayout() {
               }}
             />
           )}
-          {isLoggedIn && user && (
+          {isLoggedIn && (
             <Tabs.Screen
-              name="community" 
+              name="community"
               options={{
                 title: "Community",
                 tabBarIcon: ({ color }) => (

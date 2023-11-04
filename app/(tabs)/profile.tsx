@@ -5,6 +5,7 @@ import {
   SafeAreaView,
   ScrollView,
   Image,
+  FlatList,
 } from "react-native";
 import { useState, useEffect } from "react";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
@@ -15,6 +16,7 @@ import CardContent from "react-native-paper/lib/typescript/components/Card/CardC
 import { TouchableOpacity } from "react-native-gesture-handler";
 import IndividualPost from "../../components/individualPost";
 import { useUser } from "../context/UserContext";
+import { Post, usePostContext } from "../context/postContext";
 
 export default function App() {
   const { user, setUser } = useUser();
@@ -25,6 +27,8 @@ export default function App() {
   const [career, setCareer] = useState(false);
   const [financial, setFinancial] = useState(false);
   const [studentLife, setStudentLife] = useState(false);
+  const { posts, loading } = usePostContext();
+  const [allPosts, setAllPosts] = useState<Post[]>([]);
 
   useEffect(() => {
     setName(user.name);
@@ -36,10 +40,26 @@ export default function App() {
     setStudentLife(user.studentLife);
   }, [user]);
 
+  useEffect(() => {
+    // Define the fetchData function here to use the state and props
+    const loadPosts = async () => {
+      setAllPosts(posts);
+    };
+    console.log("here are the posts");
+    console.log(posts);
+    // Call the fetchData function when the component mounts
+    loadPosts();
+  }, [posts]);
+
+  const filteredPosts = allPosts.filter((post) => post.userID == user.userID);
+
   return (
     <View style={styles.container}>
       {/* <View style={styles.profileInfoContainer}> */}
-      <LinearGradient style={styles.profileInfoContainer} locations={[0, 1]} colors={["#fff", "#ffe59a"]}
+      <LinearGradient
+        style={styles.profileInfoContainer}
+        locations={[0, 1]}
+        colors={["#fff", "#ffe59a"]}
       >
         {/* Display the user's profile picture */}
         <View style={styles.profileImg}>
@@ -62,28 +82,30 @@ export default function App() {
           </Text>
         </View>
 
-          {/* Display the user's interests */}
+        {/* Display the user's interests */}
         <TouchableOpacity style={styles.interestsContainer}>
-            {user.academic && (
-              <View style={styles.individualInterest}>
-                <Text style={styles.interestText}>Academic</Text>
-              </View>)}
-            {user.career && (
-              <View style={styles.individualInterest}>
-                <Text style={styles.interestText}>Career</Text>
-              </View>)}
-            {user.financial && (
-              <View style={styles.individualInterest}>
-                <Text style={styles.interestText}>Financial</Text>
-              </View>)}
-            {user.studentLife && (
-              <View style={styles.individualInterest}>
-                <Text style={styles.interestText}>Student Life</Text>
-              </View>)}
+          {user.academic && (
+            <View style={styles.individualInterest}>
+              <Text style={styles.interestText}>Academic</Text>
+            </View>
+          )}
+          {user.career && (
+            <View style={styles.individualInterest}>
+              <Text style={styles.interestText}>Career</Text>
+            </View>
+          )}
+          {user.financial && (
+            <View style={styles.individualInterest}>
+              <Text style={styles.interestText}>Financial</Text>
+            </View>
+          )}
+          {user.studentLife && (
+            <View style={styles.individualInterest}>
+              <Text style={styles.interestText}>Student Life</Text>
+            </View>
+          )}
         </TouchableOpacity>
-
       </LinearGradient>
-
 
       {/* Display Posts and Mentions */}
       <View style={styles.horizontalBar}>
@@ -96,13 +118,61 @@ export default function App() {
       </View>
       {/* Display only the Borderline */}
       <View style={styles.borderLine}></View>
+      <View style={styles.container}>
+        <View style={styles.mainContainer}>
+          <FlatList
+            data={filteredPosts}
+            showsVerticalScrollIndicator={false}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({ item }) => (
+              <View>
+                {/* Displays the post */}
+                <IndividualPost postId={item.postID} />
+                <View style={styles.iconsOnPosts}>
+                  {/* Displays the upvote/downvote system */}
+                  <TouchableOpacity style={styles.voteSystemContainer}>
+                    <View style={styles.voteIconsContainer}>
+                      <Image
+                        style={styles.upvoteIcon}
+                        source={require("../../assets/images/upvote.png")}
+                      />
+                      <Text style={styles.voteNumber}>42</Text>
+                      <View style={styles.verticalLine} />
+                      <Image
+                        style={styles.downvoteIcon}
+                        source={require("../../assets/images/downvote.png")}
+                      />
+                    </View>
+                  </TouchableOpacity>
+                  {/* Displays the the comment icon */}
+                  <TouchableOpacity style={styles.iconWrapper}>
+                    <Image
+                      style={styles.icons}
+                      source={require("../../assets/images/comment.png")}
+                    />
+                  </TouchableOpacity>
+                </View>
+              </View>
+            )}
+          />
+        </View>
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  mainContainer: {
+    flex: 1,
+    marginLeft: 20,
+    marginRight: 20,
+    backgroundColor: "white",
+  },
   container: {
-    backgroundColor: "#fff",
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "white",
   },
   profileInfoContainer: {
     flex: 1,
@@ -151,19 +221,19 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 16,
   },
-  interestsContainer:{
+  interestsContainer: {
     alignItems: "center",
     flexDirection: "row",
     alignSelf: "center",
   },
-  individualInterest:{
+  individualInterest: {
     marginRight: 10,
     backgroundColor: "#F6F5F0",
     borderRadius: 25,
     paddingVertical: 10,
     paddingHorizontal: 16,
   },
-  interestText:{
+  interestText: {
     color: "#3A3340",
     fontWeight: "500",
   },
@@ -186,5 +256,63 @@ const styles = StyleSheet.create({
     padding: 10,
     marginTop: -17,
     fontWeight: "bold",
+  },
+  iconsOnPosts: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    backgroundColor: "#E6DBF3",
+    borderBottomLeftRadius: 12,
+    borderBottomRightRadius: 12,
+    paddingHorizontal: 0,
+    marginBottom: 20,
+  },
+  iconWrapper: {
+    marginHorizontal: 8,
+    paddingTop: 10,
+    paddingBottom: 10,
+  },
+  upvoteIcon: {
+    width: 22,
+    height: 22,
+    resizeMode: "contain",
+  },
+  downvoteIcon: {
+    width: 22,
+    height: 22,
+    resizeMode: "contain",
+  },
+  icons: {
+    width: 28,
+    height: 28,
+    resizeMode: "contain",
+  },
+  voteSystemContainer: {
+    marginLeft: 16,
+    borderWidth: 1.5,
+    backgroundColor: "white",
+    borderColor: "#9286B1",
+    width: 120,
+    height: 35,
+    borderRadius: 20,
+    resizeMode: "contain",
+    paddingLeft: 15,
+    paddingRight: 15,
+  },
+  voteIconsContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "transparent",
+  },
+  voteNumber: {
+    marginLeft: 8,
+    fontWeight: "400",
+  },
+  verticalLine: {
+    width: 1.5,
+    height: 33,
+    backgroundColor: "#9286B1",
+    marginRight: 8,
+    marginLeft: 8,
   },
 });

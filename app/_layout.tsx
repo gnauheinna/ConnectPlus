@@ -14,6 +14,8 @@ import { initializeApp, getApps } from "firebase/app";
 import { firebaseConfig } from "../firebase";
 import { AuthProvider } from "./AuthContext";
 import { UserProvider } from "./context/UserContext";
+import { PostIdProvider } from "./context/PostIDContext";
+import { PostProvider } from "./context/postContext";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -57,7 +59,11 @@ export default function RootLayout() {
   return (
     <AuthProvider>
       <UserProvider>
-        <RootLayoutNav />
+        <PostIdProvider>
+          <PostProvider>
+            <RootLayoutNav />
+          </PostProvider>
+        </PostIdProvider>
       </UserProvider>
     </AuthProvider>
   );

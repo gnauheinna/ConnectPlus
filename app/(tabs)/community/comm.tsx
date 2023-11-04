@@ -49,10 +49,12 @@ export default function CommunityScreen() {
   }
 
   useEffect(() => {
-    console.log("comm: user");
-    console.log(user);
-    //setUser1(user);
-  }, [user]);
+    return () => {
+      // Cleanup function to be called when component is unmounted
+      console.log("Component unmounted");
+      // Perform any necessary cleanup tasks here
+    };
+  }, []);
 
   useEffect(() => {
     // Define the fetchData function here to use the state and props

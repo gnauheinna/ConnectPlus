@@ -9,6 +9,7 @@ import { SplashScreen, Stack } from "expo-router";
 import { useEffect } from "react";
 import { useColorScheme } from "react-native";
 import { Text } from "../../../components/Themed";
+import { PostIdProvider } from "../../context/PostIDContext";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -23,10 +24,12 @@ export const unstable_settings = {
 export default function CommunityPageLayout() {
   const colorScheme = useColorScheme();
   return (
-    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="comm" options={{ headerShown: false }} />
-      </Stack>
-    </ThemeProvider>
+    <PostIdProvider>
+      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+        <Stack>
+          <Stack.Screen name="comm" options={{ headerShown: false }} />
+        </Stack>
+      </ThemeProvider>
+    </PostIdProvider>
   );
 }
