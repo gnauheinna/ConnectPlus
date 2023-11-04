@@ -1,7 +1,20 @@
 import React, { useState, useEffect, useContext } from "react";
-import { StyleSheet, TextInput, FlatList, ScrollView, Image,} from "react-native";
+import {
+  StyleSheet,
+  TextInput,
+  FlatList,
+  ScrollView,
+  Image,
+} from "react-native";
 import { Text, View } from "../../../components/Themed";
-import { getFirestore, collection, getDocs, Timestamp, doc, updateDoc,} from "firebase/firestore";
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  Timestamp,
+  doc,
+  updateDoc,
+} from "firebase/firestore";
 import { AuthErrorCodes } from "firebase/auth";
 import { FontAwesome5, Feather } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -21,7 +34,7 @@ export default function CommunityScreen() {
   }
 
   const { posts, loading } = usePostContext();
-
+  console.log("why???");
   const router = useRouter();
   const db = getFirestore();
   const auth = getAuth();
@@ -29,7 +42,7 @@ export default function CommunityScreen() {
   const [allPosts, setAllPosts] = useState<Post[]>([]);
   // Set the initially selected tag to be All
   const [selectedTag, setSelectedTag] = useState("All");
-  const [selectedAll, setSelectedAll] = useState(true); 
+  const [selectedAll, setSelectedAll] = useState(true);
 
   function directToPost() {
     router.push("/post");
@@ -46,11 +59,15 @@ export default function CommunityScreen() {
     const loadPosts = async () => {
       setAllPosts(posts);
     };
+    console.log("here are the posts");
+    console.log(posts);
     // Call the fetchData function when the component mounts
     loadPosts();
   }, [posts]);
 
-  const filteredPosts = allPosts.filter((post) => post.tag === selectedTag || selectedTag === "All");
+  const filteredPosts = allPosts.filter(
+    (post) => post.tag === selectedTag || selectedTag === "All"
+  );
 
   return (
     <View style={styles.outermostContainer}>
@@ -61,19 +78,69 @@ export default function CommunityScreen() {
       <View>
         <View style={styles.horizontalSubNavMainContainer}>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          <TouchableOpacity style={selectedAll ? styles.horizontalSubNavSelected : styles.horizontalSubNav} onPress={() => { setSelectedTag("All"); setSelectedAll(true); }}>
+            <TouchableOpacity
+              style={
+                selectedAll
+                  ? styles.horizontalSubNavSelected
+                  : styles.horizontalSubNav
+              }
+              onPress={() => {
+                setSelectedTag("All");
+                setSelectedAll(true);
+              }}
+            >
               <Text>All</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={selectedTag === "Financial" ? styles.horizontalSubNavSelected : styles.horizontalSubNav} onPress={() => { setSelectedTag("Financial"); setSelectedAll(false); }}>
+            <TouchableOpacity
+              style={
+                selectedTag === "Financial"
+                  ? styles.horizontalSubNavSelected
+                  : styles.horizontalSubNav
+              }
+              onPress={() => {
+                setSelectedTag("Financial");
+                setSelectedAll(false);
+              }}
+            >
               <Text>Financial</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={selectedTag === "Academic" ? styles.horizontalSubNavSelected : styles.horizontalSubNav} onPress={() => { setSelectedTag("Academic"); setSelectedAll(false); }}>
+            <TouchableOpacity
+              style={
+                selectedTag === "Academic"
+                  ? styles.horizontalSubNavSelected
+                  : styles.horizontalSubNav
+              }
+              onPress={() => {
+                setSelectedTag("Academic");
+                setSelectedAll(false);
+              }}
+            >
               <Text>Academic</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={selectedTag === "Student Life" ? styles.horizontalSubNavSelected : styles.horizontalSubNav} onPress={() => { setSelectedTag("Student Life"); setSelectedAll(false); }}>
+            <TouchableOpacity
+              style={
+                selectedTag === "Student Life"
+                  ? styles.horizontalSubNavSelected
+                  : styles.horizontalSubNav
+              }
+              onPress={() => {
+                setSelectedTag("Student Life");
+                setSelectedAll(false);
+              }}
+            >
               <Text>Student Life</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={selectedTag === "Career" ? styles.horizontalSubNavSelected : styles.horizontalSubNav} onPress={() => { setSelectedTag("Career"); setSelectedAll(false); }}>
+            <TouchableOpacity
+              style={
+                selectedTag === "Career"
+                  ? styles.horizontalSubNavSelected
+                  : styles.horizontalSubNav
+              }
+              onPress={() => {
+                setSelectedTag("Career");
+                setSelectedAll(false);
+              }}
+            >
               <Text>Career</Text>
             </TouchableOpacity>
           </ScrollView>
@@ -91,19 +158,28 @@ export default function CommunityScreen() {
                 {/* Displays the post */}
                 <IndividualPost postId={item.postID} />
                 <View style={styles.iconsOnPosts}>
-                {/* Displays the upvote/downvote system */}
-                <TouchableOpacity style={styles.voteSystemContainer}>
-                  <View style={styles.voteIconsContainer}>
-                    <Image style={styles.upvoteIcon} source={require("../../../assets/images/upvote.png")} />
-                    <Text style={styles.voteNumber}>42</Text>
-                    <View style={styles.verticalLine} />
-                    <Image style={styles.downvoteIcon} source={require("../../../assets/images/downvote.png")} />
-                  </View>
-                </TouchableOpacity>
-                {/* Displays the the comment icon */}
-                <TouchableOpacity style={styles.iconWrapper}>
-                  <Image style={styles.icons} source={require("../../../assets/images/comment.png")}/>
-                </TouchableOpacity>
+                  {/* Displays the upvote/downvote system */}
+                  <TouchableOpacity style={styles.voteSystemContainer}>
+                    <View style={styles.voteIconsContainer}>
+                      <Image
+                        style={styles.upvoteIcon}
+                        source={require("../../../assets/images/upvote.png")}
+                      />
+                      <Text style={styles.voteNumber}>42</Text>
+                      <View style={styles.verticalLine} />
+                      <Image
+                        style={styles.downvoteIcon}
+                        source={require("../../../assets/images/downvote.png")}
+                      />
+                    </View>
+                  </TouchableOpacity>
+                  {/* Displays the the comment icon */}
+                  <TouchableOpacity style={styles.iconWrapper}>
+                    <Image
+                      style={styles.icons}
+                      source={require("../../../assets/images/comment.png")}
+                    />
+                  </TouchableOpacity>
                 </View>
               </View>
             )}
@@ -174,7 +250,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     paddingVertical: 10,
   },
-  voteSystemContainer:{
+  voteSystemContainer: {
     marginLeft: 16,
     borderWidth: 1.5,
     backgroundColor: "white",
@@ -217,7 +293,7 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     paddingBottom: 10,
   },
-  upvoteIcon:{
+  upvoteIcon: {
     width: 22,
     height: 22,
     resizeMode: "contain",
