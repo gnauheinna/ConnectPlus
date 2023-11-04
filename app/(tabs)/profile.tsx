@@ -1,16 +1,12 @@
-<<<<<<< HEAD
 import {
   StyleSheet,
   Text,
   View,
   SafeAreaView,
-  ScrollView,
   Image,
+  ScrollView,
   FlatList,
 } from "react-native";
-=======
-import { StyleSheet, Text, View, SafeAreaView, Image } from "react-native";
->>>>>>> aaed4a45704727c48cfbf25c4b906fbaa9ea7f42
 import { useState, useEffect } from "react";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
@@ -23,7 +19,7 @@ import { useUser } from "../context/UserContext";
 import { Post, usePostContext } from "../context/postContext";
 
 export default function App() {
-  const {user, setUser } = useUser();
+  const { user, setUser } = useUser();
   const [name, setName] = useState("");
   const [year, setYear] = useState("");
   const [major, setMajor] = useState("");
@@ -80,7 +76,10 @@ export default function App() {
         {/* Display the user's full name and intro */}
         <View style={styles.infoContainer}>
           <Text style={[styles.userName]}>{name}</Text>
-          <Text style={[styles.userIntro]}> Class of {year}, {major} Major</Text>
+          <Text style={[styles.userIntro]}>
+            {" "}
+            Class of {year}, {major} Major
+          </Text>
         </View>
 
         {/* Display the user's interests */}
