@@ -55,6 +55,7 @@ const SignupForm = () => {
     financial,
     career,
     studentLife,
+    userID,
   };
 
   //triggers Firebase Auth to create new user
@@ -88,9 +89,10 @@ const SignupForm = () => {
     console.log("db");
     console.log(user?.uid);
     try {
-      if (user)
-        // await addDoc(userCollection, newUser);
+      if (user) {
+        setUserID(user.uid);
         await setDoc(doc(db, "users", user.uid), newUser);
+      }
     } catch (error) {
       console.log(error);
     }
