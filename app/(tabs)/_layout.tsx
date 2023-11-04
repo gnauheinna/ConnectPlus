@@ -45,28 +45,11 @@ export default function TabLayout() {
           )}
           {isLoggedIn && user && (
             <Tabs.Screen
-              name="community" // Update the name to include the folder path
+              name="community" 
               options={{
                 title: "Community",
                 tabBarIcon: ({ color }) => (
                   <Ionicons name="people" size={26} color="black" />
-                ),
-                headerRight: () => (
-                  <Link href="/modal" asChild>
-                    <Pressable>
-                      {({ pressed }) => (
-                        <FontAwesome
-                          name="info-circle"
-                          size={25}
-                          color={Colors[colorScheme ?? "light"].text}
-                          style={{
-                            marginRight: 15,
-                            opacity: pressed ? 0.5 : 1,
-                          }}
-                        />
-                      )}
-                    </Pressable>
-                  </Link>
                 ),
               }}
             />

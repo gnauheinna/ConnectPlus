@@ -23,6 +23,8 @@ export default function postQuestions() {
   const [CButtonVisible, setCButtonVisible] = useState(true);
   const [SButtonVisible, setSButtonVisible] = useState(true);
   const [CrossButtonVisible, setCrossButtonVisible] = useState(false);
+  const [isPostCompleted, setIsPostCompleted] = useState(false);
+
   const router = useRouter();
   function directToComm() {
     router.push("/community/comm");
@@ -32,43 +34,53 @@ export default function postQuestions() {
     console.log("post user: ");
     console.log(user);
   }, [user]);
+  
+  // Set postIsCompleted to true if a post is complete
+  useEffect(() => {
+    const postIsCompleted = title !== "" && content !== "" && tag !== "";
+    setIsPostCompleted(postIsCompleted);
+  }, [title, content, tag]);
 
   const handlePost = async () => {
     // Get a reference to the Firebase database
-    const db = getFirestore();
-    const postsCollection = collection(db, "posts");
-    // Create a new post object
-    const newPost = {
-      title,
-      content,
-      timestamp: serverTimestamp(),
-      userName: user.name,
-      userID: user.userID,
-      tag,
-    };
-
-    setUserName(user.name);
-    setUserID(user.userID);
-    // Push the new post to the database
-    const newPostRef = await addDoc(postsCollection, newPost);
-    const postID = newPostRef.id;
-    // Update the document with the postID field
-    await updateDoc(newPostRef, { postID });
-    // Clear the input fields
-    setTitle("");
-    setContent("");
-    setUserName("");
-    setUserID("");
-    setTag("");
-    // Show the success message
-    setShowSuccessMessage(true);
-    // Hide the success message after a few seconds
-    setTimeout(() => {
-      setShowSuccessMessage(false);
-    }, 3000);
-    // Direct back to the community page
-    // directToComm();
-  };
+   
+      const db = getFirestore();
+      const postsCollection = collection(db, "posts");
+      // Create a new post object
+      const newPost = {
+        title,
+        content,
+        timestamp: serverTimestamp(),
+        userName: user.name,
+        userID: user.userID,
+        tag,
+      };
+  if (isPostCompleted) {
+      setUserName(user.name);
+      setUserID(user.userID);
+      // Push the new post to the database
+      const newPostRef = await addDoc(postsCollection, newPost);
+      const postID = newPostRef.id;
+      // Update the document with the postID field
+      await updateDoc(newPostRef, { postID });
+      // Clear the input fields
+      setTitle("");
+      setContent("");
+      setUserName("");
+      setUserID("");
+      setTag("");
+      // Show the success message
+      setShowSuccessMessage(true);
+      // Hide the success message after a few seconds
+      setTimeout(() => {
+        setShowSuccessMessage(false);
+      }, 3000);
+      // Direct back to the community page
+      // directToComm();
+    } else {
+      console.log("Post is not complete!");
+    }
+};
 
   const AIsSelected = () => {
     setTag("Academic")
@@ -109,6 +121,7 @@ export default function postQuestions() {
     setCButtonVisible(true);
     setFButtonVisible(true);
     setSButtonVisible(true);
+    setTag("");
   };
 
   return (
@@ -121,8 +134,8 @@ export default function postQuestions() {
               <Image style={styles.backIcon} source={require("../assets/images/back.png")} />
           </TouchableOpacity>
           {/* Post Button */}
-          <TouchableOpacity style={styles.postBtn} onPress={handlePost}>
-            <Text style={styles.postText}>Post</Text>
+          <TouchableOpacity style={[ styles.postBtn,{ backgroundColor: isPostCompleted ? "#E2B8E0" : "#E6E6E6",  } ]} onPress={handlePost}>
+              <Text style={[ styles.postText,{ color: isPostCompleted ? "#3A3340" : "#9A969F",  } ]}>Post</Text>
           </TouchableOpacity>
         </View>
 
@@ -282,6 +295,7 @@ const styles = StyleSheet.create({
   postText: {
     fontSize: 18,
     alignSelf: "center",
+    color: "#9A969F",
   },
   addTagContainer:{
     flexDirection: "row",

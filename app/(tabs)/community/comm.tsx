@@ -27,6 +27,9 @@ export default function CommunityScreen() {
   const auth = getAuth();
   const { user, setUser } = useUser();
   const [allPosts, setAllPosts] = useState<Post[]>([]);
+  // Set the initially selected tag to be All
+  const [selectedTag, setSelectedTag] = useState("All");
+  const [selectedAll, setSelectedAll] = useState(true); 
 
   function directToPost() {
     router.push("/post");
@@ -47,6 +50,8 @@ export default function CommunityScreen() {
     loadPosts();
   }, [posts]);
 
+  const filteredPosts = allPosts.filter((post) => post.tag === selectedTag || selectedTag === "All");
+
   return (
     <View style={styles.outermostContainer}>
       {/* Display the horizontal sub-navigation bar on top of the posts */}
@@ -56,19 +61,19 @@ export default function CommunityScreen() {
       <View>
         <View style={styles.horizontalSubNavMainContainer}>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            <TouchableOpacity style={styles.horizontalSubNavSelected}>
+          <TouchableOpacity style={selectedAll ? styles.horizontalSubNavSelected : styles.horizontalSubNav} onPress={() => { setSelectedTag("All"); setSelectedAll(true); }}>
               <Text>All</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.horizontalSubNav}>
+            <TouchableOpacity style={selectedTag === "Financial" ? styles.horizontalSubNavSelected : styles.horizontalSubNav} onPress={() => { setSelectedTag("Financial"); setSelectedAll(false); }}>
               <Text>Financial</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.horizontalSubNav}>
+            <TouchableOpacity style={selectedTag === "Academic" ? styles.horizontalSubNavSelected : styles.horizontalSubNav} onPress={() => { setSelectedTag("Academic"); setSelectedAll(false); }}>
               <Text>Academic</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.horizontalSubNav}>
+            <TouchableOpacity style={selectedTag === "Student Life" ? styles.horizontalSubNavSelected : styles.horizontalSubNav} onPress={() => { setSelectedTag("Student Life"); setSelectedAll(false); }}>
               <Text>Student Life</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.horizontalSubNav}>
+            <TouchableOpacity style={selectedTag === "Career" ? styles.horizontalSubNavSelected : styles.horizontalSubNav} onPress={() => { setSelectedTag("Career"); setSelectedAll(false); }}>
               <Text>Career</Text>
             </TouchableOpacity>
           </ScrollView>
@@ -78,7 +83,7 @@ export default function CommunityScreen() {
       <View style={styles.container}>
         <View style={styles.mainContainer}>
           <FlatList
-            data={allPosts}
+            data={filteredPosts}
             showsVerticalScrollIndicator={false}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item }) => (
@@ -151,7 +156,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "black",
     borderRadius: 30,
-    padding: 10,
+    paddingHorizontal: 15,
+    paddingVertical: 10,
     marginBottom: 15,
     marginTop: 15,
     marginRight: 10,
@@ -160,12 +166,13 @@ const styles = StyleSheet.create({
   horizontalSubNavSelected: {
     borderWidth: 0,
     borderRadius: 30,
-    padding: 10,
     marginBottom: 15,
     marginTop: 15,
     marginRight: 10,
     alignItems: "center",
     backgroundColor: "#FFD465",
+    paddingHorizontal: 15,
+    paddingVertical: 10,
   },
   voteSystemContainer:{
     marginLeft: 16,
