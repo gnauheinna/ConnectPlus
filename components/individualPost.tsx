@@ -35,11 +35,6 @@ const IndividualPost: React.FC<IndividualPostProps> = ({ postId }) => {
     router.push("/postdetails");
   }
 
-  // User UserContext
-  const { user } = useUser();
-  const [name, setName] = useState("");
-  const [year, setYear] = useState("");
-  const [major, setMajor] = useState("");
   // User PostContext
   const { posts, loading } = usePostContext();
   const [tag, setTag] = useState("");
@@ -49,13 +44,10 @@ const IndividualPost: React.FC<IndividualPostProps> = ({ postId }) => {
   const { curPostID, setCurPostID } = useContext(PostIdContext);
 
   useEffect(() => {
-    setName(user.name);
-    setMajor(user.major);
-    setYear(user.year);
     if (post) {
       setTag(post.tag);
     }
-  }, [user, posts, postId]);
+  }, [posts, postId]);
 
   return (
     <PostProvider>
@@ -70,8 +62,8 @@ const IndividualPost: React.FC<IndividualPostProps> = ({ postId }) => {
                   source={require("../assets/images/profileImg.png")}
                 />
                 <View style={styles.userNameAndIntro}>
-                  <Text style={styles.userName}>{name}</Text>
-                  <Text style={styles.userIntro}>{major}</Text>
+                  <Text style={styles.userName}>{post.userName}</Text>
+                  <Text style={styles.userIntro}>Computer Science</Text>
                 </View>
               </View>
               {/* Display the tag that is associated with the post to the right of the user's information */}
