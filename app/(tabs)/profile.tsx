@@ -67,9 +67,9 @@ export default function App() {
         <View style={styles.profileImg}>
           <Image source={avatarImages[avatar]} style={styles.profileImage}/>
           {/* Display the icon for editing the profile picture */}
-          <TouchableOpacity style={styles.editBtn}>
+          {/* <TouchableOpacity style={styles.editBtn}>
             <MaterialIcons name="edit" size={20} color="#ffffff" />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
 
         {/* Display the user's full name and intro */}
@@ -179,7 +179,6 @@ const styles = StyleSheet.create({
     width: "100%",
     justifyContent: "center",
     alignSelf: "center",
-    paddingVertical: 40,
   },
   profileImg: {
     flexDirection: "row",
@@ -191,19 +190,18 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     overflow: "hidden",
     justifyContent: "center",
-    marginHorizontal: -10,
   },
-  editBtn: {
-    backgroundColor: "#41444B",
-    position: "absolute",
-    bottom: 0,
-    right: 0,
-    width: 30,
-    height: 30,
-    borderRadius: 30,
-    alignItems: "center",
-    justifyContent: "center",
-  },
+  // editBtn: {
+  //   backgroundColor: "#41444B",
+  //   position: "absolute",
+  //   bottom: 0,
+  //   right: 0,
+  //   width: 30,
+  //   height: 30,
+  //   borderRadius: 30,
+  //   alignItems: "center",
+  //   justifyContent: "center",
+  // },
   userName: {
     fontWeight: "bold",
     fontSize: 30,
@@ -218,7 +216,6 @@ const styles = StyleSheet.create({
   infoContainer: {
     alignSelf: "center",
     alignItems: "center",
-    marginTop: 16,
   },
   interestsContainer: {
     alignItems: "center",

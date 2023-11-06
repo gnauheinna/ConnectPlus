@@ -125,7 +125,7 @@ const SignupForm = () => {
         // Passwords match
         await SignUp();
         await handleNewUserEmail();
-        //router.push("/addavatar");
+        router.push("/addavatar");
       } else {
         // Passwords don't match
         Alert.alert("Error", "Passwords do not match");

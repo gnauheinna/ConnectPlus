@@ -8,30 +8,21 @@ import { getApps } from "firebase/app";
 import { getFirestore, doc, serverTimestamp, setDoc, collection, updateDoc } from "firebase/firestore";
 import { LinearGradient } from "expo-linear-gradient";
 import { Image } from "react-native";
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useUser } from "./context/UserContext";
 
-
 const AddAvatar = () => {
-  const [selectedAvatar, setSelectedAvatar] = useState(false);
-  // const { user, setUser } = useUser();
+  const [selectedAvatar, setSelectedAvatar] = useState("");
   const auth = getAuth();
   const user = auth.currentUser;
   const userId = user?.uid
 
   const router = useRouter();
-  function directToInterest() {
-    router.push("/interest");
-  }
- 
 
-  const avatarSelected = async (avatarName: string) => {
+  const directToInterest = async (avatarName: string) => {
     if (!userId) {
       console.error("User or userID is undefined");
       return;
     }
-
-    setSelectedAvatar(true)
     const db = getFirestore();
     const userRef = doc(db, "users", userId);
     try {
@@ -40,45 +31,97 @@ const AddAvatar = () => {
     } catch (error) {
       console.error("Error adding avatar: ", error);
     }
+    router.push("/interest");
+  }
+
+  const avatarSelected = async (avatarName: string) => {
+    setSelectedAvatar(avatarName)
   }
 
   return (
-    <LinearGradient locations={[0, 1]} colors={["#fff9e9", "#fff"]}>
+    <LinearGradient locations={[0, 1]} colors={["#fff9e9", "#fff"]} style={styles.container}>
+
+       <View style={styles.topPortion}>
+        <Text style={[styles.title]}>Add an Avatar</Text>
+        <Text style={[styles.subTitle]}>
+          Lorem ipsum dolor sit amet consectetur. Quisque mi metus aliquam sed
+          neque.
+        </Text>
+      </View>
+
       <View style={styles.avatarsContainer}>
           <TouchableOpacity onPress={() => avatarSelected("avatar1")}>
-            <Image style={[styles.avatar]} source={require("../assets/images/avatars/avatar1.png")}/>
+              <Image style={[styles.avatar]} source={selectedAvatar === "avatar1" ? require("../assets/images/avatars/avatar1Selected.png") : require("../assets/images/avatars/avatar1.png")}/>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => avatarSelected("avatar2")}>
-            <Image style={[styles.avatar]} source={require("../assets/images/avatars/avatar2.png")}/>
+              <Image style={[styles.avatar]} source={selectedAvatar === "avatar2" ? require("../assets/images/avatars/avatar2Selected.png") : require("../assets/images/avatars/avatar2.png")}/>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => avatarSelected("avatar3")}>
-            <Image style={[styles.avatar]} source={require("../assets/images/avatars/avatar3.png")}/>
+              <Image style={[styles.avatar]} source={selectedAvatar === "avatar3" ? require("../assets/images/avatars/avatar3Selected.png") : require("../assets/images/avatars/avatar3.png")}/>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => avatarSelected("avatar4")}>
-            <Image style={[styles.avatar]} source={require("../assets/images/avatars/avatar4.png")}/>
+              <Image style={[styles.avatar]} source={selectedAvatar === "avatar4" ? require("../assets/images/avatars/avatar4Selected.png") : require("../assets/images/avatars/avatar4.png")}/>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => avatarSelected("avatar5")}>
+              <Image style={[styles.avatar]} source={selectedAvatar === "avatar5" ? require("../assets/images/avatars/avatar5Selected.png") : require("../assets/images/avatars/avatar5.png")}/>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => avatarSelected("avatar6")}>
+              <Image style={[styles.avatar]} source={selectedAvatar === "avatar6" ? require("../assets/images/avatars/avatar6Selected.png") : require("../assets/images/avatars/avatar6.png")}/>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => avatarSelected("avatar7")}>
+              <Image style={[styles.avatar]} source={selectedAvatar === "avatar7" ? require("../assets/images/avatars/avatar7Selected.png") : require("../assets/images/avatars/avatar7.png")}/>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => avatarSelected("avatar8")}>
+              <Image style={[styles.avatar]} source={selectedAvatar === "avatar8" ? require("../assets/images/avatars/avatar8Selected.png") : require("../assets/images/avatars/avatar8.png")}/>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => avatarSelected("avatar9")}>
+              <Image style={[styles.avatar]} source={selectedAvatar === "avatar9" ? require("../assets/images/avatars/avatar9Selected.png") : require("../assets/images/avatars/avatar9.png")}/>
           </TouchableOpacity>
       </View>
-      <TouchableOpacity style={styles.nextButton} onPress={directToInterest}>
-          <Text style={styles.nextButtonText}>Next</Text>
-        </TouchableOpacity>
+
+
+      <TouchableOpacity style={[ styles.nextButton,{ backgroundColor: selectedAvatar === "" ? "#E6E6E6" : "#FFC940" } ]} onPress={() => directToInterest(selectedAvatar)}>
+              <Text style={[ styles.nextButtonText,{ color: selectedAvatar === "" ? "#9A969F" : "#3A3340",  } ]}>Next</Text>
+      </TouchableOpacity>
     </LinearGradient>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "flex-start",
+  },
+  topPortion:{
+    padding: 40,
+    paddingBottom: 20,
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: "bold",
+    marginBottom: 20,
+    color: "#453B4F",
+  },
+  subTitle: {
+    fontSize: 16,
+    marginBottom: 20,
+    color: "#453B4F",
+  },
   avatarsContainer: {
     flex: 1,
-    marginTop: 50,
     flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    alignSelf: "center",
   },
   avatar: {
-    width: 80,
-    height: 80,
+    width: 90,
+    height: 90,
     marginHorizontal: 16,
   },
   nextButton: {
     backgroundColor: "#FFC940",
-    marginTop: 40,
+    marginTop: 10,
     marginBottom: 40,
     width: 240,
     borderRadius: 25,
