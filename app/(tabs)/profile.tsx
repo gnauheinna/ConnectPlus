@@ -1,12 +1,4 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  SafeAreaView,
-  Image,
-  ScrollView,
-  FlatList,
-} from "react-native";
+import { StyleSheet, Text, View, SafeAreaView, Image, ScrollView, FlatList } from "react-native";
 import { useState, useEffect } from "react";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
@@ -23,6 +15,7 @@ export default function App() {
   const [name, setName] = useState("");
   const [year, setYear] = useState("");
   const [major, setMajor] = useState("");
+  const [avatar, setAvatar] = useState("");
   const [academic, setAcademic] = useState(false);
   const [career, setCareer] = useState(false);
   const [financial, setFinancial] = useState(false);
@@ -34,6 +27,7 @@ export default function App() {
     setName(user.name);
     setMajor(user.major);
     setYear(user.year);
+    setAvatar(user.avatar);
     setAcademic(user.academic);
     setCareer(user.career);
     setFinancial(user.financial);
@@ -55,24 +49,32 @@ export default function App() {
     (post) => user && post.userID == user.userID
   );
 
+  const avatarImages: { [key: string]: any } = {
+    avatar1: require("../../assets/images/avatars/avatar1.png"),
+    avatar2: require("../../assets/images/avatars/avatar2.png"),
+    avatar3: require("../../assets/images/avatars/avatar3.png"),
+    avatar4: require("../../assets/images/avatars/avatar4.png"),
+    avatar5: require("../../assets/images/avatars/avatar5.png"),
+    avatar6: require("../../assets/images/avatars/avatar6.png"),
+    avatar7: require("../../assets/images/avatars/avatar7.png"),
+    avatar8: require("../../assets/images/avatars/avatar8.png"),
+    avatar9: require("../../assets/images/avatars/avatar9.png"),
+  };
+
+  console.log(avatar); // Check what avatar contains
+  console.log(avatarImages[avatar]); // Check what image it maps to
+
   return (
     <View style={styles.container}>
       {/* <View style={styles.profileInfoContainer}> */}
-      <LinearGradient
-        style={styles.profileInfoContainer}
-        locations={[0, 1]}
-        colors={["#fff", "#ffe59a"]}
-      >
+      <LinearGradient style={styles.profileInfoContainer} locations={[0, 1]} colors={["#fff", "#ffe59a"]}>
         {/* Display the user's profile picture */}
         <View style={styles.profileImg}>
-          <Image
-            source={require("../../assets/images/avatars/avatar1.png")}
-            style={styles.profileImage}
-          />
+          <Image source={avatarImages[avatar]} style={styles.profileImage}/>
           {/* Display the icon for editing the profile picture */}
-          <TouchableOpacity style={styles.editBtn}>
+          {/* <TouchableOpacity style={styles.editBtn}>
             <MaterialIcons name="edit" size={20} color="#ffffff" />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
 
         {/* Display the user's full name and intro */}
@@ -86,22 +88,22 @@ export default function App() {
 
         {/* Display the user's interests */}
         <TouchableOpacity style={styles.interestsContainer}>
-          {user.academic && (
+          {user && user.academic && (
             <View style={styles.individualInterest}>
               <Text style={styles.interestText}>Academic</Text>
             </View>
           )}
-          {user.career && (
+          {user && user.career && (
             <View style={styles.individualInterest}>
               <Text style={styles.interestText}>Career</Text>
             </View>
           )}
-          {user.financial && (
+          {user && user.financial && (
             <View style={styles.individualInterest}>
               <Text style={styles.interestText}>Financial</Text>
             </View>
           )}
-          {user.studentLife && (
+          {user && user.studentLife && (
             <View style={styles.individualInterest}>
               <Text style={styles.interestText}>Student Life</Text>
             </View>
@@ -182,7 +184,6 @@ const styles = StyleSheet.create({
     width: "100%",
     justifyContent: "center",
     alignSelf: "center",
-    paddingVertical: 40,
   },
   profileImg: {
     flexDirection: "row",
@@ -194,19 +195,18 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     overflow: "hidden",
     justifyContent: "center",
-    marginHorizontal: -10,
   },
-  editBtn: {
-    backgroundColor: "#41444B",
-    position: "absolute",
-    bottom: 0,
-    right: 0,
-    width: 30,
-    height: 30,
-    borderRadius: 30,
-    alignItems: "center",
-    justifyContent: "center",
-  },
+  // editBtn: {
+  //   backgroundColor: "#41444B",
+  //   position: "absolute",
+  //   bottom: 0,
+  //   right: 0,
+  //   width: 30,
+  //   height: 30,
+  //   borderRadius: 30,
+  //   alignItems: "center",
+  //   justifyContent: "center",
+  // },
   userName: {
     fontWeight: "bold",
     fontSize: 30,
@@ -221,7 +221,6 @@ const styles = StyleSheet.create({
   infoContainer: {
     alignSelf: "center",
     alignItems: "center",
-    marginTop: 16,
   },
   interestsContainer: {
     alignItems: "center",

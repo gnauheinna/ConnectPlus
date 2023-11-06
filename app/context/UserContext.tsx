@@ -25,6 +25,7 @@ export type UserContextType = {
     major: string;
     year: string;
     userID: string;
+    avatar: string;
     academic: boolean;
     career: boolean;
     financial: boolean;
@@ -36,6 +37,7 @@ export type UserContextType = {
     major: string;
     year: string;
     userID: string;
+    avatar: string;
     academic: boolean;
     career: boolean;
     financial: boolean;
@@ -59,6 +61,7 @@ const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     major: "",
     year: "",
     userID: "",
+    avatar: "",
     academic: false,
     career: false,
     financial: false,
