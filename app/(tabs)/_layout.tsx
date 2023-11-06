@@ -1,5 +1,5 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { Link, Tabs } from "expo-router";
+import { Link, Redirect, Tabs } from "expo-router";
 import { Pressable, useColorScheme } from "react-native";
 import PlusButton from "../../components/postButton";
 import Colors from "../../constants/Colors";
@@ -24,10 +24,16 @@ export default function TabLayout() {
   const { isLoggedIn } = useContext(AuthContext);
   const { user } = useUser();
 
-  return (
-    <PostProvider>
+  if (!isLoggedIn) {
+    return <Redirect href="/" />;
+  } else {
+    return (
       <UserProvider>
-        <Tabs screenOptions={{ tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint, }}>
+        <Tabs
+          screenOptions={{
+            tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
+          }}
+        >
           {isLoggedIn && (
             <Tabs.Screen
               name="journeys"
@@ -74,6 +80,6 @@ export default function TabLayout() {
           )}
         </Tabs>
       </UserProvider>
-    </PostProvider>
-  );
+    );
+  }
 }

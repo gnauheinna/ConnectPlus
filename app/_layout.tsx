@@ -77,10 +77,9 @@ function RootLayoutNav() {
       <Stack initialRouteName="index">
         <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="SignUp" options={{ headerShown: false }} />
+        <Stack.Screen name="signup" options={{ headerShown: false }} />
         <Stack.Screen name="interest" options={{ headerShown: false }} />
         <Stack.Screen name="user" options={{ headerShown: false }} />
-        <Stack.Screen name="post" options={{ headerShown: false }} />
         <Stack.Screen name="postdetails" options={{ headerShown: false }} />
       </Stack>
     </ThemeProvider>

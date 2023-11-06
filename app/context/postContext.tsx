@@ -33,26 +33,27 @@ interface PostContextValue {
   loading: boolean;
 }
 
-if (getApps() == null) {
-  const app = initializeApp();
-}
-
 const PostContext = createContext<PostContextValue | undefined>(undefined);
 const PostProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const db = getFirestore();
-
+  if (getApps() == null) {
+    const app = initializeApp();
+  }
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Define the fetchData function here to use the state and props
     const loadPosts = async () => {
       try {
         const postsCollection = collection(db, "posts");
         const querySnapshot = await getDocs(postsCollection);
         const postData: Post[] = [];
         querySnapshot.forEach((doc) => {
-          postData.push(doc.data() as Post);
+          const data = doc.data();
+          if (data) {
+            // validatePostData is a function you'd need to implement
+            postData.push(data as Post);
+          }
         });
         postData.sort(
           (a, b) => b.timestamp.toMillis() - a.timestamp.toMillis()
@@ -64,7 +65,6 @@ const PostProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
         setLoading(false);
       }
     };
-    // Call the fetchData function when the component mounts
     loadPosts();
   }, []);
 

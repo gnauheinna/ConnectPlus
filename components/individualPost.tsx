@@ -50,55 +50,53 @@ const IndividualPost: React.FC<IndividualPostProps> = ({ postId }) => {
   }, [posts, postId]);
 
   return (
-    <PostProvider>
-      <TouchableOpacity onPress={viewPostDetails}>
-        {post && (
-          <View style={{ ...styles.itemContainer }}>
-            {/* Display the user's profile image, name, and intro on the top */}
-            <View style={styles.userContainer}>
-              <View style={styles.userInfo}>
-                <Image
-                  style={styles.profileImg}
-                  source={require("../assets/images/profileImg.png")}
-                />
-                <View style={styles.userNameAndIntro}>
-                  <Text style={styles.userName}>{post.userName}</Text>
-                  <Text style={styles.userIntro}>Computer Science</Text>
+    <TouchableOpacity onPress={viewPostDetails}>
+      {post && (
+        <View style={{ ...styles.itemContainer }}>
+          {/* Display the user's profile image, name, and intro on the top */}
+          <View style={styles.userContainer}>
+            <View style={styles.userInfo}>
+              <Image
+                style={styles.profileImg}
+                source={require("../assets/images/profileImg.png")}
+              />
+              <View style={styles.userNameAndIntro}>
+                <Text style={styles.userName}>{post.userName}</Text>
+                <Text style={styles.userIntro}>Computer Science</Text>
+              </View>
+            </View>
+            {/* Display the tag that is associated with the post to the right of the user's information */}
+            <View style={styles.tagContainer}>
+              {post.tag && (
+                // <View style={styles.individualInterest}>
+                <View>
+                  <Text style={styles.tagText}>{post.tag}</Text>
                 </View>
-              </View>
-              {/* Display the tag that is associated with the post to the right of the user's information */}
-              <View style={styles.tagContainer}>
-                {post.tag && (
-                  // <View style={styles.individualInterest}>
-                  <View>
-                    <Text style={styles.tagText}>{post.tag}</Text>
-                  </View>
-                )}
-              </View>
+              )}
             </View>
-
-            <View style={styles.titleTimestampContainer}>
-              {/* Display the title of the post */}
-              <Text style={styles.title}>{post.title}</Text>
-            </View>
-
-            {/* Display the content of the post */}
-            <Text style={styles.content}>{post.content}</Text>
-
-            {/* Display the timestamp of the post */}
-            <Text style={styles.timestamp}>
-              {post.timestamp &&
-                new Date(post.timestamp.toDate()).toLocaleString("en-US", {
-                  month: "long",
-                  day: "numeric",
-                  hour: "numeric",
-                  minute: "numeric",
-                })}
-            </Text>
           </View>
-        )}
-      </TouchableOpacity>
-    </PostProvider>
+
+          <View style={styles.titleTimestampContainer}>
+            {/* Display the title of the post */}
+            <Text style={styles.title}>{post.title}</Text>
+          </View>
+
+          {/* Display the content of the post */}
+          <Text style={styles.content}>{post.content}</Text>
+
+          {/* Display the timestamp of the post */}
+          <Text style={styles.timestamp}>
+            {post.timestamp &&
+              new Date(post.timestamp.toDate()).toLocaleString("en-US", {
+                month: "long",
+                day: "numeric",
+                hour: "numeric",
+                minute: "numeric",
+              })}
+          </Text>
+        </View>
+      )}
+    </TouchableOpacity>
   );
 };
 

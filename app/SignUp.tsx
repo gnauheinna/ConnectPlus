@@ -67,10 +67,9 @@ const SignupForm = () => {
           const user = userCredential.user;
           console.log("User:", user);
           console.log("User ID:", user.uid);
-          ///etUser(user); // Set the user object
           setUserID(user.uid);
-          console.log("userID state after set:", userID);
-          //console.log("signed up!");
+          //console.log("userID state after set:", userID);
+          console.log("signed up!");
           setSignupError(null);
           resolve();
         })
@@ -83,10 +82,6 @@ const SignupForm = () => {
         });
     });
   }
-  useEffect(() => {
-    console.log("userid state");
-    console.log(userID);
-  }, [userID]);
 
   // saves user data to firestore
   const handleNewUserEmail = async () => {
@@ -123,7 +118,7 @@ const SignupForm = () => {
         // Passwords match
         await SignUp();
         await handleNewUserEmail();
-        //router.push("/addavatar");
+        router.push("/addavatar");
       } else {
         // Passwords don't match
         Alert.alert("Error", "Passwords do not match");

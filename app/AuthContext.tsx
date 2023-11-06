@@ -3,11 +3,6 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { initializeApp, getApps } from "firebase/app";
 import { firebaseConfig } from "../firebase";
 
-if (getApps() == null) {
-  const app = initializeApp(firebaseConfig);
-}
-const auth = getAuth();
-
 type AuthContextType = {
   isLoggedIn: boolean;
   setLoggedIn: (value: boolean) => void;
@@ -21,6 +16,11 @@ export const AuthContext = createContext<AuthContextType>({
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
+  if (getApps() == null) {
+    const app = initializeApp(firebaseConfig);
+  }
+  const auth = getAuth();
+
   const [isLoggedIn, setLoggedIn] = useState(false); // Initialize the state with false
 
   useEffect(() => {

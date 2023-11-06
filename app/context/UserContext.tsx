@@ -42,13 +42,13 @@ export type UserContextType = {
     studentLife: boolean;
   }) => void;
 };
-if (getApps() == null) {
-  const app = initializeApp();
-}
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
 const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const auth = getAuth();
+  if (getApps() == null) {
+    const app = initializeApp();
+  }
   const Currentuser = auth.currentUser;
   const db = getFirestore();
 
@@ -89,10 +89,10 @@ const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
             major: string;
             year: string;
             userID: string;
-            academic: boolean,
-            career: boolean,
-            financial: boolean,
-            studentLife: boolean,
+            academic: boolean;
+            career: boolean;
+            financial: boolean;
+            studentLife: boolean;
           };
           setUser(userData);
           console.log(userData);
@@ -100,7 +100,17 @@ const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
         }
       } catch (error) {
         console.error("Error fetching user data:", error);
-        setUser({ name: "", email: "", major: "", year: "", userID: "", academic: false, career: false, financial: false, studentLife: false});
+        setUser({
+          name: "",
+          email: "",
+          major: "",
+          year: "",
+          userID: "",
+          academic: false,
+          career: false,
+          financial: false,
+          studentLife: false,
+        });
       }
     };
     // Clean up the listener when the component unmounts

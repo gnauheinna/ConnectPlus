@@ -10,13 +10,13 @@ import { useRouter } from "expo-router";
 import { PostIdContext, PostIdProvider } from "./context/PostIDContext";
 import { Post, usePostContext, PostProvider } from "./context/postContext";
 
-const PostDetails = () => {
+export default function PostDetails() {
   //use PostIDContext
   const { curPostID, setCurPostID } = useContext(PostIdContext);
   const { posts, loading } = usePostContext();
   const [allPosts, setAllPosts] = useState<Post[]>([]);
 
-  // const router = useRouter();
+  const router = useRouter();
   //   function backToCommunityPage() {
   //     router.push("/community/comm");
   //   }
@@ -35,75 +35,74 @@ const PostDetails = () => {
   const filteredPosts = allPosts.find((post) => post.postID == curPostID);
   console.log(curPostID);
   return (
-    <PostProvider>
-      <PostIdProvider>
-        <View style={styles.outermostContainer}>
-          {/*  Back Button */}
-          <TouchableOpacity style={styles.backBtn}>
-            <Text style={styles.backText}>Back</Text>
-          </TouchableOpacity>
-          <View style={styles.container}>
-            <View style={styles.mainContainer}>
-              <View>
-                {/* Displays the post */}
-                <View>
-                  {/* Displays the post */}
-                  <IndividualPost postId={curPostID} />
-                  <View style={styles.iconsOnPosts}>
-                    {/* Displays the upvote/downvote system */}
-                    <TouchableOpacity style={styles.voteSystemContainer}>
-                      <View style={styles.voteIconsContainer}>
-                        <Image
-                          style={styles.upvoteIcon}
-                          source={require("../assets/images/upvote.png")}
-                        />
-                        <Text style={styles.voteNumber}>42</Text>
-                        <View style={styles.verticalLine} />
-                        <Image
-                          style={styles.downvoteIcon}
-                          source={require("../assets/images/downvote.png")}
-                        />
-                      </View>
-                    </TouchableOpacity>
-                    {/* Displays the the comment icon */}
-                    <TouchableOpacity style={styles.iconWrapper}>
-                      <Image
-                        style={styles.icons}
-                        source={require("../assets/images/comment.png")}
-                      />
-                    </TouchableOpacity>
+    <View style={styles.outermostContainer}>
+      {/*  Back Button */}
+      <TouchableOpacity
+        style={styles.backBtn}
+        onPress={() => {
+          router.push("/community");
+        }}
+      >
+        <Text style={styles.backText}>Back</Text>
+      </TouchableOpacity>
+      <View style={styles.container}>
+        <View style={styles.mainContainer}>
+          <View>
+            {/* Displays the post */}
+            <View>
+              {/* Displays the post */}
+              <IndividualPost postId={curPostID} />
+              <View style={styles.iconsOnPosts}>
+                {/* Displays the upvote/downvote system */}
+                <TouchableOpacity style={styles.voteSystemContainer}>
+                  <View style={styles.voteIconsContainer}>
+                    <Image
+                      style={styles.upvoteIcon}
+                      source={require("../assets/images/upvote.png")}
+                    />
+                    <Text style={styles.voteNumber}>42</Text>
+                    <View style={styles.verticalLine} />
+                    <Image
+                      style={styles.downvoteIcon}
+                      source={require("../assets/images/downvote.png")}
+                    />
                   </View>
-                </View>
+                </TouchableOpacity>
+                {/* Displays the the comment icon */}
+                <TouchableOpacity style={styles.iconWrapper}>
+                  <Image
+                    style={styles.icons}
+                    source={require("../assets/images/comment.png")}
+                  />
+                </TouchableOpacity>
               </View>
-              <ScrollView style={styles.screen}>
-                <View>
-                  <Text style={styles.commentTitle}>Comments (3)</Text>
-                </View>
-                <IndividualComment
-                  username={"Sally Smith"}
-                  intro={"Class of 2026, CS Major"}
-                  content={"Thank you for sharing these tips ✨"}
-                />
-                <IndividualComment
-                  username={"Ben Wilson"}
-                  intro={"Class of 2027, Business Major"}
-                  content={"I would love to connect with you 😊"}
-                />
-                <IndividualComment
-                  username={"Lana Lei"}
-                  intro={"Class of 2027, Data Science Major"}
-                  content={"Very useful information. Thank you!"}
-                />
-              </ScrollView>
             </View>
           </View>
+          <ScrollView style={styles.screen}>
+            <View>
+              <Text style={styles.commentTitle}>Comments (3)</Text>
+            </View>
+            <IndividualComment
+              username={"Sally Smith"}
+              intro={"Class of 2026, CS Major"}
+              content={"Thank you for sharing these tips ✨"}
+            />
+            <IndividualComment
+              username={"Ben Wilson"}
+              intro={"Class of 2027, Business Major"}
+              content={"I would love to connect with you 😊"}
+            />
+            <IndividualComment
+              username={"Lana Lei"}
+              intro={"Class of 2027, Data Science Major"}
+              content={"Very useful information. Thank you!"}
+            />
+          </ScrollView>
         </View>
-      </PostIdProvider>
-    </PostProvider>
+      </View>
+    </View>
   );
-};
-
-export default PostDetails;
+}
 
 const styles = StyleSheet.create({
   outermostContainer: {
