@@ -46,7 +46,6 @@ export default function postQuestions() {
     const postIsCompleted = title !== "" && content !== "" && tag !== "";
     setIsPostCompleted(postIsCompleted);
   }, [title, content, tag]);
-
   const handlePost = async () => {
     // Get a reference to the Firebase database
 

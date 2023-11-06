@@ -94,6 +94,7 @@ const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
             userID: string;
             academic: boolean;
             career: boolean;
+            avatar: string;
             financial: boolean;
             studentLife: boolean;
           };
@@ -109,6 +110,7 @@ const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
           major: "",
           year: "",
           userID: "",
+          avatar: "",
           academic: false,
           career: false,
           financial: false,
