@@ -69,6 +69,8 @@ export default function postQuestions() {
       setUserName("");
       setUserID("");
       setTag("");
+      // Reset the UI for the tags
+      makeAllTagsAppear();
       // Show the success message
       setShowSuccessMessage(true);
       // Hide the success message after a few seconds
@@ -317,6 +319,7 @@ const styles = StyleSheet.create({
     color: "#3A3340",
     fontWeight: "500",
     marginBottom: 8,
+    marginTop: 120,
   },
   addTagBtn: {
     borderColor: "#FFC940",
