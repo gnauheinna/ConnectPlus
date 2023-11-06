@@ -45,7 +45,9 @@ export default function App() {
     loadPosts();
   }, [posts]);
 
-  const filteredPosts = allPosts.filter((post) => post.userID == user.userID);
+  const filteredPosts = allPosts.filter(
+    (post) => user && post.userID == user.userID
+  );
 
   const avatarImages: { [key: string]: any } = {
     avatar1: require("../../assets/images/avatars/avatar1.png"),

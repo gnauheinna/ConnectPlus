@@ -24,12 +24,10 @@ export const unstable_settings = {
 export default function CommunityPageLayout() {
   const colorScheme = useColorScheme();
   return (
-    <PostIdProvider>
-      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-        <Stack>
-          <Stack.Screen name="comm" options={{ headerShown: false }} />
-        </Stack>
-      </ThemeProvider>
-    </PostIdProvider>
+    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+      <Stack>
+        <Stack.Screen name="comm" options={{ headerShown: false }} />
+      </Stack>
+    </ThemeProvider>
   );
 }
