@@ -48,7 +48,6 @@ export default function postQuestions() {
   }, [title, content, tag]);
   const handlePost = async () => {
     // Get a reference to the Firebase database
-
     const db = getFirestore();
     const postsCollection = collection(db, "posts");
     // Create a new post object
@@ -61,8 +60,6 @@ export default function postQuestions() {
       tag,
     };
     if (isPostCompleted) {
-      setUserName(user.name);
-      setUserID(user.userID);
       // Push the new post to the database
       const newPostRef = await addDoc(postsCollection, newPost);
       const postID = newPostRef.id;
