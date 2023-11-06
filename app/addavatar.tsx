@@ -90,11 +90,11 @@ const AddAvatar = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "flex-start",
   },
   topPortion:{
     padding: 40,
     paddingBottom: 20,
+    justifyContent: "flex-start",
   },
   title: {
     fontSize: 28,
@@ -108,7 +108,6 @@ const styles = StyleSheet.create({
     color: "#453B4F",
   },
   avatarsContainer: {
-    flex: 1,
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "center",
@@ -118,10 +117,11 @@ const styles = StyleSheet.create({
     width: 90,
     height: 90,
     marginHorizontal: 16,
+    marginVertical: 16,
   },
   nextButton: {
     backgroundColor: "#FFC940",
-    marginTop: 10,
+    marginTop: 40,
     marginBottom: 40,
     width: 240,
     borderRadius: 25,

@@ -54,6 +54,11 @@ export default function App() {
     avatar2: require("../../assets/images/avatars/avatar2.png"),
     avatar3: require("../../assets/images/avatars/avatar3.png"),
     avatar4: require("../../assets/images/avatars/avatar4.png"),
+    avatar5: require("../../assets/images/avatars/avatar5.png"),
+    avatar6: require("../../assets/images/avatars/avatar6.png"),
+    avatar7: require("../../assets/images/avatars/avatar7.png"),
+    avatar8: require("../../assets/images/avatars/avatar8.png"),
+    avatar9: require("../../assets/images/avatars/avatar9.png"),
   };
 
   console.log(avatar); // Check what avatar contains
