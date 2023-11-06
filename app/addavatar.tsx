@@ -14,21 +14,26 @@ import { useUser } from "./context/UserContext";
 
 const AddAvatar = () => {
   const [selectedAvatar, setSelectedAvatar] = useState(false);
-  const { user, setUser } = useUser();
+  // const { user, setUser } = useUser();
+  const auth = getAuth();
+  const user = auth.currentUser;
+  const userId = user?.uid
+
   const router = useRouter();
   function directToInterest() {
     router.push("/interest");
   }
+ 
 
   const avatarSelected = async (avatarName: string) => {
-    if (!user.userID) {
+    if (!userId) {
       console.error("User or userID is undefined");
       return;
     }
 
     setSelectedAvatar(true)
     const db = getFirestore();
-    const userRef = doc(db, "users", user.userID);
+    const userRef = doc(db, "users", userId);
     try {
       await updateDoc(userRef, { avatar: avatarName,});
       console.log("Avatar added!");
@@ -45,6 +50,12 @@ const AddAvatar = () => {
           </TouchableOpacity>
           <TouchableOpacity onPress={() => avatarSelected("avatar2")}>
             <Image style={[styles.avatar]} source={require("../assets/images/avatars/avatar2.png")}/>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => avatarSelected("avatar3")}>
+            <Image style={[styles.avatar]} source={require("../assets/images/avatars/avatar3.png")}/>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => avatarSelected("avatar4")}>
+            <Image style={[styles.avatar]} source={require("../assets/images/avatars/avatar4.png")}/>
           </TouchableOpacity>
       </View>
       <TouchableOpacity style={styles.nextButton} onPress={directToInterest}>

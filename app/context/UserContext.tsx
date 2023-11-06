@@ -25,6 +25,7 @@ export type UserContextType = {
     major: string;
     year: string;
     userID: string;
+    avatar: string;
     academic: boolean;
     career: boolean;
     financial: boolean;
@@ -36,6 +37,7 @@ export type UserContextType = {
     major: string;
     year: string;
     userID: string;
+    avatar: string;
     academic: boolean;
     career: boolean;
     financial: boolean;
@@ -59,6 +61,7 @@ const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     major: "",
     year: "",
     userID: "",
+    avatar: "",
     academic: false,
     career: false,
     financial: false,
@@ -89,6 +92,7 @@ const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
             major: string;
             year: string;
             userID: string;
+            avatar: string;
             academic: boolean,
             career: boolean,
             financial: boolean,
@@ -100,7 +104,7 @@ const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
         }
       } catch (error) {
         console.error("Error fetching user data:", error);
-        setUser({ name: "", email: "", major: "", year: "", userID: "", academic: false, career: false, financial: false, studentLife: false});
+        setUser({ name: "", email: "", major: "", year: "", userID: "", avatar: "", academic: false, career: false, financial: false, studentLife: false});
       }
     };
     // Clean up the listener when the component unmounts
