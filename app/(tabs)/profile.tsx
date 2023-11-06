@@ -51,7 +51,9 @@ export default function App() {
     loadPosts();
   }, [posts]);
 
-  const filteredPosts = allPosts.filter((post) => post.userID == user.userID);
+  const filteredPosts = allPosts.filter(
+    (post) => user && post.userID == user.userID
+  );
 
   return (
     <View style={styles.container}>
