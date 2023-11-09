@@ -98,6 +98,7 @@ const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
             financial: boolean;
             studentLife: boolean;
           };
+
           setUser(userData);
           console.log(userData);
           console.log(user);

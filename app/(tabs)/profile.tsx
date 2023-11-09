@@ -1,4 +1,12 @@
-import { StyleSheet, Text, View, SafeAreaView, Image, ScrollView, FlatList } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  Image,
+  ScrollView,
+  FlatList,
+} from "react-native";
 import { useState, useEffect } from "react";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
@@ -27,11 +35,18 @@ export default function App() {
     setName(user.name);
     setMajor(user.major);
     setYear(user.year);
-    setAvatar(user.avatar);
+
     setAcademic(user.academic);
     setCareer(user.career);
     setFinancial(user.financial);
     setStudentLife(user.studentLife);
+    console.log("user.avatar =");
+    console.log(user.avatar);
+    if (user.avatar === undefined) {
+      setAvatar("avatar1");
+    } else {
+      setAvatar(user.avatar);
+    }
   }, [user]);
 
   useEffect(() => {
@@ -67,10 +82,14 @@ export default function App() {
   return (
     <View style={styles.container}>
       {/* <View style={styles.profileInfoContainer}> */}
-      <LinearGradient style={styles.profileInfoContainer} locations={[0, 1]} colors={["#fff", "#ffe59a"]}>
+      <LinearGradient
+        style={styles.profileInfoContainer}
+        locations={[0, 1]}
+        colors={["#fff", "#ffe59a"]}
+      >
         {/* Display the user's profile picture */}
         <View style={styles.profileImg}>
-          <Image source={avatarImages[avatar]} style={styles.profileImage}/>
+          <Image source={avatarImages[avatar]} style={styles.profileImage} />
           {/* Display the icon for editing the profile picture */}
           {/* <TouchableOpacity style={styles.editBtn}>
             <MaterialIcons name="edit" size={20} color="#ffffff" />
