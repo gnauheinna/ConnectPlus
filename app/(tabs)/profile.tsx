@@ -22,6 +22,8 @@ export default function App() {
   const [studentLife, setStudentLife] = useState(false);
   const { posts, loading } = usePostContext();
   const [allPosts, setAllPosts] = useState<Post[]>([]);
+  const [showLineForQuestions, setshowLineForQuestions] = useState(false);
+  const [showLineForJourneys, setshowLineForJourneys] = useState(false);
 
   useEffect(() => {
     setName(user.name);
@@ -113,15 +115,16 @@ export default function App() {
 
       {/* Display Posts and Mentions */}
       <View style={styles.horizontalBar}>
-        <TouchableOpacity style={styles.postsContainer}>
-          <Text>Posts</Text>
+        <TouchableOpacity onPress={() => { setshowLineForJourneys(false); setshowLineForQuestions(true);}}>
+          <Text style={styles.horizontalBarText}>My Questions</Text>
+          {showLineForQuestions && <View style={styles.lineForQuestions}></View>}
         </TouchableOpacity>
-        <TouchableOpacity style={styles.mentionsContainer}>
-          <Text>Mentions</Text>
+        <TouchableOpacity onPress={() => { setshowLineForJourneys(true); setshowLineForQuestions(false);}}>
+          <Text style={styles.horizontalBarText}>Saved Journeys</Text>
+          {showLineForJourneys && <View style={styles.lineForJourneys}></View>}
         </TouchableOpacity>
       </View>
-      {/* Display only the Borderline */}
-      <View style={styles.borderLine}></View>
+
       <View style={styles.container}>
         <View style={styles.mainContainer}>
           <FlatList
@@ -241,22 +244,30 @@ const styles = StyleSheet.create({
   horizontalBar: {
     flexDirection: "row",
     justifyContent: "space-evenly",
+    borderBottomColor: "#F0EAF6",
+    borderBottomWidth: 1, 
     marginTop: 20,
+    marginBottom: 20,
+    paddingBottom: 20,
   },
-  postsContainer: {
-    padding: 10,
-    marginTop: -17,
+  horizontalBarText: {
     fontWeight: "bold",
+    marginHorizontal: 30,
+    marginBottom: 0,
   },
-  borderLine: {
+  lineForQuestions: {
     borderBottomColor: "black",
     borderBottomWidth: 2,
     width: 150,
+    position: 'absolute',
+    bottom: 0,
   },
-  mentionsContainer: {
-    padding: 10,
-    marginTop: -17,
-    fontWeight: "bold",
+  lineForJourneys: {
+    borderBottomColor: "red",
+    borderBottomWidth: 2,
+    width: 150,
+    position: 'absolute',
+    bottom: 0,
   },
   iconsOnPosts: {
     flexDirection: "row",
