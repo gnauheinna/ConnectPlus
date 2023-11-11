@@ -6,11 +6,23 @@ import { TouchableOpacity } from "react-native";
 import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
 import { FontFamily, Color, Border } from "./GlobalStyles";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from "firebase/auth";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+  onAuthStateChanged,
+} from "firebase/auth";
 import { getApps } from "firebase/app";
-import { getFirestore, collection, serverTimestamp, addDoc } from "firebase/firestore";
+import {
+  getFirestore,
+  collection,
+  serverTimestamp,
+  addDoc,
+} from "firebase/firestore";
 import { CheckBox } from "react-native-elements";
-import { AuthContext } from "./AuthContext";
+import { AuthContext } from "./context/AuthContext";
 import { UserProvider } from "./context/UserContext";
 import { usePostContext } from "./context/postContext";
 

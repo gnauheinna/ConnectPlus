@@ -12,7 +12,7 @@ import { View, useColorScheme } from "react-native";
 import { Text } from "../components/Themed";
 import { initializeApp, getApps } from "firebase/app";
 import { firebaseConfig } from "../firebase";
-import { AuthProvider } from "./AuthContext";
+import { AuthProvider } from "./context/AuthContext";
 import { UserProvider } from "./context/UserContext";
 import { PostIdProvider } from "./context/PostIDContext";
 import { PostProvider } from "./context/postContext";
@@ -80,6 +80,7 @@ function RootLayoutNav() {
         <Stack.Screen name="signup" options={{ headerShown: false }} />
         <Stack.Screen name="interest" options={{ headerShown: false }} />
         <Stack.Screen name="user" options={{ headerShown: false }} />
+        <Stack.Screen name="post" options={{ headerShown: false }} />
         <Stack.Screen name="postdetails" options={{ headerShown: false }} />
       </Stack>
     </ThemeProvider>

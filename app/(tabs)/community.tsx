@@ -25,7 +25,7 @@ import { initializeApp, getApps } from "firebase/app";
 import { firebaseConfig } from "../../firebase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useUser } from "../context/UserContext";
-import postQuestions from "./post";
+import postQuestions from "../post";
 import { Post, PostProvider, usePostContext } from "../context/postContext";
 
 export default function CommunityScreen() {

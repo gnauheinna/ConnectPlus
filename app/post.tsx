@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Button, StyleSheet, TextInput } from "react-native";
-import EditScreenInfo from "../../components/EditScreenInfo";
-import { Text, View } from "../../components/Themed";
+import EditScreenInfo from "../components/EditScreenInfo";
+import { Text, View } from "../components/Themed";
 import { getApps } from "firebase/app";
 import {
   getFirestore,
@@ -12,7 +12,7 @@ import {
 } from "firebase/firestore";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useRouter } from "expo-router";
-import { useUser } from "../context/UserContext";
+import { useUser } from "./context/UserContext";
 import { Image } from "expo-image";
 import { getBackgroundColor } from "react-native-ui-lib/src/helpers/AvatarHelper";
 
@@ -136,7 +136,7 @@ export default function postQuestions() {
           <TouchableOpacity style={styles.backBtn} onPress={directToComm}>
             <Image
               style={styles.backIcon}
-              source={require("../../assets/images/back.png")}
+              source={require("../assets/images/back.png")}
             />
           </TouchableOpacity>
           {/* Post Button */}
@@ -207,7 +207,7 @@ export default function postQuestions() {
                   >
                     <Image
                       style={styles.crossIcon}
-                      source={require("../../assets/images/cross.png")}
+                      source={require("../assets/images/cross.png")}
                     />
                   </TouchableOpacity>
                 </View>
@@ -241,7 +241,7 @@ export default function postQuestions() {
                   >
                     <Image
                       style={styles.crossIcon}
-                      source={require("../../assets/images/cross.png")}
+                      source={require("../assets/images/cross.png")}
                     />
                   </TouchableOpacity>
                 </View>
@@ -275,7 +275,7 @@ export default function postQuestions() {
                   >
                     <Image
                       style={styles.crossIcon}
-                      source={require("../../assets/images/cross.png")}
+                      source={require("../assets/images/cross.png")}
                     />
                   </TouchableOpacity>
                 </View>
@@ -309,7 +309,7 @@ export default function postQuestions() {
                   >
                     <Image
                       style={styles.crossIcon}
-                      source={require("../../assets/images/cross.png")}
+                      source={require("../assets/images/cross.png")}
                     />
                   </TouchableOpacity>
                 </View>

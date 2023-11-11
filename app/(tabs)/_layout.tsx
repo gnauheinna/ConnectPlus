@@ -6,7 +6,7 @@ import Colors from "../../constants/Colors";
 import { AntDesign } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { useContext } from "react";
-import { AuthContext } from "../AuthContext";
+import { AuthContext } from "../context/AuthContext";
 import { useUser, UserProvider } from "../context/UserContext";
 import { PostProvider } from "../context/postContext";
 /**
