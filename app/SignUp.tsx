@@ -19,7 +19,7 @@ import {
   serverTimestamp,
   setDoc,
   collection,
-  addDoc,
+  updateDoc,
 } from "firebase/firestore";
 import { LinearGradient } from "expo-linear-gradient";
 import { Image } from "react-native";
@@ -84,18 +84,25 @@ const SignupForm = () => {
         });
     });
   }
-
+  useEffect(() => {
+    console.log("userID state after set:", userID);
+  }, [userID]);
   // saves user data to firestore
   const handleNewUserEmail = async () => {
     // get a instance of Firebase db
     const db = getFirestore();
     const user = auth.currentUser;
-    //const userCollection = collection(db, "users");
-    console.log("db");
-    console.log(user?.uid);
     try {
       if (user) {
-        await setDoc(doc(db, "users", user.uid), newUser);
+        const userID = user.uid;
+        // create user on firestore
+        const newUserRef = doc(db, "users", user.uid);
+        await setDoc(newUserRef, newUser);
+
+        // Update the document with the userID field
+        await updateDoc(newUserRef, { userID });
+        //create empty user chats on firestore
+        await setDoc(doc(db, "userChats", user.uid), {});
       }
     } catch (error) {
       console.log(error);

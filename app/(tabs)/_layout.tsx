@@ -24,62 +24,62 @@ export default function TabLayout() {
   const { isLoggedIn } = useContext(AuthContext);
   const { user } = useUser();
 
-  if (!isLoggedIn) {
-    return <Redirect href="/" />;
-  } else {
-    return (
-      <UserProvider>
-        <Tabs
-          screenOptions={{
-            tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
-          }}
-        >
-          {isLoggedIn && (
-            <Tabs.Screen
-              name="journeys"
-              options={{
-                title: "Journeys",
-                tabBarIcon: ({ color }) => (
-                  <AntDesign name="filetext1" size={24} color="black" />
-                ),
-              }}
-            />
-          )}
-          {isLoggedIn && (
-            <Tabs.Screen
-              name="community"
-              options={{
-                title: "Community",
-                tabBarIcon: ({ color }) => (
-                  <Ionicons name="people" size={26} color="black" />
-                ),
-              }}
-            />
-          )}
-          {isLoggedIn && (
-            <Tabs.Screen
-              name="messages"
-              options={{
-                title: "Messages",
-                tabBarIcon: ({ color }) => (
-                  <AntDesign name="message1" size={24} color="black" />
-                ),
-              }}
-            />
-          )}
-          {isLoggedIn && (
-            <Tabs.Screen
-              name="profile"
-              options={{
-                title: "Profile",
-                tabBarIcon: ({ color }) => (
-                  <AntDesign name="idcard" size={24} color="black" />
-                ),
-              }}
-            />
-          )}
-        </Tabs>
-      </UserProvider>
-    );
-  }
+  //if (!isLoggedIn) {
+  //return <Redirect href="/" />;
+  //} else {
+  return (
+    <UserProvider>
+      <Tabs
+        screenOptions={{
+          tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
+        }}
+      >
+        {isLoggedIn && (
+          <Tabs.Screen
+            name="journeys"
+            options={{
+              title: "Journeys",
+              tabBarIcon: ({ color }) => (
+                <AntDesign name="filetext1" size={24} color="black" />
+              ),
+            }}
+          />
+        )}
+        {isLoggedIn && (
+          <Tabs.Screen
+            name="community"
+            options={{
+              title: "Community",
+              tabBarIcon: ({ color }) => (
+                <Ionicons name="people" size={26} color="black" />
+              ),
+            }}
+          />
+        )}
+        {isLoggedIn && (
+          <Tabs.Screen
+            name="messages"
+            options={{
+              title: "Messages",
+              tabBarIcon: ({ color }) => (
+                <AntDesign name="message1" size={24} color="black" />
+              ),
+            }}
+          />
+        )}
+        {isLoggedIn && (
+          <Tabs.Screen
+            name="profile"
+            options={{
+              title: "Profile",
+              tabBarIcon: ({ color }) => (
+                <AntDesign name="idcard" size={24} color="black" />
+              ),
+            }}
+          />
+        )}
+      </Tabs>
+    </UserProvider>
+  );
 }
+//}
