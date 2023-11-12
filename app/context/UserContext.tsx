@@ -69,12 +69,12 @@ const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   });
 
   useEffect(() => {
-    console.log("E THis is Current User");
+    console.log("This is Current User");
     console.log(Currentuser);
     setUserID(Currentuser?.uid);
   }, [Currentuser]); // Only run this effect once when the component mounts
   useEffect(() => {
-    console.log("E this is User ID");
+    console.log("This is User ID");
     console.log(userID);
   }, [userID]);
   // Fetch user data from the "users" collection in Firebase
@@ -124,7 +124,7 @@ const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   }, [userID]);
 
   useEffect(() => {
-    console.log("E This is user");
+    console.log("This is user");
     console.log(user);
     //setUser1(user);
   }, [user]);

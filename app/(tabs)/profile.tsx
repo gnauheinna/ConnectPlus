@@ -1,18 +1,8 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  SafeAreaView,
-  Image,
-  ScrollView,
-  FlatList,
-} from "react-native";
+import { StyleSheet, Text, View, Image, ScrollView, FlatList } from "react-native";
 import { useState, useEffect } from "react";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { Color, FontFamily, Padding, Border, FontSize } from "./ProfileStyles";
-import { Card, ListItem, Button, Icon } from "react-native-elements";
-import CardContent from "react-native-paper/lib/typescript/components/Card/CardContent";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import IndividualPost from "../../components/individualPost";
 import { useUser } from "../context/UserContext";
