@@ -3,12 +3,14 @@ import { Link, Redirect, Tabs } from "expo-router";
 import { Pressable, useColorScheme } from "react-native";
 import PlusButton from "../../components/postButton";
 import Colors from "../../constants/Colors";
-import { AntDesign } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useUser, UserProvider } from "../context/UserContext";
 import { PostProvider } from "../context/postContext";
+import { Image } from 'react-native';
+
+
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
  */
@@ -39,8 +41,11 @@ export default function TabLayout() {
             name="journeys"
             options={{
               title: "Journeys",
-              tabBarIcon: ({ color }) => (
-                <AntDesign name="filetext1" size={24} color="black" />
+              tabBarIcon: ({ focused }) => (
+                <Image 
+                  source={focused ? require('../../assets/images/icons/changedJourney.png') : require('../../assets/images/icons/myJourneyIcon.png')} 
+                  style={focused ? {width: 26, height: 26} : {width: 26, height: 26}} 
+                />
               ),
             }}
           />
@@ -49,9 +54,11 @@ export default function TabLayout() {
           <Tabs.Screen
             name="community"
             options={{
-              title: "Community",
-              tabBarIcon: ({ color }) => (
-                <Ionicons name="people" size={26} color="black" />
+              title: "Ask & Share",
+              tabBarIcon: ({ focused }) => (
+                <Image source={focused ? require('../../assets/images/icons/changedAsknShare.png') : 
+                require('../../assets/images/icons/asknshareIcon.png')}  
+                style={focused ? {width: 26, height: 26} : {width: 26, height: 26}}/>
               ),
             }}
           />
@@ -61,8 +68,10 @@ export default function TabLayout() {
             name="messages"
             options={{
               title: "Messages",
-              tabBarIcon: ({ color }) => (
-                <AntDesign name="message1" size={24} color="black" />
+              tabBarIcon: ({ focused }) => (
+                <Image source={focused ? require('../../assets/images/icons/changedMessaging.png') : 
+                require('../../assets/images/icons/messagingIcon.png')}  
+                style={focused ? {width: 26, height: 26} : {width: 26, height: 26}}/>
               ),
             }}
           />
@@ -72,8 +81,10 @@ export default function TabLayout() {
             name="profile"
             options={{
               title: "Profile",
-              tabBarIcon: ({ color }) => (
-                <AntDesign name="idcard" size={24} color="black" />
+              tabBarIcon: ({ focused }) => (
+                <Image source={focused ? require('../../assets/images/icons/changedProfile.png') : 
+                require('../../assets/images/icons/profileIcon.png')}  
+                style={focused ? {width: 26, height: 26} : {width: 26, height: 26}}/>
               ),
             }}
           />
