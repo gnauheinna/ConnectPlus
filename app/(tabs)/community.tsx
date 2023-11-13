@@ -43,7 +43,7 @@ export default function CommunityScreen() {
   const [selectedAll, setSelectedAll] = useState(true);
 
   function directToPost() {
-    router.push("/(tabs)/post");
+    router.push("/post");
   }
 
   useEffect(() => {
