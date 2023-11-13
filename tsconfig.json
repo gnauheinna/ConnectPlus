@@ -6,6 +6,7 @@
   "include": [
     "**/*.ts",
     "**/*.tsx",
+    "(tabs)/**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts"
   ]
