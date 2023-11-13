@@ -6,6 +6,8 @@ export const FontFamily = {
 /* font sizes */
 export const FontSize = {
   size_base_3: 16,
+  size_mini: 15,
+  size_xl: 20,
 };
 /* Colors */
 export const Color = {

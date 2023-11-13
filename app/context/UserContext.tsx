@@ -16,6 +16,7 @@ import {
   doc,
   updateDoc,
 } from "firebase/firestore";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // represents the shape of the context value
 export type UserContextType = {
@@ -51,6 +52,7 @@ const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   if (getApps() == null) {
     const app = initializeApp();
   }
+
   const Currentuser = auth.currentUser;
   const db = getFirestore();
 
