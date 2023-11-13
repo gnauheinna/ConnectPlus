@@ -8,133 +8,201 @@ export default function JourneyScreen() {
     <View style={styles.outermostContainer}>
       <View style={styles.container}>
         <View>
-            <Text style={styles.journeyBigTitle}>My Journey</Text>
+          <Text style={styles.journeyBigTitle}>My Journey</Text>
         </View>
 
         <View>
-            <Text style={styles.journeySubTitle}>Featured</Text>
+          <Text style={styles.journeySubTitle}>Featured</Text>
         </View>
-        
+
         <View style={styles.featuredJourneysContainer}>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              {/* 1st Featured Journey */}
-              <TouchableOpacity style={styles.featuredJourney1}>
-                  <Image style={styles.featuredJourney1} source={require("../../assets/images/gradient/gradient1.png")} />
-                <View style={styles.overlay}>
-                  {/* Journey Info */}
-                  <View style={styles.overlayTextContainer}>
-                    <Text style={styles.overlayText}>Alternative Service Break </Text>
-                  </View>
-                  {/* Mentor Info */}
-                  <View style={styles.userContainer}>
-                    <View style={styles.userInfo}>
-                      <Image style={styles.profileImg} source={require("../../assets/images/mentorProfilePics/RachelLi.png")} />
-                      <View style={styles.userNameAndIntro}>
-                        <Text style={styles.userName}>Rachel Li</Text>
-                        <Text style={styles.userIntro}>Class of 2024, Data Science Major</Text>
-                      </View>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            {/* 1st Featured Journey */}
+            <TouchableOpacity style={styles.featuredJourney1}>
+              <Image
+                style={styles.featuredJourney1}
+                source={require("../../assets/images/gradient/gradient1.png")}
+              />
+              <View style={styles.overlay}>
+                {/* Journey Info */}
+                <View style={styles.overlayTextContainer}>
+                  <Text style={styles.overlayText}>
+                    Alternative Service Break{" "}
+                  </Text>
+                </View>
+                {/* Mentor Info */}
+                <View style={styles.userContainer}>
+                  <View style={styles.userInfo}>
+                    <Image
+                      style={styles.profileImg}
+                      source={require("../../assets/images/mentorProfilePics/RachelLi.png")}
+                    />
+                    <View style={styles.userNameAndIntro}>
+                      <Text style={styles.userName}>Rachel Li</Text>
+                      <Text style={styles.userIntro}>
+                        Class of 2024, Data Science Major
+                      </Text>
                     </View>
                   </View>
                 </View>
-             </TouchableOpacity>
+              </View>
+            </TouchableOpacity>
 
-              {/* 2nd Featured Journey */}
-              <TouchableOpacity style={styles.featuredJourney2}>
-                  <Image style={styles.featuredJourney2} source={require("../../assets/images/gradient/gradient2.png")} />
-                <View style={styles.overlay}>
-                  {/* Journey Info */}
-                  <View style={styles.overlayTextContainer}>
-                    <Text style={styles.overlayText}>Alternative Service Break </Text>
-                  </View>
-                  {/* Mentor Info */}
-                  <View style={styles.userContainer}>
-                    <View style={styles.userInfo}>
-                      <Image style={styles.profileImg} source={require("../../assets/images/mentorProfilePics/RachelLi.png")} />
-                      <View style={styles.userNameAndIntro}>
-                        <Text style={styles.userName}>Rachel Li</Text>
-                        <Text style={styles.userIntro}>Class of 2024, Data Science Major</Text>
-                      </View>
+            {/* 2nd Featured Journey */}
+            <TouchableOpacity style={styles.featuredJourney2}>
+              <Image
+                style={styles.featuredJourney2}
+                source={require("../../assets/images/gradient/gradient2.png")}
+              />
+              <View style={styles.overlay}>
+                {/* Journey Info */}
+                <View style={styles.overlayTextContainer}>
+                  <Text style={styles.overlayText}>
+                    FirstGen Journey- From Taiwan to Boston{" "}
+                  </Text>
+                </View>
+                {/* Mentor Info */}
+                <View style={styles.userContainer}>
+                  <View style={styles.userInfo}>
+                    <Image
+                      style={styles.profileImg}
+                      source={require("../../assets/images/mentorProfilePics/RachelLi.png")}
+                    />
+                    <View style={styles.userNameAndIntro}>
+                      <Text style={styles.userName}>Annie Huang</Text>
+                      <Text style={styles.userIntro}>
+                        Class of 2025, CS Major
+                      </Text>
                     </View>
                   </View>
                 </View>
-             </TouchableOpacity>
-            </ScrollView>
-          </View>
+              </View>
+            </TouchableOpacity>
+          </ScrollView>
+        </View>
 
-          <View>
-            <Text style={styles.journeySubTitle}>All</Text>
+        <View>
+          <Text style={styles.journeySubTitle}>All</Text>
         </View>
 
         <View style={styles.allJourneysContainer}>
-            <ScrollView showsVerticalScrollIndicator={false}>
-              {/* 1st Journey */}
-              <TouchableOpacity style={styles.individualJourney}>
-                  <Image style={styles.miniGradient} source={require("../../assets/images/gradient/miniGradient1.png")} />
-                <View style={styles.journeyTextContainer}>
-                  {/* Journey Title Info */}
-                  <View style={styles.journeyTextNonFeaturedContainer}>
-                    <Text style={styles.journeyTitleNonFeatured}>Alternative Service Break </Text>
-                  </View>
-                  {/* Mentor Info */}
-                  <View style={styles.individualJourneyUserContainer}>
-                    <View style={styles.userInfo}>
-                      <Image style={styles.profileImgNonFeatured} source={require("../../assets/images/mentorProfilePics/RachelLi.png")} />
-                      <View style={styles.userNameAndIntro}>
-                        <Text style={styles.userNameNonFeatured}>Rachel Li</Text>
-                        <Text style={styles.userIntroNonFeatured}>Class of 2024, Data Science Major</Text>
-                      </View>
+          <ScrollView showsVerticalScrollIndicator={false}>
+            {/* 1st Journey */}
+            <TouchableOpacity style={styles.individualJourney}>
+              <Image
+                style={styles.miniGradient}
+                source={require("../../assets/images/gradient/miniGradient1.png")}
+              />
+              <View style={styles.journeyTextContainer}>
+                {/* Journey Title Info */}
+                <View style={styles.journeyTextNonFeaturedContainer}>
+                  <Text style={styles.journeyTitleNonFeatured}>
+                    Lost in Art{" "}
+                  </Text>
+                </View>
+                {/* Mentor Info */}
+                <View style={styles.individualJourneyUserContainer}>
+                  <View style={styles.userInfo}>
+                    <Image
+                      style={styles.profileImgNonFeatured}
+                      source={require("../../assets/images/mentorProfilePics/RachelLi.png")}
+                    />
+                    <View style={styles.userNameAndIntro}>
+                      <Text style={styles.userNameNonFeatured}>
+                        Gaby Garcia-Mendoza
+                      </Text>
+                      <Text style={styles.userIntroNonFeatured}>
+                        Class of 2025, Art Major
+                      </Text>
                     </View>
-                    <View style={styles.saveJourneyContainer}><Image style={styles.saveJourney} source={require("../../assets/images/icons/greySave.png")} /></View>
+                  </View>
+                  <View style={styles.saveJourneyContainer}>
+                    <Image
+                      style={styles.saveJourney}
+                      source={require("../../assets/images/icons/greySave.png")}
+                    />
                   </View>
                 </View>
-             </TouchableOpacity>
+              </View>
+            </TouchableOpacity>
 
-             {/* 2nd Journey */}
-             <TouchableOpacity style={styles.individualJourney}>
-                  <Image style={styles.miniGradient} source={require("../../assets/images/gradient/miniGradient2.png")} />
-                <View style={styles.journeyTextContainer}>
-                  {/* Journey Info */}
-                  <View style={styles.journeyTextNonFeaturedContainer}>
-                    <Text style={styles.journeyTitleNonFeatured}>Alternative Service Break </Text>
-                  </View>
-                  {/* Mentor Info */}
-                  <View style={styles.individualJourneyUserContainer}>
-                    <View style={styles.userInfo}>
-                      <Image style={styles.profileImgNonFeatured} source={require("../../assets/images/mentorProfilePics/RachelLi.png")} />
-                      <View style={styles.userNameAndIntro}>
-                        <Text style={styles.userNameNonFeatured}>Rachel Li</Text>
-                        <Text style={styles.userIntroNonFeatured}>Class of 2024, Data Science Major</Text>
-                      </View>
+            {/* 2nd Journey */}
+            <TouchableOpacity style={styles.individualJourney}>
+              <Image
+                style={styles.miniGradient}
+                source={require("../../assets/images/gradient/miniGradient2.png")}
+              />
+              <View style={styles.journeyTextContainer}>
+                {/* Journey Info */}
+                <View style={styles.journeyTextNonFeaturedContainer}>
+                  <Text style={styles.journeyTitleNonFeatured}>
+                    Career in UIUX Design{" "}
+                  </Text>
+                </View>
+                {/* Mentor Info */}
+                <View style={styles.individualJourneyUserContainer}>
+                  <View style={styles.userInfo}>
+                    <Image
+                      style={styles.profileImgNonFeatured}
+                      source={require("../../assets/images/mentorProfilePics/RachelLi.png")}
+                    />
+                    <View style={styles.userNameAndIntro}>
+                      <Text style={styles.userNameNonFeatured}>Kristi Li</Text>
+                      <Text style={styles.userIntroNonFeatured}>
+                        Class of 2023, CS Major
+                      </Text>
                     </View>
-                    <View style={styles.saveJourneyContainer}><Image style={styles.saveJourney} source={require("../../assets/images/icons/greySave.png")} /></View>
+                  </View>
+                  <View style={styles.saveJourneyContainer}>
+                    <Image
+                      style={styles.saveJourney}
+                      source={require("../../assets/images/icons/greySave.png")}
+                    />
                   </View>
                 </View>
-             </TouchableOpacity>
+              </View>
+            </TouchableOpacity>
 
-             {/* 3rd Journey */}
-             <TouchableOpacity style={styles.individualJourney}>
-                  <Image style={styles.miniGradient} source={require("../../assets/images/gradient/miniGradient3.png")} />
-                <View style={styles.journeyTextContainer}>
-                  {/* Journey Info */}
-                  <View style={styles.journeyTextNonFeaturedContainer}>
-                    <Text style={styles.journeyTitleNonFeatured}>Alternative Service Break </Text>
-                  </View>
-                  {/* Mentor Info */}
-                  <View style={styles.individualJourneyUserContainer}>
-                    <View style={styles.userInfo}>
-                      <Image style={styles.profileImgNonFeatured} source={require("../../assets/images/mentorProfilePics/RachelLi.png")} />
-                      <View style={styles.userNameAndIntro}>
-                        <Text style={styles.userNameNonFeatured}>Rachel Li</Text>
-                        <Text style={styles.userIntroNonFeatured}>Class of 2024, Data Science Major</Text>
-                      </View>
+            {/* 3rd Journey */}
+            <TouchableOpacity style={styles.individualJourney}>
+              <Image
+                style={styles.miniGradient}
+                source={require("../../assets/images/gradient/miniGradient3.png")}
+              />
+              <View style={styles.journeyTextContainer}>
+                {/* Journey Info */}
+                <View style={styles.journeyTextNonFeaturedContainer}>
+                  <Text style={styles.journeyTitleNonFeatured}>
+                    As A CS Girlie{" "}
+                  </Text>
+                </View>
+                {/* Mentor Info */}
+                <View style={styles.individualJourneyUserContainer}>
+                  <View style={styles.userInfo}>
+                    <Image
+                      style={styles.profileImgNonFeatured}
+                      source={require("../../assets/images/mentorProfilePics/RachelLi.png")}
+                    />
+                    <View style={styles.userNameAndIntro}>
+                      <Text style={styles.userNameNonFeatured}>
+                        Annie Huang
+                      </Text>
+                      <Text style={styles.userIntroNonFeatured}>
+                        Class of 2025, CS Major
+                      </Text>
                     </View>
-                    <View style={styles.saveJourneyContainer}><Image style={styles.saveJourney} source={require("../../assets/images/icons/greySave.png")} /></View>
+                  </View>
+                  <View style={styles.saveJourneyContainer}>
+                    <Image
+                      style={styles.saveJourney}
+                      source={require("../../assets/images/icons/greySave.png")}
+                    />
                   </View>
                 </View>
-             </TouchableOpacity>
-
-            </ScrollView>
-          </View>
+              </View>
+            </TouchableOpacity>
+          </ScrollView>
+        </View>
       </View>
     </View>
   );
@@ -170,17 +238,17 @@ const styles = StyleSheet.create({
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'transparent', 
+    backgroundColor: "transparent",
     marginTop: 16,
   },
   overlayTextContainer: {
-    position: 'absolute',
+    position: "absolute",
     top: 0,
     paddingLeft: 16,
-    backgroundColor: 'transparent', 
+    backgroundColor: "transparent",
   },
   overlayText: {
-    color: 'white',
+    color: "white",
     fontWeight: "bold",
     fontSize: 18,
     lineHeight: 20,
@@ -195,8 +263,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginBottom: 20,
     backgroundColor: "transparent",
-    position: 'absolute', 
-    bottom: 0, 
+    position: "absolute",
+    bottom: 0,
     paddingLeft: 16,
   },
   profileImg: {
@@ -207,7 +275,7 @@ const styles = StyleSheet.create({
   },
   userInfo: {
     flexDirection: "row",
-    justifyContent: 'space-between',
+    justifyContent: "space-between",
     backgroundColor: "transparent",
   },
   userNameAndIntro: {
@@ -229,7 +297,7 @@ const styles = StyleSheet.create({
     height: 180,
     borderRadius: 15,
   },
-  allJourneysContainer:{
+  allJourneysContainer: {
     flex: 1,
   },
   individualJourney: {
@@ -238,22 +306,22 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#CAC4D0",
     borderRadius: 15,
-    flexDirection: 'row',
+    flexDirection: "row",
     marginBottom: 16,
   },
-  miniGradient:{
-    height: '100%', 
+  miniGradient: {
+    height: "100%",
     width: 29,
   },
   journeyTextContainer: {
     paddingLeft: 16,
     paddingRight: 16,
-    flexDirection: 'row',
+    flexDirection: "row",
     flexWrap: "wrap",
   },
-  journeyTextNonFeaturedContainer:{
+  journeyTextNonFeaturedContainer: {
     top: 0,
-    backgroundColor: 'transparent',
+    backgroundColor: "transparent",
     paddingTop: 16,
   },
   journeyTitleNonFeatured: {
@@ -267,8 +335,8 @@ const styles = StyleSheet.create({
     left: 0,
     bottom: 0,
     position: "absolute",
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   profileImgNonFeatured: {
     width: 36,
@@ -295,6 +363,6 @@ const styles = StyleSheet.create({
     height: 22,
     resizeMode: "contain",
     alignSelf: "center",
-    justifyContent: 'flex-end',
-  }
+    justifyContent: "flex-end",
+  },
 });

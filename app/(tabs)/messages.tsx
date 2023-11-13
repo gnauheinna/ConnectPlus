@@ -48,7 +48,7 @@ export default function Message() {
           <View style={styles.messageTextContainer}>
             <Text style={[styles.name, styles.nameTypo]}>Annie Huang</Text>
             <Text style={styles.latestPosition}>We love Connect Plus!🩷 </Text>
-            <Text style={[styles.text4, styles.textTypo]}>10/02</Text>
+            <Text style={[styles.text4, styles.textTypo]}>11/05</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity style={styles.individualMessageContainer}>
@@ -62,7 +62,7 @@ export default function Message() {
           <View style={styles.messageTextContainer}>
             <Text style={[styles.name, styles.nameTypo]}>Rachel Li</Text>
             <Text style={styles.latestPosition}>
-              Let me know if there's any thing I can help with you!
+              Let me know if there's any thing I can help you with!
             </Text>
             <Text style={[styles.text4, styles.textTypo]}>10/02</Text>
           </View>
