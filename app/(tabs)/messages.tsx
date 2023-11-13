@@ -92,9 +92,7 @@ export default function Message() {
             />
           </View>
           <View style={styles.messageTextContainer}>
-            <Text style={[styles.name, styles.nameTypo]}>
-              Gaby Garcia-Mendoza
-            </Text>
+            <Text style={[styles.name, styles.nameTypo]}>Gaby GM</Text>
             <Text style={styles.latestPosition}>
               Thank you for letting me know!
             </Text>

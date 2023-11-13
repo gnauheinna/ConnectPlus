@@ -108,9 +108,7 @@ export default function JourneyScreen() {
                       source={require("../../assets/images/mentorProfilePics/RachelLi.png")}
                     />
                     <View style={styles.userNameAndIntro}>
-                      <Text style={styles.userNameNonFeatured}>
-                        Gaby Garcia-Mendoza
-                      </Text>
+                      <Text style={styles.userNameNonFeatured}>Gaby GM</Text>
                       <Text style={styles.userIntroNonFeatured}>
                         Class of 2025, Art Major
                       </Text>
