@@ -1,7 +1,20 @@
 import React, { useState, useEffect, useContext } from "react";
-import { StyleSheet, TextInput, FlatList, ScrollView, Image } from "react-native";
+import {
+  StyleSheet,
+  TextInput,
+  FlatList,
+  ScrollView,
+  Image,
+} from "react-native";
 import { Text, View } from "../../components/Themed";
-import { getFirestore, collection, getDocs, Timestamp, doc, updateDoc } from "firebase/firestore";
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  Timestamp,
+  doc,
+  updateDoc,
+} from "firebase/firestore";
 import { AuthErrorCodes } from "firebase/auth";
 import { FontAwesome5, Feather } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -45,7 +58,7 @@ export default function CommunityScreen() {
     console.log(posts);
     // Call the fetchData function when the component mounts
     loadPosts();
-  }, []);
+  }, [posts]);
 
   const filteredPosts = allPosts.filter(
     (post) => post.tag === selectedTag || selectedTag === "All"
