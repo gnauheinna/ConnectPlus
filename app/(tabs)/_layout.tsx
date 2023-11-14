@@ -10,7 +10,7 @@ import { useUser, UserProvider } from "../context/UserContext";
 import { PostProvider } from "../context/postContext";
 import { Image } from "react-native";
 import { StyleSheet, ScrollView } from "react-native";
-
+import JourneyScreen from "./journeys";
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
  */
@@ -26,9 +26,9 @@ export default function TabLayout() {
   const { isLoggedIn } = useContext(AuthContext);
   const { user } = useUser();
 
-  //if (!isLoggedIn) {
-  //return <Redirect href="/" />;
-  //} else {
+  // if (!isLoggedIn) {
+  //   return <Redirect href="/" />;
+  // } else {
   return (
     <UserProvider>
       <Tabs
@@ -36,79 +36,73 @@ export default function TabLayout() {
           tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
         }}
       >
-        {isLoggedIn && (
-          <Tabs.Screen
-            name="journeys"
-            options={{
-              title: "Journeys",
-              tabBarIcon: ({ focused }) => (
-                <Image
-                  source={
-                    focused
-                      ? require("../../assets/images/icons/changedJourney.png")
-                      : require("../../assets/images/icons/myJourneyIcon.png")
-                  }
-                  // style={focused ? {width: 26, height: 26} : {width: 26, height: 26}}
-                  style={focused ? styles.navSelected : styles.navUnselected}
-                />
-              ),
-            }}
-          />
-        )}
-        {isLoggedIn && (
-          <Tabs.Screen
-            name="community"
-            options={{
-              title: "Ask & Share",
-              tabBarIcon: ({ focused }) => (
-                <Image
-                  source={
-                    focused
-                      ? require("../../assets/images/icons/changedAsknShare.png")
-                      : require("../../assets/images/icons/asknshareIcon.png")
-                  }
-                  style={focused ? styles.navSelected : styles.navUnselected}
-                />
-              ),
-            }}
-          />
-        )}
-        {isLoggedIn && (
-          <Tabs.Screen
-            name="messages"
-            options={{
-              title: "Messages",
-              tabBarIcon: ({ focused }) => (
-                <Image
-                  source={
-                    focused
-                      ? require("../../assets/images/icons/changedMessaging.png")
-                      : require("../../assets/images/icons/messagingIcon.png")
-                  }
-                  style={focused ? styles.navSelected : styles.navUnselected}
-                />
-              ),
-            }}
-          />
-        )}
-        {isLoggedIn && (
-          <Tabs.Screen
-            name="profile"
-            options={{
-              title: "Profile",
-              tabBarIcon: ({ focused }) => (
-                <Image
-                  source={
-                    focused
-                      ? require("../../assets/images/icons/changedProfile.png")
-                      : require("../../assets/images/icons/profileIcon.png")
-                  }
-                  style={focused ? styles.navSelected : styles.navUnselected}
-                />
-              ),
-            }}
-          />
-        )}
+        <Tabs.Screen
+          name="journeys"
+          options={{
+            title: "Journeys",
+            tabBarIcon: ({ focused }) => (
+              <Image
+                source={
+                  focused
+                    ? require("../../assets/images/icons/changedJourney.png")
+                    : require("../../assets/images/icons/myJourneyIcon.png")
+                }
+                // style={focused ? {width: 26, height: 26} : {width: 26, height: 26}}
+                style={focused ? styles.navSelected : styles.navUnselected}
+              />
+            ),
+            headerShown: false,
+          }}
+        />
+        <Tabs.Screen
+          name="community"
+          options={{
+            title: "Ask & Share",
+            tabBarIcon: ({ focused }) => (
+              <Image
+                source={
+                  focused
+                    ? require("../../assets/images/icons/changedAsknShare.png")
+                    : require("../../assets/images/icons/asknshareIcon.png")
+                }
+                style={focused ? styles.navSelected : styles.navUnselected}
+              />
+            ),
+            headerShown: false,
+          }}
+        />
+        <Tabs.Screen
+          name="messages"
+          options={{
+            tabBarIcon: ({ focused }) => (
+              <Image
+                source={
+                  focused
+                    ? require("../../assets/images/icons/changedMessaging.png")
+                    : require("../../assets/images/icons/messagingIcon.png")
+                }
+                style={focused ? styles.navSelected : styles.navUnselected}
+              />
+            ),
+            headerShown: false,
+          }}
+        />
+        <Tabs.Screen
+          name="profile"
+          options={{
+            tabBarIcon: ({ focused }) => (
+              <Image
+                source={
+                  focused
+                    ? require("../../assets/images/icons/changedProfile.png")
+                    : require("../../assets/images/icons/profileIcon.png")
+                }
+                style={focused ? styles.navSelected : styles.navUnselected}
+              />
+            ),
+            headerShown: false,
+          }}
+        />
       </Tabs>
     </UserProvider>
   );

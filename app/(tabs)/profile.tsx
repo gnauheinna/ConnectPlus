@@ -1,4 +1,11 @@
-import { StyleSheet, Text, View, Image, ScrollView, FlatList } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  ScrollView,
+  FlatList,
+} from "react-native";
 import { useState, useEffect } from "react";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
@@ -55,6 +62,7 @@ export default function App() {
   const filteredPosts = allPosts.filter(
     (post) => user && post.userID == user.userID
   );
+  console.log("this is weird");
 
   const avatarImages: { [key: string]: any } = {
     avatar1: require("../../assets/images/avatars/avatar1.png"),
@@ -124,11 +132,23 @@ export default function App() {
 
       {/* Display Posts and Mentions */}
       <View style={styles.horizontalBar}>
-        <TouchableOpacity onPress={() => { setshowLineForJourneys(false); setshowLineForQuestions(true);}}>
+        <TouchableOpacity
+          onPress={() => {
+            setshowLineForJourneys(false);
+            setshowLineForQuestions(true);
+          }}
+        >
           <Text style={styles.horizontalBarText}>My Questions</Text>
-          {showLineForQuestions && <View style={styles.lineForQuestions}></View>}
+          {showLineForQuestions && (
+            <View style={styles.lineForQuestions}></View>
+          )}
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => { setshowLineForJourneys(true); setshowLineForQuestions(false);}}>
+        <TouchableOpacity
+          onPress={() => {
+            setshowLineForJourneys(true);
+            setshowLineForQuestions(false);
+          }}
+        >
           <Text style={styles.horizontalBarText}>Saved Journeys</Text>
           {showLineForJourneys && <View style={styles.lineForJourneys}></View>}
         </TouchableOpacity>
@@ -254,7 +274,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-evenly",
     borderBottomColor: "#F0EAF6",
-    borderBottomWidth: 1, 
+    borderBottomWidth: 1,
     marginTop: 20,
     marginBottom: 20,
     paddingBottom: 20,
@@ -268,14 +288,14 @@ const styles = StyleSheet.create({
     borderBottomColor: "black",
     borderBottomWidth: 2,
     width: 150,
-    position: 'absolute',
+    position: "absolute",
     bottom: 0,
   },
   lineForJourneys: {
     borderBottomColor: "red",
     borderBottomWidth: 2,
     width: 150,
-    position: 'absolute',
+    position: "absolute",
     bottom: 0,
   },
   iconsOnPosts: {
