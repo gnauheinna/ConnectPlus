@@ -46,7 +46,7 @@ export default function Message() {
               <Image style={styles.profilePhoto} source={require("../../assets/images/avatars/avatar1.png")} />
             </View>
             <View style={styles.userInfoContainer}>
-              <Text style={styles.userName}>Annie Huang</Text>
+              <Text style={styles.userName}>Rachel Li</Text>
               <Text style={styles.lastMessage}>We love Connect Plus!</Text>
             </View>
             <View style={styles.timestampContainer}>
@@ -103,11 +103,11 @@ export default function Message() {
         <TouchableOpacity style={styles.individualMessageContainer} onPress={directToChatBox}>
           <View style={styles.individualMessageMainContainer}>
             <View style={styles.profilePicContainer}>
-              <Image style={styles.profilePhoto} source={require("../../assets/images/avatars/avatar1.png")}/>
+              <Image style={styles.profilePhoto} source={require("../../assets/images/avatars/avatar7.png")}/>
             </View>
             <View style={styles.userInfoContainer}>
               <Text style={styles.userName}>Annie Huang</Text>
-              <Text style={styles.lastMessage}>We love Connect Plus!</Text>
+              <Text style={styles.lastMessage}>Happy to help!</Text>
             </View>
             <View style={styles.timestampContainer}>
               <Text style={styles.messageTimestamp}>11/9</Text>
