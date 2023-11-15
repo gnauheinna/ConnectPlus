@@ -27,7 +27,7 @@ export default function App() {
   const [studentLife, setStudentLife] = useState(false);
   const { posts, loading } = usePostContext();
   const [allPosts, setAllPosts] = useState<Post[]>([]);
-  const [showLineForQuestions, setshowLineForQuestions] = useState(false);
+  const [showLineForQuestions, setshowLineForQuestions] = useState(true);
   const [showLineForJourneys, setshowLineForJourneys] = useState(false);
 
   useEffect(() => {
@@ -80,13 +80,9 @@ export default function App() {
   console.log(avatarImages[avatar]); // Check what image it maps to
 
   return (
-    <View style={styles.container}>
-      {/* <View style={styles.profileInfoContainer}> */}
-      <LinearGradient
-        style={styles.profileInfoContainer}
-        locations={[0, 1]}
-        colors={["#fff", "#ffe59a"]}
-      >
+    <View style={styles.outterMostContainer}>
+    {/* <View style={styles.container}> */}
+      <View style={styles.profileInfoContainer}>
         {/* Display the user's profile picture */}
         <View style={styles.profileImg}>
           <Image source={avatarImages[avatar]} style={styles.profileImage} />
@@ -106,7 +102,7 @@ export default function App() {
         </View>
 
         {/* Display the user's interests */}
-        <TouchableOpacity style={styles.interestsContainer}>
+        <View style={styles.interestsContainer}>
           {user && user.academic && (
             <View style={styles.individualInterest}>
               <Text style={styles.interestText}>Academic</Text>
@@ -127,35 +123,40 @@ export default function App() {
               <Text style={styles.interestText}>Student Life</Text>
             </View>
           )}
-        </TouchableOpacity>
-      </LinearGradient>
+        </View>
+    </View>
 
-      {/* Display Posts and Mentions */}
-      <View style={styles.horizontalBar}>
-        <TouchableOpacity
-          onPress={() => {
+      {/* Horizontal Bar */}
+      <View style={styles.horizontalBarContainer}>
+        {/* Press on the My Questions tab */}
+        <TouchableOpacity onPress={() => {
             setshowLineForJourneys(false);
             setshowLineForQuestions(true);
           }}
         >
-          <Text style={styles.horizontalBarText}>My Questions</Text>
-          {showLineForQuestions && (
-            <View style={styles.lineForQuestions}></View>
-          )}
+          <Text style={[styles.myQuestionsText, showLineForJourneys ? {color: '#85808C'} : {}]}>My Questions</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
+        {/* Display the line underneath the My Questions tab */}
+        {showLineForQuestions && (
+          <View style={styles.lineForQuestions}></View>
+        )}
+        {/* Press on the Saved Journeys tab */}
+        <TouchableOpacity onPress={() => {
             setshowLineForJourneys(true);
             setshowLineForQuestions(false);
           }}
         >
-          <Text style={styles.horizontalBarText}>Saved Journeys</Text>
-          {showLineForJourneys && <View style={styles.lineForJourneys}></View>}
+          <Text style={[styles.savedJourneysText, showLineForQuestions ? {color: '#85808C'} : {}]}>Saved Journeys</Text>
         </TouchableOpacity>
+        {/* Display the line underneath the Saved Journeys tab */}
+        {showLineForJourneys && (
+          <View style={styles.lineForJourneys}></View>
+        )}
       </View>
 
-      <View style={styles.container}>
-        <View style={styles.mainContainer}>
+      <ScrollView style={styles.questionsContainer} showsVerticalScrollIndicator={false}>
+        <View style={styles.mainQuestionsContainer}>
+        {!showLineForJourneys && (
           <FlatList
             data={filteredPosts}
             showsVerticalScrollIndicator={false}
@@ -188,38 +189,35 @@ export default function App() {
                     />
                   </TouchableOpacity>
                 </View>
-              </View>
-            )}
-          />
-        </View>
-      </View>
+                </View>)}/>)}
+          </View>
+        </ScrollView>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  mainContainer: {
+  outterMostContainer: {
     flex: 1,
-    marginLeft: 20,
-    marginRight: 20,
-    backgroundColor: "white",
   },
   container: {
-    flex: 1,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "white",
+    paddingTop: 60,
   },
   profileInfoContainer: {
-    flex: 1,
-    height: "100%",
+    height: 370,
     width: "100%",
     justifyContent: "center",
     alignSelf: "center",
+    backgroundColor: "white",
+    paddingTop: 20,
   },
   profileImg: {
     flexDirection: "row",
     justifyContent: "center",
+    marginBottom: 10,
   },
   profileImage: {
     width: 120,
@@ -246,8 +244,8 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   userIntro: {
-    fontSize: 16,
-    color: "#000000",
+    fontSize: 18,
+    color: "#838383",
     marginBottom: 10,
   },
   infoContainer: {
@@ -258,45 +256,70 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     alignSelf: "center",
+    marginTop: 20,
   },
   individualInterest: {
     marginRight: 10,
-    backgroundColor: "#F6F5F0",
     borderRadius: 25,
     paddingVertical: 10,
-    paddingHorizontal: 16,
+    paddingHorizontal: 12,
+    borderWidth: 1.5,
+    borderColor: "#D3A0E2",
   },
   interestText: {
-    color: "#3A3340",
-    fontWeight: "500",
+    color: "#D3A0E2",
+    fontWeight: "600",
   },
-  horizontalBar: {
+  horizontalBarContainer: {
     flexDirection: "row",
     justifyContent: "space-evenly",
     borderBottomColor: "#F0EAF6",
     borderBottomWidth: 1,
-    marginTop: 20,
-    marginBottom: 20,
     paddingBottom: 20,
+    backgroundColor: "white",
   },
   horizontalBarText: {
     fontWeight: "bold",
     marginHorizontal: 30,
     marginBottom: 0,
   },
+  myQuestionsText: {
+    fontWeight: "bold",
+    marginHorizontal: 30,
+    marginBottom: 0,
+  },
+  savedJourneysText: {
+    fontWeight: "bold",
+    marginHorizontal: 30,
+    marginBottom: 0,
+  },
   lineForQuestions: {
-    borderBottomColor: "black",
-    borderBottomWidth: 2,
-    width: 150,
-    position: "absolute",
+    backgroundColor: '#D3A0E2',
+    height: 2,
+    width: '50%',
+    alignSelf: "flex-start",
+    position: 'absolute',
     bottom: 0,
+    left: 0,
   },
   lineForJourneys: {
-    borderBottomColor: "red",
-    borderBottomWidth: 2,
-    width: 150,
-    position: "absolute",
+    backgroundColor: '#D3A0E2',
+    height: 2,
+    width: '50%',
+    alignSelf: "flex-end",
+    position: 'absolute',
     bottom: 0,
+    right: 0,
+  },
+  questionsContainer: {
+    flex: 1,
+    backgroundColor: "white",
+  },
+  mainQuestionsContainer: {
+    marginLeft: 20,
+    marginRight: 20,
+    paddingTop: 20,
+    backgroundColor: "white",
   },
   iconsOnPosts: {
     flexDirection: "row",

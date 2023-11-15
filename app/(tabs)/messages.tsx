@@ -37,7 +37,7 @@ export default function Message() {
      </View>
 
       {/* Scrollable Container */}
-      <ScrollView style={styles.messagesContainer}>
+      <ScrollView style={styles.messagesContainer} showsVerticalScrollIndicator={false}>
       <View style={styles.messagesMainContainer}>
         {/* 1st Message Box */}
         <TouchableOpacity style={styles.individualMessageContainer} onPress={directToChatBox}>
