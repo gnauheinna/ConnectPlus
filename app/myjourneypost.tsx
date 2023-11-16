@@ -1,16 +1,35 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Image } from "expo-image";
-import { LinearGradient } from "expo-linear-gradient";
-import { TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
-import { useUser } from "./context/UserContext";
-import { StyleSheet, View, Text, ScrollView, ImageBackground } from "react-native";
+import { StyleSheet, View, Text, ScrollView, ImageBackground, NativeSyntheticEvent, NativeScrollEvent } from "react-native";
 
 export default function MyJourneyPost() {
   const router = useRouter();
   function directToMyJourney() {
     router.push("/journeys");
   }
+  const [verticalLine1, setVerticalLine1] = useState(true);
+  const [verticalLine2, setVerticalLine2] = useState(false);
+  const [verticalLine3, setVerticalLine3] = useState(false);
+  const [experiencesY, setExperiencesY] = useState(0);
+  const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    const scrollY = event.nativeEvent.contentOffset.y;
+    if (scrollY >= experiencesY-20) {
+      setVerticalLine2(true);
+      setVerticalLine1(false);
+    } else {
+      setVerticalLine2(false);
+      setVerticalLine1(true);
+    }
+    if (scrollY >= 400) {
+      setVerticalLine3(true);
+      setVerticalLine2(false);
+      setVerticalLine1(false);
+    } else {
+      setVerticalLine3(false);
+      setVerticalLine2(true);
+    }
+  };
 
   return (
     <View style={styles.outterContainer}>
@@ -22,7 +41,7 @@ export default function MyJourneyPost() {
           </ImageBackground> 
      </View>
 
-      <ScrollView style={styles.postContainer} showsVerticalScrollIndicator={false}>
+      <ScrollView style={styles.postContainer} showsVerticalScrollIndicator={false} onScroll={handleScroll}>
         <View style={styles.topPortionContainer}>
           {/* Post Title & Save Button */}
             <View style={styles.titleAndSaveButtonContainer}>
@@ -57,17 +76,24 @@ export default function MyJourneyPost() {
                   <View style={styles.regularContentContainer}>
                     <Text style={styles.regularContentText}>Justo scelerisque pharetra tellus sagittis porta. Nisi diam sem ut et. Sed pretium praesent faucibus gravida viverra convallis. Vulputate consectetur egestas aliquam nec tortor congue.</Text>
                     <Text style={styles.regularContentText}>Justo scelerisque pharetra tellus sagittis porta. Nisi diam sem ut et. Sed pretium praesent faucibus gravida viverra convallis. Vulputate consectetur egestas aliquam nec tortor congue.</Text>
+                    <Text style={styles.regularContentText}>Justo scelerisque pharetra tellus sagittis porta. Nisi diam sem ut et. Sed pretium praesent faucibus gravida viverra convallis. Vulputate consectetur egestas aliquam nec tortor congue.</Text>
                   </View>
               </View>
               {/* 2nd Step */}
               <View style={styles.individualStep}>
                   <View style={styles.subtitleContainer}>
-                      <Text style={styles.subtitleText}>Experiences</Text>
+                      <Text 
+                          style={styles.subtitleText} 
+                          onLayout={(event) => {
+                            const layout = event.nativeEvent.layout;
+                            setExperiencesY(layout.y);
+                          }}>Experiences</Text>
                   </View>
                   <View style={styles.boldedContentContainer}>
                     <Text style={styles.boldedContentText}>Lorem ipsum dolor sit amet consectetur.</Text>
                   </View>
                   <View style={styles.regularContentContainer}>
+                    <Text style={styles.regularContentText}>Justo scelerisque pharetra tellus sagittis porta. Nisi diam sem ut et. Sed pretium praesent faucibus gravida viverra convallis. Vulputate consectetur egestas aliquam nec tortor congue.</Text>
                     <Text style={styles.regularContentText}>Justo scelerisque pharetra tellus sagittis porta. Nisi diam sem ut et. Sed pretium praesent faucibus gravida viverra convallis. Vulputate consectetur egestas aliquam nec tortor congue.</Text>
                   </View>
               </View>
@@ -81,18 +107,18 @@ export default function MyJourneyPost() {
                   </View>
                   <View style={styles.regularContentContainer}>
                     <Text style={styles.regularContentText}>Justo scelerisque pharetra tellus sagittis porta. Nisi diam sem ut et. Sed pretium praesent faucibus gravida viverra convallis. Vulputate consectetur egestas aliquam nec tortor congue.</Text>
+                    <Text style={styles.regularContentText}>Justo scelerisque pharetra tellus sagittis porta. Nisi diam sem ut et. Sed pretium praesent faucibus gravida viverra convallis. Vulputate consectetur egestas aliquam nec tortor congue.</Text>
                   </View>
               </View>
             </View>
-            <View style={styles.progressBarContainer}>
-                <View style={styles.verticalLine1}></View>
-                <View style={styles.verticalLine2}></View>
-                <View style={styles.verticalLine3}></View>
-            </View>
         </View>
       </ScrollView>
+            <View style={styles.progressBarContainer}>
+                <View style={verticalLine1 ? styles.verticalLine1Active : styles.verticalLine1}></View>
+                <View style={verticalLine2 ? styles.verticalLine2Active : styles.verticalLine2}></View>
+                <View style={verticalLine3 ? styles.verticalLine3Active : styles.verticalLine3}></View>
+            </View>
       </View>
-
   );
 }
 
@@ -188,6 +214,7 @@ const styles = StyleSheet.create({
   postContentMainContainer: {
     flex: 1,
     backgroundColor: "white",
+    marginRight: 20,
   },
   individualStep: {
     marginBottom: 20,
@@ -225,12 +252,30 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   progressBarContainer: {
-    // zIndex: 3,
+    zIndex: 3,
+    position: 'absolute',
+    right: 20,
+    top: 280,
     flexDirection: 'column',
     height: 450,
-    // position: "relative",
+  },
+  verticalLine1Active: {
+    flex: 1,
+    borderLeftColor: '#FFD979',
+    borderLeftWidth: 5,
+    borderRadius: 20,
+    marginLeft: 20,
+    marginBottom: 15,
   },
   verticalLine1: {
+    flex: 1,
+    borderLeftColor: '#EAEAEA',
+    borderLeftWidth: 5,
+    borderRadius: 20,
+    marginLeft: 20,
+    marginBottom: 15,
+  },
+  verticalLine2Active: {
     flex: 1,
     borderLeftColor: '#FFD979',
     borderLeftWidth: 5,
@@ -246,12 +291,18 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     marginBottom: 15,
   },
+  verticalLine3Active: {
+    flex: 1,
+    borderLeftColor: '#FFD979',
+    borderLeftWidth: 5,
+    borderRadius: 20,
+    marginLeft: 20,
+  },
   verticalLine3: {
     flex: 1,
     borderLeftColor: '#EAEAEA',
     borderLeftWidth: 5,
     borderRadius: 20,
     marginLeft: 20,
-    // position: "absolute",
   },
 });

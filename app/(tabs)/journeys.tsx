@@ -55,7 +55,7 @@ export default function JourneyScreen() {
             </TouchableOpacity>
 
             {/* 2nd Featured Journey */}
-            <TouchableOpacity style={styles.featuredJourney2}>
+            <TouchableOpacity style={styles.featuredJourney2} onPress={directToMyJourneyPost}>
               <Image
                 style={styles.featuredJourney2}
                 source={require("../../assets/images/gradient/gradient2.png")}
@@ -94,7 +94,7 @@ export default function JourneyScreen() {
         <View style={styles.allJourneysContainer}>
           <ScrollView showsVerticalScrollIndicator={false}>
             {/* 1st Journey */}
-            <TouchableOpacity style={styles.individualJourney}>
+            <TouchableOpacity style={styles.individualJourney} onPress={directToMyJourneyPost}>
               <Image
                 style={styles.miniGradient}
                 source={require("../../assets/images/gradient/miniGradient1.png")}
@@ -131,7 +131,7 @@ export default function JourneyScreen() {
             </TouchableOpacity>
 
             {/* 2nd Journey */}
-            <TouchableOpacity style={styles.individualJourney}>
+            <TouchableOpacity style={styles.individualJourney} onPress={directToMyJourneyPost}>
               <Image
                 style={styles.miniGradient}
                 source={require("../../assets/images/gradient/miniGradient2.png")}
@@ -168,7 +168,7 @@ export default function JourneyScreen() {
             </TouchableOpacity>
 
             {/* 3rd Journey */}
-            <TouchableOpacity style={styles.individualJourney}>
+            <TouchableOpacity style={styles.individualJourney} onPress={directToMyJourneyPost}>
               <Image
                 style={styles.miniGradient}
                 source={require("../../assets/images/gradient/miniGradient3.png")}
