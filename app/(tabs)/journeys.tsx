@@ -2,8 +2,14 @@ import EditScreenInfo from "../../components/EditScreenInfo";
 import { Text, View } from "../../components/Themed";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { StyleSheet, ScrollView, Image } from "react-native";
+import MyJourneyPost from "../myjourneypost";
+import { useRouter } from "expo-router";
 
 export default function JourneyScreen() {
+  const router = useRouter();
+  function directToMyJourneyPost() {
+    router.push("/myjourneypost");
+  }
   return (
     <View style={styles.outermostContainer}>
       <View style={styles.container}>
@@ -18,7 +24,7 @@ export default function JourneyScreen() {
         <View style={styles.featuredJourneysContainer}>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             {/* 1st Featured Journey */}
-            <TouchableOpacity style={styles.featuredJourney1}>
+            <TouchableOpacity style={styles.featuredJourney1} onPress={directToMyJourneyPost}>
               <Image
                 style={styles.featuredJourney1}
                 source={require("../../assets/images/gradient/gradient1.png")}
