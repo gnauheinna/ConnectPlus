@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { View, Text } from "./Themed";
-import { TextInput } from "react-native-paper";
-import { TouchableOpacity, StyleSheet, Image } from "react-native";
+import { TouchableOpacity, StyleSheet, Image, TextInput } from "react-native";
 import {
   collection,
   query,
@@ -16,6 +15,8 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { useUser } from "../app/context/UserContext";
+import { useRouter } from "expo-router";
+import e from "express";
 
 export default function Search() {
   // the user we're searching
@@ -23,8 +24,12 @@ export default function Search() {
   const [inputName, setInputName] = useState("");
   const [searchUser, setSearchUser] = useState<DocumentData | null>(null);
   const [err, setErr] = useState(false);
+  const [lastMessage, setLastMessage] = useState("");
   const db = getFirestore();
-
+  const router = useRouter();
+  const directToChatBox = () => {
+    router.push("/chatbox");
+  };
   const handleSearch = async () => {
     console.log("handling search!!");
     // searches for target user from database
@@ -34,14 +39,16 @@ export default function Search() {
       console.log("try block");
       const querySnapshot = await getDocs(q);
       if (querySnapshot.empty) {
+        // User not found
         console.log("empty query!!");
         setErr(true);
+      } else {
+        // Search User exists
+        console.log("quersnapshot: ", querySnapshot);
+        querySnapshot.forEach((doc) => {
+          setSearchUser(doc.data());
+        });
       }
-      console.log("quersnapshot: ", querySnapshot);
-      querySnapshot.forEach((doc) => {
-        console.log("this is searched username :", inputName);
-        setSearchUser(doc.data() || null);
-      });
     } catch (err) {
       // searched user doesn't exist
       console.log("err == true: ", err);
@@ -49,8 +56,13 @@ export default function Search() {
     }
   };
 
-  const handleSelect = async () => {
+  useEffect(() => {
+    LoadChat();
+  }, [searchUser]);
+
+  const LoadChat = async () => {
     console.log("Err at handleSelect: ", err);
+    console.log("searchUser: ", searchUser);
     //check whether the group(chats in firestore) exists, if not create
     if (user != null && searchUser != null) {
       const combinedId =
@@ -61,69 +73,90 @@ export default function Search() {
       try {
         const res = await getDoc(doc(db, "chats", combinedId));
         console.log("chat for: ", combinedId);
+        console.log("chat data: ", res.data);
         if (!res.exists()) {
+          // check if the chat exists
           console.log("chat doesn't exist");
           //create a chat in chats collection
-          await setDoc(doc(db, "chats", combinedId), { messages: [] });
+          //await setDoc(doc(db, "chats", combinedId), { messages: [] });
 
-          //create user chats (for currentuser)
-          await updateDoc(doc(db, "userChats", user.userID), {
-            [combinedId + ".userInfo"]: {
-              userID: searchUser.userID,
-              name: searchUser.name,
-              //photo: searchUser.photoURL,
-            },
-            [combinedId + ".date"]: serverTimestamp(),
-          });
+          //   //create user chats (for currentuser)
+          //   await updateDoc(doc(db, "userChats", user.userID), {
+          //     [combinedId + ".userInfo"]: {
+          //       userID: searchUser.userID,
+          //       name: searchUser.name,
+          //       //photo: searchUser.photoURL,
+          //     },
+          //     [combinedId + ".date"]: serverTimestamp(),
+          // });
 
           //create user chats (for targetuser)
-          await updateDoc(doc(db, "userChats", searchUser.userID), {
-            [combinedId + ".userInfo"]: {
-              userID: user.userID,
-              name: user.name,
-              //photoURL: user.photoURL,
-            },
-            [combinedId + ".date"]: serverTimestamp(),
-          });
+          //   await updateDoc(doc(db, "userChats", searchUser.userID), {
+          //     [combinedId + ".userInfo"]: {
+          //       userID: user.userID,
+          //       name: user.name,
+          //       //photoURL: user.photoURL,
+          //     },
+          //     [combinedId + ".date"]: serverTimestamp(),
+          //  });
+        } else {
+          const chatData = res.data();
+          setLastMessage(chatData.messages[chatData.messages.length - 1]);
         }
       } catch (error) {
         console.error("Error creating chat:", error);
       }
     }
   };
+
   return (
     <View>
       <View>
         {/* Search Bar */}
-        <TouchableOpacity>
-          <View style={styles.searchBar}>
-            <Image
-              style={styles.searchIcon}
-              source={require("../assets/images/search.png")}
-            />
-            <TextInput
-              style={styles.searchText}
-              placeholder="Search"
-              onChangeText={(text) => {
-                setInputName(text);
-                setSearchUser(null); // Reset searchUser to null when input text changes
-              }}
-              value={inputName}
-              onSubmitEditing={handleSearch}
-              onEndEditing={handleSearch}
-            />
-          </View>
-        </TouchableOpacity>
+
+        <View style={styles.searchBar}>
+          <Image
+            style={styles.searchIcon}
+            source={require("../assets/images/search.png")}
+          />
+          <TextInput
+            style={styles.searchText}
+            placeholder="Search"
+            onChangeText={(text) => {
+              setInputName(text);
+              setErr(false);
+              setLastMessage("");
+              setSearchUser(null); // Reset searchUser to null when input text changes
+            }}
+            value={inputName}
+            onSubmitEditing={handleSearch}
+            onEndEditing={handleSearch}
+          />
+        </View>
       </View>
       {err ? (
         <Text>User not found!</Text>
       ) : (
         inputName !== "" &&
         searchUser && (
-          <TouchableOpacity onPress={handleSelect}>
-            {/*<Image source={require("../assets/images/avatars/avatar9.png")} />*/}
-            <View>
-              <Text>{searchUser.name}</Text>
+          <TouchableOpacity
+            style={styles.individualMessageContainer}
+            onPress={directToChatBox}
+          >
+            <View style={styles.individualMessageMainContainer}>
+              <View style={styles.profilePicContainer}>
+                <Image
+                  style={styles.profilePhoto}
+                  source={require("../assets/images/avatars/avatar4.png")}
+                />
+              </View>
+              <View style={styles.userInfoContainer}>
+                <Text style={styles.userName}>{searchUser.name}</Text>
+                <Text style={styles.lastMessage}>{lastMessage}</Text>
+              </View>
+              <View style={styles.timestampContainer}>
+                <Text style={styles.messageTimestamp}>11/6</Text>
+              </View>
             </View>
           </TouchableOpacity>
         )
@@ -155,5 +188,58 @@ const styles = StyleSheet.create({
     color: "#777777",
     fontSize: 20,
     alignItems: "center",
+  },
+  individualMessageContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    width: "100%",
+    marginLeft: 20,
+    marginRight: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: "#F1F1F1",
+    borderRadius: 30,
+  },
+  individualMessageMainContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  userInfoContainer: {
+    flexDirection: "column",
+    justifyContent: "center",
+    paddingTop: 20,
+    paddingBottom: 20,
+    marginRight: 30,
+    width: 200,
+  },
+  profilePicContainer: {
+    justifyContent: "center",
+    alignContent: "center",
+  },
+  profilePhoto: {
+    width: 64,
+    height: 64,
+    marginRight: 20,
+    alignContent: "center",
+  },
+  userName: {
+    color: "black",
+    textAlign: "left",
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 5,
+  },
+  lastMessage: {
+    fontSize: 14,
+    color: "grey",
+  },
+  timestampContainer: {
+    paddingTop: 20,
+    paddingBottom: 20,
+  },
+  messageTimestamp: {
+    color: "#777777",
+    fontSize: 12,
+    fontWeight: "600",
+    position: "absolute",
   },
 });
