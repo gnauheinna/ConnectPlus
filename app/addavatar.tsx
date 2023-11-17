@@ -39,8 +39,8 @@ const AddAvatar = () => {
   }
 
   return (
-    <LinearGradient locations={[0, 1]} colors={["#fff9e9", "#fff"]} style={styles.container}>
-
+   // <LinearGradient locations={[0, 1]} colors={["#fff9e9", "#fff"]} style={styles.container}>
+<View style={styles.container}>
        <View style={styles.topPortion}>
         <Text style={[styles.title]}>Add an Avatar</Text>
         <Text style={[styles.subTitle]}>
@@ -83,7 +83,8 @@ const AddAvatar = () => {
       <TouchableOpacity style={[ styles.nextButton,{ backgroundColor: selectedAvatar === "" ? "#E6E6E6" : "#FFC940" } ]} onPress={() => directToInterest(selectedAvatar)}>
               <Text style={[ styles.nextButtonText,{ color: selectedAvatar === "" ? "#9A969F" : "#3A3340",  } ]}>Next</Text>
       </TouchableOpacity>
-    </LinearGradient>
+      </View>
+   // </LinearGradient>
   );
 };
 
