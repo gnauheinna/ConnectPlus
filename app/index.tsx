@@ -116,7 +116,7 @@ export default function Login() {
   }
 
   return (
-    <LinearGradient locations={[0, 1]} colors={["#fff9e9", "#fff"]}>
+
       <View style={styles.container}>
         {/* ConnectPlus Logo */}
         <Image
@@ -194,7 +194,7 @@ export default function Login() {
           </TouchableOpacity>
         </View>
       </View>
-    </LinearGradient>
+
   );
 }
 

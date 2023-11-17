@@ -53,7 +53,10 @@ export default function RootLayout() {
   }, [loaded]);
 
   if (!loaded) {
+    console.log('not loaded');
     return null;
+  } else {
+    console.log('app will load');
   }
 
   return (
@@ -72,11 +75,16 @@ export default function RootLayout() {
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
 
+  useEffect(()=> {
+    console.log('in layout');
+  },[])
+
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <Stack initialRouteName="index">
+      <Stack>
         <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="myjourneypost" options={{ headerShown: false }} />
         <Stack.Screen name="signup" options={{ headerShown: false }} />
         <Stack.Screen name="interest" options={{ headerShown: false }} />
         <Stack.Screen name="post" options={{ headerShown: false }} />

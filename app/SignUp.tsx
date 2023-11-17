@@ -8,7 +8,6 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  GoogleAuthProvider,
   signInWithPopup,
   User,
 } from "firebase/auth";
@@ -138,7 +137,7 @@ const SignupForm = () => {
   };
 
   return (
-    <LinearGradient locations={[0, 1]} colors={["#fff9e9", "#fff"]}>
+   
       <View style={styles.container}>
         <Text style={[styles.title]}>Create Your Account</Text>
         <Text style={[styles.subTitle]}>
@@ -248,7 +247,7 @@ const SignupForm = () => {
           <Text style={styles.nextButtonText}>Next</Text>
         </TouchableOpacity>
       </View>
-    </LinearGradient>
+ 
   );
 };
 
