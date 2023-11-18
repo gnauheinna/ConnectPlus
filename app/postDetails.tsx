@@ -78,7 +78,7 @@ export default function PostDetails() {
               </View>
             </View>
           </View>
-          <ScrollView style={styles.screen}>
+          <ScrollView style={styles.screen} showsHorizontalScrollIndicator={false}>
             <View>
               <Text style={styles.commentTitle}>Comments (3)</Text>
             </View>
@@ -111,8 +111,6 @@ const styles = StyleSheet.create({
   commentTitle: {
     fontSize: 28,
     fontWeight: "bold",
-    marginLeft: 40,
-    marginRight: 40,
     marginBottom: 20,
   },
   screen: {

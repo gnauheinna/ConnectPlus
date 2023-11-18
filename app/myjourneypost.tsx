@@ -12,24 +12,29 @@ export default function MyJourneyPost() {
   const [verticalLine2, setVerticalLine2] = useState(false);
   const [verticalLine3, setVerticalLine3] = useState(false);
   const [experiencesY, setExperiencesY] = useState(0);
+
   const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const scrollY = event.nativeEvent.contentOffset.y;
-    if (scrollY >= experiencesY-20) {
+    if (scrollY < 300) {
+      setVerticalLine1(true);
+      setVerticalLine2(false);
+      setVerticalLine3(false);
+    }
+    if (scrollY >= 300) {
       setVerticalLine2(true);
       setVerticalLine1(false);
-    } else {
-      setVerticalLine2(false);
-      setVerticalLine1(true);
+      setVerticalLine3(false); 
     }
-    if (scrollY >= 400) {
+    if (scrollY >= 600) {
       setVerticalLine3(true);
       setVerticalLine2(false);
-      setVerticalLine1(false);
-    } else {
-      setVerticalLine3(false);
-      setVerticalLine2(true);
+      setVerticalLine1(false); 
     }
   };
+
+  useEffect(() => {
+    console.log(experiencesY);
+  }, [experiencesY]);
 
   return (
     <View style={styles.outterContainer}>
@@ -41,7 +46,7 @@ export default function MyJourneyPost() {
           </ImageBackground> 
      </View>
 
-      <ScrollView style={styles.postContainer} showsVerticalScrollIndicator={false} onScroll={handleScroll}>
+      <ScrollView style={styles.postContainer} showsVerticalScrollIndicator={false} onScroll={handleScroll} scrollEventThrottle={16}>
         <View style={styles.topPortionContainer}>
           {/* Post Title & Save Button */}
             <View style={styles.titleAndSaveButtonContainer}>
@@ -93,6 +98,7 @@ export default function MyJourneyPost() {
                     <Text style={styles.boldedContentText}>Lorem ipsum dolor sit amet consectetur.</Text>
                   </View>
                   <View style={styles.regularContentContainer}>
+                    <Text style={styles.regularContentText}>Justo scelerisque pharetra tellus sagittis porta. Nisi diam sem ut et. Sed pretium praesent faucibus gravida viverra convallis. Vulputate consectetur egestas aliquam nec tortor congue.</Text>
                     <Text style={styles.regularContentText}>Justo scelerisque pharetra tellus sagittis porta. Nisi diam sem ut et. Sed pretium praesent faucibus gravida viverra convallis. Vulputate consectetur egestas aliquam nec tortor congue.</Text>
                     <Text style={styles.regularContentText}>Justo scelerisque pharetra tellus sagittis porta. Nisi diam sem ut et. Sed pretium praesent faucibus gravida viverra convallis. Vulputate consectetur egestas aliquam nec tortor congue.</Text>
                   </View>

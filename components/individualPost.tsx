@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
     padding: 16,
     borderBottomColor: "transparent",
     borderColor: "#CAC4D0",
-    backgroundColor: "#FEF7FF",
+    // backgroundColor: "#FEF7FF",
     paddingBottom: 0,
   },
   userContainer: {

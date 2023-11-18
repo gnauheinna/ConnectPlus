@@ -5,6 +5,7 @@ import {
   FlatList,
   ScrollView,
   Image,
+  ImageBackground,
 } from "react-native";
 import { Text, View } from "../../components/Themed";
 import {
@@ -69,7 +70,7 @@ export default function CommunityScreen() {
       <View style={styles.outermostContainer}>
         {/* Display the horizontal sub-navigation bar on top of the posts */}
         <View>
-          <Text style={styles.communityBigTitle}>Community</Text>
+          <Text style={styles.communityBigTitle}>Ask & Share</Text>
         </View>
         <View>
           <View style={styles.horizontalSubNavMainContainer}>
@@ -155,7 +156,7 @@ export default function CommunityScreen() {
                   <IndividualPost postId={item.postID} />
                   <View style={styles.iconsOnPosts}>
                     {/* Displays the upvote/downvote system */}
-                    <TouchableOpacity style={styles.voteSystemContainer}>
+                    <TouchableOpacity style={styles.voteSystemContainer}> 
                       <View style={styles.voteIconsContainer}>
                         <Image
                           style={styles.upvoteIcon}
@@ -196,6 +197,8 @@ export default function CommunityScreen() {
 const styles = StyleSheet.create({
   outermostContainer: {
     flex: 1,
+    paddingTop: 40,
+    backgroundColor: "white",
   },
   mainContainer: {
     flex: 1,
@@ -216,7 +219,7 @@ const styles = StyleSheet.create({
     color: "#453B4F",
     fontWeight: "bold",
     marginTop: 20,
-    marginBottom: 20,
+    marginBottom: 10,
   },
   horizontalSubNavMainContainer: {
     marginLeft: 20,
