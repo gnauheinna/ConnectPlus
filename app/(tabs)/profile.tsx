@@ -62,7 +62,6 @@ export default function App() {
   const filteredPosts = allPosts.filter(
     (post) => user && post.userID == user.userID
   );
-  console.log("this is weird");
 
   const avatarImages: { [key: string]: any } = {
     avatar1: require("../../assets/images/avatars/avatar1.png"),

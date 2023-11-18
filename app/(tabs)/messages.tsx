@@ -5,6 +5,7 @@ import { StyleSheet, ScrollView, ImageBackground } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { FontSize, Color, FontFamily } from "../GlobalStyles";
 import { useRouter } from "expo-router";
+import Search from "../../components/Search";
 
 export default function Message() {
   const router = useRouter();
@@ -14,155 +15,214 @@ export default function Message() {
 
   return (
     <View style={styles.outterContainer}>
-
       <View style={styles.container}>
-          <ImageBackground source={require("../../assets/images/background.png")} resizeMode="cover" style={styles.gradientBackground}>
-              <View style={styles.topContainer}>
-                  {/* Includes the title 'Chat' and the write button */}
-                  <View style={styles.titleContainer}>
-                      <Text style={styles.chatBigTitle}>Chat</Text>
-                      <TouchableOpacity>
-                        <Image style={styles.startAChatButton} source={require("../../assets/images/edit.png")}/>
-                      </TouchableOpacity>
-                  </View>
-                  {/* Search Bar */}
-                  <TouchableOpacity>
-                    <View style={styles.searchBar}>
-                      <Image style={styles.searchIcon} source={require("../../assets/images/search.png")}/>
-                      <Text style={styles.searchText}>Search</Text>
-                    </View>
-                  </TouchableOpacity>
-               </View>
-           </ImageBackground> 
-     </View>
-
+        <ImageBackground
+          source={require("../../assets/images/background.png")}
+          resizeMode="cover"
+          style={styles.gradientBackground}
+        >
+          <View style={styles.topContainer}>
+            {/* Includes the title 'Chat' and the write button */}
+            <View style={styles.titleContainer}>
+              <Text style={styles.chatBigTitle}>Chat</Text>
+              <TouchableOpacity>
+                <Image
+                  style={styles.startAChatButton}
+                  source={require("../../assets/images/edit.png")}
+                />
+              </TouchableOpacity>
+            </View>
+            {/* Search Bar */}
+            <Search />
+          </View>
+        </ImageBackground>
+      </View>
       {/* Scrollable Container */}
-      <ScrollView style={styles.messagesContainer} showsVerticalScrollIndicator={false}>
-      <View style={styles.messagesMainContainer}>
-        {/* 1st Message Box */}
-        <TouchableOpacity style={styles.individualMessageContainer} onPress={directToChatBox}>
-          <View style={styles.individualMessageMainContainer}>
-            <View style={styles.profilePicContainer}>
-              <Image style={styles.profilePhoto} source={require("../../assets/images/avatars/avatar1.png")} />
-            </View>
-            <View style={styles.userInfoContainer}>
-              <Text style={styles.userName}>Rachel Li</Text>
-              <Text style={styles.lastMessage}>We love Connect Plus!</Text>
-            </View>
-            <View style={styles.timestampContainer}>
-              <Text style={styles.messageTimestamp}>11/14</Text>
-            </View>
-          </View>
-        </TouchableOpacity>
-        {/* 2nd Message Box */}
-        <TouchableOpacity style={styles.individualMessageContainer} onPress={directToChatBox}>
-          <View style={styles.individualMessageMainContainer}>
-            <View style={styles.profilePicContainer}>
-              <Image style={styles.profilePhoto} source={require("../../assets/images/avatars/avatar2.png")} />
-            </View>
-            <View style={styles.userInfoContainer}>
-              <Text style={styles.userName}>Kristi Li</Text>
-              <Text style={styles.lastMessage}>Lovely connecting with you!</Text>
-            </View>
-            <View style={styles.timestampContainer}>
-              <Text style={styles.messageTimestamp}>11/14</Text>
-            </View>
-          </View>
-        </TouchableOpacity>
-        {/* 3rd Message Box */}
-        <TouchableOpacity style={styles.individualMessageContainer} onPress={directToChatBox}>
-          <View style={styles.individualMessageMainContainer}>
-            <View style={styles.profilePicContainer}>
-              <Image style={styles.profilePhoto} source={require("../../assets/images/avatars/avatar3.png")}/>
-            </View>
-            <View style={styles.userInfoContainer}>
-              <Text style={styles.userName}>Asad</Text>
-              <Text style={styles.lastMessage}>What a great app!</Text>
-            </View>
-            <View style={styles.timestampContainer}>
-              <Text style={styles.messageTimestamp}>11/12</Text>
-            </View>
-          </View>
-        </TouchableOpacity>
-        {/* 4th Message Box */}
-        <TouchableOpacity style={styles.individualMessageContainer} onPress={directToChatBox}>
-          <View style={styles.individualMessageMainContainer}>
-            <View style={styles.profilePicContainer}>
-              <Image style={styles.profilePhoto} source={require("../../assets/images/avatars/avatar4.png")} />
-            </View>
-            <View style={styles.userInfoContainer}>
-              <Text style={styles.userName}>Gaby GM</Text>
-              <Text style={styles.lastMessage}>Thank you for letting me know!</Text>
-            </View>
-            <View style={styles.timestampContainer}>
-              <Text style={styles.messageTimestamp}>11/10</Text>
-            </View>
-          </View>
-        </TouchableOpacity>
-        {/* 5th Message Box */}
-        <TouchableOpacity style={styles.individualMessageContainer} onPress={directToChatBox}>
-          <View style={styles.individualMessageMainContainer}>
-            <View style={styles.profilePicContainer}>
-              <Image style={styles.profilePhoto} source={require("../../assets/images/avatars/avatar7.png")}/>
-            </View>
-            <View style={styles.userInfoContainer}>
-              <Text style={styles.userName}>Annie Huang</Text>
-              <Text style={styles.lastMessage}>Happy to help!</Text>
-            </View>
-            <View style={styles.timestampContainer}>
-              <Text style={styles.messageTimestamp}>11/9</Text>
-            </View>
-          </View>
-        </TouchableOpacity>
-        {/* 6th Message Box */}
-        <TouchableOpacity style={styles.individualMessageContainer} onPress={directToChatBox}>
-          <View style={styles.individualMessageMainContainer}>
-            <View style={styles.profilePicContainer}>
-              <Image style={styles.profilePhoto} source={require("../../assets/images/avatars/avatar2.png")} />
-            </View>
-            <View style={styles.userInfoContainer}>
-              <Text style={styles.userName}>Kristi Li</Text>
-              <Text style={styles.lastMessage}>Lovely connecting with you!</Text>
-            </View>
-            <View style={styles.timestampContainer}>
-              <Text style={styles.messageTimestamp}>11/8</Text>
-            </View>
-          </View>
-        </TouchableOpacity>
-        {/* 7th Message Box */}
-        <TouchableOpacity style={styles.individualMessageContainer} onPress={directToChatBox}>
-        <View style={styles.individualMessageMainContainer}>
-            <View style={styles.profilePicContainer}>
-              <Image style={styles.profilePhoto} source={require("../../assets/images/avatars/avatar3.png")}/>
-            </View>
-            <View style={styles.userInfoContainer}>
-              <Text style={styles.userName}>Asad</Text>
-              <Text style={styles.lastMessage}>What a great app!</Text>
-            </View>
-            <View style={styles.timestampContainer}>
-              <Text style={styles.messageTimestamp}>11/8</Text>
-            </View>
-          </View>
-        </TouchableOpacity>
-        {/* 8th Message Box */}
-        <TouchableOpacity style={styles.individualMessageContainer} onPress={directToChatBox}>
-          <View style={styles.individualMessageMainContainer}>
+      <ScrollView
+        style={styles.messagesContainer}
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={styles.messagesMainContainer}>
+          {/* 1st Message Box */}
+          <TouchableOpacity
+            style={styles.individualMessageContainer}
+            onPress={directToChatBox}
+          >
+            <View style={styles.individualMessageMainContainer}>
               <View style={styles.profilePicContainer}>
-                <Image style={styles.profilePhoto} source={require("../../assets/images/avatars/avatar4.png")} />
+                <Image
+                  style={styles.profilePhoto}
+                  source={require("../../assets/images/avatars/avatar1.png")}
+                />
+              </View>
+              <View style={styles.userInfoContainer}>
+                <Text style={styles.userName}>Rachel Li</Text>
+                <Text style={styles.lastMessage}>We love Connect Plus!</Text>
+              </View>
+              <View style={styles.timestampContainer}>
+                <Text style={styles.messageTimestamp}>11/14</Text>
+              </View>
+            </View>
+          </TouchableOpacity>
+          {/* 2nd Message Box */}
+          <TouchableOpacity
+            style={styles.individualMessageContainer}
+            onPress={directToChatBox}
+          >
+            <View style={styles.individualMessageMainContainer}>
+              <View style={styles.profilePicContainer}>
+                <Image
+                  style={styles.profilePhoto}
+                  source={require("../../assets/images/avatars/avatar2.png")}
+                />
+              </View>
+              <View style={styles.userInfoContainer}>
+                <Text style={styles.userName}>Kristi Li</Text>
+                <Text style={styles.lastMessage}>
+                  Lovely connecting with you!
+                </Text>
+              </View>
+              <View style={styles.timestampContainer}>
+                <Text style={styles.messageTimestamp}>11/14</Text>
+              </View>
+            </View>{" "}
+          </TouchableOpacity>
+          {/* 3rd Message Box */}
+          <TouchableOpacity
+            style={styles.individualMessageContainer}
+            onPress={directToChatBox}
+          >
+            <View style={styles.individualMessageMainContainer}>
+              <View style={styles.profilePicContainer}>
+                <Image
+                  style={styles.profilePhoto}
+                  source={require("../../assets/images/avatars/avatar3.png")}
+                />
+              </View>
+              <View style={styles.userInfoContainer}>
+                <Text style={styles.userName}>Asad</Text>
+                <Text style={styles.lastMessage}>What a great app!</Text>
+              </View>
+              <View style={styles.timestampContainer}>
+                <Text style={styles.messageTimestamp}>11/12</Text>
+              </View>
+            </View>
+          </TouchableOpacity>
+          {/* 4th Message Box */}
+          <TouchableOpacity
+            style={styles.individualMessageContainer}
+            onPress={directToChatBox}
+          >
+            <View style={styles.individualMessageMainContainer}>
+              <View style={styles.profilePicContainer}>
+                <Image
+                  style={styles.profilePhoto}
+                  source={require("../../assets/images/avatars/avatar4.png")}
+                />
               </View>
               <View style={styles.userInfoContainer}>
                 <Text style={styles.userName}>Gaby GM</Text>
-                <Text style={styles.lastMessage}>Thank you for letting me know!</Text>
+                <Text style={styles.lastMessage}>
+                  Thank you for letting me know!
+                </Text>
               </View>
               <View style={styles.timestampContainer}>
-                <Text style={styles.messageTimestamp}>11/6</Text>
+                {" "}
+                <Text style={styles.messageTimestamp}>11/10</Text>
               </View>
             </View>
-        </TouchableOpacity>
+          </TouchableOpacity>
+          {/* 5th Message Box */}
+          <TouchableOpacity
+            style={styles.individualMessageContainer}
+            onPress={directToChatBox}
+          >
+            <View style={styles.individualMessageMainContainer}>
+              <View style={styles.profilePicContainer}>
+                <Image
+                  style={styles.profilePhoto}
+                  source={require("../../assets/images/avatars/avatar7.png")}
+                />
+              </View>
+              <View style={styles.userInfoContainer}>
+                <Text style={styles.userName}>Annie Huang</Text>
+                <Text style={styles.lastMessage}>Happy to help!</Text>
+              </View>
+              <View style={styles.timestampContainer}>
+                <Text style={styles.messageTimestamp}>11/9</Text>
+              </View>
+            </View>
+          </TouchableOpacity>
+          {/* 6th Message Box */}
+          <TouchableOpacity
+            style={styles.individualMessageContainer}
+            onPress={directToChatBox}
+          >
+            <View style={styles.individualMessageMainContainer}>
+              <View style={styles.profilePicContainer}>
+                <Image
+                  style={styles.profilePhoto}
+                  source={require("../../assets/images/avatars/avatar2.png")}
+                />
+              </View>
+              <View style={styles.userInfoContainer}>
+                <Text style={styles.userName}>Kristi Li</Text>{" "}
+                <Text style={styles.lastMessage}>
+                  Lovely connecting with you!
+                </Text>
+              </View>
+              <View style={styles.timestampContainer}>
+                <Text style={styles.messageTimestamp}>11/8</Text>
+              </View>
+            </View>
+          </TouchableOpacity>
+          {/* 7th Message Box */}
+          <TouchableOpacity
+            style={styles.individualMessageContainer}
+            onPress={directToChatBox}
+          >
+            <View style={styles.individualMessageMainContainer}>
+              <View style={styles.profilePicContainer}>
+                <Image
+                  style={styles.profilePhoto}
+                  source={require("../../assets/images/avatars/avatar3.png")}
+                />
+              </View>
+              <View style={styles.userInfoContainer}>
+                <Text style={styles.userName}>Asad</Text>
+                <Text style={styles.lastMessage}>What a great app!</Text>
+              </View>
+              <View style={styles.timestampContainer}>
+                <Text style={styles.messageTimestamp}>11/8</Text>
+              </View>
+            </View>
+          </TouchableOpacity>
+          {/* 8th Message Box */}
+          <TouchableOpacity
+            style={styles.individualMessageContainer}
+            onPress={directToChatBox}
+          >
+            <View style={styles.individualMessageMainContainer}>
+              <View style={styles.profilePicContainer}>
+                <Image
+                  style={styles.profilePhoto}
+                  source={require("../../assets/images/avatars/avatar4.png")}
+                />
+              </View>
+              <View style={styles.userInfoContainer}>
+                <Text style={styles.userName}>Gaby GM</Text>
+                <Text style={styles.lastMessage}>
+                  Thank you for letting me know!
+                </Text>
+              </View>
+              <View style={styles.timestampContainer}>
+                <Text style={styles.messageTimestamp}>11/6</Text>{" "}
+              </View>
+            </View>
+          </TouchableOpacity>
         </View>
       </ScrollView>
-      </View>
-
+    </View>
   );
 }
 
@@ -170,8 +230,7 @@ const styles = StyleSheet.create({
   outterContainer: {
     flex: 1,
   },
-  container: {
-  },
+  container: {},
   topContainer: {
     marginLeft: 20,
     marginRight: 20,
@@ -179,7 +238,7 @@ const styles = StyleSheet.create({
     paddingTop: 50,
   },
   gradientBackground: {
-    width: 390, 
+    width: "100%",
     height: 200,
     zIndex: 1,
   },
@@ -225,7 +284,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   messagesContainer: {
-    zIndex: 2,  
+    zIndex: 2,
     borderRadius: 30,
     marginTop: -30,
     backgroundColor: "transparent",
@@ -253,7 +312,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
   },
-  userInfoContainer:{
+  userInfoContainer: {
     flexDirection: "column",
     justifyContent: "center",
     paddingTop: 20,
@@ -287,14 +346,14 @@ const styles = StyleSheet.create({
     width: "95%",
     justifyContent: "flex-start",
   },
-  timestampContainer:{
+  timestampContainer: {
     paddingTop: 20,
     paddingBottom: 20,
   },
-  messageTimestamp:{
+  messageTimestamp: {
     color: "#777777",
     fontSize: 12,
     fontWeight: "600",
-    position: "absolute"
-  }
+    position: "absolute",
+  },
 });
