@@ -11,9 +11,9 @@ import { initializeApp, getApps } from "firebase/app";
 import {
   getFirestore,
   collection,
-  getDocs,
-  Timestamp,
+  getDoc,
   doc,
+  Timestamp,
   updateDoc,
 } from "firebase/firestore";
 
@@ -29,46 +29,66 @@ export type UserChat = {
 
 interface UserChatContextValue {
   userChats: UserChat[];
-  loading: boolean;
+  setUserChats: (userChats: UserChat[]) => void;
 }
 
 const UserChatContext = createContext<UserChatContextValue | undefined>(
   undefined
 );
 const UserChatProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const db = getFirestore();
+  const auth = getAuth();
   if (getApps() == null) {
     const app = initializeApp();
   }
+  const currentUser = auth.currentUser;
+  const currentUserID = currentUser?.uid;
+
   const [userChats, setUserChats] = useState<UserChat[]>([]);
   const [loading, setLoading] = useState(true);
+  const db = getFirestore();
 
-  useEffect(() => {
-    const loadChats = async () => {
-      try {
-        const UserChatsCollection = collection(db, "userChat");
-        const querySnapshot = await getDocs(UserChatsCollection);
-        const userChatsData: UserChat[] = [];
-        querySnapshot.forEach((doc) => {
-          const data = doc.data();
-          if (data) {
-            // validatePostData is a function you'd need to implement
-            userChatsData.push(data as UserChat);
-          }
-        });
-        userChatsData.sort((a, b) => b.date.toMillis() - a.date.toMillis());
-        setUserChats(userChatsData);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching userChats:", error);
-        setLoading(false);
+  const fetchUserChats = async () => {
+    console.log("fetching userChats");
+    try {
+      console.log("trying");
+      console.log("current user:  ", currentUserID);
+
+      const userChatDocRef = doc(collection(db, "userChats"), currentUserID);
+      console.log("chatdocref ", userChatDocRef);
+      const userChatDocSnapshot = await getDoc(userChatDocRef);
+      console.log("chatdocsnap ", userChatDocSnapshot);
+      const userChatsData: UserChat[] = [];
+      // we if the current userChat exists
+      if (userChatDocSnapshot.exists()) {
+        const userData = userChatDocSnapshot.data();
+        if (userData) {
+          // Iterate through the fields in the userChatDocSnapshot
+          Object.keys(userData).forEach((key) => {
+            const userChatData = userData[key] as UserChat;
+            if (
+              userChatData.date &&
+              userChatData.lastMessage &&
+              userChatData.userInfo
+            ) {
+              userChatsData.push(userChatData);
+            }
+          });
+
+          // Sort userChatsData by descending date
+          userChatsData.sort((a, b) => b.date.toMillis() - a.date.toMillis());
+        }
       }
-    };
-    loadChats();
-  }, []);
+      setUserChats(userChatsData);
+    } catch (error) {
+      console.error("Error fetching user chats: ", error);
+    }
+  };
+  if (currentUser) {
+    fetchUserChats();
+  }
 
   return (
-    <UserChatContext.Provider value={{ userChats, loading }}>
+    <UserChatContext.Provider value={{ userChats, setUserChats }}>
       {children}
     </UserChatContext.Provider>
   );
