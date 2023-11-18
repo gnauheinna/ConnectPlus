@@ -1,4 +1,4 @@
-// UserContext.js
+// postContext.js
 import React, {
   createContext,
   useContext,

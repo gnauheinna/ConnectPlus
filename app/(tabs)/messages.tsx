@@ -1,17 +1,89 @@
 import { Text, View } from "../../components/Themed";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
 import { Image } from "expo-image";
 import { StyleSheet, ScrollView, ImageBackground } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { FontSize, Color, FontFamily } from "../GlobalStyles";
 import { useRouter } from "expo-router";
+import { useState, useEffect } from "react";
 import Search from "../../components/Search";
+import {
+  collectionGroup,
+  query,
+  where,
+  getDocs,
+  getFirestore,
+  serverTimestamp,
+  DocumentData,
+  getDoc,
+  setDoc,
+  doc,
+  orderBy,
+  updateDoc,
+  QuerySnapshot,
+  Timestamp,
+} from "firebase/firestore";
+import { useUser } from "../context/UserContext";
+
+type UserChat = {
+  date: Timestamp;
+  lastMessage: string;
+  userInfo: {
+    name: string;
+    userID: string;
+  };
+};
 
 export default function Message() {
+  const [allMessage, setAllMessages] = useState<UserChat[] | null>(null);
+  const { user, setUser } = useUser();
+  const currentUserID = user.userID;
   const router = useRouter();
   function directToChatBox() {
     router.push("/chatbox");
   }
+
+  const db = getFirestore();
+  useEffect(() => {
+    console.log("useEffect!");
+    const fetchUserChats = async () => {
+      console.log("fetching userChats");
+      try {
+        console.log("trying");
+        console.log("current user:  ", currentUserID);
+
+        const userChatDocRef = doc(db, "userChats", currentUserID);
+        console.log("chatdocref ", userChatDocRef);
+        const userChatDocSnapshot = await getDoc(userChatDocRef);
+        console.log("chatdocsnap ", userChatDocSnapshot);
+        const userChatsData: UserChat[] = [];
+        // we if the current userChat exists
+        if (userChatDocSnapshot.exists()) {
+          const userData = userChatDocSnapshot.data();
+          if (userData) {
+            // Iterate through the fields in the userChatDocSnapshot
+            Object.keys(userData).forEach((key) => {
+              const userChatData = userData[key] as UserChat;
+              if (
+                userChatData.date &&
+                userChatData.lastMessage &&
+                userChatData.userInfo
+              ) {
+                userChatsData.push(userChatData);
+              }
+            });
+
+            // Sort userChatsData by descending date
+            userChatsData.sort((a, b) => b.date.toMillis() - a.date.toMillis());
+          }
+        }
+        setAllMessages(userChatsData);
+      } catch (error) {
+        console.error("Error fetching user chats: ", error);
+      }
+    };
+    fetchUserChats();
+  }, [user]);
 
   return (
     <View style={styles.outterContainer}>
@@ -43,183 +115,36 @@ export default function Message() {
         showsVerticalScrollIndicator={false}
       >
         <View style={styles.messagesMainContainer}>
-          {/* 1st Message Box */}
-          <TouchableOpacity
-            style={styles.individualMessageContainer}
-            onPress={directToChatBox}
-          >
-            <View style={styles.individualMessageMainContainer}>
-              <View style={styles.profilePicContainer}>
-                <Image
-                  style={styles.profilePhoto}
-                  source={require("../../assets/images/avatars/avatar1.png")}
-                />
-              </View>
-              <View style={styles.userInfoContainer}>
-                <Text style={styles.userName}>Rachel Li</Text>
-                <Text style={styles.lastMessage}>We love Connect Plus!</Text>
-              </View>
-              <View style={styles.timestampContainer}>
-                <Text style={styles.messageTimestamp}>11/14</Text>
-              </View>
-            </View>
-          </TouchableOpacity>
-          {/* 2nd Message Box */}
-          <TouchableOpacity
-            style={styles.individualMessageContainer}
-            onPress={directToChatBox}
-          >
-            <View style={styles.individualMessageMainContainer}>
-              <View style={styles.profilePicContainer}>
-                <Image
-                  style={styles.profilePhoto}
-                  source={require("../../assets/images/avatars/avatar2.png")}
-                />
-              </View>
-              <View style={styles.userInfoContainer}>
-                <Text style={styles.userName}>Kristi Li</Text>
-                <Text style={styles.lastMessage}>
-                  Lovely connecting with you!
-                </Text>
-              </View>
-              <View style={styles.timestampContainer}>
-                <Text style={styles.messageTimestamp}>11/14</Text>
-              </View>
-            </View>{" "}
-          </TouchableOpacity>
-          {/* 3rd Message Box */}
-          <TouchableOpacity
-            style={styles.individualMessageContainer}
-            onPress={directToChatBox}
-          >
-            <View style={styles.individualMessageMainContainer}>
-              <View style={styles.profilePicContainer}>
-                <Image
-                  style={styles.profilePhoto}
-                  source={require("../../assets/images/avatars/avatar3.png")}
-                />
-              </View>
-              <View style={styles.userInfoContainer}>
-                <Text style={styles.userName}>Asad</Text>
-                <Text style={styles.lastMessage}>What a great app!</Text>
-              </View>
-              <View style={styles.timestampContainer}>
-                <Text style={styles.messageTimestamp}>11/12</Text>
-              </View>
-            </View>
-          </TouchableOpacity>
-          {/* 4th Message Box */}
-          <TouchableOpacity
-            style={styles.individualMessageContainer}
-            onPress={directToChatBox}
-          >
-            <View style={styles.individualMessageMainContainer}>
-              <View style={styles.profilePicContainer}>
-                <Image
-                  style={styles.profilePhoto}
-                  source={require("../../assets/images/avatars/avatar4.png")}
-                />
-              </View>
-              <View style={styles.userInfoContainer}>
-                <Text style={styles.userName}>Gaby GM</Text>
-                <Text style={styles.lastMessage}>
-                  Thank you for letting me know!
-                </Text>
-              </View>
-              <View style={styles.timestampContainer}>
-                {" "}
-                <Text style={styles.messageTimestamp}>11/10</Text>
-              </View>
-            </View>
-          </TouchableOpacity>
-          {/* 5th Message Box */}
-          <TouchableOpacity
-            style={styles.individualMessageContainer}
-            onPress={directToChatBox}
-          >
-            <View style={styles.individualMessageMainContainer}>
-              <View style={styles.profilePicContainer}>
-                <Image
-                  style={styles.profilePhoto}
-                  source={require("../../assets/images/avatars/avatar7.png")}
-                />
-              </View>
-              <View style={styles.userInfoContainer}>
-                <Text style={styles.userName}>Annie Huang</Text>
-                <Text style={styles.lastMessage}>Happy to help!</Text>
-              </View>
-              <View style={styles.timestampContainer}>
-                <Text style={styles.messageTimestamp}>11/9</Text>
-              </View>
-            </View>
-          </TouchableOpacity>
-          {/* 6th Message Box */}
-          <TouchableOpacity
-            style={styles.individualMessageContainer}
-            onPress={directToChatBox}
-          >
-            <View style={styles.individualMessageMainContainer}>
-              <View style={styles.profilePicContainer}>
-                <Image
-                  style={styles.profilePhoto}
-                  source={require("../../assets/images/avatars/avatar2.png")}
-                />
-              </View>
-              <View style={styles.userInfoContainer}>
-                <Text style={styles.userName}>Kristi Li</Text>{" "}
-                <Text style={styles.lastMessage}>
-                  Lovely connecting with you!
-                </Text>
-              </View>
-              <View style={styles.timestampContainer}>
-                <Text style={styles.messageTimestamp}>11/8</Text>
-              </View>
-            </View>
-          </TouchableOpacity>
-          {/* 7th Message Box */}
-          <TouchableOpacity
-            style={styles.individualMessageContainer}
-            onPress={directToChatBox}
-          >
-            <View style={styles.individualMessageMainContainer}>
-              <View style={styles.profilePicContainer}>
-                <Image
-                  style={styles.profilePhoto}
-                  source={require("../../assets/images/avatars/avatar3.png")}
-                />
-              </View>
-              <View style={styles.userInfoContainer}>
-                <Text style={styles.userName}>Asad</Text>
-                <Text style={styles.lastMessage}>What a great app!</Text>
-              </View>
-              <View style={styles.timestampContainer}>
-                <Text style={styles.messageTimestamp}>11/8</Text>
-              </View>
-            </View>
-          </TouchableOpacity>
-          {/* 8th Message Box */}
-          <TouchableOpacity
-            style={styles.individualMessageContainer}
-            onPress={directToChatBox}
-          >
-            <View style={styles.individualMessageMainContainer}>
-              <View style={styles.profilePicContainer}>
-                <Image
-                  style={styles.profilePhoto}
-                  source={require("../../assets/images/avatars/avatar4.png")}
-                />
-              </View>
-              <View style={styles.userInfoContainer}>
-                <Text style={styles.userName}>Gaby GM</Text>
-                <Text style={styles.lastMessage}>
-                  Thank you for letting me know!
-                </Text>
-              </View>
-              <View style={styles.timestampContainer}>
-                <Text style={styles.messageTimestamp}>11/6</Text>{" "}
-              </View>
-            </View>
-          </TouchableOpacity>
+          {/* Message Box */}
+          <FlatList
+            data={allMessage}
+            showsVerticalScrollIndicator={false}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({ item }) => (
+              <TouchableOpacity
+                style={styles.individualMessageContainer}
+                onPress={directToChatBox}
+              >
+                <View style={styles.individualMessageMainContainer}>
+                  <View style={styles.profilePicContainer}>
+                    <Image
+                      style={styles.profilePhoto}
+                      source={require("../../assets/images/avatars/avatar1.png")}
+                    />
+                  </View>
+                  <View style={styles.userInfoContainer}>
+                    <Text style={styles.userName}>{item.userInfo.name}</Text>
+                    <Text style={styles.lastMessage}>{item.lastMessage}</Text>
+                  </View>
+                  <View style={styles.timestampContainer}>
+                    <Text style={styles.messageTimestamp}>
+                      {item.date.toDate().toLocaleDateString()}
+                    </Text>
+                  </View>
+                </View>
+              </TouchableOpacity>
+            )}
+          />
         </View>
       </ScrollView>
     </View>
