@@ -24,9 +24,11 @@ import {
   Timestamp,
 } from "firebase/firestore";
 import { useUser } from "../context/UserContext";
+import { useCurrentChat } from "../context/currentChatContext";
 
 type UserChat = {
   date: Timestamp;
+  chatID: string;
   lastMessage: string;
   userInfo: {
     name: string;
@@ -39,11 +41,15 @@ export default function Message() {
   const { user, setUser } = useUser();
   const currentUserID = user.userID;
   const router = useRouter();
-  function directToChatBox() {
+  const db = getFirestore();
+  const { currentChatID, setCurrentChatID } = useCurrentChat();
+
+  function directToChatBox(chatID: string) {
+    // passes the state to CurrentChatContext
+    setCurrentChatID(chatID);
     router.push("/chatbox");
   }
 
-  const db = getFirestore();
   useEffect(() => {
     console.log("useEffect!");
     const fetchUserChats = async () => {
@@ -123,7 +129,7 @@ export default function Message() {
             renderItem={({ item }) => (
               <TouchableOpacity
                 style={styles.individualMessageContainer}
-                onPress={directToChatBox}
+                onPress={() => directToChatBox(item.chatID)}
               >
                 <View style={styles.individualMessageMainContainer}>
                   <View style={styles.profilePicContainer}>
