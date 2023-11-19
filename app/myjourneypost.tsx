@@ -1,44 +1,77 @@
 import React, { useState, useEffect, useContext } from "react";
+import { useParams } from 'react-router-dom';
 import { Image } from "expo-image";
 import { useRouter } from "expo-router";
 import { StyleSheet, View, Text, ScrollView, ImageBackground, NativeSyntheticEvent, NativeScrollEvent } from "react-native";
 
 export default function MyJourneyPost() {
   const router = useRouter();
+
+  // Extract the mentor's name from the end of the URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const mentorName = urlParams.get('name');
+  console.log(mentorName);
+  // const { name } = route.params;
+  // console.log(name);
+
+  // useEffect(() => {
+  //   console.log(mentorName);
+  // }, [mentorName]);
+
   function directToMyJourney() {
     router.push("/journeys");
   }
+  
+  // For the Progress Bar
   const [verticalLine1, setVerticalLine1] = useState(true);
   const [verticalLine2, setVerticalLine2] = useState(false);
   const [verticalLine3, setVerticalLine3] = useState(false);
-  const [experiencesY, setExperiencesY] = useState(0);
+  const [verticalLine4, setVerticalLine4] = useState(false);
+  const [verticalLine5, setVerticalLine5] = useState(false);
 
   const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const scrollY = event.nativeEvent.contentOffset.y;
     if (scrollY < 300) {
       setVerticalLine1(true);
       setVerticalLine2(false);
-      setVerticalLine3(false);
+      setVerticalLine3(false); 
+      setVerticalLine4(false);
+      setVerticalLine5(false);
     }
     if (scrollY >= 300) {
       setVerticalLine2(true);
       setVerticalLine1(false);
       setVerticalLine3(false); 
+      setVerticalLine4(false);
+      setVerticalLine5(false);
     }
     if (scrollY >= 600) {
       setVerticalLine3(true);
-      setVerticalLine2(false);
-      setVerticalLine1(false); 
+      setVerticalLine1(false);
+      setVerticalLine2(false); 
+      setVerticalLine4(false);
+      setVerticalLine5(false);
+    }
+    if (scrollY >= 950) {
+      setVerticalLine4(true);
+      setVerticalLine1(false);
+      setVerticalLine2(false); 
+      setVerticalLine3(false);
+      setVerticalLine5(false); 
+    }
+    if (scrollY >= 1100) {
+      setVerticalLine5(true);
+      setVerticalLine1(false);
+      setVerticalLine2(false); 
+      setVerticalLine3(false);
+      setVerticalLine4(false); 
     }
   };
 
-  useEffect(() => {
-    console.log(experiencesY);
-  }, [experiencesY]);
-
   return (
     <View style={styles.outterContainer}>
-
+      {/* {mentorName === "rachelli" && (
+        <View> */}
       <View style={styles.container}>
         <ImageBackground source={require("../assets/images/background.png")} resizeMode="cover" style={styles.gradientBackground}>
             <View style={styles.topContainer}>
@@ -73,47 +106,60 @@ export default function MyJourneyPost() {
               {/* 1st Step */}
               <View style={styles.individualStep}>
                   <View style={styles.subtitleContainer}>
-                      <Text style={styles.subtitleText}>Processes</Text>
-                  </View>
-                  <View style={styles.boldedContentContainer}>
-                    <Text style={styles.boldedContentText}>Lorem ipsum dolor sit amet consectetur.</Text>
+                      <Text style={styles.subtitleText}>Theme</Text>
                   </View>
                   <View style={styles.regularContentContainer}>
-                    <Text style={styles.regularContentText}>Justo scelerisque pharetra tellus sagittis porta. Nisi diam sem ut et. Sed pretium praesent faucibus gravida viverra convallis. Vulputate consectetur egestas aliquam nec tortor congue.</Text>
-                    <Text style={styles.regularContentText}>Justo scelerisque pharetra tellus sagittis porta. Nisi diam sem ut et. Sed pretium praesent faucibus gravida viverra convallis. Vulputate consectetur egestas aliquam nec tortor congue.</Text>
-                    <Text style={styles.regularContentText}>Justo scelerisque pharetra tellus sagittis porta. Nisi diam sem ut et. Sed pretium praesent faucibus gravida viverra convallis. Vulputate consectetur egestas aliquam nec tortor congue.</Text>
+                    <Text style={styles.regularContentText}>If you’re a student working part-time, don’t have a meal plan, and shop for groceries on your own, here’s a resource for you:
+The Supplemental Nutrition Assistance Program (SNAP) gives people who are eligible around $80-$100 monthly funds to buy food. 
+Navigating this process has been a headache. I spent hours on the phone with customer service, figuring out the right document to submit. Here is a guide to applying for SNAP from my own experience so that you can have a much smoother process.
+</Text>
                   </View>
               </View>
               {/* 2nd Step */}
               <View style={styles.individualStep}>
                   <View style={styles.subtitleContainer}>
-                      <Text 
-                          style={styles.subtitleText} 
-                          onLayout={(event) => {
-                            const layout = event.nativeEvent.layout;
-                            setExperiencesY(layout.y);
-                          }}>Experiences</Text>
-                  </View>
-                  <View style={styles.boldedContentContainer}>
-                    <Text style={styles.boldedContentText}>Lorem ipsum dolor sit amet consectetur.</Text>
+                          <Text style={styles.subtitleText}>Processes</Text>
                   </View>
                   <View style={styles.regularContentContainer}>
-                    <Text style={styles.regularContentText}>Justo scelerisque pharetra tellus sagittis porta. Nisi diam sem ut et. Sed pretium praesent faucibus gravida viverra convallis. Vulputate consectetur egestas aliquam nec tortor congue.</Text>
-                    <Text style={styles.regularContentText}>Justo scelerisque pharetra tellus sagittis porta. Nisi diam sem ut et. Sed pretium praesent faucibus gravida viverra convallis. Vulputate consectetur egestas aliquam nec tortor congue.</Text>
-                    <Text style={styles.regularContentText}>Justo scelerisque pharetra tellus sagittis porta. Nisi diam sem ut et. Sed pretium praesent faucibus gravida viverra convallis. Vulputate consectetur egestas aliquam nec tortor congue.</Text>
+                    <Text style={styles.regularContentText}>1. Do a quick check to see if you’re eligible.</Text>
+                    <Text style={styles.regularContentText}>2. File the initial application.</Text>
+                    <Text style={styles.regularContentText}>3. The documents I submitted as a full-time student: </Text>
+                      <View style={styles.indentedContentContainer}>
+                        <Text style={styles.regularContentText}>- Financial aid proof</Text>
+                        <Text style={styles.regularContentText}>- Proof that you don’t have a meal plan on campus</Text>
+                        <Text style={styles.regularContentText}>- Proof of work-study</Text>
+                        <Text style={styles.regularContentText}>- Proof of other work you’re (or have been) participating in</Text>
+                      </View>
+                    <Text style={styles.regularContentText}>4. After the initial application, they require a phone interview asking you to verify the information. </Text>
                   </View>
               </View>
               {/* 3rd Step */}
               <View style={styles.individualStep}>
                   <View style={styles.subtitleContainer}>
-                      <Text style={styles.subtitleText}>Resources</Text>
-                  </View>
-                  <View style={styles.boldedContentContainer}>
-                    <Text style={styles.boldedContentText}>Lorem ipsum dolor sit amet consectetur.</Text>
+                      <Text style={styles.subtitleText}>Challenges</Text>
                   </View>
                   <View style={styles.regularContentContainer}>
-                    <Text style={styles.regularContentText}>Justo scelerisque pharetra tellus sagittis porta. Nisi diam sem ut et. Sed pretium praesent faucibus gravida viverra convallis. Vulputate consectetur egestas aliquam nec tortor congue.</Text>
-                    <Text style={styles.regularContentText}>Justo scelerisque pharetra tellus sagittis porta. Nisi diam sem ut et. Sed pretium praesent faucibus gravida viverra convallis. Vulputate consectetur egestas aliquam nec tortor congue.</Text>
+                    <Text style={styles.regularContentText}>Trying to figure out what kind of document they need and being able to connect with a representative is the most daunting part.</Text>
+                  </View>
+              </View>
+              {/* 4th Step */}
+              <View style={styles.individualStep}>
+                  <View style={styles.subtitleContainer}>
+                      <Text style={styles.subtitleText}>Takeaways</Text>
+                  </View>
+                  <View style={styles.regularContentContainer}>
+                    <Text style={styles.regularContentText}>- Try your best to not miss the scheduled phone call because it’s very hard to connect with a representative when you dial in yourself. The average wait time is around 30 min.</Text>
+                    <Text style={styles.regularContentText}>- Download DTA Connect App, it’s the place where you submit all the verification documents.</Text>
+                    <Text style={styles.regularContentText}>- Keep an eye on your mail. They will email letters to you with your case number (you need this number to sign into your DTA app account)</Text>
+                  </View>
+              </View>
+              {/* 5th Step */}
+              <View style={styles.individualStep}>
+                  <View style={styles.subtitleContainer}>
+                      <Text style={styles.subtitleText}>Resources</Text>
+                  </View>
+                  <View style={styles.regularContentContainer}>
+                    <Text style={styles.regularContentText}>- Try your best to not miss the scheduled phone call because it’s very hard to connect with a representative when you dial in yourself. The average wait time is around 30 min.</Text>
                   </View>
               </View>
             </View>
@@ -123,7 +169,10 @@ export default function MyJourneyPost() {
                 <View style={verticalLine1 ? styles.verticalLine1Active : styles.verticalLine1}></View>
                 <View style={verticalLine2 ? styles.verticalLine2Active : styles.verticalLine2}></View>
                 <View style={verticalLine3 ? styles.verticalLine3Active : styles.verticalLine3}></View>
-            </View>
+                <View style={verticalLine4 ? styles.verticalLine4Active : styles.verticalLine4}></View>
+                <View style={verticalLine5 ? styles.verticalLine5Active : styles.verticalLine5}></View>
+            </View> 
+            {/* </View>)} */}
       </View>
   );
 }
@@ -230,10 +279,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#CA95C8",
     backgroundColor: "#FAF4F9",
-    width: 120,
-    paddingHorizontal: 10,
+    paddingHorizontal: 15,
     paddingVertical: 5,
     marginBottom: 20,
+    // This line makes this container to only be as wide as its content (plus padding)!
+    alignSelf: 'flex-start',
   },
   subtitleText: {
     color: "#AF6BAB",
@@ -254,8 +304,13 @@ const styles = StyleSheet.create({
   regularContentText: {
     fontSize: 16,
     lineHeight: 25,
-    color: "#818181",
+    color: "#393939",
     marginBottom: 10,
+  },
+  indentedContentContainer: {
+    marginBottom: 10,
+    marginLeft: 20,
+    marginRight: 20,
   },
   progressBarContainer: {
     zIndex: 3,
@@ -303,6 +358,7 @@ const styles = StyleSheet.create({
     borderLeftWidth: 5,
     borderRadius: 20,
     marginLeft: 20,
+    marginBottom: 15,
   },
   verticalLine3: {
     flex: 1,
@@ -310,5 +366,38 @@ const styles = StyleSheet.create({
     borderLeftWidth: 5,
     borderRadius: 20,
     marginLeft: 20,
+    marginBottom: 15,
+  },
+  verticalLine4: {
+    flex: 1,
+    borderLeftColor: '#EAEAEA',
+    borderLeftWidth: 5,
+    borderRadius: 20,
+    marginLeft: 20,
+    marginBottom: 15,
+  },
+  verticalLine4Active: {
+    flex: 1,
+    borderLeftColor: '#FFD979',
+    borderLeftWidth: 5,
+    borderRadius: 20,
+    marginLeft: 20,
+    marginBottom: 15,
+  },
+  verticalLine5: {
+    flex: 1,
+    borderLeftColor: '#EAEAEA',
+    borderLeftWidth: 5,
+    borderRadius: 20,
+    marginLeft: 20,
+    marginBottom: 15,
+  },
+  verticalLine5Active: {
+    flex: 1,
+    borderLeftColor: '#FFD979',
+    borderLeftWidth: 5,
+    borderRadius: 20,
+    marginLeft: 20,
+    marginBottom: 15,
   },
 });

@@ -4,12 +4,16 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { StyleSheet, ScrollView, Image } from "react-native";
 import MyJourneyPost from "../myjourneypost";
 import { useRouter } from "expo-router";
+import React, { useState, useEffect } from "react";
 
 export default function JourneyScreen() {
   const router = useRouter();
-  function directToMyJourneyPost() {
-    router.push("/myjourneypost");
+  function directToMyJourneyPost(postName: string) {
+    router.push(`/myjourneypost?name=${postName}`);
   }
+
+  // const urlParams = new URLSearchParams(window.location.search);
+
   return (
     <View style={styles.outermostContainer}>
       <View style={styles.container}>
@@ -24,12 +28,12 @@ export default function JourneyScreen() {
         <View style={styles.featuredJourneysContainer}>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             {/* 1st Featured Journey */}
-            <TouchableOpacity onPress={directToMyJourneyPost} style={styles.featuredJourney}>
+            <TouchableOpacity onPress={() => directToMyJourneyPost('racheili')} style={styles.featuredJourney}>
               <Image style={styles.featuredJourneyImg} source={require("../../assets/images/featuredMyJourneyPosts/RachelLi.png")}/>
             </TouchableOpacity>
 
             {/* 2nd Featured Journey */}
-            <TouchableOpacity onPress={directToMyJourneyPost} style={styles.featuredJourney}>
+            <TouchableOpacity onPress={() => directToMyJourneyPost('racheili')} style={styles.featuredJourney}>
               <Image style={styles.featuredJourneyImg} source={require("../../assets/images/featuredMyJourneyPosts/RachelLi.png")}/>
             </TouchableOpacity>
           </ScrollView>
@@ -42,7 +46,7 @@ export default function JourneyScreen() {
         <View style={styles.allJourneysContainer}>
           <ScrollView showsVerticalScrollIndicator={false}>
             {/* 1st Journey */}
-            <TouchableOpacity style={styles.individualJourney} onPress={directToMyJourneyPost}>
+            <TouchableOpacity style={styles.individualJourney} onPress={() => directToMyJourneyPost('shatevalong')}>
               <Image
                 style={styles.miniGradient}
                 source={require("../../assets/images/gradient/miniGradient1.png")}
@@ -71,7 +75,7 @@ export default function JourneyScreen() {
             </TouchableOpacity>
 
             {/* 2nd Journey */}
-            <TouchableOpacity style={styles.individualJourney} onPress={directToMyJourneyPost}>
+            <TouchableOpacity style={styles.individualJourney} onPress={() => directToMyJourneyPost('racheili')}>
               <Image
                 style={styles.miniGradient}
                 source={require("../../assets/images/gradient/miniGradient2.png")}
@@ -98,7 +102,7 @@ export default function JourneyScreen() {
             </TouchableOpacity>
 
             {/* 3rd Journey */}
-            <TouchableOpacity style={styles.individualJourney} onPress={directToMyJourneyPost}>
+            <TouchableOpacity style={styles.individualJourney} onPress={() => directToMyJourneyPost('racheili')}>
               <Image
                 style={styles.miniGradient}
                 source={require("../../assets/images/gradient/miniGradient3.png")}
@@ -130,7 +134,7 @@ export default function JourneyScreen() {
               </View>
             </TouchableOpacity>
             {/* 4th Journey */}
-            <TouchableOpacity style={styles.individualJourney} onPress={directToMyJourneyPost}>
+            <TouchableOpacity style={styles.individualJourney} onPress={() => directToMyJourneyPost('Rachel Li')}>
               <Image
                 style={styles.miniGradient}
                 source={require("../../assets/images/gradient/miniGradient3.png")}
@@ -242,7 +246,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.08,
     shadowRadius: 10,
-    elevation: 5,
+    // elevation: 5,
   },
   featuredJourneyImg: {
     width: 280,
@@ -307,7 +311,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.09,
     shadowRadius: 10,
-    elevation: 5,
+    // elevation: 5,
   },
   miniGradient: {
     height: "100%",
