@@ -11,6 +11,7 @@ import { PostProvider } from "../context/postContext";
 import { Image } from "react-native";
 import { StyleSheet, ScrollView } from "react-native";
 import JourneyScreen from "./journeys";
+import { CurrentChatContextProvider } from "../context/currentChatContext";
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
  */

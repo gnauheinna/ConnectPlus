@@ -49,9 +49,11 @@ export default function Message() {
     setCurrentChatID(chatID);
     router.push("/chatbox");
   }
+  useEffect(() => {
+    console.log("currentChatID:   ", currentChatID);
+  }, [currentChatID]);
 
   useEffect(() => {
-    console.log("useEffect!");
     const fetchUserChats = async () => {
       console.log("fetching userChats");
       try {
@@ -88,7 +90,9 @@ export default function Message() {
         console.error("Error fetching user chats: ", error);
       }
     };
-    fetchUserChats();
+    if (user != null) {
+      fetchUserChats();
+    }
   }, [user]);
 
   return (

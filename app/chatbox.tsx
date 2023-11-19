@@ -9,11 +9,24 @@ import { useRouter } from "expo-router";
 import { PostIdContext, PostIdProvider } from "./context/PostIDContext";
 import { Post, usePostContext, PostProvider } from "./context/postContext";
 import { useCurrentChat } from "./context/currentChatContext";
-
+import { useUser } from "./context/UserContext";
 export default function ChatBox() {
+  const db = getFirestore();
+  const { user, setUser } = useUser();
+  const currentUserID = user.userID;
   const { currentChatID, setCurrentChatID } = useCurrentChat();
   const router = useRouter();
   const [chats, setChats] = useState([]);
+
+  useEffect(() => {
+    const fetchUserChat = async () => {
+      console.log(currentChatID);
+      const userChatDocRef = doc(db, "chats", currentChatID);
+      const userChatDocSnapshot = await getDoc(userChatDocRef);
+      console.log(userChatDocSnapshot.data());
+    };
+    fetchUserChat();
+  }, [currentChatID]);
 
   return (
     <View style={styles.outermostContainer}>
