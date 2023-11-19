@@ -1,4 +1,13 @@
 # Connect Plus
+A peer consultation platform for First-Generation college students to find our voices, our tribe, and our belongings.
+
+# Tech Stack
+
+- ReactNative
+- Firebase
+- TypeScript
+- html
+- css
 
 # Instructions
 
