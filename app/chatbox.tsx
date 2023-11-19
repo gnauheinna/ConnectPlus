@@ -8,10 +8,25 @@ import IndividualPost from "../components/individualPost";
 import { useRouter } from "expo-router";
 import { PostIdContext, PostIdProvider } from "./context/PostIDContext";
 import { Post, usePostContext, PostProvider } from "./context/postContext";
-
+import { useCurrentChat } from "./context/currentChatContext";
+import { useUser } from "./context/UserContext";
 export default function ChatBox() {
-
+  const db = getFirestore();
+  const { user, setUser } = useUser();
+  const currentUserID = user.userID;
+  const { currentChatID, setCurrentChatID } = useCurrentChat();
   const router = useRouter();
+  const [chats, setChats] = useState([]);
+
+  useEffect(() => {
+    const fetchUserChat = async () => {
+      console.log(currentChatID);
+      const userChatDocRef = doc(db, "chats", currentChatID);
+      const userChatDocSnapshot = await getDoc(userChatDocRef);
+      console.log(userChatDocSnapshot.data());
+    };
+    fetchUserChat();
+  }, [currentChatID]);
 
   return (
     <View style={styles.outermostContainer}>
@@ -26,7 +41,9 @@ export default function ChatBox() {
         </View>
 
         <View style={styles.welcomeMessageContainer}>
-          <Text style={styles.welcomeMessage}>Get to know your fellow First-Gen colleges, be the first to say hi!</Text>
+          <Text style={styles.welcomeMessage}>
+            Get to know your fellow First-Gen colleges, be the first to say hi!
+          </Text>
         </View>
 
         <View style={styles.inputMessageContainer}>
@@ -36,10 +53,12 @@ export default function ChatBox() {
           </TouchableOpacity>
           {/* Send Icon */}
           <TouchableOpacity>
-            <Image style={styles.sendIcon} source={require("../assets/images/icons/sendMessage.png")} />
+            <Image
+              style={styles.sendIcon}
+              source={require("../assets/images/icons/sendMessage.png")}
+            />
           </TouchableOpacity>
         </View>
-
       </View>
     </View>
   );
@@ -77,7 +96,6 @@ const styles = StyleSheet.create({
   },
   recipientContainer: {
     marginBottom: 120,
-
   },
   recipient: {
     color: "black",
@@ -88,7 +106,7 @@ const styles = StyleSheet.create({
   welcomeMessageContainer: {
     marginBottom: 450,
   },
-  welcomeMessage:{
+  welcomeMessage: {
     color: "#B7B7B7",
     fontSize: 16,
     justifyContent: "center",
@@ -119,5 +137,5 @@ const styles = StyleSheet.create({
   sendIcon: {
     width: 42,
     height: 42,
-  }
+  },
 });

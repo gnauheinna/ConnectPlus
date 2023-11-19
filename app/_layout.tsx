@@ -16,6 +16,7 @@ import { AuthProvider } from "./context/AuthContext";
 import { UserProvider } from "./context/UserContext";
 import { PostIdProvider } from "./context/PostIDContext";
 import { PostProvider } from "./context/postContext";
+import { CurrentChatContextProvider } from "./context/currentChatContext";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -53,10 +54,10 @@ export default function RootLayout() {
   }, [loaded]);
 
   if (!loaded) {
-    console.log('not loaded');
+    console.log("not loaded");
     return null;
   } else {
-    console.log('app will load');
+    console.log("app will load");
   }
 
   return (
@@ -64,7 +65,9 @@ export default function RootLayout() {
       <UserProvider>
         <PostIdProvider>
           <PostProvider>
-            <RootLayoutNav />
+            <CurrentChatContextProvider>
+              <RootLayoutNav />
+            </CurrentChatContextProvider>
           </PostProvider>
         </PostIdProvider>
       </UserProvider>
@@ -75,9 +78,9 @@ export default function RootLayout() {
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
 
-  useEffect(()=> {
-    console.log('in layout');
-  },[])
+  useEffect(() => {
+    console.log("in layout");
+  }, []);
 
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
@@ -88,6 +91,7 @@ function RootLayoutNav() {
         <Stack.Screen name="signup" options={{ headerShown: false }} />
         <Stack.Screen name="interest" options={{ headerShown: false }} />
         <Stack.Screen name="post" options={{ headerShown: false }} />
+        <Stack.Screen name="chatbox" options={{ headerShown: false }} />
         <Stack.Screen name="addavatar" options={{ headerShown: false }} />
         <Stack.Screen name="postdetails" options={{ headerShown: false }} />
       </Stack>
