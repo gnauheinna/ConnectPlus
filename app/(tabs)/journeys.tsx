@@ -13,81 +13,29 @@ export default function JourneyScreen() {
   return (
     <View style={styles.outermostContainer}>
       <View style={styles.container}>
-        <View>
+        <View style={styles.journeyBigTitleContainer}>
           <Text style={styles.journeyBigTitle}>My Journey</Text>
         </View>
 
-        <View>
+        <View style={styles.journeySubTitleContainer}>
           <Text style={styles.journeySubTitle}>Featured</Text>
         </View>
 
         <View style={styles.featuredJourneysContainer}>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             {/* 1st Featured Journey */}
-            <TouchableOpacity style={styles.featuredJourney1} onPress={directToMyJourneyPost}>
-              <Image
-                style={styles.featuredJourney1}
-                source={require("../../assets/images/gradient/gradient1.png")}
-              />
-              <View style={styles.overlay}>
-                {/* Journey Info */}
-                <View style={styles.overlayTextContainer}>
-                  <Text style={styles.overlayText}>
-                    Alternative Service Break{" "}
-                  </Text>
-                </View>
-                {/* Mentor Info */}
-                <View style={styles.userContainer}>
-                  <View style={styles.userInfo}>
-                    <Image
-                      style={styles.profileImg}
-                      source={require("../../assets/images/mentorProfilePics/RachelLi.png")}
-                    />
-                    <View style={styles.userNameAndIntro}>
-                      <Text style={styles.userName}>Rachel Li</Text>
-                      <Text style={styles.userIntro}>
-                        Class of 2024, Data Science Major
-                      </Text>
-                    </View>
-                  </View>
-                </View>
-              </View>
+            <TouchableOpacity onPress={directToMyJourneyPost} style={styles.featuredJourney}>
+              <Image style={styles.featuredJourneyImg} source={require("../../assets/images/featuredMyJourneyPosts/RachelLi.png")}/>
             </TouchableOpacity>
 
             {/* 2nd Featured Journey */}
-            <TouchableOpacity style={styles.featuredJourney2} onPress={directToMyJourneyPost}>
-              <Image
-                style={styles.featuredJourney2}
-                source={require("../../assets/images/gradient/gradient2.png")}
-              />
-              <View style={styles.overlay}>
-                {/* Journey Info */}
-                <View style={styles.overlayTextContainer}>
-                  <Text style={styles.overlayText}>
-                    FirstGen Journey- From Taiwan to Boston{" "}
-                  </Text>
-                </View>
-                {/* Mentor Info */}
-                <View style={styles.userContainer}>
-                  <View style={styles.userInfo}>
-                    <Image
-                      style={styles.profileImg}
-                      source={require("../../assets/images/mentorProfilePics/RachelLi.png")}
-                    />
-                    <View style={styles.userNameAndIntro}>
-                      <Text style={styles.userName}>Annie Huang</Text>
-                      <Text style={styles.userIntro}>
-                        Class of 2025, CS Major
-                      </Text>
-                    </View>
-                  </View>
-                </View>
-              </View>
+            <TouchableOpacity onPress={directToMyJourneyPost} style={styles.featuredJourney}>
+              <Image style={styles.featuredJourneyImg} source={require("../../assets/images/featuredMyJourneyPosts/RachelLi.png")}/>
             </TouchableOpacity>
           </ScrollView>
         </View>
 
-        <View>
+        <View style={styles.journeySubTitleContainer}>
           <Text style={styles.journeySubTitle}>All</Text>
         </View>
 
@@ -103,7 +51,7 @@ export default function JourneyScreen() {
                 {/* Journey Title Info */}
                 <View style={styles.journeyTextNonFeaturedContainer}>
                   <Text style={styles.journeyTitleNonFeatured}>
-                    Lost in Art{" "}
+                  I Got To Create My Own 4 Credit CS Course!{" "}
                   </Text>
                 </View>
                 {/* Mentor Info */}
@@ -111,20 +59,12 @@ export default function JourneyScreen() {
                   <View style={styles.userInfo}>
                     <Image
                       style={styles.profileImgNonFeatured}
-                      source={require("../../assets/images/mentorProfilePics/RachelLi.png")}
+                      source={require("../../assets/images/mentorProfilePics/ShatevaLong.png")}
                     />
                     <View style={styles.userNameAndIntro}>
-                      <Text style={styles.userNameNonFeatured}>Gaby GM</Text>
-                      <Text style={styles.userIntroNonFeatured}>
-                        Class of 2025, Art Major
-                      </Text>
+                      <Text style={styles.userNameNonFeatured}>Shateva Long</Text>
+                      <Text style={styles.userIntroNonFeatured}>Alumni</Text>
                     </View>
-                  </View>
-                  <View style={styles.saveJourneyContainer}>
-                    <Image
-                      style={styles.saveJourney}
-                      source={require("../../assets/images/icons/greySave.png")}
-                    />
                   </View>
                 </View>
               </View>
@@ -139,29 +79,19 @@ export default function JourneyScreen() {
               <View style={styles.journeyTextContainer}>
                 {/* Journey Info */}
                 <View style={styles.journeyTextNonFeaturedContainer}>
-                  <Text style={styles.journeyTitleNonFeatured}>
-                    Career in UIUX Design{" "}
-                  </Text>
+                  <Text style={styles.journeyTitleNonFeatured}>Finding Community{" "}</Text>
                 </View>
                 {/* Mentor Info */}
                 <View style={styles.individualJourneyUserContainer}>
                   <View style={styles.userInfo}>
                     <Image
                       style={styles.profileImgNonFeatured}
-                      source={require("../../assets/images/mentorProfilePics/RachelLi.png")}
+                      source={require("../../assets/images/mentorProfilePics/Neri.png")}
                     />
                     <View style={styles.userNameAndIntro}>
-                      <Text style={styles.userNameNonFeatured}>Kristi Li</Text>
-                      <Text style={styles.userIntroNonFeatured}>
-                        Class of 2023, CS Major
-                      </Text>
+                      <Text style={styles.userNameNonFeatured}>Neri Ajiatas Arreaga</Text>
+                      <Text style={styles.userIntroNonFeatured}>Class of 2025, Data Science Major</Text>
                     </View>
-                  </View>
-                  <View style={styles.saveJourneyContainer}>
-                    <Image
-                      style={styles.saveJourney}
-                      source={require("../../assets/images/icons/greySave.png")}
-                    />
                   </View>
                 </View>
               </View>
@@ -196,11 +126,37 @@ export default function JourneyScreen() {
                       </Text>
                     </View>
                   </View>
-                  <View style={styles.saveJourneyContainer}>
+                </View>
+              </View>
+            </TouchableOpacity>
+            {/* 4th Journey */}
+            <TouchableOpacity style={styles.individualJourney} onPress={directToMyJourneyPost}>
+              <Image
+                style={styles.miniGradient}
+                source={require("../../assets/images/gradient/miniGradient3.png")}
+              />
+              <View style={styles.journeyTextContainer}>
+                {/* Journey Info */}
+                <View style={styles.journeyTextNonFeaturedContainer}>
+                  <Text style={styles.journeyTitleNonFeatured}>
+                    As A CS Girlie{" "}
+                  </Text>
+                </View>
+                {/* Mentor Info */}
+                <View style={styles.individualJourneyUserContainer}>
+                  <View style={styles.userInfo}>
                     <Image
-                      style={styles.saveJourney}
-                      source={require("../../assets/images/icons/greySave.png")}
+                      style={styles.profileImgNonFeatured}
+                      source={require("../../assets/images/mentorProfilePics/RachelLi.png")}
                     />
+                    <View style={styles.userNameAndIntro}>
+                      <Text style={styles.userNameNonFeatured}>
+                        Annie Huang
+                      </Text>
+                      <Text style={styles.userIntroNonFeatured}>
+                        Class of 2025, CS Major
+                      </Text>
+                    </View>
                   </View>
                 </View>
               </View>
@@ -215,11 +171,19 @@ export default function JourneyScreen() {
 const styles = StyleSheet.create({
   outermostContainer: {
     flex: 1,
+    // backgroundColor: "#FEF7FF",
+    backgroundColor: "white",
   },
   container: {
     flex: 1,
     marginLeft: 20,
     marginRight: 20,
+    // backgroundColor: "#FEF7FF",
+    backgroundColor: "white",
+  },
+  journeyBigTitleContainer: {
+    // backgroundColor: "#FEF7FF",
+    backgroundColor: "white",
   },
   journeyBigTitle: {
     fontSize: 36,
@@ -229,6 +193,10 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     justifyContent: "flex-start",
   },
+  journeySubTitleContainer: {
+    // backgroundColor: "#FEF7FF",
+    backgroundColor: "white",
+  },
   journeySubTitle: {
     fontSize: 22,
     color: "#B3AFB7",
@@ -237,8 +205,9 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
   },
   featuredJourneysContainer: {
-    backgroundColor: "white",
     marginBottom: 16,
+    // backgroundColor: "#FEF7FF",
+    backgroundColor: "white",
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,
@@ -252,16 +221,33 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
   },
   overlayText: {
-    color: "white",
+    color: "black",
     fontWeight: "bold",
-    fontSize: 18,
-    lineHeight: 20,
+    fontSize: 22,
+    lineHeight: 25,
+    marginTop: 10,
+    width: 130,
   },
-  featuredJourney1: {
+  featuredJourney: {
+    borderRadius: 15,
+    marginTop: 10,
+    marginLeft: 3,
+    marginBottom: 5,
+    marginRight: 14,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+      borderRadius: 15,
+    },
+    shadowOpacity: 0.08,
+    shadowRadius: 10,
+    elevation: 5,
+  },
+  featuredJourneyImg: {
     width: 280,
     height: 180,
     borderRadius: 15,
-    marginRight: 14,
   },
   userContainer: {
     flexDirection: "row",
@@ -290,11 +276,11 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: "bold",
     marginBottom: 5,
-    color: "white",
+    color: "#000000",
   },
   userIntro: {
     fontSize: 10,
-    color: "white",
+    color: "#000000",
   },
   featuredJourney2: {
     width: 280,
@@ -303,15 +289,25 @@ const styles = StyleSheet.create({
   },
   allJourneysContainer: {
     flex: 1,
+    // backgroundColor: "#FEF7FF",
+    backgroundColor: "white",
   },
   individualJourney: {
-    width: "100%",
+    width: "99%",
     height: 120,
-    borderWidth: 1,
-    borderColor: "#CAC4D0",
+    backgroundColor: "white",
     borderRadius: 15,
     flexDirection: "row",
     marginBottom: 16,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+      borderRadius: 15,
+    },
+    shadowOpacity: 0.09,
+    shadowRadius: 10,
+    elevation: 5,
   },
   miniGradient: {
     height: "100%",
@@ -332,6 +328,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     flexWrap: "wrap",
     fontSize: 16,
+    width: 280,
   },
   individualJourneyUserContainer: {
     paddingLeft: 16,

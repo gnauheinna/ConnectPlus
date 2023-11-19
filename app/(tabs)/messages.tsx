@@ -5,7 +5,7 @@ import { StyleSheet, ScrollView, ImageBackground } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { FontSize, Color, FontFamily } from "../GlobalStyles";
 import { useRouter } from "expo-router";
-import Search from "../../components/Search";
+import Search from "../../components/search";
 
 export default function Message() {
   const router = useRouter();
