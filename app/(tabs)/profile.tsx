@@ -40,7 +40,6 @@ export default function App() {
     setFinancial(user.financial);
     setStudentLife(user.studentLife);
     console.log("user.avatar =");
-    console.log(user.avatar);
     if (user.avatar === undefined) {
       setAvatar("avatar1");
     } else {
@@ -75,12 +74,12 @@ export default function App() {
     avatar9: require("../../assets/images/avatars/avatar9.png"),
   };
 
-  console.log(avatar); // Check what avatar contains
-  console.log(avatarImages[avatar]); // Check what image it maps to
+  // console.log(avatar); // Check what avatar contains
+  // console.log(avatarImages[avatar]); // Check what image it maps to
 
   return (
     <View style={styles.outterMostContainer}>
-    {/* <View style={styles.container}> */}
+      {/* <View style={styles.container}> */}
       <View style={styles.profileInfoContainer}>
         {/* Display the user's profile picture */}
         <View style={styles.profileImg}>
@@ -123,74 +122,92 @@ export default function App() {
             </View>
           )}
         </View>
-    </View>
+      </View>
 
       {/* Horizontal Bar */}
       <View style={styles.horizontalBarContainer}>
         {/* Press on the My Questions tab */}
-        <TouchableOpacity onPress={() => {
+        <TouchableOpacity
+          onPress={() => {
             setshowLineForJourneys(false);
             setshowLineForQuestions(true);
           }}
         >
-          <Text style={[styles.myQuestionsText, showLineForJourneys ? {color: '#85808C'} : {}]}>My Questions</Text>
+          <Text
+            style={[
+              styles.myQuestionsText,
+              showLineForJourneys ? { color: "#85808C" } : {},
+            ]}
+          >
+            My Questions
+          </Text>
         </TouchableOpacity>
         {/* Display the line underneath the My Questions tab */}
-        {showLineForQuestions && (
-          <View style={styles.lineForQuestions}></View>
-        )}
+        {showLineForQuestions && <View style={styles.lineForQuestions}></View>}
         {/* Press on the Saved Journeys tab */}
-        <TouchableOpacity onPress={() => {
+        <TouchableOpacity
+          onPress={() => {
             setshowLineForJourneys(true);
             setshowLineForQuestions(false);
           }}
         >
-          <Text style={[styles.savedJourneysText, showLineForQuestions ? {color: '#85808C'} : {}]}>Saved Journeys</Text>
+          <Text
+            style={[
+              styles.savedJourneysText,
+              showLineForQuestions ? { color: "#85808C" } : {},
+            ]}
+          >
+            Saved Journeys
+          </Text>
         </TouchableOpacity>
         {/* Display the line underneath the Saved Journeys tab */}
-        {showLineForJourneys && (
-          <View style={styles.lineForJourneys}></View>
-        )}
+        {showLineForJourneys && <View style={styles.lineForJourneys}></View>}
       </View>
 
-      <ScrollView style={styles.questionsContainer} showsVerticalScrollIndicator={false}>
+      <ScrollView
+        style={styles.questionsContainer}
+        showsVerticalScrollIndicator={false}
+      >
         <View style={styles.mainQuestionsContainer}>
-        {!showLineForJourneys && (
-          <FlatList
-            data={filteredPosts}
-            showsVerticalScrollIndicator={false}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item }) => (
-              <View>
-                {/* Displays the post */}
-                <IndividualPost postId={item.postID} />
-                <View style={styles.iconsOnPosts}>
-                  {/* Displays the upvote/downvote system */}
-                  <TouchableOpacity style={styles.voteSystemContainer}>
-                    <View style={styles.voteIconsContainer}>
+          {!showLineForJourneys && (
+            <FlatList
+              data={filteredPosts}
+              showsVerticalScrollIndicator={false}
+              keyExtractor={(item, index) => index.toString()}
+              renderItem={({ item }) => (
+                <View>
+                  {/* Displays the post */}
+                  <IndividualPost postId={item.postID} />
+                  <View style={styles.iconsOnPosts}>
+                    {/* Displays the upvote/downvote system */}
+                    <TouchableOpacity style={styles.voteSystemContainer}>
+                      <View style={styles.voteIconsContainer}>
+                        <Image
+                          style={styles.upvoteIcon}
+                          source={require("../../assets/images/upvote.png")}
+                        />
+                        <Text style={styles.voteNumber}>42</Text>
+                        <View style={styles.verticalLine} />
+                        <Image
+                          style={styles.downvoteIcon}
+                          source={require("../../assets/images/downvote.png")}
+                        />
+                      </View>
+                    </TouchableOpacity>
+                    {/* Displays the the comment icon */}
+                    <TouchableOpacity style={styles.iconWrapper}>
                       <Image
-                        style={styles.upvoteIcon}
-                        source={require("../../assets/images/upvote.png")}
+                        style={styles.icons}
+                        source={require("../../assets/images/comment.png")}
                       />
-                      <Text style={styles.voteNumber}>42</Text>
-                      <View style={styles.verticalLine} />
-                      <Image
-                        style={styles.downvoteIcon}
-                        source={require("../../assets/images/downvote.png")}
-                      />
-                    </View>
-                  </TouchableOpacity>
-                  {/* Displays the the comment icon */}
-                  <TouchableOpacity style={styles.iconWrapper}>
-                    <Image
-                      style={styles.icons}
-                      source={require("../../assets/images/comment.png")}
-                    />
-                  </TouchableOpacity>
+                    </TouchableOpacity>
+                  </View>
                 </View>
-                </View>)}/>)}
-          </View>
-        </ScrollView>
+              )}
+            />
+          )}
+        </View>
+      </ScrollView>
     </View>
   );
 }
@@ -293,20 +310,20 @@ const styles = StyleSheet.create({
     marginBottom: 0,
   },
   lineForQuestions: {
-    backgroundColor: '#D3A0E2',
+    backgroundColor: "#D3A0E2",
     height: 2,
-    width: '50%',
+    width: "50%",
     alignSelf: "flex-start",
-    position: 'absolute',
+    position: "absolute",
     bottom: 0,
     left: 0,
   },
   lineForJourneys: {
-    backgroundColor: '#D3A0E2',
+    backgroundColor: "#D3A0E2",
     height: 2,
-    width: '50%',
+    width: "50%",
     alignSelf: "flex-end",
-    position: 'absolute',
+    position: "absolute",
     bottom: 0,
     right: 0,
   },

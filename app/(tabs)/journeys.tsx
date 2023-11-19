@@ -12,7 +12,7 @@ export default function JourneyScreen() {
     router.push(`/myjourneypost?name=${postName}`);
   }
 
-  // const urlParams = new URLSearchParams(window.location.search);
+  const urlParams = new URLSearchParams(window.location.search);
 
   return (
     <View style={styles.outermostContainer}>
@@ -28,13 +28,25 @@ export default function JourneyScreen() {
         <View style={styles.featuredJourneysContainer}>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             {/* 1st Featured Journey */}
-            <TouchableOpacity onPress={() => directToMyJourneyPost('racheili')} style={styles.featuredJourney}>
-              <Image style={styles.featuredJourneyImg} source={require("../../assets/images/featuredMyJourneyPosts/RachelLi.png")}/>
+            <TouchableOpacity
+              onPress={() => directToMyJourneyPost("racheili")}
+              style={styles.featuredJourney}
+            >
+              <Image
+                style={styles.featuredJourneyImg}
+                source={require("../../assets/images/featuredMyJourneyPosts/RachelLi.png")}
+              />
             </TouchableOpacity>
 
             {/* 2nd Featured Journey */}
-            <TouchableOpacity onPress={() => directToMyJourneyPost('racheili')} style={styles.featuredJourney}>
-              <Image style={styles.featuredJourneyImg} source={require("../../assets/images/featuredMyJourneyPosts/RachelLi.png")}/>
+            <TouchableOpacity
+              onPress={() => directToMyJourneyPost("racheili")}
+              style={styles.featuredJourney}
+            >
+              <Image
+                style={styles.featuredJourneyImg}
+                source={require("../../assets/images/featuredMyJourneyPosts/RachelLi.png")}
+              />
             </TouchableOpacity>
           </ScrollView>
         </View>
@@ -46,7 +58,10 @@ export default function JourneyScreen() {
         <View style={styles.allJourneysContainer}>
           <ScrollView showsVerticalScrollIndicator={false}>
             {/* 1st Journey */}
-            <TouchableOpacity style={styles.individualJourney} onPress={() => directToMyJourneyPost('shatevalong')}>
+            <TouchableOpacity
+              style={styles.individualJourney}
+              onPress={() => directToMyJourneyPost("shatevalong")}
+            >
               <Image
                 style={styles.miniGradient}
                 source={require("../../assets/images/gradient/miniGradient1.png")}
@@ -55,7 +70,7 @@ export default function JourneyScreen() {
                 {/* Journey Title Info */}
                 <View style={styles.journeyTextNonFeaturedContainer}>
                   <Text style={styles.journeyTitleNonFeatured}>
-                  I Got To Create My Own 4 Credit CS Course!{" "}
+                    I Got To Create My Own 4 Credit CS Course!{" "}
                   </Text>
                 </View>
                 {/* Mentor Info */}
@@ -66,7 +81,9 @@ export default function JourneyScreen() {
                       source={require("../../assets/images/mentorProfilePics/ShatevaLong.png")}
                     />
                     <View style={styles.userNameAndIntro}>
-                      <Text style={styles.userNameNonFeatured}>Shateva Long</Text>
+                      <Text style={styles.userNameNonFeatured}>
+                        Shateva Long
+                      </Text>
                       <Text style={styles.userIntroNonFeatured}>Alumni</Text>
                     </View>
                   </View>
@@ -75,7 +92,10 @@ export default function JourneyScreen() {
             </TouchableOpacity>
 
             {/* 2nd Journey */}
-            <TouchableOpacity style={styles.individualJourney} onPress={() => directToMyJourneyPost('racheili')}>
+            <TouchableOpacity
+              style={styles.individualJourney}
+              onPress={() => directToMyJourneyPost("racheili")}
+            >
               <Image
                 style={styles.miniGradient}
                 source={require("../../assets/images/gradient/miniGradient2.png")}
@@ -83,7 +103,9 @@ export default function JourneyScreen() {
               <View style={styles.journeyTextContainer}>
                 {/* Journey Info */}
                 <View style={styles.journeyTextNonFeaturedContainer}>
-                  <Text style={styles.journeyTitleNonFeatured}>Finding Community{" "}</Text>
+                  <Text style={styles.journeyTitleNonFeatured}>
+                    Finding Community{" "}
+                  </Text>
                 </View>
                 {/* Mentor Info */}
                 <View style={styles.individualJourneyUserContainer}>
@@ -93,8 +115,12 @@ export default function JourneyScreen() {
                       source={require("../../assets/images/mentorProfilePics/Neri.png")}
                     />
                     <View style={styles.userNameAndIntro}>
-                      <Text style={styles.userNameNonFeatured}>Neri Ajiatas Arreaga</Text>
-                      <Text style={styles.userIntroNonFeatured}>Class of 2025, Data Science Major</Text>
+                      <Text style={styles.userNameNonFeatured}>
+                        Neri Ajiatas Arreaga
+                      </Text>
+                      <Text style={styles.userIntroNonFeatured}>
+                        Class of 2025, Data Science Major
+                      </Text>
                     </View>
                   </View>
                 </View>
@@ -102,7 +128,10 @@ export default function JourneyScreen() {
             </TouchableOpacity>
 
             {/* 3rd Journey */}
-            <TouchableOpacity style={styles.individualJourney} onPress={() => directToMyJourneyPost('racheili')}>
+            <TouchableOpacity
+              style={styles.individualJourney}
+              onPress={() => directToMyJourneyPost("racheili")}
+            >
               <Image
                 style={styles.miniGradient}
                 source={require("../../assets/images/gradient/miniGradient3.png")}
@@ -134,7 +163,10 @@ export default function JourneyScreen() {
               </View>
             </TouchableOpacity>
             {/* 4th Journey */}
-            <TouchableOpacity style={styles.individualJourney} onPress={() => directToMyJourneyPost('Rachel Li')}>
+            <TouchableOpacity
+              style={styles.individualJourney}
+              onPress={() => directToMyJourneyPost("Rachel Li")}
+            >
               <Image
                 style={styles.miniGradient}
                 source={require("../../assets/images/gradient/miniGradient3.png")}

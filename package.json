@@ -49,6 +49,7 @@
     "react-native-ui-lib": "^7.8.0",
     "react-native-web": "~0.19.6",
     "react-navigation-stack": "^2.10.4",
+    "react-router-dom": "^6.19.0",
     "styled-components": "^6.1.0"
   },
   "devDependencies": {
