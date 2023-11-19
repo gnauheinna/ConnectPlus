@@ -14,7 +14,7 @@ export const CurrentChatContext = createContext<CurrentChatContextType>({
   setCurrentChatID: () => {},
 });
 
-export const ContextProvider: React.FC<{ children: ReactNode }> = ({
+export const CurrentChatContextProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   if (getApps() == null) {
