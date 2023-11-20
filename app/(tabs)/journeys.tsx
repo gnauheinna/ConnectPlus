@@ -15,6 +15,7 @@ export default function JourneyScreen() {
   const urlParams = new URLSearchParams(window.location.search);
 
   return (
+    <ScrollView showsVerticalScrollIndicator={false}>
     <View style={styles.outermostContainer}>
       <View style={styles.container}>
         <View style={styles.journeyBigTitleContainer}>
@@ -162,45 +163,11 @@ export default function JourneyScreen() {
                 </View>
               </View>
             </TouchableOpacity>
-            {/* 4th Journey */}
-            <TouchableOpacity
-              style={styles.individualJourney}
-              onPress={() => directToMyJourneyPost("Rachel Li")}
-            >
-              <Image
-                style={styles.miniGradient}
-                source={require("../../assets/images/gradient/miniGradient3.png")}
-              />
-              <View style={styles.journeyTextContainer}>
-                {/* Journey Info */}
-                <View style={styles.journeyTextNonFeaturedContainer}>
-                  <Text style={styles.journeyTitleNonFeatured}>
-                    As A CS Girlie{" "}
-                  </Text>
-                </View>
-                {/* Mentor Info */}
-                <View style={styles.individualJourneyUserContainer}>
-                  <View style={styles.userInfo}>
-                    <Image
-                      style={styles.profileImgNonFeatured}
-                      source={require("../../assets/images/mentorProfilePics/RachelLi.png")}
-                    />
-                    <View style={styles.userNameAndIntro}>
-                      <Text style={styles.userNameNonFeatured}>
-                        Annie Huang
-                      </Text>
-                      <Text style={styles.userIntroNonFeatured}>
-                        Class of 2025, CS Major
-                      </Text>
-                    </View>
-                  </View>
-                </View>
-              </View>
-            </TouchableOpacity>
           </ScrollView>
         </View>
       </View>
     </View>
+    </ScrollView>
   );
 }
 
@@ -281,8 +248,8 @@ const styles = StyleSheet.create({
     // elevation: 5,
   },
   featuredJourneyImg: {
-    width: 280,
-    height: 180,
+    maxWidth: 300,
+    maxHeight: 300,
     borderRadius: 15,
   },
   userContainer: {
