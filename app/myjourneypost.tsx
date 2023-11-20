@@ -83,14 +83,18 @@ export default function MyJourneyPost() {
 
   return (
     <View style={styles.outterContainer}>
-      {/* {mentorName === "rachelli" && (
-        <View> */}
       <View style={styles.container}>
         <ImageBackground
           source={require("../assets/images/background.png")}
           resizeMode="cover"
           style={styles.gradientBackground}
         >
+          {/* Back Button */}
+          <View style={styles.backBtnContainer}>
+            <TouchableOpacity style={styles.backBtn} onPress={directToMyJourney}>
+              <Image style={styles.backBtnImg} source={require("../assets/images/icons/blackBack.png")}/>
+            </TouchableOpacity>
+          </View>
           <View style={styles.topContainer}></View>
         </ImageBackground>
       </View>
@@ -324,12 +328,29 @@ const styles = StyleSheet.create({
     height: 200,
     zIndex: 1,
   },
+  backBtnContainer: {
+    // position: 'absolute', 
+    top: 20, 
+    left: 20,
+    alignSelf: "flex-start",
+    justifyContent: 'center',
+    marginBottom: 20,
+  },
+  backBtn: {
+    padding: 5,
+    resizeMode: "contain",
+    justifyContent: 'center',
+  },
+  backBtnImg: {
+    width: 20,
+    height: 20,
+  },
   postContainer: {
     flex: 1,
     zIndex: 2,
     borderTopRightRadius: 30,
     borderTopLeftRadius: 30,
-    marginTop: -150,
+    marginTop: -130,
     backgroundColor: "white",
     shadowColor: "rgba(0, 0, 0, 0.02)",
     shadowOffset: { width: 0, height: -2 },
