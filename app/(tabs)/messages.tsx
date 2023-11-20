@@ -6,7 +6,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { FontSize, Color, FontFamily } from "../GlobalStyles";
 import { useRouter } from "expo-router";
 import { useState, useEffect } from "react";
-import Search from "../../components/search";
+import Search from "../../components/Search";
 import {
   collectionGroup,
   query,
@@ -54,6 +54,7 @@ export default function Message() {
   }, [currentChatID]);
 
   useEffect(() => {
+    console.log("messagesss");
     const fetchUserChats = async () => {
       console.log("fetching userChats");
       try {

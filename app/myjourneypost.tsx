@@ -1,27 +1,35 @@
-import React, { useState, useEffect, useContext } from "react";
-import { useParams } from 'react-router-dom';
+import React, { useState, useEffect, useContext, useCallback } from "react";
+import { useParams } from "react-router-dom";
 import { Image } from "expo-image";
 import { useRouter } from "expo-router";
-import { StyleSheet, View, Text, ScrollView, ImageBackground, NativeSyntheticEvent, NativeScrollEvent } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  ScrollView,
+  ImageBackground,
+  NativeSyntheticEvent,
+  NativeScrollEvent,
+} from "react-native";
 
 export default function MyJourneyPost() {
   const router = useRouter();
 
   // Extract the mentor's name from the end of the URL
   const urlParams = new URLSearchParams(window.location.search);
-  const mentorName = urlParams.get('name');
-  console.log(mentorName);
-  // const { name } = route.params;
-  // console.log(name);
+  const mentorName = urlParams.get("name");
+  console.log("mentorName: ", mentorName);
+  const { name } = useParams();
+  console.log("name:  ", name);
 
   // useEffect(() => {
-  //   console.log(mentorName);
+  //   console.log("mentorName hook:  ", mentorName);
   // }, [mentorName]);
 
   function directToMyJourney() {
     router.push("/journeys");
   }
-  
+
   // For the Progress Bar
   const [verticalLine1, setVerticalLine1] = useState(true);
   const [verticalLine2, setVerticalLine2] = useState(false);
@@ -29,151 +37,232 @@ export default function MyJourneyPost() {
   const [verticalLine4, setVerticalLine4] = useState(false);
   const [verticalLine5, setVerticalLine5] = useState(false);
 
-  const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-    const scrollY = event.nativeEvent.contentOffset.y;
-    if (scrollY < 300) {
-      setVerticalLine1(true);
-      setVerticalLine2(false);
-      setVerticalLine3(false); 
-      setVerticalLine4(false);
-      setVerticalLine5(false);
-    }
-    if (scrollY >= 300) {
-      setVerticalLine2(true);
-      setVerticalLine1(false);
-      setVerticalLine3(false); 
-      setVerticalLine4(false);
-      setVerticalLine5(false);
-    }
-    if (scrollY >= 600) {
-      setVerticalLine3(true);
-      setVerticalLine1(false);
-      setVerticalLine2(false); 
-      setVerticalLine4(false);
-      setVerticalLine5(false);
-    }
-    if (scrollY >= 950) {
-      setVerticalLine4(true);
-      setVerticalLine1(false);
-      setVerticalLine2(false); 
-      setVerticalLine3(false);
-      setVerticalLine5(false); 
-    }
-    if (scrollY >= 1100) {
-      setVerticalLine5(true);
-      setVerticalLine1(false);
-      setVerticalLine2(false); 
-      setVerticalLine3(false);
-      setVerticalLine4(false); 
-    }
-  };
+  const handleScroll = useCallback(
+    (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+      const scrollY = event.nativeEvent.contentOffset.y;
+      if (scrollY < 300) {
+        setVerticalLine1(true);
+        setVerticalLine2(false);
+        setVerticalLine3(false);
+        setVerticalLine4(false);
+        setVerticalLine5(false);
+      }
+      if (scrollY >= 300) {
+        setVerticalLine2(true);
+        setVerticalLine1(false);
+        setVerticalLine3(false);
+        setVerticalLine4(false);
+        setVerticalLine5(false);
+      }
+      if (scrollY >= 600) {
+        setVerticalLine3(true);
+        setVerticalLine1(false);
+        setVerticalLine2(false);
+        setVerticalLine4(false);
+        setVerticalLine5(false);
+      }
+      if (scrollY >= 950) {
+        setVerticalLine4(true);
+        setVerticalLine1(false);
+        setVerticalLine2(false);
+        setVerticalLine3(false);
+        setVerticalLine5(false);
+      }
+      if (scrollY >= 1100) {
+        setVerticalLine5(true);
+        setVerticalLine1(false);
+        setVerticalLine2(false);
+        setVerticalLine3(false);
+        setVerticalLine4(false);
+      }
+    },
+    []
+  );
 
   return (
     <View style={styles.outterContainer}>
       {/* {mentorName === "rachelli" && (
         <View> */}
       <View style={styles.container}>
-        <ImageBackground source={require("../assets/images/background.png")} resizeMode="cover" style={styles.gradientBackground}>
-            <View style={styles.topContainer}>
-              </View>
-          </ImageBackground> 
-     </View>
+        <ImageBackground
+          source={require("../assets/images/background.png")}
+          resizeMode="cover"
+          style={styles.gradientBackground}
+        >
+          <View style={styles.topContainer}></View>
+        </ImageBackground>
+      </View>
 
-      <ScrollView style={styles.postContainer} showsVerticalScrollIndicator={false} onScroll={handleScroll} scrollEventThrottle={16}>
+      <ScrollView
+        style={styles.postContainer}
+        showsVerticalScrollIndicator={false}
+        onScroll={handleScroll}
+        scrollEventThrottle={16}
+      >
         <View style={styles.topPortionContainer}>
           {/* Post Title & Save Button */}
-            <View style={styles.titleAndSaveButtonContainer}>
-                <View style={styles.postTitleContainer}>
-                  <Text style={styles.postDate}>Nov 6th 2023</Text>
-                  <Text style={styles.postTitle}>Alternative Service Break</Text>
-                </View>
-                <View style={styles.saveButton}>
-                  <Image source={require("../assets/images/icons/journeySaved.png")}/>
-                </View>
+          <View style={styles.titleAndSaveButtonContainer}>
+            <View style={styles.postTitleContainer}>
+              <Text style={styles.postDate}>Nov 6th 2023</Text>
+              <Text style={styles.postTitle}>Alternative Service Break</Text>
             </View>
-            {/* Author's information */}
-            <View style={styles.authorInfoContainer}>
-              <Image style={styles.profileImg} source={require("../assets/images/mentorProfilePics/RachelLi.png")}/>
-              <View style={styles.userNameAndIntro}>
-                <Text style={styles.userName}>Rachel Li</Text>
-                <Text style={styles.userIntro}>Class of 2024, Data Science Major</Text>
-              </View>
+            <View style={styles.saveButton}>
+              <Image
+                source={require("../assets/images/icons/journeySaved.png")}
+              />
             </View>
+          </View>
+          {/* Author's information */}
+          <View style={styles.authorInfoContainer}>
+            <Image
+              style={styles.profileImg}
+              source={require("../assets/images/mentorProfilePics/RachelLi.png")}
+            />
+            <View style={styles.userNameAndIntro}>
+              <Text style={styles.userName}>Rachel Li</Text>
+              <Text style={styles.userIntro}>
+                Class of 2024, Data Science Major
+              </Text>
+            </View>
+          </View>
         </View>
-    
+
         <View style={styles.postContentContainer}>
-            <View style={styles.postContentMainContainer}>
-              {/* 1st Step */}
-              <View style={styles.individualStep}>
-                  <View style={styles.subtitleContainer}>
-                      <Text style={styles.subtitleText}>Theme</Text>
-                  </View>
-                  <View style={styles.regularContentContainer}>
-                    <Text style={styles.regularContentText}>If you’re a student working part-time, don’t have a meal plan, and shop for groceries on your own, here’s a resource for you:
-The Supplemental Nutrition Assistance Program (SNAP) gives people who are eligible around $80-$100 monthly funds to buy food. 
-Navigating this process has been a headache. I spent hours on the phone with customer service, figuring out the right document to submit. Here is a guide to applying for SNAP from my own experience so that you can have a much smoother process.
-</Text>
-                  </View>
+          <View style={styles.postContentMainContainer}>
+            {/* 1st Step */}
+            <View style={styles.individualStep}>
+              <View style={styles.subtitleContainer}>
+                <Text style={styles.subtitleText}>Theme</Text>
               </View>
-              {/* 2nd Step */}
-              <View style={styles.individualStep}>
-                  <View style={styles.subtitleContainer}>
-                          <Text style={styles.subtitleText}>Processes</Text>
-                  </View>
-                  <View style={styles.regularContentContainer}>
-                    <Text style={styles.regularContentText}>1. Do a quick check to see if you’re eligible.</Text>
-                    <Text style={styles.regularContentText}>2. File the initial application.</Text>
-                    <Text style={styles.regularContentText}>3. The documents I submitted as a full-time student: </Text>
-                      <View style={styles.indentedContentContainer}>
-                        <Text style={styles.regularContentText}>- Financial aid proof</Text>
-                        <Text style={styles.regularContentText}>- Proof that you don’t have a meal plan on campus</Text>
-                        <Text style={styles.regularContentText}>- Proof of work-study</Text>
-                        <Text style={styles.regularContentText}>- Proof of other work you’re (or have been) participating in</Text>
-                      </View>
-                    <Text style={styles.regularContentText}>4. After the initial application, they require a phone interview asking you to verify the information. </Text>
-                  </View>
-              </View>
-              {/* 3rd Step */}
-              <View style={styles.individualStep}>
-                  <View style={styles.subtitleContainer}>
-                      <Text style={styles.subtitleText}>Challenges</Text>
-                  </View>
-                  <View style={styles.regularContentContainer}>
-                    <Text style={styles.regularContentText}>Trying to figure out what kind of document they need and being able to connect with a representative is the most daunting part.</Text>
-                  </View>
-              </View>
-              {/* 4th Step */}
-              <View style={styles.individualStep}>
-                  <View style={styles.subtitleContainer}>
-                      <Text style={styles.subtitleText}>Takeaways</Text>
-                  </View>
-                  <View style={styles.regularContentContainer}>
-                    <Text style={styles.regularContentText}>- Try your best to not miss the scheduled phone call because it’s very hard to connect with a representative when you dial in yourself. The average wait time is around 30 min.</Text>
-                    <Text style={styles.regularContentText}>- Download DTA Connect App, it’s the place where you submit all the verification documents.</Text>
-                    <Text style={styles.regularContentText}>- Keep an eye on your mail. They will email letters to you with your case number (you need this number to sign into your DTA app account)</Text>
-                  </View>
-              </View>
-              {/* 5th Step */}
-              <View style={styles.individualStep}>
-                  <View style={styles.subtitleContainer}>
-                      <Text style={styles.subtitleText}>Resources</Text>
-                  </View>
-                  <View style={styles.regularContentContainer}>
-                    <Text style={styles.regularContentText}>- Try your best to not miss the scheduled phone call because it’s very hard to connect with a representative when you dial in yourself. The average wait time is around 30 min.</Text>
-                  </View>
+              <View style={styles.regularContentContainer}>
+                <Text style={styles.regularContentText}>
+                  If you’re a student working part-time, don’t have a meal plan,
+                  and shop for groceries on your own, here’s a resource for you:
+                  The Supplemental Nutrition Assistance Program (SNAP) gives
+                  people who are eligible around $80-$100 monthly funds to buy
+                  food. Navigating this process has been a headache. I spent
+                  hours on the phone with customer service, figuring out the
+                  right document to submit. Here is a guide to applying for SNAP
+                  from my own experience so that you can have a much smoother
+                  process.
+                </Text>
               </View>
             </View>
+            {/* 2nd Step */}
+            <View style={styles.individualStep}>
+              <View style={styles.subtitleContainer}>
+                <Text style={styles.subtitleText}>Processes</Text>
+              </View>
+              <View style={styles.regularContentContainer}>
+                <Text style={styles.regularContentText}>
+                  1. Do a quick check to see if you’re eligible.
+                </Text>
+                <Text style={styles.regularContentText}>
+                  2. File the initial application.
+                </Text>
+                <Text style={styles.regularContentText}>
+                  3. The documents I submitted as a full-time student:{" "}
+                </Text>
+                <View style={styles.indentedContentContainer}>
+                  <Text style={styles.regularContentText}>
+                    - Financial aid proof
+                  </Text>
+                  <Text style={styles.regularContentText}>
+                    - Proof that you don’t have a meal plan on campus
+                  </Text>
+                  <Text style={styles.regularContentText}>
+                    - Proof of work-study
+                  </Text>
+                  <Text style={styles.regularContentText}>
+                    - Proof of other work you’re (or have been) participating in
+                  </Text>
+                </View>
+                <Text style={styles.regularContentText}>
+                  4. After the initial application, they require a phone
+                  interview asking you to verify the information.{" "}
+                </Text>
+              </View>
+            </View>
+            {/* 3rd Step */}
+            <View style={styles.individualStep}>
+              <View style={styles.subtitleContainer}>
+                <Text style={styles.subtitleText}>Challenges</Text>
+              </View>
+              <View style={styles.regularContentContainer}>
+                <Text style={styles.regularContentText}>
+                  Trying to figure out what kind of document they need and being
+                  able to connect with a representative is the most daunting
+                  part.
+                </Text>
+              </View>
+            </View>
+            {/* 4th Step */}
+            <View style={styles.individualStep}>
+              <View style={styles.subtitleContainer}>
+                <Text style={styles.subtitleText}>Takeaways</Text>
+              </View>
+              <View style={styles.regularContentContainer}>
+                <Text style={styles.regularContentText}>
+                  - Try your best to not miss the scheduled phone call because
+                  it’s very hard to connect with a representative when you dial
+                  in yourself. The average wait time is around 30 min.
+                </Text>
+                <Text style={styles.regularContentText}>
+                  - Download DTA Connect App, it’s the place where you submit
+                  all the verification documents.
+                </Text>
+                <Text style={styles.regularContentText}>
+                  - Keep an eye on your mail. They will email letters to you
+                  with your case number (you need this number to sign into your
+                  DTA app account)
+                </Text>
+              </View>
+            </View>
+            {/* 5th Step */}
+            <View style={styles.individualStep}>
+              <View style={styles.subtitleContainer}>
+                <Text style={styles.subtitleText}>Resources</Text>
+              </View>
+              <View style={styles.regularContentContainer}>
+                <Text style={styles.regularContentText}>
+                  - Try your best to not miss the scheduled phone call because
+                  it’s very hard to connect with a representative when you dial
+                  in yourself. The average wait time is around 30 min.
+                </Text>
+              </View>
+            </View>
+          </View>
         </View>
       </ScrollView>
-            <View style={styles.progressBarContainer}>
-                <View style={verticalLine1 ? styles.verticalLine1Active : styles.verticalLine1}></View>
-                <View style={verticalLine2 ? styles.verticalLine2Active : styles.verticalLine2}></View>
-                <View style={verticalLine3 ? styles.verticalLine3Active : styles.verticalLine3}></View>
-                <View style={verticalLine4 ? styles.verticalLine4Active : styles.verticalLine4}></View>
-                <View style={verticalLine5 ? styles.verticalLine5Active : styles.verticalLine5}></View>
-            </View> 
-            {/* </View>)} */}
+      <View style={styles.progressBarContainer}>
+        <View
+          style={
+            verticalLine1 ? styles.verticalLine1Active : styles.verticalLine1
+          }
+        ></View>
+        <View
+          style={
+            verticalLine2 ? styles.verticalLine2Active : styles.verticalLine2
+          }
+        ></View>
+        <View
+          style={
+            verticalLine3 ? styles.verticalLine3Active : styles.verticalLine3
+          }
+        ></View>
+        <View
+          style={
+            verticalLine4 ? styles.verticalLine4Active : styles.verticalLine4
+          }
+        ></View>
+        <View
+          style={
+            verticalLine5 ? styles.verticalLine5Active : styles.verticalLine5
+          }
+        ></View>
       </View>
+      {/* </View>)} */}
+    </View>
   );
 }
 
@@ -181,8 +270,7 @@ const styles = StyleSheet.create({
   outterContainer: {
     flex: 1,
   },
-  container: {
-  },
+  container: {},
   topContainer: {
     marginLeft: 20,
     marginRight: 20,
@@ -190,13 +278,13 @@ const styles = StyleSheet.create({
     paddingTop: 50,
   },
   gradientBackground: {
-    width: 390, 
+    width: 390,
     height: 200,
     zIndex: 1,
   },
   postContainer: {
     flex: 1,
-    zIndex: 2,  
+    zIndex: 2,
     borderTopRightRadius: 30,
     borderTopLeftRadius: 30,
     marginTop: -150,
@@ -236,7 +324,7 @@ const styles = StyleSheet.create({
     width: 36,
     height: 36,
   },
-  authorInfoContainer:{
+  authorInfoContainer: {
     flexDirection: "row",
     paddingTop: 20,
     paddingBottom: 20,
@@ -283,7 +371,7 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     marginBottom: 20,
     // This line makes this container to only be as wide as its content (plus padding)!
-    alignSelf: 'flex-start',
+    alignSelf: "flex-start",
   },
   subtitleText: {
     color: "#AF6BAB",
@@ -298,7 +386,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
   },
-  regularContentContainer:{
+  regularContentContainer: {
     marginBottom: 10,
   },
   regularContentText: {
@@ -314,15 +402,15 @@ const styles = StyleSheet.create({
   },
   progressBarContainer: {
     zIndex: 3,
-    position: 'absolute',
+    position: "absolute",
     right: 20,
     top: 280,
-    flexDirection: 'column',
+    flexDirection: "column",
     height: 450,
   },
   verticalLine1Active: {
     flex: 1,
-    borderLeftColor: '#FFD979',
+    borderLeftColor: "#FFD979",
     borderLeftWidth: 5,
     borderRadius: 20,
     marginLeft: 20,
@@ -330,7 +418,7 @@ const styles = StyleSheet.create({
   },
   verticalLine1: {
     flex: 1,
-    borderLeftColor: '#EAEAEA',
+    borderLeftColor: "#EAEAEA",
     borderLeftWidth: 5,
     borderRadius: 20,
     marginLeft: 20,
@@ -338,7 +426,7 @@ const styles = StyleSheet.create({
   },
   verticalLine2Active: {
     flex: 1,
-    borderLeftColor: '#FFD979',
+    borderLeftColor: "#FFD979",
     borderLeftWidth: 5,
     borderRadius: 20,
     marginLeft: 20,
@@ -346,7 +434,7 @@ const styles = StyleSheet.create({
   },
   verticalLine2: {
     flex: 1,
-    borderLeftColor: '#EAEAEA',
+    borderLeftColor: "#EAEAEA",
     borderLeftWidth: 5,
     borderRadius: 20,
     marginLeft: 20,
@@ -354,7 +442,7 @@ const styles = StyleSheet.create({
   },
   verticalLine3Active: {
     flex: 1,
-    borderLeftColor: '#FFD979',
+    borderLeftColor: "#FFD979",
     borderLeftWidth: 5,
     borderRadius: 20,
     marginLeft: 20,
@@ -362,7 +450,7 @@ const styles = StyleSheet.create({
   },
   verticalLine3: {
     flex: 1,
-    borderLeftColor: '#EAEAEA',
+    borderLeftColor: "#EAEAEA",
     borderLeftWidth: 5,
     borderRadius: 20,
     marginLeft: 20,
@@ -370,7 +458,7 @@ const styles = StyleSheet.create({
   },
   verticalLine4: {
     flex: 1,
-    borderLeftColor: '#EAEAEA',
+    borderLeftColor: "#EAEAEA",
     borderLeftWidth: 5,
     borderRadius: 20,
     marginLeft: 20,
@@ -378,7 +466,7 @@ const styles = StyleSheet.create({
   },
   verticalLine4Active: {
     flex: 1,
-    borderLeftColor: '#FFD979',
+    borderLeftColor: "#FFD979",
     borderLeftWidth: 5,
     borderRadius: 20,
     marginLeft: 20,
@@ -386,7 +474,7 @@ const styles = StyleSheet.create({
   },
   verticalLine5: {
     flex: 1,
-    borderLeftColor: '#EAEAEA',
+    borderLeftColor: "#EAEAEA",
     borderLeftWidth: 5,
     borderRadius: 20,
     marginLeft: 20,
@@ -394,7 +482,7 @@ const styles = StyleSheet.create({
   },
   verticalLine5Active: {
     flex: 1,
-    borderLeftColor: '#FFD979',
+    borderLeftColor: "#FFD979",
     borderLeftWidth: 5,
     borderRadius: 20,
     marginLeft: 20,
