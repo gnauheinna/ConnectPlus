@@ -6,7 +6,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { FontSize, Color, FontFamily } from "../GlobalStyles";
 import { useRouter } from "expo-router";
 import { useState, useEffect } from "react";
-import Search from "../../components/Search";
+import Search from "../../components/search";
 import {
   collectionGroup,
   query,
@@ -196,29 +196,6 @@ const styles = StyleSheet.create({
     width: 24,
     resizeMode: "contain",
   },
-  searchBar: {
-    height: 45,
-    width: "100%",
-    borderRadius: 30,
-    backgroundColor: "#FFFFFF",
-    opacity: 0.8,
-    padding: 10,
-    paddingLeft: 20,
-    flexDirection: "row",
-    justifyCenter: "center",
-  },
-  searchIcon: {
-    width: 22,
-    height: 22,
-    marginRight: 15,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  searchText: {
-    color: "#777777",
-    fontSize: 20,
-    alignItems: "center",
-  },
   messagesContainer: {
     zIndex: 2,
     borderRadius: 30,
@@ -246,14 +223,12 @@ const styles = StyleSheet.create({
   },
   individualMessageMainContainer: {
     flexDirection: "row",
-    justifyContent: "space-between",
   },
   userInfoContainer: {
     flexDirection: "column",
     justifyContent: "center",
     paddingTop: 20,
     paddingBottom: 20,
-    marginRight: 30,
     width: 200,
   },
   profilePicContainer: {

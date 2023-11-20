@@ -110,10 +110,8 @@ export default function Search() {
   };
 
   return (
-    <View>
-      <View>
+    <View style={styles.outterMostContainer}>
         {/* Search Bar */}
-
         <View style={styles.searchBar}>
           <Image
             style={styles.searchIcon}
@@ -133,7 +131,6 @@ export default function Search() {
             onEndEditing={handleSearch}
           />
         </View>
-      </View>
       {err ? (
         <Text>User not found!</Text>
       ) : (
@@ -166,11 +163,15 @@ export default function Search() {
 }
 
 const styles = StyleSheet.create({
+  outterMostContainer: {
+    flex: 1,
+    backgroundColor: "transparent",
+  },
   searchBar: {
     height: 45,
     width: "100%",
     borderRadius: 30,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "white",
     opacity: 0.8,
     padding: 10,
     paddingLeft: 20,
