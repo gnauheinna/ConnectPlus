@@ -62,7 +62,7 @@ const IndividualPost: React.FC<IndividualPostProps> = ({ postId }) => {
               />
               <View style={styles.userNameAndIntro}>
                 <Text style={styles.userName}>{post.userName}</Text>
-                <Text style={styles.userIntro}>Computer Science</Text>
+                <Text style={styles.userIntro}>{post.major}</Text>
               </View>
             </View>
             {/* Display the tag that is associated with the post to the right of the user's information */}
