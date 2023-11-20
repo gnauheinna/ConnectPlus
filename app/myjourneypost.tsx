@@ -6,9 +6,11 @@ import {
   StyleSheet,
   View,
   Text,
+  Linking,
   ScrollView,
   ImageBackground,
   NativeSyntheticEvent,
+  TouchableOpacity,
   NativeScrollEvent,
 } from "react-native";
 
@@ -54,21 +56,21 @@ export default function MyJourneyPost() {
         setVerticalLine4(false);
         setVerticalLine5(false);
       }
-      if (scrollY >= 600) {
+      if (scrollY >= 1050) {
         setVerticalLine3(true);
         setVerticalLine1(false);
         setVerticalLine2(false);
         setVerticalLine4(false);
         setVerticalLine5(false);
       }
-      if (scrollY >= 950) {
+      if (scrollY >= 1350) {
         setVerticalLine4(true);
         setVerticalLine1(false);
         setVerticalLine2(false);
         setVerticalLine3(false);
         setVerticalLine5(false);
       }
-      if (scrollY >= 1100) {
+      if (scrollY >= 1450) {
         setVerticalLine5(true);
         setVerticalLine1(false);
         setVerticalLine2(false);
@@ -138,7 +140,7 @@ export default function MyJourneyPost() {
                 <Text style={styles.regularContentText}>
                   If you’re a student working part-time, don’t have a meal plan,
                   and shop for groceries on your own, here’s a resource for you:
-                  The Supplemental Nutrition Assistance Program (SNAP) gives
+                  The <Text style={styles.regularContentTextBolded}>Supplemental Nutrition Assistance Program (SNAP) </Text>gives
                   people who are eligible around $80-$100 monthly funds to buy
                   food. Navigating this process has been a headache. I spent
                   hours on the phone with customer service, figuring out the
@@ -155,10 +157,18 @@ export default function MyJourneyPost() {
               </View>
               <View style={styles.regularContentContainer}>
                 <Text style={styles.regularContentText}>
-                  1. Do a quick check to see if you’re eligible.
+                  {"1. Do a "}
+                  <TouchableOpacity onPress={() => Linking.openURL('https://dtaconnect.eohhs.mass.gov/screening?_gl=1*19vwokf*_ga*NDU5MDQyNTc0LjE2OTkzODAxNTk.*_ga_SW2TVH2WBY*MTY5OTM4MDE1OS4xLjAuMTY5OTM4MDE1OS4wLjAuMA..')}>
+                    <Text style={styles.linkText}>quick check</Text>
+                  </TouchableOpacity>
+                  {" to see if you’re eligible."}
                 </Text>
                 <Text style={styles.regularContentText}>
-                  2. File the initial application.
+                  {"2. File the "}
+                  <TouchableOpacity onPress={() => Linking.openURL('https://dtaconnect.eohhs.mass.gov/?_gl=1*1qkcl0m*_ga*NDU5MDQyNTc0LjE2OTkzODAxNTk.*_ga_SW2TVH2WBY*MTY5OTM4MDE1OS4xLjEuMTY5OTM4MDUxMi4wLjAuMA..')}>
+                    <Text style={styles.linkText}>initial application</Text>
+                  </TouchableOpacity>
+                  {"."}
                 </Text>
                 <Text style={styles.regularContentText}>
                   3. The documents I submitted as a full-time student:{" "}
@@ -180,6 +190,25 @@ export default function MyJourneyPost() {
                 <Text style={styles.regularContentText}>
                   4. After the initial application, they require a phone
                   interview asking you to verify the information.{" "}
+                </Text>
+                <Text style={[styles.regularContentTextBolded, { marginTop: 20 }]}>
+                  Additional Info:
+                </Text>
+                <Text style={styles.regularContentText}>
+                  {"1. Reach out to BU Housing "}
+                  <TouchableOpacity onPress={() => Linking.openURL('housing@bu.edu')}>
+                    <Text style={styles.linkText}>housing@bu.edu</Text>
+                  </TouchableOpacity>
+                  {" to request a signed document."}
+                </Text>
+                <Text style={styles.regularContentText}>
+                  2. You need to be actively participating in the work-study in order to be qualified. The number of hours you work doesn't matter.
+                </Text>
+                <Text style={styles.regularContentText}>
+                  3. Go to studentlink work portal to see if you can find a printable version. If not, reach out to your supervisor.
+                </Text>
+                <Text style={styles.regularContentText}>
+                  4. The document needs to have a specific start and end date.
                 </Text>
               </View>
             </View>
@@ -225,10 +254,23 @@ export default function MyJourneyPost() {
               </View>
               <View style={styles.regularContentContainer}>
                 <Text style={styles.regularContentText}>
-                  - Try your best to not miss the scheduled phone call because
-                  it’s very hard to connect with a representative when you dial
-                  in yourself. The average wait time is around 30 min.
+                Here are BU resources related to food: 
                 </Text>
+                <View style={styles.indentedContentContainer}>
+                <Text style={styles.regularContentText}>
+                  {"- "}
+                  <TouchableOpacity onPress={() => Linking.openURL('https://www.bu.edu/chapel/programming/community-dinner/')}>
+                    <Text style={styles.linkText}>Marsh Chapel</Text>
+                  </TouchableOpacity>
+                  {" hosts a community dinner on Mondays from 5 p.m. to 6:30 p.m., you do not need to have any religious affiliation to participate."}
+                </Text>
+                <Text style={styles.regularContentText}>
+                  {"- "}
+                  <TouchableOpacity onPress={() => Linking.openURL('https://www.bu.edu/studentwellbeing/place-a-bu-food-pantry-order/')}>
+                    <Text style={styles.linkText}>BU Food Pantry</Text>
+                  </TouchableOpacity>
+                </Text>
+                </View>
               </View>
             </View>
           </View>
@@ -395,10 +437,24 @@ const styles = StyleSheet.create({
     color: "#393939",
     marginBottom: 10,
   },
+  regularContentTextBolded: {
+    fontSize: 16,
+    lineHeight: 25,
+    color: "#393939",
+    marginBottom: 10,
+    fontWeight: "bold",
+  },
   indentedContentContainer: {
     marginBottom: 10,
     marginLeft: 20,
     marginRight: 20,
+  },
+  linkText: {
+    fontSize: 16,
+    lineHeight: 25,
+    color: "#CA95C8",
+    fontWeight: "bold",
+    textDecorationLine: 'underline',
   },
   progressBarContainer: {
     zIndex: 3,
