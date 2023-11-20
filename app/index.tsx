@@ -116,7 +116,7 @@ export default function Login() {
   }
 
   return (
-
+<View style={styles.outterMostContainer}>
       <View style={styles.container}>
         {/* ConnectPlus Logo */}
         <Image
@@ -194,15 +194,19 @@ export default function Login() {
           </TouchableOpacity>
         </View>
       </View>
-
+      </View>
   );
 }
 
 const styles = StyleSheet.create({
+  outterMostContainer: {
+    backgroundColor: "white",
+  },
   container: {
     flex: 1,
     marginLeft: 40,
     marginRight: 40,
+    backgroundColor: "white",
   },
   connectPlusLogo: {
     height: 120,

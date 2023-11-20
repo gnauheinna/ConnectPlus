@@ -68,11 +68,7 @@ export default function interestScreen() {
   }, [SIsChecked]);
 
   return (
-    <LinearGradient
-      style={styles.container}
-      locations={[0, 1]}
-      colors={["#fff9e9", "#fff"]}
-    >
+<View style={styles.outterMostContainer}>
       <View style={styles.mainContainer}>
         <Text style={[styles.title]}>Last Steps</Text>
         <Text style={[styles.subTitle]}>Tell us more about you! What are your interests? Please select at least one.</Text>
@@ -147,12 +143,17 @@ export default function interestScreen() {
         </TouchableOpacity>)}
 
       </View>
-    </LinearGradient>
+      </View>
   );
 }
 
 const styles = StyleSheet.create({
+  outterMostContainer: {
+    flex: 1,
+    backgroundColor: "white",
+  },
   container: {
+    backgroundColor: "white",
     flex: 1,
   },
   mainContainer: {

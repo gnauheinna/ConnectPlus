@@ -40,6 +40,7 @@ const AddAvatar = () => {
 
   return (
    // <LinearGradient locations={[0, 1]} colors={["#fff9e9", "#fff"]} style={styles.container}>
+   <View style={styles.outterMostContainer}>
 <View style={styles.container}>
        <View style={styles.topPortion}>
         <Text style={[styles.title]}>Add an Avatar</Text>
@@ -84,13 +85,18 @@ const AddAvatar = () => {
               <Text style={[ styles.nextButtonText,{ color: selectedAvatar === "" ? "#9A969F" : "#3A3340",  } ]}>Next</Text>
       </TouchableOpacity>
       </View>
-   // </LinearGradient>
+      </View>
   );
 };
 
 const styles = StyleSheet.create({
+  outterMostContainer: {
+    flex: 1,
+    backgroundColor: "white",
+  },
   container: {
     flex: 1,
+    backgroundColor: "white",
   },
   topPortion:{
     padding: 40,

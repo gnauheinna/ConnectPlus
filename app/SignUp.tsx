@@ -137,7 +137,7 @@ const SignupForm = () => {
   };
 
   return (
-   
+    <View style={styles.outterMostContainer}>
       <View style={styles.container}>
         <Text style={[styles.title]}>Create Your Account</Text>
         <Text style={[styles.subTitle]}>
@@ -247,11 +247,14 @@ const SignupForm = () => {
           <Text style={styles.nextButtonText}>Next</Text>
         </TouchableOpacity>
       </View>
- 
+      </View>
   );
 };
 
 const styles = StyleSheet.create({
+  outterMostContainer: {
+    backgroundColor: "white",
+  },
   container: {
     flex: 1,
     justifyContent: "flex-start",
