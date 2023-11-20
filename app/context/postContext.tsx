@@ -27,6 +27,7 @@ export type Post = {
   major: string;
   timestamp: Timestamp;
   userName: string;
+  avatar: string;
 };
 
 interface PostContextValue {

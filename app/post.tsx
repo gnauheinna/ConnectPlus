@@ -59,6 +59,7 @@ export default function postQuestions() {
       userName: user.name,
       major: user.major,
       userID: user.userID,
+      avatar: user.avatar,
       tag,
     };
     if (isPostCompleted) {
