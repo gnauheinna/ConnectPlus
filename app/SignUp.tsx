@@ -136,8 +136,18 @@ const SignupForm = () => {
     }
   };
 
+  function directToIndex() {
+    router.push("/");
+  }
+
   return (
     <View style={styles.outterMostContainer}>
+      {/* Back Button */}
+      <View style={styles.backBtnContainer}>
+            <TouchableOpacity style={styles.backBtn} onPress={directToIndex}>
+              <Image style={styles.backBtnImg} source={require("../assets/images/icons/blackBack.png")}/>
+            </TouchableOpacity>
+      </View>
       <View style={styles.container}>
         <Text style={[styles.title]}>Create Your Account</Text>
         <Text style={[styles.subTitle]}>
@@ -258,8 +268,25 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "flex-start",
-    padding: 40,
-    marginTop: 50,
+    padding: 20,
+    // marginTop: 50,
+  },
+  backBtnContainer: {
+    // position: 'absolute', 
+    top: 20, 
+    left: 20,
+    alignSelf: "flex-start",
+    justifyContent: 'center',
+    marginBottom: 40,
+  },
+  backBtn: {
+    padding: 5,
+    resizeMode: "contain",
+    justifyContent: 'center',
+  },
+  backBtnImg: {
+    width: 20,
+    height: 20,
   },
   inputContainer: {
     flexDirection: "row",

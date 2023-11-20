@@ -67,8 +67,20 @@ export default function interestScreen() {
     console.log("Student Life: ", SIsChecked);
   }, [SIsChecked]);
 
+  function directToAddAvatar() {
+    router.push("/addavatar");
+  }
+
   return (
 <View style={styles.outterMostContainer}>
+
+  {/* Back Button */}
+  <View style={styles.backBtnContainer}>
+            <TouchableOpacity style={styles.backBtn} onPress={directToAddAvatar}>
+              <Image style={styles.backBtnImg} source={require("../assets/images/icons/blackBack.png")}/>
+            </TouchableOpacity>
+  </View>
+
       <View style={styles.mainContainer}>
         <Text style={[styles.title]}>Last Steps</Text>
         <Text style={[styles.subTitle]}>Tell us more about you! What are your interests? Please select at least one.</Text>
@@ -159,11 +171,27 @@ const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     justifyContent: "flex-start",
-    padding: 40,
+    padding: 20,
     marginTop: 50,
   },
   inputContainer: {
     flexDirection: "row",
+  },
+  backBtnContainer: {
+    top: 20, 
+    left: 20,
+    alignSelf: "flex-start",
+    justifyContent: 'center',
+    marginBottom: 40,
+  },
+  backBtn: {
+    padding: 5,
+    resizeMode: "contain",
+    justifyContent: 'center',
+  },
+  backBtnImg: {
+    width: 20,
+    height: 20,
   },
   title: {
     fontSize: 28,
@@ -182,8 +210,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   interestBoxSelected: {
-    width: 145,
-    height: 120,
+    width: 165,
+    height: 140,
     marginBottom: 20,
     borderWidth: 1.5,
     borderRadius: 10,
@@ -193,8 +221,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFEAB6",
   },
   interestBox: {
-    width: 145,
-    height: 120,
+    width: 165,
+    height: 140,
     marginBottom: 20,
     borderWidth: 1.5,
     borderRadius: 10,

@@ -38,9 +38,21 @@ const AddAvatar = () => {
     setSelectedAvatar(avatarName)
   }
 
+  function directToSignUp() {
+    router.push("/signup");
+  }
+
+
   return (
    // <LinearGradient locations={[0, 1]} colors={["#fff9e9", "#fff"]} style={styles.container}>
    <View style={styles.outterMostContainer}>
+
+    {/* Back Button */}
+    <View style={styles.backBtnContainer}>
+            <TouchableOpacity style={styles.backBtn} onPress={directToSignUp}>
+              <Image style={styles.backBtnImg} source={require("../assets/images/icons/blackBack.png")}/>
+            </TouchableOpacity>
+    </View>
 <View style={styles.container}>
        <View style={styles.topPortion}>
         <Text style={[styles.title]}>Add an Avatar</Text>
@@ -98,8 +110,24 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
   },
+  backBtnContainer: {
+    top: 20, 
+    left: 20,
+    alignSelf: "flex-start",
+    justifyContent: 'center',
+    marginBottom: 40,
+  },
+  backBtn: {
+    padding: 5,
+    resizeMode: "contain",
+    justifyContent: 'center',
+  },
+  backBtnImg: {
+    width: 20,
+    height: 20,
+  },
   topPortion:{
-    padding: 40,
+    padding: 20,
     paddingBottom: 20,
     justifyContent: "flex-start",
   },
