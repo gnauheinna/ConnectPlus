@@ -137,117 +137,115 @@ const SignupForm = () => {
   };
 
   return (
-   
-      <View style={styles.container}>
-        <Text style={[styles.title]}>Create Your Account</Text>
-        <Text style={[styles.subTitle]}>
-          Lorem ipsum dolor sit amet consectetur. Quisque mi metus aliquam sed
-          neque.
-        </Text>
+    <View style={styles.container}>
+      <Text style={[styles.title]}>Create Your Account</Text>
+      <Text style={[styles.subTitle]}>
+        Lorem ipsum dolor sit amet consectetur. Quisque mi metus aliquam sed
+        neque.
+      </Text>
 
-        <View style={{ marginTop: 5 }}>
-          <View style={[styles.inputContainer]}>
-            <Image
-              style={[styles.signUpIcons]}
-              source={require("../assets/images/signUpIcons/name.png")}
-            />
-            <TextInput
-              placeholder="Name"
-              style={[styles.input]}
-              value={name}
-              onChangeText={(name) => setName(name)}
-              placeholderTextColor="#A3A3A3"
-            />
-          </View>
+      <View style={{ marginTop: 5 }}>
+        <View style={[styles.inputContainer]}>
+          <Image
+            style={[styles.signUpIcons]}
+            source={require("../assets/images/signUpIcons/name.png")}
+          />
+          <TextInput
+            placeholder="Name"
+            style={[styles.input]}
+            value={name}
+            onChangeText={(name) => setName(name)}
+            placeholderTextColor="#A3A3A3"
+          />
         </View>
-
-        <View style={{ marginTop: 5 }}>
-          <View style={[styles.inputContainer]}>
-            <Image
-              style={[styles.signUpIcons]}
-              source={require("../assets/images/signUpIcons/email.png")}
-            />
-            <TextInput
-              placeholder="Email"
-              style={[styles.input]}
-              value={email}
-              onChangeText={(email) => setEmail(email)}
-              placeholderTextColor="#A3A3A3"
-            />
-          </View>
-        </View>
-
-        <View style={{ marginTop: 5 }}>
-          <View style={[styles.inputContainer]}>
-            <Image
-              style={[styles.signUpIcons]}
-              source={require("../assets/images/signUpIcons/password.png")}
-            />
-            <TextInput
-              placeholder="Password"
-              style={[styles.input]}
-              value={password}
-              onChangeText={(password) => setPassword(password)}
-              placeholderTextColor="#A3A3A3"
-            />
-          </View>
-        </View>
-
-        <View style={{ marginTop: 5 }}>
-          <View style={[styles.inputContainer]}>
-            <Image
-              style={[styles.signUpIcons]}
-              source={require("../assets/images/signUpIcons/password.png")}
-            />
-            <TextInput
-              placeholder="Confirm Password"
-              style={[styles.input]}
-              value={confirmPassword}
-              onChangeText={(confirmPassword) =>
-                setConfirmPassword(confirmPassword)
-              }
-              placeholderTextColor="#A3A3A3"
-            />
-          </View>
-        </View>
-
-        <View style={{ marginTop: 5 }}>
-          <View style={[styles.inputContainer]}>
-            <Image
-              style={[styles.signUpIcons]}
-              source={require("../assets/images/signUpIcons/major.png")}
-            />
-            <TextInput
-              placeholder="Major"
-              style={[styles.input]}
-              value={major}
-              onChangeText={(major) => setMajor(major)}
-              placeholderTextColor="#A3A3A3"
-            />
-          </View>
-        </View>
-
-        <View style={{ marginTop: 5 }}>
-          <View style={[styles.inputContainer]}>
-            <Image
-              style={[styles.signUpIcons]}
-              source={require("../assets/images/signUpIcons/password.png")}
-            />
-            <TextInput
-              placeholder="Year"
-              style={[styles.input]}
-              value={year}
-              onChangeText={(year) => setYear(year)}
-              placeholderTextColor="#A3A3A3"
-            />
-          </View>
-        </View>
-
-        <TouchableOpacity style={styles.nextButton} onPress={handleSignup}>
-          <Text style={styles.nextButtonText}>Next</Text>
-        </TouchableOpacity>
       </View>
- 
+
+      <View style={{ marginTop: 5 }}>
+        <View style={[styles.inputContainer]}>
+          <Image
+            style={[styles.signUpIcons]}
+            source={require("../assets/images/signUpIcons/email.png")}
+          />
+          <TextInput
+            placeholder="Email"
+            style={[styles.input]}
+            value={email}
+            onChangeText={(email) => setEmail(email)}
+            placeholderTextColor="#A3A3A3"
+          />
+        </View>
+      </View>
+
+      <View style={{ marginTop: 5 }}>
+        <View style={[styles.inputContainer]}>
+          <Image
+            style={[styles.signUpIcons]}
+            source={require("../assets/images/signUpIcons/password.png")}
+          />
+          <TextInput
+            placeholder="Password"
+            style={[styles.input]}
+            value={password}
+            onChangeText={(password) => setPassword(password)}
+            placeholderTextColor="#A3A3A3"
+          />
+        </View>
+      </View>
+
+      <View style={{ marginTop: 5 }}>
+        <View style={[styles.inputContainer]}>
+          <Image
+            style={[styles.signUpIcons]}
+            source={require("../assets/images/signUpIcons/password.png")}
+          />
+          <TextInput
+            placeholder="Confirm Password"
+            style={[styles.input]}
+            value={confirmPassword}
+            onChangeText={(confirmPassword) =>
+              setConfirmPassword(confirmPassword)
+            }
+            placeholderTextColor="#A3A3A3"
+          />
+        </View>
+      </View>
+
+      <View style={{ marginTop: 5 }}>
+        <View style={[styles.inputContainer]}>
+          <Image
+            style={[styles.signUpIcons]}
+            source={require("../assets/images/signUpIcons/major.png")}
+          />
+          <TextInput
+            placeholder="Major"
+            style={[styles.input]}
+            value={major}
+            onChangeText={(major) => setMajor(major)}
+            placeholderTextColor="#A3A3A3"
+          />
+        </View>
+      </View>
+
+      <View style={{ marginTop: 5 }}>
+        <View style={[styles.inputContainer]}>
+          <Image
+            style={[styles.signUpIcons]}
+            source={require("../assets/images/signUpIcons/password.png")}
+          />
+          <TextInput
+            placeholder="Year"
+            style={[styles.input]}
+            value={year}
+            onChangeText={(year) => setYear(year)}
+            placeholderTextColor="#A3A3A3"
+          />
+        </View>
+      </View>
+
+      <TouchableOpacity style={styles.nextButton} onPress={handleSignup}>
+        <Text style={styles.nextButtonText}>Next</Text>
+      </TouchableOpacity>
+    </View>
   );
 };
 

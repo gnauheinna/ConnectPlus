@@ -13,16 +13,21 @@ import {
   TouchableOpacity,
   NativeScrollEvent,
 } from "react-native";
+import { useUser } from "./context/UserContext";
 
 export default function MyJourneyPost() {
   const router = useRouter();
-
+  const { user, setUser } = useUser();
   // Extract the mentor's name from the end of the URL
   const urlParams = new URLSearchParams(window.location.search);
   const mentorName = urlParams.get("name");
   //console.log("mentorName: ", mentorName);
   const { name } = useParams();
   //console.log("name:  ", name);
+
+  useEffect(() => {
+    console.log("this is user:   ", user);
+  }, [user]);
 
   useEffect(() => {
     console.log("mentorName hook:  ", mentorName);

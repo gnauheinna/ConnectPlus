@@ -20,28 +20,33 @@ import {
   collection,
   serverTimestamp,
   addDoc,
+  doc,
+  getDoc,
 } from "firebase/firestore";
 import { CheckBox } from "react-native-elements";
 import { AuthContext } from "./context/AuthContext";
-import { UserProvider } from "./context/UserContext";
+import { useUser } from "./context/UserContext";
 import { usePostContext } from "./context/postContext";
 
 export default function Login() {
+  const db = getFirestore();
+  const { user, setUser } = useUser();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState(null);
   const [signupError, setSignupError] = useState(null);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userID, setUserID] = useState("");
+
   const provider = new GoogleAuthProvider();
   const router = useRouter();
   const auth = getAuth();
-
   const { setLoggedIn } = useContext(AuthContext);
 
   const handleNewUserGoogle = async () => {
     // get a instance of Firebase db
-    const db = getFirestore();
+
     const userCollection = collection(db, "users");
     // create new object
     const newUser = {
@@ -68,6 +73,44 @@ export default function Login() {
     router.push("/signup");
   }
 
+  useEffect(() => {
+    const updateUser = async () => {
+      const usersCollection = collection(db, "users");
+      if (userID) {
+        const userInfo = await getDoc(doc(db, "users", userID));
+        const userData = userInfo.data() as {
+          name: string;
+          email: string;
+          major: string;
+          year: string;
+          userID: string;
+          academic: boolean;
+          career: boolean;
+          avatar: string;
+          financial: boolean;
+          studentLife: boolean;
+        };
+        console.log("Index UserDATA: ", userData);
+        setUser(userData);
+      } else {
+        console.error("User is not logged in");
+      }
+    };
+    if (userID != "") {
+      updateUser();
+    }
+  }, [userID]);
+
+  useEffect(() => {
+    console.log("USER: ", user);
+  }, [user]);
+
+  useEffect(() => {
+    if (user.name != "") {
+      nextpage();
+    }
+  }, [user]);
+
   function LogIn() {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
@@ -75,8 +118,9 @@ export default function Login() {
         const user = userCredential.user;
         console.log("logged In!");
         setLoginError(null);
+        setUserID(user.uid);
         setIsLoggedIn(true);
-        nextpage();
+        // nextpage();
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -116,85 +160,83 @@ export default function Login() {
   }
 
   return (
+    <View style={styles.container}>
+      {/* ConnectPlus Logo */}
+      <Image
+        style={[styles.connectPlusLogo]}
+        source={require("../assets/images/connectPlusLogo.png")}
+      />
 
-      <View style={styles.container}>
-        {/* ConnectPlus Logo */}
-        <Image
-          style={[styles.connectPlusLogo]}
-          source={require("../assets/images/connectPlusLogo.png")}
+      {/* Welcome Message */}
+      <Text style={styles.welcomeMessage}>{`Welcome to Connect+ `}</Text>
+
+      {/* Email Input */}
+      <Text style={[styles.inputTitle]}>Email</Text>
+      <TextInput
+        style={[styles.input]}
+        value={email}
+        onChangeText={(email) => setEmail(email)}
+        // placeholder="example@gmail.com"
+      ></TextInput>
+
+      {/* Password Input */}
+      <Text style={[styles.inputTitle]}>Password</Text>
+      <TextInput
+        style={[styles.input]}
+        secureTextEntry
+        value={password}
+        onChangeText={(password) => setPassword(password)}
+        // placeholder="123456"
+      ></TextInput>
+
+      {/* Checkbox + Remember Me Text */}
+      <View style={styles.rememberMeContainer}>
+        <CheckBox
+          checked={false} // Set the initial checked state here
+          onPress={() => {}}
+          containerStyle={styles.checkboxContainer}
         />
-
-        {/* Welcome Message */}
-        <Text style={styles.welcomeMessage}>{`Welcome to Connect+ `}</Text>
-
-        {/* Email Input */}
-        <Text style={[styles.inputTitle]}>Email</Text>
-        <TextInput
-          style={[styles.input]}
-          value={email}
-          onChangeText={(email) => setEmail(email)}
-          // placeholder="example@gmail.com"
-        ></TextInput>
-
-        {/* Password Input */}
-        <Text style={[styles.inputTitle]}>Password</Text>
-        <TextInput
-          style={[styles.input]}
-          secureTextEntry
-          value={password}
-          onChangeText={(password) => setPassword(password)}
-          // placeholder="123456"
-        ></TextInput>
-
-        {/* Checkbox + Remember Me Text */}
-        <View style={styles.rememberMeContainer}>
-          <CheckBox
-            checked={false} // Set the initial checked state here
-            onPress={() => {}}
-            containerStyle={styles.checkboxContainer}
-          />
-          <Text style={[styles.rememberMeText]}>Remember me</Text>
-        </View>
-
-        {/* Sign In Button */}
-        <TouchableOpacity style={styles.createAccountBtn} onPress={LogIn}>
-          <Text style={styles.createAccountText}>Sign In</Text>
-        </TouchableOpacity>
-
-        {/* Divider for 3rd Party Login Options */}
-        <View style={styles.orDivider}>
-          <View style={styles.line}></View>
-          <Text style={{ marginHorizontal: 5 }}>OR</Text>
-          <View style={styles.line}></View>
-        </View>
-
-        <View style={[styles.thirdPartyLogIn]}>
-          {/* Google Login Button */}
-          <TouchableOpacity onPress={GoogleLogin}>
-            <Image
-              source={require("../assets/images/googleLogo.png")}
-              style={[styles.thirdPartyIcon]}
-            />
-          </TouchableOpacity>
-          <View style={{ width: 50 }}></View>
-          {/* Kerberos Login Button */}
-          <TouchableOpacity>
-            <Image
-              source={require("../assets/images/kerberosLogo.png")}
-              style={[styles.thirdPartyIcon]}
-            />
-          </TouchableOpacity>
-        </View>
-
-        {/* Switch to Sign Up Option */}
-        <View style={[styles.switchToSignIn]}>
-          <Text style={{ fontSize: 16 }}>Don't have an account? </Text>
-          <TouchableOpacity onPress={createUser}>
-            <Text style={{ fontSize: 16, fontWeight: "bold" }}>Sign Up</Text>
-          </TouchableOpacity>
-        </View>
+        <Text style={[styles.rememberMeText]}>Remember me</Text>
       </View>
 
+      {/* Sign In Button */}
+      <TouchableOpacity style={styles.createAccountBtn} onPress={LogIn}>
+        <Text style={styles.createAccountText}>Sign In</Text>
+      </TouchableOpacity>
+
+      {/* Divider for 3rd Party Login Options */}
+      <View style={styles.orDivider}>
+        <View style={styles.line}></View>
+        <Text style={{ marginHorizontal: 5 }}>OR</Text>
+        <View style={styles.line}></View>
+      </View>
+
+      <View style={[styles.thirdPartyLogIn]}>
+        {/* Google Login Button */}
+        <TouchableOpacity onPress={GoogleLogin}>
+          <Image
+            source={require("../assets/images/googleLogo.png")}
+            style={[styles.thirdPartyIcon]}
+          />
+        </TouchableOpacity>
+        <View style={{ width: 50 }}></View>
+        {/* Kerberos Login Button */}
+        <TouchableOpacity>
+          <Image
+            source={require("../assets/images/kerberosLogo.png")}
+            style={[styles.thirdPartyIcon]}
+          />
+        </TouchableOpacity>
+      </View>
+
+      {/* Switch to Sign Up Option */}
+      <View style={[styles.switchToSignIn]}>
+        <Text style={{ fontSize: 16 }}>Don't have an account? </Text>
+        <TouchableOpacity onPress={createUser}>
+          <Text style={{ fontSize: 16, fontWeight: "bold" }}>Sign Up</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
   );
 }
 
