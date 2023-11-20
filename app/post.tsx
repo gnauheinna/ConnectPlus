@@ -57,6 +57,7 @@ export default function postQuestions() {
       content,
       timestamp: serverTimestamp(),
       userName: user.name,
+      major: user.major,
       userID: user.userID,
       tag,
     };
