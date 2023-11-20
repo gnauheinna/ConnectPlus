@@ -30,23 +30,45 @@ export default function ChatBox() {
 
   return (
     <View style={styles.outermostContainer}>
-      {/*  Back Button */}
-      {/* <TouchableOpacity style={styles.backBtn} onPress={() => {router.push("/message"); }}>
-        <Text style={styles.backText}>Back</Text>
-      </TouchableOpacity> */}
+
+      <View style={styles.topPortionContainer}>
+          {/*  Back Button */}
+          <View style={styles.backBtnContainer}>
+            <TouchableOpacity style={styles.backBtn} onPress={() => {router.push("/messages"); }}>
+              <Image style={styles.backBtnImg} source={require("../assets/images/icons/blackBack.png")}/>
+            </TouchableOpacity>
+          </View>
+
+          {/*  Recipient Information */}
+          <View style={styles.recipientContainer}>
+              <Image style={styles.recipientImg} source={require("../assets/images/avatars/avatar1.png")}/>
+              <Text style={styles.recipient}>Kristi Li</Text>
+          </View>
+      </View>
+
+      <View style={styles.greyDividerLine}></View>
 
       <View style={styles.container}>
-        <View style={styles.recipientContainer}>
-          <Text style={styles.recipient}>Rachel Li</Text>
-        </View>
-
-        <View style={styles.welcomeMessageContainer}>
+        {/* <View style={styles.welcomeMessageContainer}>
           <Text style={styles.welcomeMessage}>
             Get to know your fellow First-Gen colleges, be the first to say hi!
           </Text>
+        </View> */}
+
+        <View style={styles.sentMessageContainer}>
+          <Text style={styles.sentMessageText}>Hey! Do you wanna meet up today?</Text>
         </View>
 
-        <View style={styles.inputMessageContainer}>
+        <View style={styles.receivedMessageContainer}>
+          <Text style={styles.sentMessageText}>Sounds Good! Zoom or in-person?</Text>
+        </View>
+
+        <View style={styles.sentMessageContainer}>
+          <Text style={styles.sentMessageText}>Zoom works!</Text>
+        </View>
+      </View>
+
+      <View style={styles.inputMessageContainer}>
           {/* Box to type your message */}
           <TouchableOpacity style={styles.inputMessageBox}>
             <Text style={styles.messageText}>Message...</Text>
@@ -59,7 +81,6 @@ export default function ChatBox() {
             />
           </TouchableOpacity>
         </View>
-      </View>
     </View>
   );
 }
@@ -68,40 +89,55 @@ const styles = StyleSheet.create({
   outermostContainer: {
     flex: 1,
   },
-  mainContainer: {
-    marginLeft: 40,
-    marginRight: 40,
-    backgroundColor: "white",
+  topPortionContainer: {
+    flexDirection: "row",
+    marginTop: 20,
+    marginLeft: 20,
+    marginRight: 20,
+    justifyContent: "space-between",
   },
   container: {
     marginTop: 40,
-    justifyContent: "center",
-    alignItems: "center",
+    marginLeft: 20,
+    marginRight: 20,
     backgroundColor: "white",
   },
-  backBtn: {
-    marginTop: 40,
-    marginBottom: 10,
-    padding: 5,
-    borderRadius: 20,
-    width: 80,
-    justifyContent: "flex-start",
+  backBtnContainer: {
     alignSelf: "flex-start",
-    marginLeft: 40,
+    justifyContent: 'center',
   },
-  backText: {
-    fontSize: 18,
-    color: "#45384f",
-    fontWeight: "300",
+  backBtn: {
+    padding: 5,
+    resizeMode: "contain",
+    justifyContent: 'center',
+  },
+  backBtnImg: {
+    width: 20,
+    height: 20,
   },
   recipientContainer: {
-    marginBottom: 120,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    paddingLeft: 40,
+    paddingRight: 120,
   },
   recipient: {
     color: "black",
-    fontSize: 36,
+    fontSize: 24,
     fontWeight: "bold",
     textAlign: "center",
+  },
+  recipientImg: {
+    width: 30,
+    height: 30,
+    marginRight: 10,
+  },
+  greyDividerLine: {
+    marginTop: 20,
+    width: "100%",
+    height: 1,
+    backgroundColor: "#D9D9D9",
   },
   welcomeMessageContainer: {
     marginBottom: 450,
@@ -115,15 +151,56 @@ const styles = StyleSheet.create({
     textAlign: "center",
     lineHeight: 25,
   },
+  sentMessageContainer: {
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 0,
+    backgroundColor: "#FFD465",
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingTop: 10,
+    paddingBottom: 10,
+    marginBottom: 20,
+    maxWidth: 250,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignSelf: 'flex-end',
+  },
+  sentMessageText: {
+    color: "#000000",
+    fontSize: 16,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  receivedMessageContainer: {
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: 20,
+    backgroundColor: "#EAEAEA",
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingTop: 10,
+    paddingBottom: 10,
+    maxWidth: 250,
+    marginBottom: 20,
+    flexDirection: 'row',
+    alignSelf: 'flex-start',
+  },
   inputMessageContainer: {
     flexDirection: "row",
-    justifyContent: "space-between",
-    alignSelf: "center",
+    // justifyContent: "space-between",
+    position: "absolute",
+    bottom: 20,
+    width: '100%',
+    marginLeft: 20,
+    marginRight: 20,
   },
   inputMessageBox: {
     borderRadius: 30,
     backgroundColor: "#EFEFEF",
-    width: 240,
+    width: 280,
     marginRight: 20,
   },
   messageText: {
