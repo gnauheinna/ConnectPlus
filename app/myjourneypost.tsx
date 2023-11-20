@@ -13,24 +13,50 @@ import {
   TouchableOpacity,
   NativeScrollEvent,
 } from "react-native";
+import { useUser } from "./context/UserContext";
 
 export default function MyJourneyPost() {
   const router = useRouter();
-
+  const { user, setUser } = useUser();
   // Extract the mentor's name from the end of the URL
   const urlParams = new URLSearchParams(window.location.search);
   const mentorName = urlParams.get("name");
-  console.log("mentorName: ", mentorName);
+  //console.log("mentorName: ", mentorName);
   const { name } = useParams();
-  console.log("name:  ", name);
+  //console.log("name:  ", name);
 
-  // useEffect(() => {
-  //   console.log("mentorName hook:  ", mentorName);
-  // }, [mentorName]);
+  useEffect(() => {
+    console.log("this is user:   ", user);
+  }, [user]);
+
+  useEffect(() => {
+    console.log("mentorName hook:  ", mentorName);
+  }, [mentorName]);
 
   function directToMyJourney() {
     router.push("/journeys");
   }
+
+  const ShatevaLong = {
+    title: "I got to create my own 4 credit computer science course!",
+    intro:
+      "It was my last year in college and I still needed one more elective course to fulfill my Computer Science degree requirements. I had a poor lottery number, which left me with higher level 500+ courses that did not peak my interest. After lots of searching through our course site, I saw that as a senior computer science student, I was eligible for a directed study so that’s what I did!",
+    process: {
+      step1:
+        "Figure out what to study! This can be anything related to your major.",
+      step2: "Find a professor to work with.",
+      step3:
+        "Fill out your department’s directed study application. It will ask you questions about your project, what assignments you’ll be submitting, how many hours you’ll be working, etc.",
+      step4:
+        "Go through your “course” content with your professor and submit your application.",
+    },
+    experience:
+      "As my project, I analyzed data from a DEI climate survey I conducted and created an analysis report. I had so much fun. The professor I worked with was amazing. He was extremely helpful throughout the entire process and our work styles meshed well. The project itself was also the perfect combination of challenging and interesting. I got to learn a new programming language and use it to build an interactive data report, and I enjoyed every minute of it. I got to utilize all of the skills I developed over the years and put my all into this project. It  was genuinely the first time I’ve felt overall fulfillment with a course at BU.",
+    challenges:
+      "The hardest part of the directed study was the initial application process. Finding a professor was not easy since many professors were busy or did not have the skills I needed for my project. Luckily, I was able to find a professor outside of my department who had the exact skills I needed. Everything else was great.",
+    takeaways:
+      "Doing a directed study is not for everyone. You have to essentially build your own course and keep yourself on track. While it may be challenging, the experience was rewarding.",
+  };
 
   // For the Progress Bar
   const [verticalLine1, setVerticalLine1] = useState(true);
@@ -98,7 +124,7 @@ export default function MyJourneyPost() {
           <View style={styles.topContainer}></View>
         </ImageBackground>
       </View>
-
+      {/* {mentorName === "rachelli" && ( */}
       <ScrollView
         style={styles.postContainer}
         showsVerticalScrollIndicator={false}
@@ -144,9 +170,12 @@ export default function MyJourneyPost() {
                 <Text style={styles.regularContentText}>
                   If you’re a student working part-time, don’t have a meal plan,
                   and shop for groceries on your own, here’s a resource for you:
-                  The <Text style={styles.regularContentTextBolded}>Supplemental Nutrition Assistance Program (SNAP) </Text>gives
-                  people who are eligible around $80-$100 monthly funds to buy
-                  food. Navigating this process has been a headache. I spent
+                  The{" "}
+                  <Text style={styles.regularContentTextBolded}>
+                    Supplemental Nutrition Assistance Program (SNAP){" "}
+                  </Text>
+                  gives people who are eligible around $80-$100 monthly funds to
+                  buy food. Navigating this process has been a headache. I spent
                   hours on the phone with customer service, figuring out the
                   right document to submit. Here is a guide to applying for SNAP
                   from my own experience so that you can have a much smoother
@@ -162,14 +191,26 @@ export default function MyJourneyPost() {
               <View style={styles.regularContentContainer}>
                 <Text style={styles.regularContentText}>
                   {"1. Do a "}
-                  <TouchableOpacity onPress={() => Linking.openURL('https://dtaconnect.eohhs.mass.gov/screening?_gl=1*19vwokf*_ga*NDU5MDQyNTc0LjE2OTkzODAxNTk.*_ga_SW2TVH2WBY*MTY5OTM4MDE1OS4xLjAuMTY5OTM4MDE1OS4wLjAuMA..')}>
+                  <TouchableOpacity
+                    onPress={() =>
+                      Linking.openURL(
+                        "https://dtaconnect.eohhs.mass.gov/screening?_gl=1*19vwokf*_ga*NDU5MDQyNTc0LjE2OTkzODAxNTk.*_ga_SW2TVH2WBY*MTY5OTM4MDE1OS4xLjAuMTY5OTM4MDE1OS4wLjAuMA.."
+                      )
+                    }
+                  >
                     <Text style={styles.linkText}>quick check</Text>
                   </TouchableOpacity>
                   {" to see if you’re eligible."}
                 </Text>
                 <Text style={styles.regularContentText}>
                   {"2. File the "}
-                  <TouchableOpacity onPress={() => Linking.openURL('https://dtaconnect.eohhs.mass.gov/?_gl=1*1qkcl0m*_ga*NDU5MDQyNTc0LjE2OTkzODAxNTk.*_ga_SW2TVH2WBY*MTY5OTM4MDE1OS4xLjEuMTY5OTM4MDUxMi4wLjAuMA..')}>
+                  <TouchableOpacity
+                    onPress={() =>
+                      Linking.openURL(
+                        "https://dtaconnect.eohhs.mass.gov/?_gl=1*1qkcl0m*_ga*NDU5MDQyNTc0LjE2OTkzODAxNTk.*_ga_SW2TVH2WBY*MTY5OTM4MDE1OS4xLjEuMTY5OTM4MDUxMi4wLjAuMA.."
+                      )
+                    }
+                  >
                     <Text style={styles.linkText}>initial application</Text>
                   </TouchableOpacity>
                   {"."}
@@ -195,21 +236,28 @@ export default function MyJourneyPost() {
                   4. After the initial application, they require a phone
                   interview asking you to verify the information.{" "}
                 </Text>
-                <Text style={[styles.regularContentTextBolded, { marginTop: 20 }]}>
+                <Text
+                  style={[styles.regularContentTextBolded, { marginTop: 20 }]}
+                >
                   Additional Info:
                 </Text>
                 <Text style={styles.regularContentText}>
                   {"1. Reach out to BU Housing "}
-                  <TouchableOpacity onPress={() => Linking.openURL('housing@bu.edu')}>
+                  <TouchableOpacity
+                    onPress={() => Linking.openURL("housing@bu.edu")}
+                  >
                     <Text style={styles.linkText}>housing@bu.edu</Text>
                   </TouchableOpacity>
                   {" to request a signed document."}
                 </Text>
                 <Text style={styles.regularContentText}>
-                  2. You need to be actively participating in the work-study in order to be qualified. The number of hours you work doesn't matter.
+                  2. You need to be actively participating in the work-study in
+                  order to be qualified. The number of hours you work doesn't
+                  matter.
                 </Text>
                 <Text style={styles.regularContentText}>
-                  3. Go to studentlink work portal to see if you can find a printable version. If not, reach out to your supervisor.
+                  3. Go to studentlink work portal to see if you can find a
+                  printable version. If not, reach out to your supervisor.
                 </Text>
                 <Text style={styles.regularContentText}>
                   4. The document needs to have a specific start and end date.
@@ -258,28 +306,43 @@ export default function MyJourneyPost() {
               </View>
               <View style={styles.regularContentContainer}>
                 <Text style={styles.regularContentText}>
-                Here are BU resources related to food: 
+                  Here are BU resources related to food:
                 </Text>
                 <View style={styles.indentedContentContainer}>
-                <Text style={styles.regularContentText}>
-                  {"- "}
-                  <TouchableOpacity onPress={() => Linking.openURL('https://www.bu.edu/chapel/programming/community-dinner/')}>
-                    <Text style={styles.linkText}>Marsh Chapel</Text>
-                  </TouchableOpacity>
-                  {" hosts a community dinner on Mondays from 5 p.m. to 6:30 p.m., you do not need to have any religious affiliation to participate."}
-                </Text>
-                <Text style={styles.regularContentText}>
-                  {"- "}
-                  <TouchableOpacity onPress={() => Linking.openURL('https://www.bu.edu/studentwellbeing/place-a-bu-food-pantry-order/')}>
-                    <Text style={styles.linkText}>BU Food Pantry</Text>
-                  </TouchableOpacity>
-                </Text>
+                  <Text style={styles.regularContentText}>
+                    {"- "}
+                    <TouchableOpacity
+                      onPress={() =>
+                        Linking.openURL(
+                          "https://www.bu.edu/chapel/programming/community-dinner/"
+                        )
+                      }
+                    >
+                      <Text style={styles.linkText}>Marsh Chapel</Text>
+                    </TouchableOpacity>
+                    {
+                      " hosts a community dinner on Mondays from 5 p.m. to 6:30 p.m., you do not need to have any religious affiliation to participate."
+                    }
+                  </Text>
+                  <Text style={styles.regularContentText}>
+                    {"- "}
+                    <TouchableOpacity
+                      onPress={() =>
+                        Linking.openURL(
+                          "https://www.bu.edu/studentwellbeing/place-a-bu-food-pantry-order/"
+                        )
+                      }
+                    >
+                      <Text style={styles.linkText}>BU Food Pantry</Text>
+                    </TouchableOpacity>
+                  </Text>
                 </View>
               </View>
             </View>
           </View>
         </View>
       </ScrollView>
+      {/* )} */}
       <View style={styles.progressBarContainer}>
         <View
           style={
@@ -475,7 +538,7 @@ const styles = StyleSheet.create({
     lineHeight: 25,
     color: "#CA95C8",
     fontWeight: "bold",
-    textDecorationLine: 'underline',
+    textDecorationLine: "underline",
   },
   progressBarContainer: {
     zIndex: 3,

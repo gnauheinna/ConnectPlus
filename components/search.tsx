@@ -111,26 +111,26 @@ export default function Search() {
 
   return (
     <View style={styles.outterMostContainer}>
-        {/* Search Bar */}
-        <View style={styles.searchBar}>
-          <Image
-            style={styles.searchIcon}
-            source={require("../assets/images/search.png")}
-          />
-          <TextInput
-            style={styles.searchText}
-            placeholder="Search"
-            onChangeText={(text) => {
-              setInputName(text);
-              setErr(false);
-              setLastMessage("");
-              setSearchUser(null); // Reset searchUser to null when input text changes
-            }}
-            value={inputName}
-            onSubmitEditing={handleSearch}
-            onEndEditing={handleSearch}
-          />
-        </View>
+      {/* Search Bar */}
+      <View style={styles.searchBar}>
+        <Image
+          style={styles.searchIcon}
+          source={require("../assets/images/search.png")}
+        />
+        <TextInput
+          style={styles.searchText}
+          placeholder="Search"
+          onChangeText={(text) => {
+            setInputName(text);
+            setErr(false);
+            setLastMessage("");
+            setSearchUser(null); // Reset searchUser to null when input text changes
+          }}
+          value={inputName}
+          onSubmitEditing={handleSearch}
+          onEndEditing={handleSearch}
+        />
+      </View>
       {err ? (
         <Text>User not found!</Text>
       ) : (
@@ -149,7 +149,9 @@ export default function Search() {
               </View>
               <View style={styles.userInfoContainer}>
                 <Text style={styles.userName}>{searchUser.name}</Text>
-                <Text style={styles.lastMessage}>{lastMessage}</Text>
+                <Text style={styles.lastMessage}>
+                  {lastMessage ? lastMessage.toString() : ""}
+                </Text>
               </View>
               <View style={styles.timestampContainer}>
                 <Text style={styles.messageTimestamp}>11/6</Text>

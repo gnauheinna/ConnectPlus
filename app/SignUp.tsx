@@ -144,9 +144,12 @@ const SignupForm = () => {
     <View style={styles.outterMostContainer}>
       {/* Back Button */}
       <View style={styles.backBtnContainer}>
-            <TouchableOpacity style={styles.backBtn} onPress={directToIndex}>
-              <Image style={styles.backBtnImg} source={require("../assets/images/icons/blackBack.png")}/>
-            </TouchableOpacity>
+        <TouchableOpacity style={styles.backBtn} onPress={directToIndex}>
+          <Image
+            style={styles.backBtnImg}
+            source={require("../assets/images/icons/blackBack.png")}
+          />
+        </TouchableOpacity>
       </View>
       <View style={styles.container}>
         <Text style={[styles.title]}>Create Your Account</Text>
@@ -252,12 +255,12 @@ const SignupForm = () => {
             />
           </View>
         </View>
+      </View>
 
-        <TouchableOpacity style={styles.nextButton} onPress={handleSignup}>
-          <Text style={styles.nextButtonText}>Next</Text>
-        </TouchableOpacity>
-      </View>
-      </View>
+      <TouchableOpacity style={styles.nextButton} onPress={handleSignup}>
+        <Text style={styles.nextButtonText}>Next</Text>
+      </TouchableOpacity>
+    </View>
   );
 };
 
@@ -272,17 +275,17 @@ const styles = StyleSheet.create({
     // marginTop: 50,
   },
   backBtnContainer: {
-    // position: 'absolute', 
-    top: 20, 
+    // position: 'absolute',
+    top: 20,
     left: 20,
     alignSelf: "flex-start",
-    justifyContent: 'center',
+    justifyContent: "center",
     marginBottom: 40,
   },
   backBtn: {
     padding: 5,
     resizeMode: "contain",
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   backBtnImg: {
     width: 20,

@@ -20,28 +20,33 @@ import {
   collection,
   serverTimestamp,
   addDoc,
+  doc,
+  getDoc,
 } from "firebase/firestore";
 import { CheckBox } from "react-native-elements";
 import { AuthContext } from "./context/AuthContext";
-import { UserProvider } from "./context/UserContext";
+import { useUser } from "./context/UserContext";
 import { usePostContext } from "./context/postContext";
 
 export default function Login() {
+  const db = getFirestore();
+  const { user, setUser } = useUser();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState(null);
   const [signupError, setSignupError] = useState(null);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userID, setUserID] = useState("");
+
   const provider = new GoogleAuthProvider();
   const router = useRouter();
   const auth = getAuth();
-
   const { setLoggedIn } = useContext(AuthContext);
 
   const handleNewUserGoogle = async () => {
     // get a instance of Firebase db
-    const db = getFirestore();
+
     const userCollection = collection(db, "users");
     // create new object
     const newUser = {
@@ -68,6 +73,44 @@ export default function Login() {
     router.push("/signup");
   }
 
+  useEffect(() => {
+    const updateUser = async () => {
+      const usersCollection = collection(db, "users");
+      if (userID) {
+        const userInfo = await getDoc(doc(db, "users", userID));
+        const userData = userInfo.data() as {
+          name: string;
+          email: string;
+          major: string;
+          year: string;
+          userID: string;
+          academic: boolean;
+          career: boolean;
+          avatar: string;
+          financial: boolean;
+          studentLife: boolean;
+        };
+        console.log("Index UserDATA: ", userData);
+        setUser(userData);
+      } else {
+        console.error("User is not logged in");
+      }
+    };
+    if (userID != "") {
+      updateUser();
+    }
+  }, [userID]);
+
+  useEffect(() => {
+    console.log("USER: ", user);
+  }, [user]);
+
+  useEffect(() => {
+    if (user.name != "") {
+      nextpage();
+    }
+  }, [user]);
+
   function LogIn() {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
@@ -75,8 +118,9 @@ export default function Login() {
         const user = userCredential.user;
         console.log("logged In!");
         setLoginError(null);
+        setUserID(user.uid);
         setIsLoggedIn(true);
-        nextpage();
+        // nextpage();
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -116,7 +160,7 @@ export default function Login() {
   }
 
   return (
-<View style={styles.outterMostContainer}>
+    <View style={styles.outterMostContainer}>
       <View style={styles.container}>
         {/* ConnectPlus Logo */}
         <Image
@@ -194,7 +238,7 @@ export default function Login() {
           </TouchableOpacity>
         </View>
       </View>
-      </View>
+    </View>
   );
 }
 

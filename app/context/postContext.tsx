@@ -24,8 +24,10 @@ export type Post = {
   content: string;
   postID: string;
   tag: string;
+  major: string;
   timestamp: Timestamp;
   userName: string;
+  avatar: string;
 };
 
 interface PostContextValue {
