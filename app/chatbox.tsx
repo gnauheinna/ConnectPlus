@@ -1,7 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
 import { ScrollView, StyleSheet, FlatList, Image } from "react-native";
 import { Text, View } from "../components/Themed";
-import { getFirestore, doc, updateDoc, getDoc } from "firebase/firestore";
+import {
+  getFirestore,
+  doc,
+  updateDoc,
+  getDoc,
+  Timestamp,
+} from "firebase/firestore";
 import { FontAwesome5, Feather } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import IndividualPost from "../components/individualPost";
@@ -10,13 +16,20 @@ import { PostIdContext, PostIdProvider } from "./context/PostIDContext";
 import { Post, usePostContext, PostProvider } from "./context/postContext";
 import { useCurrentChat } from "./context/currentChatContext";
 import { useUser } from "./context/UserContext";
+
+type Chats = {
+  chatID: string;
+  date: Timestamp;
+  senderID: string;
+  text: string;
+};
 export default function ChatBox() {
   const db = getFirestore();
   const { user, setUser } = useUser();
   const currentUserID = user.userID;
   const { currentChatID, setCurrentChatID } = useCurrentChat();
   const router = useRouter();
-  const [chats, setChats] = useState([]);
+  const [chats, setChats] = useState<Chats[]>([]);
 
   useEffect(() => {
     const fetchUserChat = async () => {
@@ -24,26 +37,49 @@ export default function ChatBox() {
       const userChatDocRef = doc(db, "chats", currentChatID);
       const userChatDocSnapshot = await getDoc(userChatDocRef);
       console.log(userChatDocSnapshot.data());
+      const chatArray: Chats[] = [];
+      const userChatData = userChatDocSnapshot.data();
+      if (userChatData) {
+        Object.keys(userChatData).forEach((key) => {
+          const messageData = userChatData[key] as Chats;
+          chatArray.push(messageData);
+        }); //
+      }
+
+      setChats(chatArray);
     };
     fetchUserChat();
   }, [currentChatID]);
+  useEffect(() => {
+    console.log("these are the chats:  ", chats);
+  }, [chats]);
 
   return (
     <View style={styles.outermostContainer}>
-
       <View style={styles.topPortionContainer}>
-          {/*  Back Button */}
-          <View style={styles.backBtnContainer}>
-            <TouchableOpacity style={styles.backBtn} onPress={() => {router.push("/messages"); }}>
-              <Image style={styles.backBtnImg} source={require("../assets/images/icons/blackBack.png")}/>
-            </TouchableOpacity>
-          </View>
+        {/*  Back Button */}
+        <View style={styles.backBtnContainer}>
+          <TouchableOpacity
+            style={styles.backBtn}
+            onPress={() => {
+              router.push("/messages");
+            }}
+          >
+            <Image
+              style={styles.backBtnImg}
+              source={require("../assets/images/icons/blackBack.png")}
+            />
+          </TouchableOpacity>
+        </View>
 
-          {/*  Recipient Information */}
-          <View style={styles.recipientContainer}>
-              <Image style={styles.recipientImg} source={require("../assets/images/avatars/avatar1.png")}/>
-              <Text style={styles.recipient}>Kristi Li</Text>
-          </View>
+        {/*  Recipient Information */}
+        <View style={styles.recipientContainer}>
+          <Image
+            style={styles.recipientImg}
+            source={require("../assets/images/avatars/avatar1.png")}
+          />
+          <Text style={styles.recipient}>Kristi Li</Text>
+        </View>
       </View>
 
       <View style={styles.greyDividerLine}></View>
@@ -55,32 +91,52 @@ export default function ChatBox() {
           </Text>
         </View> */}
 
+        <FlatList
+          data={chats}
+          renderItem={({ item }) => (
+            <View
+              style={
+                item.senderID == user.userID
+                  ? styles.sentMessageContainer
+                  : styles.receivedMessageContainer
+              }
+            >
+              <Text style={styles.sentMessageText}>{item.text}</Text>
+            </View>
+          )}
+          keyExtractor={(item, index) => index.toString()}
+        />
+        {/* 
         <View style={styles.sentMessageContainer}>
-          <Text style={styles.sentMessageText}>Hey! Do you wanna meet up today?</Text>
+          <Text style={styles.sentMessageText}>
+            Hey! Do you wanna meet up today?
+          </Text>
         </View>
 
         <View style={styles.receivedMessageContainer}>
-          <Text style={styles.sentMessageText}>Sounds Good! Zoom or in-person?</Text>
+          <Text style={styles.sentMessageText}>
+            Sounds Good! Zoom or in-person?
+          </Text>
         </View>
 
         <View style={styles.sentMessageContainer}>
           <Text style={styles.sentMessageText}>Zoom works!</Text>
-        </View>
+        </View> */}
       </View>
 
       <View style={styles.inputMessageContainer}>
-          {/* Box to type your message */}
-          <TouchableOpacity style={styles.inputMessageBox}>
-            <Text style={styles.messageText}>Message...</Text>
-          </TouchableOpacity>
-          {/* Send Icon */}
-          <TouchableOpacity>
-            <Image
-              style={styles.sendIcon}
-              source={require("../assets/images/icons/sendMessage.png")}
-            />
-          </TouchableOpacity>
-        </View>
+        {/* Box to type your message */}
+        <TouchableOpacity style={styles.inputMessageBox}>
+          <Text style={styles.messageText}>Message...</Text>
+        </TouchableOpacity>
+        {/* Send Icon */}
+        <TouchableOpacity>
+          <Image
+            style={styles.sendIcon}
+            source={require("../assets/images/icons/sendMessage.png")}
+          />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -104,12 +160,12 @@ const styles = StyleSheet.create({
   },
   backBtnContainer: {
     alignSelf: "flex-start",
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   backBtn: {
     padding: 5,
     resizeMode: "contain",
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   backBtnImg: {
     width: 20,
@@ -163,9 +219,9 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     marginBottom: 20,
     maxWidth: 250,
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    alignSelf: 'flex-end',
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    alignSelf: "flex-end",
   },
   sentMessageText: {
     color: "#000000",
@@ -185,15 +241,15 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     maxWidth: 250,
     marginBottom: 20,
-    flexDirection: 'row',
-    alignSelf: 'flex-start',
+    flexDirection: "row",
+    alignSelf: "flex-start",
   },
   inputMessageContainer: {
     flexDirection: "row",
     // justifyContent: "space-between",
     position: "absolute",
     bottom: 20,
-    width: '100%',
+    width: "100%",
     marginLeft: 20,
     marginRight: 20,
   },
