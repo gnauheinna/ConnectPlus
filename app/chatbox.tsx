@@ -33,26 +33,34 @@ export default function ChatBox() {
 
   useEffect(() => {
     const fetchUserChat = async () => {
-      console.log(currentChatID);
+      console.log("curchatID: ", currentChatID);
       const userChatDocRef = doc(db, "chats", currentChatID);
       const userChatDocSnapshot = await getDoc(userChatDocRef);
-      console.log(userChatDocSnapshot.data());
+      console.log("snapshot data: ", userChatDocSnapshot.data());
       const chatArray: Chats[] = [];
       const userChatData = userChatDocSnapshot.data();
       if (userChatData) {
-        Object.keys(userChatData).forEach((key) => {
-          const messageData = userChatData[key] as Chats;
-          chatArray.push(messageData);
-        }); //
+        // Assuming userChatData.messages is an array of Chats
+        setChats(userChatData.messages);
       }
-
-      setChats(chatArray);
     };
-    fetchUserChat();
+    if (currentChatID) {
+      fetchUserChat();
+    } else {
+      console.error("currentChatID is not defined");
+    }
   }, [currentChatID]);
+
   useEffect(() => {
     console.log("these are the chats:  ", chats);
+    console.log(chats);
+    console.log(user);
+    console.log([1, 2, 3]);
   }, [chats]);
+
+  useEffect(() => {
+    console.log("this is user:   ", user);
+  }, [user]);
 
   return (
     <View style={styles.outermostContainer}>
