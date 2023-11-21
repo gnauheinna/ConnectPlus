@@ -31,6 +31,7 @@ export default function TabLayout() {
   //   return <Redirect href="/" />;
   // } else {
   return (
+    // <UserProvider>
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
@@ -104,6 +105,7 @@ export default function TabLayout() {
         }}
       />
     </Tabs>
+    // </UserProvider>
   );
 }
 //}
