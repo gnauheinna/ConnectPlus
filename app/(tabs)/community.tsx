@@ -69,10 +69,10 @@ export default function CommunityScreen() {
     <PostProvider>
       <View style={styles.outermostContainer}>
         {/* Display the horizontal sub-navigation bar on top of the posts */}
-        <View>
+        <View style={styles.bigTitleContainer}>
           <Text style={styles.communityBigTitle}>Ask & Share</Text>
         </View>
-        <View>
+        <View style={styles.horizontalNavOuttermostContainer}>
           <View style={styles.horizontalSubNavMainContainer}>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
               <TouchableOpacity
@@ -151,33 +151,8 @@ export default function CommunityScreen() {
               showsVerticalScrollIndicator={false}
               keyExtractor={(item, index) => index.toString()}
               renderItem={({ item }) => (
-                <View>
-                  {/* Displays the post */}
+                <View style={{ margin: 10 , backgroundColor: "transparent"}}>
                   <IndividualPost postId={item.postID} />
-                  <View style={styles.iconsOnPosts}>
-                    {/* Displays the upvote/downvote system */}
-                    <TouchableOpacity style={styles.voteSystemContainer}> 
-                      <View style={styles.voteIconsContainer}>
-                        <Image
-                          style={styles.upvoteIcon}
-                          source={require("../../assets/images/upvote.png")}
-                        />
-                        <Text style={styles.voteNumber}>42</Text>
-                        <View style={styles.verticalLine} />
-                        <Image
-                          style={styles.downvoteIcon}
-                          source={require("../../assets/images/downvote.png")}
-                        />
-                      </View>
-                    </TouchableOpacity>
-                    {/* Displays the the comment icon */}
-                    <TouchableOpacity style={styles.iconWrapper}>
-                      <Image
-                        style={styles.icons}
-                        source={require("../../assets/images/comment.png")}
-                      />
-                    </TouchableOpacity>
-                  </View>
                 </View>
               )}
             />
@@ -198,19 +173,22 @@ const styles = StyleSheet.create({
   outermostContainer: {
     flex: 1,
     paddingTop: 40,
-    backgroundColor: "white",
+    backgroundColor: "#F9F6FF",
   },
   mainContainer: {
     flex: 1,
-    marginLeft: 20,
-    marginRight: 20,
-    backgroundColor: "white",
+    marginLeft: 10,
+    marginRight: 10,
+    backgroundColor: "transparent",
   },
   container: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "white",
+    backgroundColor: "transparent",
+  },
+  bigTitleContainer: {
+    backgroundColor: "#F9F6FF",
   },
   communityBigTitle: {
     marginLeft: 20,
@@ -221,19 +199,22 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginBottom: 10,
   },
+  horizontalNavOuttermostContainer: {
+    backgroundColor: "#F9F6FF",
+  },
   horizontalSubNavMainContainer: {
     marginLeft: 20,
     position: "sticky",
     top: 0,
     zIndex: 1,
-    backgroundColor: "white",
+    backgroundColor: "#F9F6FF",
   },
   horizontalSubNav: {
     borderWidth: 1,
     borderColor: "black",
     borderRadius: 30,
-    paddingHorizontal: 15,
-    paddingVertical: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
     marginBottom: 15,
     marginTop: 15,
     marginRight: 10,
@@ -247,8 +228,11 @@ const styles = StyleSheet.create({
     marginRight: 10,
     alignItems: "center",
     backgroundColor: "#FFD465",
-    paddingHorizontal: 15,
-    paddingVertical: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+  },
+  postContainer: {
+    backgroundColor: "#F9F6FF",
   },
   voteSystemContainer: {
     marginLeft: 16,
@@ -292,16 +276,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 8,
     paddingTop: 10,
     paddingBottom: 10,
-  },
-  upvoteIcon: {
-    width: 22,
-    height: 22,
-    resizeMode: "contain",
-  },
-  downvoteIcon: {
-    width: 22,
-    height: 22,
-    resizeMode: "contain",
   },
   icons: {
     width: 28,
