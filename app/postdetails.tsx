@@ -37,6 +37,20 @@ export default function PostDetails() {
   return (
     <View style={styles.outermostContainer}>
       {/*  Back Button */}
+      <View style={styles.backBtnContainer}>
+          <TouchableOpacity
+            style={styles.backBtn}
+            onPress={() => {
+              router.push("/community");
+            }}
+          >
+            <Image
+              style={styles.backBtnImg}
+              source={require("../assets/images/icons/blackBack.png")}
+            />
+          </TouchableOpacity>
+        </View>
+       {/* Back Button
       <TouchableOpacity
         style={styles.backBtn}
         onPress={() => {
@@ -44,57 +58,42 @@ export default function PostDetails() {
         }}
       >
         <Text style={styles.backText}>Back</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
       <View style={styles.container}>
         <View style={styles.mainContainer}>
           <View>
             {/* Displays the post */}
-            <View>
-              {/* Displays the post */}
-              <IndividualPost postId={curPostID} />
-              <View style={styles.iconsOnPosts}>
-                {/* Displays the upvote/downvote system */}
-                <TouchableOpacity style={styles.voteSystemContainer}>
-                  <View style={styles.voteIconsContainer}>
-                    <Image
-                      style={styles.upvoteIcon}
-                      source={require("../assets/images/upvote.png")}
-                    />
-                    <Text style={styles.voteNumber}>42</Text>
-                    <View style={styles.verticalLine} />
-                    <Image
-                      style={styles.downvoteIcon}
-                      source={require("../assets/images/downvote.png")}
-                    />
-                  </View>
-                </TouchableOpacity>
-                {/* Displays the the comment icon */}
-                <TouchableOpacity style={styles.iconWrapper}>
-                  <Image
-                    style={styles.icons}
-                    source={require("../assets/images/comment.png")}
-                  />
-                </TouchableOpacity>
-              </View>
-            </View>
+            <IndividualPost postId={curPostID} />
           </View>
-          <ScrollView style={styles.screen} showsHorizontalScrollIndicator={false}>
-            <View>
-              <Text style={styles.commentTitle}>Comments (3)</Text>
-            </View>
+          {/* Display the comments */}
+         
+          <View>
+              <Text style={styles.replyTitle}>Replies</Text>
+          </View>
+
+          <ScrollView style={styles.commentsContainer} showsHorizontalScrollIndicator={false}>
             <IndividualComment
               username={"Sally Smith"}
               intro={"Class of 2026, CS Major"}
-              content={"Thank you for sharing these tips ✨"}
+              timestamp={"1h"}
+              content={"Thank you for sharing these tips!"}
             />
             <IndividualComment
               username={"Ben Wilson"}
               intro={"Class of 2027, Business Major"}
-              content={"I would love to connect with you 😊"}
+              timestamp={"5h"}
+              content={"I would love to connect with you."}
+            />
+            <IndividualComment
+              username={"Stella Liam"}
+              intro={"Class of 2026, Biology Major"}
+              timestamp={"1d"}
+              content={"Who should I reach out to for more academic guidance?"}
             />
             <IndividualComment
               username={"Lana Lei"}
               intro={"Class of 2027, Data Science Major"}
+              timestamp={"2d"}
               content={"Very useful information. Thank you!"}
             />
           </ScrollView>
@@ -107,42 +106,41 @@ export default function PostDetails() {
 const styles = StyleSheet.create({
   outermostContainer: {
     flex: 1,
+    backgroundColor: "white",
   },
-  commentTitle: {
-    fontSize: 28,
-    fontWeight: "bold",
+  backBtnContainer: {
+    marginTop: 40,
     marginBottom: 20,
+    alignSelf: "flex-start",
+    justifyContent: "center",
   },
-  screen: {
-    flex: 1,
-    backgroundColor: "white",
+  backBtn: {
+    padding: 5,
+    resizeMode: "contain",
+    justifyContent: "center",
   },
-  mainContainer: {
-    flex: 1,
-    marginLeft: 20,
-    marginRight: 20,
-    backgroundColor: "white",
+  backBtnImg: {
+    width: 20,
+    height: 20,
+  },
+  replyTitle: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginTop: 20,
+    marginBottom: 20,
+    color: "#7F7F7F",
   },
   container: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "white",
+    marginLeft: 20,
+    marginRight: 20,
   },
-  backBtn: {
-    marginTop: 40,
-    marginBottom: 40,
-    padding: 5,
-    borderRadius: 20,
-    width: 80,
-    justifyContent: "flex-start",
-    alignSelf: "flex-start",
-    marginLeft: 40,
-  },
-  backText: {
-    fontSize: 18,
-    color: "#45384f",
-    fontWeight: "300",
+  mainContainer: {
+    flex: 1,
+    backgroundColor: "white",
   },
   itemContainer: {
     borderWidth: 1,
@@ -186,41 +184,10 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     paddingBottom: 10,
   },
-  upvoteIcon: {
-    width: 22,
-    height: 22,
-    resizeMode: "contain",
-  },
-  downvoteIcon: {
-    width: 22,
-    height: 22,
-    resizeMode: "contain",
-  },
   icons: {
     width: 28,
     height: 28,
     resizeMode: "contain",
-  },
-  voteSystemContainer: {
-    marginLeft: 16,
-    borderWidth: 1.5,
-    backgroundColor: "white",
-    borderColor: "#9286B1",
-    width: 120,
-    height: 35,
-    borderRadius: 20,
-    resizeMode: "contain",
-    paddingLeft: 15,
-    paddingRight: 15,
-  },
-  voteIconsContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "transparent",
-  },
-  voteNumber: {
-    marginLeft: 8,
-    fontWeight: "400",
   },
   verticalLine: {
     width: 1.5,
@@ -229,4 +196,7 @@ const styles = StyleSheet.create({
     marginRight: 8,
     marginLeft: 8,
   },
+  commentsContainer: {
+
+  }
 });
