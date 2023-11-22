@@ -182,7 +182,7 @@ export default function CommunityScreen() {
                         source={require("../../assets/images/icons/reply.png")}
                         />
                       </TouchableOpacity>
-                </View>
+                  </View>
               </View>
               )}
             />
@@ -190,7 +190,10 @@ export default function CommunityScreen() {
           {/* Post button */}
           <View style={styles.postBtnContainer}>
             <TouchableOpacity style={styles.postBtn} onPress={directToPost}>
-              <Text style={styles.postBtnText}>+</Text>
+                <Image
+                      style={styles.postBtnImg}
+                      source={require("../../assets/images/icons/makeAPost.png")}
+                    />
             </TouchableOpacity>
           </View>
         </View>
@@ -359,14 +362,13 @@ const styles = StyleSheet.create({
   postBtn: {
     width: 50,
     height: 50,
-    backgroundColor: "#3A3340",
     padding: 10,
     borderRadius: 50,
     justifyContent: "center",
     alignItems: "center",
   },
-  postBtnText: {
-    color: "white",
-    fontSize: 32,
+  postBtnImg: {
+    width: 56,
+    height: 56,
   },
 });

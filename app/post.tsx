@@ -135,13 +135,17 @@ export default function postQuestions() {
     <View style={styles.container}>
       <View style={styles.mainContainer}>
         <View style={styles.backPostContainer}>
-          {/* Back Button */}
-          <TouchableOpacity style={styles.backBtn} onPress={directToComm}>
-            <Image
-              style={styles.backIcon}
-              source={require("../assets/images/back.png")}
-            />
+          {/*  Back Button */}
+      <View style={styles.backBtnContainer}>
+          <TouchableOpacity
+            style={styles.backBtn}
+            onPress={() => {
+              router.push("/community");
+            }}
+          >
+            <Image style={styles.backBtnImg} source={require("../assets/images/icons/blackBack.png")}/>
           </TouchableOpacity>
+        </View>
           {/* Post Button */}
           <TouchableOpacity
             style={[
@@ -336,27 +340,42 @@ const styles = StyleSheet.create({
     marginLeft: 40,
     marginRight: 40,
   },
+  backBtnContainer: {
+    marginTop: 40,
+    marginBottom: 20,
+    alignSelf: "flex-start",
+    justifyContent: "center",
+  },
+  backBtn: {
+    padding: 5,
+    resizeMode: "contain",
+    justifyContent: "center",
+  },
+  backBtnImg: {
+    width: 20,
+    height: 20,
+  },
   backPostContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     marginBottom: 20,
   },
-  backBtn: {
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    marginTop: 40,
-    marginBottom: 40,
-    borderRadius: 20,
-    justifyContent: "flex-start",
-    alignSelf: "flex-start",
-  },
-  backIcon: {
-    width: 24,
-    height: 24,
-    justifyContent: "center",
-    alignSelf: "center",
-    resizeMode: "contain",
-  },
+  // backBtn: {
+  //   paddingVertical: 10,
+  //   paddingHorizontal: 20,
+  //   marginTop: 40,
+  //   marginBottom: 40,
+  //   borderRadius: 20,
+  //   justifyContent: "flex-start",
+  //   alignSelf: "flex-start",
+  // },
+  // backIcon: {
+  //   width: 24,
+  //   height: 24,
+  //   justifyContent: "center",
+  //   alignSelf: "center",
+  //   resizeMode: "contain",
+  // },
   title: {
     fontSize: 20,
     fontWeight: "bold",
