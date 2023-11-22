@@ -106,24 +106,6 @@ const IndividualPost: React.FC<IndividualPostProps> = ({ postId }) => {
                 minute: "numeric",
               })}
           </Text>
-
-          <View style={styles.bottomPartContainer}>
-              {/* Display the like icon and like number */}
-              <View style={styles.postLikesContainer}>
-                <Image
-                style={styles.postLikesImg}
-                source={require("../assets/images/icons/filledHeart.png")}
-                />
-                <Text style={styles.postLikesText}>35</Text>
-              </View>
-              {/* Display the reply button */}
-              <View style={styles.replyPostContainer}>
-                <Image
-                style={styles.replyPostImg}
-                source={require("../assets/images/icons/reply.png")}
-                />
-              </View>
-          </View>
         </View>
       )}
     </TouchableOpacity>
@@ -134,16 +116,6 @@ export default IndividualPost;
 
 const styles = StyleSheet.create({
   itemContainer: {
-    backgroundColor: "white",
-    borderRadius: 12,
-    padding: 16,
-    shadowColor: '#49006C',
-    shadowOffset: {
-      width: -2,
-      height: 4,
-    },
-    shadowOpacity: 0.06,
-    shadowRadius: 10,
   },
   userContainer: {
     flexDirection: "row",

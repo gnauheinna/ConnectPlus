@@ -164,9 +164,26 @@ export default function CommunityScreen() {
               showsVerticalScrollIndicator={false}
               keyExtractor={(item, index) => index.toString()}
               renderItem={({ item }) => (
-                <View style={{ margin: 10 , backgroundColor: "transparent"}}>
+                <View style={styles.postShadowContainer}>
                   <IndividualPost postId={item.postID} />
+                  <View style={styles.bottomPartContainer}>
+                      {/* Display the like icon and like number */}
+                      <TouchableOpacity style={styles.postLikesContainer}>
+                        <Image
+                        style={styles.postLikesImg}
+                        source={require("../../assets/images/icons/filledHeart.png")}
+                        />
+                        <Text style={styles.postLikesText}>35</Text>
+                      </TouchableOpacity>
+                      {/* Display the reply button */}
+                      <TouchableOpacity style={styles.replyPostContainer}>
+                        <Image
+                        style={styles.replyPostImg}
+                        source={require("../../assets/images/icons/reply.png")}
+                        />
+                      </TouchableOpacity>
                 </View>
+              </View>
               )}
             />
           </View>
@@ -189,9 +206,22 @@ const styles = StyleSheet.create({
   },
   mainContainer: {
     flex: 1,
-    marginLeft: 10,
-    marginRight: 10,
+    marginLeft: 20,
+    marginRight: 20,
     backgroundColor: "#F9F6FF",
+  },
+  postShadowContainer: {
+    backgroundColor: "white",
+    borderRadius: 12,
+    padding: 16,
+    shadowColor: '#49006C',
+    shadowOffset: {
+      width: -2,
+      height: 4,
+    },
+    shadowOpacity: 0.06,
+    shadowRadius: 10,
+    marginBottom: 20,
   },
   container: {
     flex: 1,
@@ -292,6 +322,32 @@ const styles = StyleSheet.create({
   icons: {
     width: 28,
     height: 28,
+    resizeMode: "contain",
+  },
+  bottomPartContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  postLikesContainer: {
+    flexDirection: "row",
+    alignItems: 'center',
+  },
+  postLikesImg: {
+    width: 20,
+    height: 20,
+    marginRight: 5,
+    resizeMode: "contain",
+  },
+  postLikesText: {
+    fontSize: 14,
+  },
+  replyPostContainer:{
+
+  },
+  replyPostImg:{
+    maxWidth: 60,
+    maxHeight: 20,
     resizeMode: "contain",
   },
   postBtnContainer: {

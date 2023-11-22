@@ -17,9 +17,6 @@ export default function PostDetails() {
   const [allPosts, setAllPosts] = useState<Post[]>([]);
 
   const router = useRouter();
-  //   function backToCommunityPage() {
-  //     router.push("/community/comm");
-  //   }
 
   useEffect(() => {
     // Define the fetchData function here to use the state and props
@@ -36,6 +33,7 @@ export default function PostDetails() {
   console.log(curPostID);
   return (
     <View style={styles.outermostContainer}>
+      {/* <View style={styles.tempContainer}> */}
       {/*  Back Button */}
       <View style={styles.backBtnContainer}>
           <TouchableOpacity
@@ -44,40 +42,46 @@ export default function PostDetails() {
               router.push("/community");
             }}
           >
-            <Image
-              style={styles.backBtnImg}
-              source={require("../assets/images/icons/blackBack.png")}
-            />
+            <Image style={styles.backBtnImg} source={require("../assets/images/icons/blackBack.png")}/>
           </TouchableOpacity>
         </View>
-       {/* Back Button
-      <TouchableOpacity
-        style={styles.backBtn}
-        onPress={() => {
-          router.push("/community");
-        }}
-      >
-        <Text style={styles.backText}>Back</Text>
-      </TouchableOpacity> */}
       <View style={styles.container}>
         <View style={styles.mainContainer}>
           <View>
             {/* Displays the post */}
             <IndividualPost postId={curPostID} />
+            <View style={styles.bottomPartContainer}>
+                {/* Display the like icon and like number */}
+                <TouchableOpacity style={styles.postLikesContainer}>
+                  <Image
+                  style={styles.postLikesImg}
+                  source={require("../assets/images/icons/filledHeart.png")}
+                  />
+                  <Text style={styles.postLikesText}>35</Text>
+                </TouchableOpacity>
+                {/* Display the reply button */}
+                <TouchableOpacity style={styles.replyPostContainer}>
+                  <Image
+                  style={styles.replyPostImg}
+                  source={require("../assets/images/icons/reply.png")}
+                  />
+                </TouchableOpacity>
+              </View>
           </View>
+          {/* Divider line */}
+          <View style={{ borderBottomColor: '#EEEEEE', borderBottomWidth: 1, marginTop: 20 }} />
           {/* Display the comments */}
-         
           <View>
               <Text style={styles.replyTitle}>Replies</Text>
           </View>
 
           <ScrollView style={styles.commentsContainer} showsHorizontalScrollIndicator={false}>
-            <IndividualComment
+            {/* <IndividualComment
               username={"Sally Smith"}
               intro={"Class of 2026, CS Major"}
               timestamp={"1h"}
               content={"Thank you for sharing these tips!"}
-            />
+            /> */}
             <IndividualComment
               username={"Ben Wilson"}
               intro={"Class of 2027, Business Major"}
@@ -98,7 +102,8 @@ export default function PostDetails() {
             />
           </ScrollView>
         </View>
-      </View>
+        </View>
+      {/* </View> */}
     </View>
   );
 }
@@ -141,6 +146,32 @@ const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     backgroundColor: "white",
+  },
+  bottomPartContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  postLikesContainer: {
+    flexDirection: "row",
+    alignItems: 'center',
+  },
+  postLikesImg: {
+    width: 20,
+    height: 20,
+    marginRight: 5,
+    resizeMode: "contain",
+  },
+  postLikesText: {
+    fontSize: 14,
+  },
+  replyPostContainer:{
+
+  },
+  replyPostImg:{
+    maxWidth: 60,
+    maxHeight: 20,
+    resizeMode: "contain",
   },
   itemContainer: {
     borderWidth: 1,
