@@ -136,7 +136,7 @@ export default function App() {
           <Text
             style={[
               styles.myQuestionsText,
-              showLineForJourneys ? { color: "#85808C" } : {},
+              showLineForJourneys ? { color: "#85808C", fontWeight: '500' } : {},
             ]}
           >
             My Questions
@@ -154,7 +154,7 @@ export default function App() {
           <Text
             style={[
               styles.savedJourneysText,
-              showLineForQuestions ? { color: "#85808C" } : {},
+              showLineForQuestions ? { color: "#85808C", fontWeight: '500' } : {},
             ]}
           >
             Saved Journeys
@@ -175,32 +175,25 @@ export default function App() {
               showsVerticalScrollIndicator={false}
               keyExtractor={(item, index) => index.toString()}
               renderItem={({ item }) => (
-                <View>
+                <View style={styles.postShadowContainer}>
                   {/* Displays the post */}
                   <IndividualPost postId={item.postID} />
-                  <View style={styles.iconsOnPosts}>
-                    {/* Displays the upvote/downvote system */}
-                    <TouchableOpacity style={styles.voteSystemContainer}>
-                      <View style={styles.voteIconsContainer}>
+                  <View style={styles.bottomPartContainer}>
+                      {/* Display the like icon and like number */}
+                      <TouchableOpacity style={styles.postLikesContainer}>
                         <Image
-                          style={styles.upvoteIcon}
-                          source={require("../../assets/images/upvote.png")}
+                        style={styles.postLikesImg}
+                        source={require("../../assets/images/icons/filledHeart.png")}
                         />
-                        <Text style={styles.voteNumber}>42</Text>
-                        <View style={styles.verticalLine} />
+                        <Text style={styles.postLikesText}>35</Text>
+                      </TouchableOpacity>
+                      {/* Display the reply button */}
+                      <TouchableOpacity style={styles.replyPostContainer}>
                         <Image
-                          style={styles.downvoteIcon}
-                          source={require("../../assets/images/downvote.png")}
+                        style={styles.replyPostImg}
+                        source={require("../../assets/images/icons/reply.png")}
                         />
-                      </View>
-                    </TouchableOpacity>
-                    {/* Displays the the comment icon */}
-                    <TouchableOpacity style={styles.iconWrapper}>
-                      <Image
-                        style={styles.icons}
-                        source={require("../../assets/images/comment.png")}
-                      />
-                    </TouchableOpacity>
+                      </TouchableOpacity>
                   </View>
                 </View>
               )}
@@ -242,17 +235,6 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     justifyContent: "center",
   },
-  // editBtn: {
-  //   backgroundColor: "#41444B",
-  //   position: "absolute",
-  //   bottom: 0,
-  //   right: 0,
-  //   width: 30,
-  //   height: 30,
-  //   borderRadius: 30,
-  //   alignItems: "center",
-  //   justifyContent: "center",
-  // },
   userName: {
     fontWeight: "bold",
     fontSize: 30,
@@ -272,18 +254,19 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     alignSelf: "center",
-    marginTop: 20,
+    marginTop: 10,
   },
   individualInterest: {
     marginRight: 10,
     borderRadius: 25,
     paddingVertical: 10,
-    paddingHorizontal: 12,
-    borderWidth: 1.5,
-    borderColor: "#D3A0E2",
+    paddingHorizontal: 15,
+    // borderWidth: 1.5,
+    // borderColor: "#D3A0E2",
+    backgroundColor: "#F7F4FA",
   },
   interestText: {
-    color: "#D3A0E2",
+    color: "#724EAE",
     fontWeight: "600",
   },
   horizontalBarContainer: {
@@ -310,7 +293,7 @@ const styles = StyleSheet.create({
     marginBottom: 0,
   },
   lineForQuestions: {
-    backgroundColor: "#D3A0E2",
+    backgroundColor: "#724EAE",
     height: 2,
     width: "50%",
     alignSelf: "flex-start",
@@ -319,7 +302,7 @@ const styles = StyleSheet.create({
     left: 0,
   },
   lineForJourneys: {
-    backgroundColor: "#D3A0E2",
+    backgroundColor: "#724EAE",
     height: 2,
     width: "50%",
     alignSelf: "flex-end",
@@ -329,64 +312,13 @@ const styles = StyleSheet.create({
   },
   questionsContainer: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: "#F9F6FF",
   },
   mainQuestionsContainer: {
     marginLeft: 20,
     marginRight: 20,
     paddingTop: 20,
-    backgroundColor: "white",
-  },
-  iconsOnPosts: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    backgroundColor: "#E6DBF3",
-    borderBottomLeftRadius: 12,
-    borderBottomRightRadius: 12,
-    paddingHorizontal: 0,
-    marginBottom: 20,
-  },
-  iconWrapper: {
-    marginHorizontal: 8,
-    paddingTop: 10,
-    paddingBottom: 10,
-  },
-  upvoteIcon: {
-    width: 22,
-    height: 22,
-    resizeMode: "contain",
-  },
-  downvoteIcon: {
-    width: 22,
-    height: 22,
-    resizeMode: "contain",
-  },
-  icons: {
-    width: 28,
-    height: 28,
-    resizeMode: "contain",
-  },
-  voteSystemContainer: {
-    marginLeft: 16,
-    borderWidth: 1.5,
-    backgroundColor: "white",
-    borderColor: "#9286B1",
-    width: 120,
-    height: 35,
-    borderRadius: 20,
-    resizeMode: "contain",
-    paddingLeft: 15,
-    paddingRight: 15,
-  },
-  voteIconsContainer: {
-    flexDirection: "row",
-    alignItems: "center",
     backgroundColor: "transparent",
-  },
-  voteNumber: {
-    marginLeft: 8,
-    fontWeight: "400",
   },
   verticalLine: {
     width: 1.5,
@@ -394,5 +326,44 @@ const styles = StyleSheet.create({
     backgroundColor: "#9286B1",
     marginRight: 8,
     marginLeft: 8,
+  },
+  postShadowContainer: {
+    backgroundColor: "white",
+    borderRadius: 12,
+    padding: 16,
+    shadowColor: '#49006C',
+    shadowOffset: {
+      width: -2,
+      height: 4,
+    },
+    shadowOpacity: 0.06,
+    shadowRadius: 10,
+    marginBottom: 20,
+  },
+  bottomPartContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  postLikesContainer: {
+    flexDirection: "row",
+    alignItems: 'center',
+  },
+  postLikesImg: {
+    width: 20,
+    height: 20,
+    marginRight: 5,
+    resizeMode: "contain",
+  },
+  postLikesText: {
+    fontSize: 14,
+  },
+  replyPostContainer:{
+
+  },
+  replyPostImg:{
+    maxWidth: 60,
+    maxHeight: 20,
+    resizeMode: "contain",
   },
 });

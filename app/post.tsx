@@ -136,16 +136,16 @@ export default function postQuestions() {
       <View style={styles.mainContainer}>
         <View style={styles.backPostContainer}>
           {/*  Back Button */}
-      <View style={styles.backBtnContainer}>
-          <TouchableOpacity
-            style={styles.backBtn}
-            onPress={() => {
-              router.push("/community");
-            }}
-          >
-            <Image style={styles.backBtnImg} source={require("../assets/images/icons/blackBack.png")}/>
-          </TouchableOpacity>
-        </View>
+          <View style={styles.backBtnContainer}>
+              <TouchableOpacity
+                style={styles.backBtn}
+                onPress={() => {
+                  router.push("/community");
+                }}
+              >
+                <Image style={styles.backBtnImg} source={require("../assets/images/icons/blackBack.png")}/>
+              </TouchableOpacity>
+            </View>
           {/* Post Button */}
           <TouchableOpacity
             style={[
@@ -360,22 +360,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     marginBottom: 20,
   },
-  // backBtn: {
-  //   paddingVertical: 10,
-  //   paddingHorizontal: 20,
-  //   marginTop: 40,
-  //   marginBottom: 40,
-  //   borderRadius: 20,
-  //   justifyContent: "flex-start",
-  //   alignSelf: "flex-start",
-  // },
-  // backIcon: {
-  //   width: 24,
-  //   height: 24,
-  //   justifyContent: "center",
-  //   alignSelf: "center",
-  //   resizeMode: "contain",
-  // },
   title: {
     fontSize: 20,
     fontWeight: "bold",
