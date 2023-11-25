@@ -56,6 +56,7 @@ export default function ChatBox() {
     console.log(chats);
     console.log(user);
     console.log([1, 2, 3]);
+    console.log("this is user:   ", user);
   }, [chats]);
 
   useEffect(() => {
