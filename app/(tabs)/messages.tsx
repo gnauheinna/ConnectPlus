@@ -102,17 +102,16 @@ export default function Message() {
       }
     };
 
-    if (user != null) {
-      // const userChatDocRef = doc(db, "userChats", user.userID);
-      // const unsubscribe = onSnapshot(userChatDocRef, (doc) => {
-      //   if (doc.exists()) {
-      //     fetchUserChats();
-      //   } else {
-      //     console.error("Document does not exist");
-      //   }
-      // });
-      // return () => unsubscribe();
-      fetchUserChats();
+    if (user.name != "") {
+      const userChatDocRef = doc(db, "userChats", user.userID);
+      const unsubscribe = onSnapshot(userChatDocRef, (doc) => {
+        if (doc.exists()) {
+          fetchUserChats();
+        } else {
+          console.error("Document does not exist");
+        }
+      });
+      return () => unsubscribe();
     } else {
       console.error("user is not defined");
     }
