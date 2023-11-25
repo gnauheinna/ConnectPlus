@@ -115,26 +115,13 @@ const IndividualPost: React.FC<IndividualPostProps> = ({ postId }) => {
 export default IndividualPost;
 
 const styles = StyleSheet.create({
-  container: {
-    flexGrow: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
   itemContainer: {
-    borderWidth: 1,
-    borderTopLeftRadius: 12,
-    borderTopRightRadius: 12,
-    padding: 16,
-    borderBottomColor: "transparent",
-    borderColor: "#CAC4D0",
-    // backgroundColor: "#FEF7FF",
-    paddingBottom: 0,
   },
   userContainer: {
     flexDirection: "row",
-    marginBottom: 20,
     justifyContent: "space-between",
-    alignItems: "center",
+    alignItems: "flex-start",
+    marginBottom: 10,
   },
   profileImg: {
     width: 48,
@@ -157,7 +144,7 @@ const styles = StyleSheet.create({
     color: "#888888",
   },
   title: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: "bold",
     marginRight: 48,
     textAlign: "left",
@@ -171,7 +158,7 @@ const styles = StyleSheet.create({
   timestamp: {
     fontSize: 12,
     color: "gray",
-    marginBottom: 10,
+    marginBottom: 20,
   },
   content: {
     fontSize: 14,
@@ -180,16 +167,14 @@ const styles = StyleSheet.create({
   },
   tagContainer: {
     backgroundColor: "#FFD465",
-    // width: 110,
+    alignItems: "center",
     borderRadius: 30,
     alignSelf: "flex-end",
     borderColor: "black",
     paddingHorizontal: 15,
     paddingVertical: 10,
     marginBottom: 15,
-    marginTop: 15,
-    marginRight: 10,
-    alignItems: "center",
+    marginTop: 5,
   },
   tagText: {
     fontSize: 14,
@@ -222,5 +207,31 @@ const styles = StyleSheet.create({
     marginHorizontal: 8,
     paddingTop: 10,
     paddingBottom: 10,
+  },
+  bottomPartContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  postLikesContainer: {
+    flexDirection: "row",
+    alignItems: 'center',
+  },
+  postLikesImg: {
+    width: 20,
+    height: 20,
+    marginRight: 5,
+    resizeMode: "contain",
+  },
+  postLikesText: {
+    fontSize: 14,
+  },
+  replyPostContainer:{
+
+  },
+  replyPostImg:{
+    maxWidth: 60,
+    maxHeight: 20,
+    resizeMode: "contain",
   },
 });

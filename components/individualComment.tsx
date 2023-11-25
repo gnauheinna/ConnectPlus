@@ -10,46 +10,40 @@ import { Image } from "react-native";
 interface IndividualCommentProps {
   username: string;
   intro: string;
-  // profile picture
+  timestamp: string;
   content: string;
-  // timestamp: Date;
 }
 
 
-const IndividualComment: React.FC<IndividualCommentProps> = ({ username, intro, content }) => {
+const IndividualComment: React.FC<IndividualCommentProps> = ({ username, intro, timestamp, content }) => {
     return (
-      <View style={{...styles.itemContainer}}>
-        {/* Display the user's profile image, name, and intro on the top */}
-        <View style={styles.userContainer}>
-          <Image style={styles.profileImg} source={require("../assets/images/profileImg.png")} />
-          <View style={styles.userInfoContainer}>
-            <Text style={styles.userName}>{username}</Text>
-            <Text style={styles.userIntro}>{intro}</Text>
+      <View style={styles.outermostContainer}>
+        <View style={styles.mainContainer}>
+          {/* Display the profile image */}
+          <View style={styles.profileImgContainer}>
+              <Image style={styles.profileImg} source={require("../assets/images/avatars/avatar1.png")} />
+          </View>
+          {/* Display the comment box */}
+          <View style={styles.commentContainer}>
+            {/* Display the user info and timestamp of the comment */}
+            <View style={styles.topPortionContainer}>
+                {/* Display the username and intro */}
+                <View style={styles.userInfoContainer}>
+                    <Text style={styles.userName}>{username}</Text>
+                    <Text style={styles.userIntro}>{intro}</Text>
+                </View>
+                {/* Display the timestamp */}
+                <View style={styles.timestampContainer}>
+                    <Text style={styles.timestamp}>{timestamp}</Text>
+                </View>
+            </View>
+            {/* Display the comment content */}
+            <View style={styles.bottomPortionContainer}>
+                {/* Display the content */}
+                <Text style={styles.commentContent}>{content}</Text>
+            </View>
           </View>
         </View>
-
-        <View style={styles.titleTimestampContainer}>
-
-          {/* Display the timestamp of the comment */}
-          {/* <Text style={styles.timestamp}>
-            {timestamp.toLocaleString('en-US', {
-              year: 'numeric',
-              month: 'numeric',
-              day: 'numeric',
-              hour: 'numeric',
-              minute: 'numeric',
-            })}
-          </Text> */}
-        </View>
-
-        {/* Display the content of the comment */}
-        <View style={styles.contentContainer}>
-          <Text style={styles.content}>{content}</Text>
-        </View>
-               {/*  Reply Button */}
-      <TouchableOpacity style={styles.replyBtn}>
-            <Text style={styles.replyText}>Reply</Text>
-      </TouchableOpacity>
       </View>
     );
   };
@@ -57,31 +51,34 @@ const IndividualComment: React.FC<IndividualCommentProps> = ({ username, intro, 
 export default IndividualComment;
 
 const styles = StyleSheet.create({
-    container: {
-      flexGrow: 1,
+    outermostContainer: {
+      flex: 1,
       justifyContent: "center",
       alignItems: "center",
-    },
-    itemContainer: {
-      borderWidth: 1,
-      borderColor: "#CAC4D0",
-      borderTopColor: "transparent",
-      borderBottomColor: "#e6dbf3",
-      borderLeftColor: "transparent",
-      borderRightColor: "transparent",
-      paddingBottom: 0, 
-      // marginLeft: 40,
-      // marginRight: 40,
-    },
-    userContainer:{
-      marginTop: 10,
-      flexDirection: "row",
       marginBottom: 20,
     },
-    profileImg: {
-      width: 40,
-      height: 40,
+    mainContainer: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+    },
+    profileImgContainer: {
       marginRight: 10,
+    },
+    profileImg: {
+      width: 60,
+      height: 60,
+    },
+    commentContainer: {
+      width: 310,
+      backgroundColor: "#F9F6FF",
+      borderBottomLeftRadius: 12,
+      borderTopRightRadius: 12,
+      padding: 15,
+    },
+    topPortionContainer:{
+      flexDirection: "row",
+      justifyContent: "space-between",
+      marginBottom: 10,
     },
     userInfoContainer:{
       justifyContent: "center",
@@ -94,37 +91,18 @@ const styles = StyleSheet.create({
       fontSize: 12,
       color: "#888888",
     },
-    title: {
-      fontSize: 18,
-      fontWeight: "bold",
-      marginRight: 48,
-      textAlign: "left",
-    },
-    titleTimestampContainer: {
-      flexDirection: "row",
-      alignItems: "center",
-      justifyContent: "space-between",
+    timestampContainer: {
+
     },
     timestamp: {
       fontSize: 12,
       color: "gray",
     },
-    contentContainer:{
-      marginBottom: 5,
+    bottomPortionContainer: {
+
     },
-    content: {
+    commentContent: {
       fontSize: 14,
       textAlign: "left",
-      marginBottom: 10,
-    },
-    replyBtn: {
-      marginBottom: 20,
-      justifyContent: "flex-start",
-      alignSelf: "flex-start",
-    },
-    replyText: {
-      fontSize: 12,
-      color: "#FFC940",
-      fontWeight: "500",
     },
   });

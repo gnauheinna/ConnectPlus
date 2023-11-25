@@ -68,81 +68,94 @@ export default function CommunityScreen() {
   return (
     <PostProvider>
       <View style={styles.outermostContainer}>
-        {/* Display the horizontal sub-navigation bar on top of the posts */}
-        <View>
-          <Text style={styles.communityBigTitle}>Ask & Share</Text>
+      <ImageBackground
+          source={require("../../assets/images/gradient/whiteGradientAskNShare.png")}
+          resizeMode="cover"
+          style={styles.gradientBackground}
+        >
+          <View style={styles.topContainer}>
+            {/* Display the horizontal sub-navigation bar on top of the posts */}
+            <View style={styles.bigTitleContainer}>
+              <View style={styles.titleContainer}>
+                <Text style={styles.askAndShareTitle}>Ask & Share</Text>
+              </View>
+              <TouchableOpacity>
+              <Image source={require("../../assets/images/icons/notification.png")} style={styles.notificationIcon}/>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.horizontalNavOuttermostContainer}>
+              <View style={styles.horizontalSubNavMainContainer}>
+                <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                  <TouchableOpacity
+                    style={
+                      selectedAll
+                        ? styles.horizontalSubNavSelected
+                        : styles.horizontalSubNav
+                    }
+                    onPress={() => {
+                      setSelectedTag("All");
+                      setSelectedAll(true);
+                    }}
+                  >
+                    <Text>All</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={
+                      selectedTag === "Financial"
+                        ? styles.horizontalSubNavSelected
+                        : styles.horizontalSubNav
+                    }
+                    onPress={() => {
+                      setSelectedTag("Financial");
+                      setSelectedAll(false);
+                    }}
+                  >
+                    <Text>Financial</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={
+                      selectedTag === "Academic"
+                        ? styles.horizontalSubNavSelected
+                        : styles.horizontalSubNav
+                    }
+                    onPress={() => {
+                      setSelectedTag("Academic");
+                      setSelectedAll(false);
+                    }}
+                  >
+                    <Text>Academic</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={
+                      selectedTag === "Student Life"
+                        ? styles.horizontalSubNavSelected
+                        : styles.horizontalSubNav
+                    }
+                    onPress={() => {
+                      setSelectedTag("Student Life");
+                      setSelectedAll(false);
+                    }}
+                  >
+                    <Text>Student Life</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={
+                      selectedTag === "Career"
+                        ? styles.horizontalSubNavSelected
+                        : styles.horizontalSubNav
+                    }
+                    onPress={() => {
+                      setSelectedTag("Career");
+                      setSelectedAll(false);
+                    }}
+                  >
+                    <Text>Career</Text>
+                  </TouchableOpacity>
+                </ScrollView>
+              </View>
+            </View>
         </View>
-        <View>
-          <View style={styles.horizontalSubNavMainContainer}>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              <TouchableOpacity
-                style={
-                  selectedAll
-                    ? styles.horizontalSubNavSelected
-                    : styles.horizontalSubNav
-                }
-                onPress={() => {
-                  setSelectedTag("All");
-                  setSelectedAll(true);
-                }}
-              >
-                <Text>All</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={
-                  selectedTag === "Financial"
-                    ? styles.horizontalSubNavSelected
-                    : styles.horizontalSubNav
-                }
-                onPress={() => {
-                  setSelectedTag("Financial");
-                  setSelectedAll(false);
-                }}
-              >
-                <Text>Financial</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={
-                  selectedTag === "Academic"
-                    ? styles.horizontalSubNavSelected
-                    : styles.horizontalSubNav
-                }
-                onPress={() => {
-                  setSelectedTag("Academic");
-                  setSelectedAll(false);
-                }}
-              >
-                <Text>Academic</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={
-                  selectedTag === "Student Life"
-                    ? styles.horizontalSubNavSelected
-                    : styles.horizontalSubNav
-                }
-                onPress={() => {
-                  setSelectedTag("Student Life");
-                  setSelectedAll(false);
-                }}
-              >
-                <Text>Student Life</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={
-                  selectedTag === "Career"
-                    ? styles.horizontalSubNavSelected
-                    : styles.horizontalSubNav
-                }
-                onPress={() => {
-                  setSelectedTag("Career");
-                  setSelectedAll(false);
-                }}
-              >
-                <Text>Career</Text>
-              </TouchableOpacity>
-            </ScrollView>
-          </View>
-        </View>
+        </ImageBackground>
         {/* render the FlatList directly*/}
         <View style={styles.container}>
           <View style={styles.mainContainer}>
@@ -151,41 +164,36 @@ export default function CommunityScreen() {
               showsVerticalScrollIndicator={false}
               keyExtractor={(item, index) => index.toString()}
               renderItem={({ item }) => (
-                <View>
-                  {/* Displays the post */}
+                <View style={styles.postShadowContainer}>
                   <IndividualPost postId={item.postID} />
-                  <View style={styles.iconsOnPosts}>
-                    {/* Displays the upvote/downvote system */}
-                    <TouchableOpacity style={styles.voteSystemContainer}> 
-                      <View style={styles.voteIconsContainer}>
+                  <View style={styles.bottomPartContainer}>
+                      {/* Display the like icon and like number */}
+                      <TouchableOpacity style={styles.postLikesContainer}>
                         <Image
-                          style={styles.upvoteIcon}
-                          source={require("../../assets/images/upvote.png")}
+                        style={styles.postLikesImg}
+                        source={require("../../assets/images/icons/filledHeart.png")}
                         />
-                        <Text style={styles.voteNumber}>42</Text>
-                        <View style={styles.verticalLine} />
+                        <Text style={styles.postLikesText}>35</Text>
+                      </TouchableOpacity>
+                      {/* Display the reply button */}
+                      <TouchableOpacity style={styles.replyPostContainer}>
                         <Image
-                          style={styles.downvoteIcon}
-                          source={require("../../assets/images/downvote.png")}
+                        style={styles.replyPostImg}
+                        source={require("../../assets/images/icons/reply.png")}
                         />
-                      </View>
-                    </TouchableOpacity>
-                    {/* Displays the the comment icon */}
-                    <TouchableOpacity style={styles.iconWrapper}>
-                      <Image
-                        style={styles.icons}
-                        source={require("../../assets/images/comment.png")}
-                      />
-                    </TouchableOpacity>
+                      </TouchableOpacity>
                   </View>
-                </View>
+              </View>
               )}
             />
           </View>
           {/* Post button */}
           <View style={styles.postBtnContainer}>
             <TouchableOpacity style={styles.postBtn} onPress={directToPost}>
-              <Text style={styles.postBtnText}>+</Text>
+                <Image
+                      style={styles.postBtnImg}
+                      source={require("../../assets/images/icons/makeAPost.png")}
+                    />
             </TouchableOpacity>
           </View>
         </View>
@@ -197,79 +205,100 @@ export default function CommunityScreen() {
 const styles = StyleSheet.create({
   outermostContainer: {
     flex: 1,
-    paddingTop: 40,
-    backgroundColor: "white",
+    backgroundColor: "#F9F6FF",
   },
   mainContainer: {
     flex: 1,
     marginLeft: 20,
     marginRight: 20,
+    backgroundColor: "#F9F6FF",
+  },
+  postShadowContainer: {
     backgroundColor: "white",
+    borderRadius: 12,
+    padding: 16,
+    shadowColor: '#49006C',
+    shadowOffset: {
+      width: -2,
+      height: 4,
+    },
+    shadowOpacity: 0.06,
+    shadowRadius: 10,
+    marginBottom: 20,
   },
   container: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "white",
+    backgroundColor: "transparent",
+    marginTop: 40,
   },
-  communityBigTitle: {
+  topContainer: {
+    paddingTop: 50,
+    backgroundColor: "transparent",
     marginLeft: 20,
     marginRight: 20,
+  },
+  gradientBackground: {
+    width: "100%",
+    height: 130,
+    zIndex: 1,
+  },
+  bigTitleContainer: {
+    backgroundColor: "transparent",
+    justifyContent: "space-between",
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 10,
+  },
+  titleContainer: {
+    backgroundColor: "transparent",
+    justifyContent: "flex-start",
+    alignItems: "center",
+  },
+  askAndShareTitle: {
     fontSize: 42,
     color: "#453B4F",
     fontWeight: "bold",
-    marginTop: 20,
-    marginBottom: 10,
+  },
+  notificationIcon: {
+    width: 32,
+    height: 32,
+    resizeMode: "contain",
+  },
+  horizontalNavOuttermostContainer: {
+    backgroundColor: "transparent",
   },
   horizontalSubNavMainContainer: {
-    marginLeft: 20,
     position: "sticky",
     top: 0,
     zIndex: 1,
-    backgroundColor: "white",
+    backgroundColor: "transparent",
   },
   horizontalSubNav: {
     borderWidth: 1,
     borderColor: "black",
     borderRadius: 30,
-    paddingHorizontal: 15,
-    paddingVertical: 10,
-    marginBottom: 15,
-    marginTop: 15,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    marginBottom: 10,
+    marginTop: 10,
     marginRight: 10,
     alignItems: "center",
   },
   horizontalSubNavSelected: {
     borderWidth: 0,
     borderRadius: 30,
-    marginBottom: 15,
-    marginTop: 15,
+    backgroundColor: "#FFD465",
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    marginBottom: 10,
+    marginTop: 10,
     marginRight: 10,
     alignItems: "center",
-    backgroundColor: "#FFD465",
-    paddingHorizontal: 15,
-    paddingVertical: 10,
   },
-  voteSystemContainer: {
-    marginLeft: 16,
-    borderWidth: 1.5,
-    backgroundColor: "white",
-    borderColor: "#9286B1",
-    width: 120,
-    height: 35,
-    borderRadius: 20,
-    resizeMode: "contain",
-    paddingLeft: 15,
-    paddingRight: 15,
-  },
-  voteIconsContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "transparent",
-  },
-  voteNumber: {
-    marginLeft: 8,
-    fontWeight: "400",
+  postContainer: {
+    backgroundColor: "#F9F6FF",
   },
   verticalLine: {
     width: 1.5,
@@ -293,19 +322,35 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     paddingBottom: 10,
   },
-  upvoteIcon: {
-    width: 22,
-    height: 22,
-    resizeMode: "contain",
-  },
-  downvoteIcon: {
-    width: 22,
-    height: 22,
-    resizeMode: "contain",
-  },
   icons: {
     width: 28,
     height: 28,
+    resizeMode: "contain",
+  },
+  bottomPartContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  postLikesContainer: {
+    flexDirection: "row",
+    alignItems: 'center',
+  },
+  postLikesImg: {
+    width: 20,
+    height: 20,
+    marginRight: 5,
+    resizeMode: "contain",
+  },
+  postLikesText: {
+    fontSize: 14,
+  },
+  replyPostContainer:{
+
+  },
+  replyPostImg:{
+    maxWidth: 60,
+    maxHeight: 20,
     resizeMode: "contain",
   },
   postBtnContainer: {
@@ -317,14 +362,13 @@ const styles = StyleSheet.create({
   postBtn: {
     width: 50,
     height: 50,
-    backgroundColor: "#3A3340",
     padding: 10,
     borderRadius: 50,
     justifyContent: "center",
     alignItems: "center",
   },
-  postBtnText: {
-    color: "white",
-    fontSize: 32,
+  postBtnImg: {
+    width: 56,
+    height: 56,
   },
 });
