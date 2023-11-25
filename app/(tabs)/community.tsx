@@ -12,6 +12,7 @@ import {
   getFirestore,
   collection,
   getDocs,
+  onSnapshot,
   Timestamp,
   doc,
   updateDoc,
@@ -33,7 +34,7 @@ export default function CommunityScreen() {
   if (getApps() == null) {
     const app = initializeApp(firebaseConfig);
   }
-  const { posts, loading } = usePostContext();
+  const { posts, setPosts, loading, setLoading } = usePostContext();
   const router = useRouter();
   const db = getFirestore();
   const auth = getAuth();
@@ -49,7 +50,7 @@ export default function CommunityScreen() {
 
   useEffect(() => {
     // Define the fetchData function here to use the state and props
-    const loadPosts = async () => {
+    const processPosts = async () => {
       // Check if the new posts are different from the old ones
       if (JSON.stringify(allPosts) !== JSON.stringify(posts)) {
         setAllPosts(posts);
@@ -58,7 +59,7 @@ export default function CommunityScreen() {
     console.log("here are the posts");
     console.log(posts);
     // Call the fetchData function when the component mounts
-    loadPosts();
+    processPosts();
   }, [posts]);
 
   const filteredPosts = allPosts.filter(
@@ -66,139 +67,140 @@ export default function CommunityScreen() {
   );
 
   return (
-    <PostProvider>
-      <View style={styles.outermostContainer}>
+    <View style={styles.outermostContainer}>
       <ImageBackground
-          source={require("../../assets/images/gradient/whiteGradientAskNShare.png")}
-          resizeMode="cover"
-          style={styles.gradientBackground}
-        >
-          <View style={styles.topContainer}>
-            {/* Display the horizontal sub-navigation bar on top of the posts */}
-            <View style={styles.bigTitleContainer}>
-              <View style={styles.titleContainer}>
-                <Text style={styles.askAndShareTitle}>Ask & Share</Text>
-              </View>
-              <TouchableOpacity>
-              <Image source={require("../../assets/images/icons/notification.png")} style={styles.notificationIcon}/>
-              </TouchableOpacity>
+        source={require("../../assets/images/gradient/whiteGradientAskNShare.png")}
+        resizeMode="cover"
+        style={styles.gradientBackground}
+      >
+        <View style={styles.topContainer}>
+          {/* Display the horizontal sub-navigation bar on top of the posts */}
+          <View style={styles.bigTitleContainer}>
+            <View style={styles.titleContainer}>
+              <Text style={styles.askAndShareTitle}>Ask & Share</Text>
             </View>
-            <View style={styles.horizontalNavOuttermostContainer}>
-              <View style={styles.horizontalSubNavMainContainer}>
-                <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                  <TouchableOpacity
-                    style={
-                      selectedAll
-                        ? styles.horizontalSubNavSelected
-                        : styles.horizontalSubNav
-                    }
-                    onPress={() => {
-                      setSelectedTag("All");
-                      setSelectedAll(true);
-                    }}
-                  >
-                    <Text>All</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={
-                      selectedTag === "Financial"
-                        ? styles.horizontalSubNavSelected
-                        : styles.horizontalSubNav
-                    }
-                    onPress={() => {
-                      setSelectedTag("Financial");
-                      setSelectedAll(false);
-                    }}
-                  >
-                    <Text>Financial</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={
-                      selectedTag === "Academic"
-                        ? styles.horizontalSubNavSelected
-                        : styles.horizontalSubNav
-                    }
-                    onPress={() => {
-                      setSelectedTag("Academic");
-                      setSelectedAll(false);
-                    }}
-                  >
-                    <Text>Academic</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={
-                      selectedTag === "Student Life"
-                        ? styles.horizontalSubNavSelected
-                        : styles.horizontalSubNav
-                    }
-                    onPress={() => {
-                      setSelectedTag("Student Life");
-                      setSelectedAll(false);
-                    }}
-                  >
-                    <Text>Student Life</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={
-                      selectedTag === "Career"
-                        ? styles.horizontalSubNavSelected
-                        : styles.horizontalSubNav
-                    }
-                    onPress={() => {
-                      setSelectedTag("Career");
-                      setSelectedAll(false);
-                    }}
-                  >
-                    <Text>Career</Text>
-                  </TouchableOpacity>
-                </ScrollView>
-              </View>
-            </View>
-        </View>
-        </ImageBackground>
-        {/* render the FlatList directly*/}
-        <View style={styles.container}>
-          <View style={styles.mainContainer}>
-            <FlatList
-              data={filteredPosts}
-              showsVerticalScrollIndicator={false}
-              keyExtractor={(item, index) => index.toString()}
-              renderItem={({ item }) => (
-                <View style={styles.postShadowContainer}>
-                  <IndividualPost postId={item.postID} />
-                  <View style={styles.bottomPartContainer}>
-                      {/* Display the like icon and like number */}
-                      <TouchableOpacity style={styles.postLikesContainer}>
-                        <Image
-                        style={styles.postLikesImg}
-                        source={require("../../assets/images/icons/filledHeart.png")}
-                        />
-                        <Text style={styles.postLikesText}>35</Text>
-                      </TouchableOpacity>
-                      {/* Display the reply button */}
-                      <TouchableOpacity style={styles.replyPostContainer}>
-                        <Image
-                        style={styles.replyPostImg}
-                        source={require("../../assets/images/icons/reply.png")}
-                        />
-                      </TouchableOpacity>
-                  </View>
-              </View>
-              )}
-            />
-          </View>
-          {/* Post button */}
-          <View style={styles.postBtnContainer}>
-            <TouchableOpacity style={styles.postBtn} onPress={directToPost}>
-                <Image
-                      style={styles.postBtnImg}
-                      source={require("../../assets/images/icons/makeAPost.png")}
-                    />
+            <TouchableOpacity>
+              <Image
+                source={require("../../assets/images/icons/notification.png")}
+                style={styles.notificationIcon}
+              />
             </TouchableOpacity>
           </View>
+          <View style={styles.horizontalNavOuttermostContainer}>
+            <View style={styles.horizontalSubNavMainContainer}>
+              <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                <TouchableOpacity
+                  style={
+                    selectedAll
+                      ? styles.horizontalSubNavSelected
+                      : styles.horizontalSubNav
+                  }
+                  onPress={() => {
+                    setSelectedTag("All");
+                    setSelectedAll(true);
+                  }}
+                >
+                  <Text>All</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={
+                    selectedTag === "Financial"
+                      ? styles.horizontalSubNavSelected
+                      : styles.horizontalSubNav
+                  }
+                  onPress={() => {
+                    setSelectedTag("Financial");
+                    setSelectedAll(false);
+                  }}
+                >
+                  <Text>Financial</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={
+                    selectedTag === "Academic"
+                      ? styles.horizontalSubNavSelected
+                      : styles.horizontalSubNav
+                  }
+                  onPress={() => {
+                    setSelectedTag("Academic");
+                    setSelectedAll(false);
+                  }}
+                >
+                  <Text>Academic</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={
+                    selectedTag === "Student Life"
+                      ? styles.horizontalSubNavSelected
+                      : styles.horizontalSubNav
+                  }
+                  onPress={() => {
+                    setSelectedTag("Student Life");
+                    setSelectedAll(false);
+                  }}
+                >
+                  <Text>Student Life</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={
+                    selectedTag === "Career"
+                      ? styles.horizontalSubNavSelected
+                      : styles.horizontalSubNav
+                  }
+                  onPress={() => {
+                    setSelectedTag("Career");
+                    setSelectedAll(false);
+                  }}
+                >
+                  <Text>Career</Text>
+                </TouchableOpacity>
+              </ScrollView>
+            </View>
+          </View>
+        </View>
+      </ImageBackground>
+      {/* render the FlatList directly*/}
+      <View style={styles.container}>
+        <View style={styles.mainContainer}>
+          <FlatList
+            data={filteredPosts}
+            showsVerticalScrollIndicator={false}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({ item }) => (
+              <View style={styles.postShadowContainer}>
+                <IndividualPost postId={item.postID} />
+                <View style={styles.bottomPartContainer}>
+                  {/* Display the like icon and like number */}
+                  <TouchableOpacity style={styles.postLikesContainer}>
+                    <Image
+                      style={styles.postLikesImg}
+                      source={require("../../assets/images/icons/filledHeart.png")}
+                    />
+                    <Text style={styles.postLikesText}>35</Text>
+                  </TouchableOpacity>
+                  {/* Display the reply button */}
+                  <TouchableOpacity style={styles.replyPostContainer}>
+                    <Image
+                      style={styles.replyPostImg}
+                      source={require("../../assets/images/icons/reply.png")}
+                    />
+                  </TouchableOpacity>
+                </View>
+              </View>
+            )}
+          />
+        </View>
+        {/* Post button */}
+        <View style={styles.postBtnContainer}>
+          <TouchableOpacity style={styles.postBtn} onPress={directToPost}>
+            <Image
+              style={styles.postBtnImg}
+              source={require("../../assets/images/icons/makeAPost.png")}
+            />
+          </TouchableOpacity>
         </View>
       </View>
-    </PostProvider>
+    </View>
   );
 }
 
@@ -217,7 +219,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 12,
     padding: 16,
-    shadowColor: '#49006C',
+    shadowColor: "#49006C",
     shadowOffset: {
       width: -2,
       height: 4,
@@ -334,7 +336,7 @@ const styles = StyleSheet.create({
   },
   postLikesContainer: {
     flexDirection: "row",
-    alignItems: 'center',
+    alignItems: "center",
   },
   postLikesImg: {
     width: 20,
@@ -345,10 +347,8 @@ const styles = StyleSheet.create({
   postLikesText: {
     fontSize: 14,
   },
-  replyPostContainer:{
-
-  },
-  replyPostImg:{
+  replyPostContainer: {},
+  replyPostImg: {
     maxWidth: 60,
     maxHeight: 20,
     resizeMode: "contain",

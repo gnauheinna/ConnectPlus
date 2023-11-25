@@ -32,7 +32,9 @@ export type Post = {
 
 interface PostContextValue {
   posts: Post[];
+  setPosts: (value: Post[]) => void;
   loading: boolean;
+  setLoading: (value: boolean) => void;
 }
 
 const PostContext = createContext<PostContextValue | undefined>(undefined);
@@ -71,7 +73,7 @@ const PostProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   }, []);
 
   return (
-    <PostContext.Provider value={{ posts, loading }}>
+    <PostContext.Provider value={{ posts, setPosts, setLoading, loading }}>
       {children}
     </PostContext.Provider>
   );

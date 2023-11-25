@@ -40,7 +40,6 @@ const IndividualPost: React.FC<IndividualPostProps> = ({ postId }) => {
   const { posts, loading } = usePostContext();
   const [tag, setTag] = useState("");
   const post = posts.find((post) => post.postID === postId);
-
   //use PostIDContext
   const { curPostID, setCurPostID } = useContext(PostIdContext);
 

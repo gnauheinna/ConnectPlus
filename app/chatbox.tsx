@@ -23,7 +23,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import IndividualPost from "../components/individualPost";
 import { useRouter } from "expo-router";
 import { PostIdContext, PostIdProvider } from "./context/PostIDContext";
-import { Post, usePostContext, PostProvider } from "./context/postContext";
+
 import { useCurrentChat } from "./context/currentChatContext";
 import { useUser } from "./context/UserContext";
 

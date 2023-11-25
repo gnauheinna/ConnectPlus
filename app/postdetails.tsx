@@ -8,7 +8,7 @@ import IndividualPost from "../components/individualPost";
 import IndividualComment from "../components/individualComment";
 import { useRouter } from "expo-router";
 import { PostIdContext, PostIdProvider } from "./context/PostIDContext";
-import { Post, usePostContext, PostProvider } from "./context/postContext";
+import { Post, usePostContext } from "./context/postContext";
 
 export default function PostDetails() {
   //use PostIDContext
