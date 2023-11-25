@@ -54,6 +54,10 @@ export default function Message() {
 
   function directToChatBox(chatID: string, name: string, userID: string) {
     // passes the state to CurrentChatContext
+    // Save currentChatID to localStorage
+    localStorage.setItem("currentChatID", chatID);
+    localStorage.setItem("currentChatName", name);
+    localStorage.setItem("currentChatUserID", userID);
     setCurrentChatID(chatID);
     setCurrentChatName(name);
     setCurrentChatUserID(userID);
@@ -97,6 +101,7 @@ export default function Message() {
         console.error("Error fetching user chats: ", error);
       }
     };
+
     if (user != null) {
       // const userChatDocRef = doc(db, "userChats", user.userID);
       // const unsubscribe = onSnapshot(userChatDocRef, (doc) => {

@@ -49,6 +49,29 @@ export default function ChatBox() {
   const [chats, setChats] = useState<Chats[]>([]);
   const [inputText, setInputText] = useState("");
 
+  useEffect(() => {
+    // set currentChatID from local storage when the page refreshes
+    if (!currentChatID) {
+      const storedChatID = localStorage.getItem("currentChatID");
+      if (storedChatID !== null) {
+        console.log("this is storedChatID: ", storedChatID);
+        setCurrentChatID(storedChatID);
+      }
+      const storedChatName = localStorage.getItem("currentChatName");
+      if (storedChatName !== null) {
+        console.log("this is storedChatName: ", storedChatName);
+        setCurrentChatName(storedChatName);
+      }
+      const storedChatUserID = localStorage.getItem("currentChatUserID");
+      if (storedChatUserID !== null) {
+        console.log("this is storedChatUserID: ", storedChatUserID);
+        setCurrentChatUserID(storedChatUserID);
+      }
+    } else {
+      console.log("this is useEffect hook currentChatID :", currentChatID);
+    }
+  }, []);
+
   // fetches the correct chat
   useEffect(() => {
     const fetchUserChat = async () => {
@@ -64,8 +87,10 @@ export default function ChatBox() {
         setChats(userChatData.messages);
       }
     };
-    if (currentChatID) {
+
+    if (currentChatID && user.name != "") {
       console.log("currentChatID exist: ", currentChatID);
+      console.log("currentuser exist: ", user);
       const userChatDocRef = doc(db, "chats", currentChatID);
       const unsubscribe = onSnapshot(userChatDocRef, (doc) => {
         if (doc.exists()) {
@@ -78,7 +103,7 @@ export default function ChatBox() {
     } else {
       console.error("currentChatID is not defined");
     }
-  }, [currentChatID]);
+  }, [currentChatID, user.name]);
 
   const handleSend = async () => {
     await updateDoc(doc(db, "chats", currentChatID), {

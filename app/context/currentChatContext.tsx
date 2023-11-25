@@ -32,6 +32,7 @@ export const CurrentChatContextProvider: React.FC<{ children: ReactNode }> = ({
   const [currentChatID, setCurrentChatID] = useState(""); // Initialize the state with empty
   const [currentChatName, setCurrentChatName] = useState("");
   const [currentChatUserID, setCurrentChatUserID] = useState("");
+
   return (
     <CurrentChatContext.Provider
       value={{
