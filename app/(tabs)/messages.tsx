@@ -42,11 +42,17 @@ export default function Message() {
   const currentUserID = user.userID;
   const router = useRouter();
   const db = getFirestore();
-  const { currentChatID, setCurrentChatID } = useCurrentChat();
+  const {
+    currentChatID,
+    setCurrentChatID,
+    currentChatName,
+    setCurrentChatName,
+  } = useCurrentChat();
 
-  function directToChatBox(chatID: string) {
+  function directToChatBox(chatID: string, name: string) {
     // passes the state to CurrentChatContext
     setCurrentChatID(chatID);
+    setCurrentChatName(name);
     router.push("/chatbox");
   }
   useEffect(() => {
@@ -134,7 +140,7 @@ export default function Message() {
             renderItem={({ item }) => (
               <TouchableOpacity
                 style={styles.individualMessageContainer}
-                onPress={() => directToChatBox(item.chatID)}
+                onPress={() => directToChatBox(item.chatID, item.userInfo.name)}
               >
                 <View style={styles.individualMessageMainContainer}>
                   <View style={styles.profilePicContainer}>

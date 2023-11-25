@@ -27,7 +27,12 @@ export default function ChatBox() {
   const db = getFirestore();
   const { user, setUser } = useUser();
   const currentUserID = user.userID;
-  const { currentChatID, setCurrentChatID } = useCurrentChat();
+  const {
+    currentChatID,
+    setCurrentChatID,
+    currentChatName,
+    setCurrentChatName,
+  } = useCurrentChat();
   const router = useRouter();
   const [chats, setChats] = useState<Chats[]>([]);
 
@@ -87,7 +92,7 @@ export default function ChatBox() {
             style={styles.recipientImg}
             source={require("../assets/images/avatars/avatar1.png")}
           />
-          <Text style={styles.recipient}>Kristi Li</Text>
+          <Text style={styles.recipient}>{currentChatName}</Text>
         </View>
       </View>
 
