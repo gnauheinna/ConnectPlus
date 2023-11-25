@@ -15,6 +15,7 @@ import {
   getFirestore,
   serverTimestamp,
   DocumentData,
+  onSnapshot,
   getDoc,
   setDoc,
   doc,
@@ -63,13 +64,9 @@ export default function Message() {
   }, [currentChatID]);
 
   useEffect(() => {
-    console.log("messagesss");
     const fetchUserChats = async () => {
-      console.log("fetching userChats");
       try {
-        console.log("trying");
         console.log("current user:  ", currentUserID);
-
         const userChatDocRef = doc(db, "userChats", currentUserID);
         console.log("chatdocref ", userChatDocRef);
         const userChatDocSnapshot = await getDoc(userChatDocRef);
@@ -101,7 +98,18 @@ export default function Message() {
       }
     };
     if (user != null) {
+      // const userChatDocRef = doc(db, "userChats", user.userID);
+      // const unsubscribe = onSnapshot(userChatDocRef, (doc) => {
+      //   if (doc.exists()) {
+      //     fetchUserChats();
+      //   } else {
+      //     console.error("Document does not exist");
+      //   }
+      // });
+      // return () => unsubscribe();
       fetchUserChats();
+    } else {
+      console.error("user is not defined");
     }
   }, [user]);
 

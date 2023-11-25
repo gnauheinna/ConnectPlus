@@ -101,7 +101,7 @@ const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 
     // Cleanup subscription on unmount
     return () => unsubscribe();
-  }, []);
+  }, [auth.currentUser]);
 
   return (
     <UserContext.Provider value={{ user, setUser }}>

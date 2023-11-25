@@ -65,6 +65,7 @@ export default function ChatBox() {
       }
     };
     if (currentChatID) {
+      console.log("currentChatID exist: ", currentChatID);
       const userChatDocRef = doc(db, "chats", currentChatID);
       const unsubscribe = onSnapshot(userChatDocRef, (doc) => {
         if (doc.exists()) {
