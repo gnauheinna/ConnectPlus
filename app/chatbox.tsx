@@ -46,6 +46,7 @@ export default function ChatBox() {
       const userChatData = userChatDocSnapshot.data();
       if (userChatData) {
         // Assuming userChatData.messages is an array of Chats
+
         setChats(userChatData.messages);
       }
     };
@@ -55,19 +56,9 @@ export default function ChatBox() {
       console.error("currentChatID is not defined");
     }
   }, [currentChatID]);
-
   useEffect(() => {
-    console.log("these are the chats:  ", chats);
-    console.log(chats);
-    console.log(user);
-    console.log([1, 2, 3]);
-    console.log("this is user:   ", user);
-  }, [chats]);
-
-  useEffect(() => {
-    console.log("this is user:   ", user);
-  }, [user]);
-
+    console.log("this is chats: ", chats);
+  });
   return (
     <View style={styles.outermostContainer}>
       <View style={styles.topPortionContainer}>
@@ -99,43 +90,30 @@ export default function ChatBox() {
       <View style={styles.greyDividerLine}></View>
 
       <View style={styles.container}>
-        {/* <View style={styles.welcomeMessageContainer}>
-          <Text style={styles.welcomeMessage}>
-            Get to know your fellow First-Gen colleges, be the first to say hi!
-          </Text>
-        </View> */}
-
-        <FlatList
-          data={chats}
-          renderItem={({ item }) => (
-            <View
-              style={
-                item.senderID == user.userID
-                  ? styles.sentMessageContainer
-                  : styles.receivedMessageContainer
-              }
-            >
-              <Text style={styles.sentMessageText}>{item.text}</Text>
-            </View>
-          )}
-          keyExtractor={(item, index) => index.toString()}
-        />
-        {/* 
-        <View style={styles.sentMessageContainer}>
-          <Text style={styles.sentMessageText}>
-            Hey! Do you wanna meet up today?
-          </Text>
-        </View>
-
-        <View style={styles.receivedMessageContainer}>
-          <Text style={styles.sentMessageText}>
-            Sounds Good! Zoom or in-person?
-          </Text>
-        </View>
-
-        <View style={styles.sentMessageContainer}>
-          <Text style={styles.sentMessageText}>Zoom works!</Text>
-        </View> */}
+        {chats.length === 0 ? (
+          <View style={styles.welcomeMessageContainer}>
+            <Text style={styles.welcomeMessage}>
+              Get to know your fellow First-Gen colleges, be the first to say
+              hi!
+            </Text>
+          </View>
+        ) : (
+          <FlatList
+            data={chats}
+            renderItem={({ item }) => (
+              <View
+                style={
+                  item.senderID == user.userID
+                    ? styles.sentMessageContainer
+                    : styles.receivedMessageContainer
+                }
+              >
+                <Text style={styles.sentMessageText}>{item.text}</Text>
+              </View>
+            )}
+            keyExtractor={(item, index) => index.toString()}
+          />
+        )}
       </View>
 
       <View style={styles.inputMessageContainer}>
