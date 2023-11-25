@@ -1,13 +1,23 @@
 import React, { useState, useEffect, useContext } from "react";
-import { ScrollView, StyleSheet, FlatList, Image } from "react-native";
+import {
+  ScrollView,
+  StyleSheet,
+  FlatList,
+  Image,
+  TextInput,
+} from "react-native";
 import { Text, View } from "../components/Themed";
 import {
   getFirestore,
   doc,
+  serverTimestamp,
   updateDoc,
   getDoc,
+  onSnapshot,
   Timestamp,
+  arrayUnion,
 } from "firebase/firestore";
+import { v4 as uuid } from "uuid";
 import { FontAwesome5, Feather } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import IndividualPost from "../components/individualPost";
@@ -32,12 +42,18 @@ export default function ChatBox() {
     setCurrentChatID,
     currentChatName,
     setCurrentChatName,
+    currentChatUserID,
+    setCurrentChatUserID,
   } = useCurrentChat();
   const router = useRouter();
   const [chats, setChats] = useState<Chats[]>([]);
+  const [inputText, setInputText] = useState("");
 
+  // fetches the correct chat
   useEffect(() => {
     const fetchUserChat = async () => {
+      console.log("curchatUserID: ", currentChatUserID);
+      console.log("userID: ", user.userID);
       console.log("curchatID: ", currentChatID);
       const userChatDocRef = doc(db, "chats", currentChatID);
       const userChatDocSnapshot = await getDoc(userChatDocRef);
@@ -45,20 +61,47 @@ export default function ChatBox() {
       const chatArray: Chats[] = [];
       const userChatData = userChatDocSnapshot.data();
       if (userChatData) {
-        // Assuming userChatData.messages is an array of Chats
-
         setChats(userChatData.messages);
       }
     };
     if (currentChatID) {
-      fetchUserChat();
+      const userChatDocRef = doc(db, "chats", currentChatID);
+      const unsubscribe = onSnapshot(userChatDocRef, (doc) => {
+        if (doc.exists()) {
+          fetchUserChat();
+        } else {
+          console.error("Document does not exist");
+        }
+      });
+      return () => unsubscribe();
     } else {
       console.error("currentChatID is not defined");
     }
   }, [currentChatID]);
-  useEffect(() => {
-    console.log("this is chats: ", chats);
-  });
+
+  const handleSend = async () => {
+    await updateDoc(doc(db, "chats", currentChatID), {
+      messages: arrayUnion({
+        chatID: uuid(),
+        text: inputText,
+        senderID: user.userID,
+        date: Timestamp.now(),
+      }),
+    });
+
+    await updateDoc(doc(db, "userChats", user.userID), {
+      [currentChatID + ".lastMessage"]: inputText.toString(),
+      [currentChatID + ".date"]: serverTimestamp(),
+    });
+
+    await updateDoc(doc(db, "userChats", currentChatUserID), {
+      [currentChatID + ".lastMessage"]: inputText.toString(),
+      [currentChatID + ".date"]: serverTimestamp(),
+    });
+
+    setInputText("");
+  };
+
   return (
     <View style={styles.outermostContainer}>
       <View style={styles.topPortionContainer}>
@@ -119,10 +162,17 @@ export default function ChatBox() {
       <View style={styles.inputMessageContainer}>
         {/* Box to type your message */}
         <TouchableOpacity style={styles.inputMessageBox}>
-          <Text style={styles.messageText}>Message...</Text>
+          <TextInput
+            style={styles.inputText}
+            placeholder="Search"
+            onChangeText={(text) => {
+              setInputText(text);
+            }}
+            value={inputText}
+          />
         </TouchableOpacity>
         {/* Send Icon */}
-        <TouchableOpacity>
+        <TouchableOpacity onPress={handleSend}>
           <Image
             style={styles.sendIcon}
             source={require("../assets/images/icons/sendMessage.png")}
@@ -262,5 +312,10 @@ const styles = StyleSheet.create({
   sendIcon: {
     width: 42,
     height: 42,
+  },
+  inputText: {
+    color: "#777777",
+    fontSize: 20,
+    alignItems: "center",
   },
 });

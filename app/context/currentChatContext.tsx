@@ -9,6 +9,8 @@ type CurrentChatContextType = {
   setCurrentChatID: (value: string) => void;
   currentChatName: string;
   setCurrentChatName: (value: string) => void;
+  currentChatUserID: string;
+  setCurrentChatUserID: (value: string) => void;
 };
 
 export const CurrentChatContext = createContext<CurrentChatContextType>({
@@ -16,6 +18,8 @@ export const CurrentChatContext = createContext<CurrentChatContextType>({
   setCurrentChatID: () => {},
   currentChatName: "",
   setCurrentChatName: () => {},
+  currentChatUserID: "",
+  setCurrentChatUserID: () => {},
 });
 
 export const CurrentChatContextProvider: React.FC<{ children: ReactNode }> = ({
@@ -27,6 +31,7 @@ export const CurrentChatContextProvider: React.FC<{ children: ReactNode }> = ({
 
   const [currentChatID, setCurrentChatID] = useState(""); // Initialize the state with empty
   const [currentChatName, setCurrentChatName] = useState("");
+  const [currentChatUserID, setCurrentChatUserID] = useState("");
   return (
     <CurrentChatContext.Provider
       value={{
@@ -34,6 +39,8 @@ export const CurrentChatContextProvider: React.FC<{ children: ReactNode }> = ({
         setCurrentChatID,
         currentChatName,
         setCurrentChatName,
+        currentChatUserID,
+        setCurrentChatUserID,
       }}
     >
       {children}

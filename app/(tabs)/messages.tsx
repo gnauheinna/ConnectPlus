@@ -47,12 +47,15 @@ export default function Message() {
     setCurrentChatID,
     currentChatName,
     setCurrentChatName,
+    currentChatUserID,
+    setCurrentChatUserID,
   } = useCurrentChat();
 
-  function directToChatBox(chatID: string, name: string) {
+  function directToChatBox(chatID: string, name: string, userID: string) {
     // passes the state to CurrentChatContext
     setCurrentChatID(chatID);
     setCurrentChatName(name);
+    setCurrentChatUserID(userID);
     router.push("/chatbox");
   }
   useEffect(() => {
@@ -140,7 +143,13 @@ export default function Message() {
             renderItem={({ item }) => (
               <TouchableOpacity
                 style={styles.individualMessageContainer}
-                onPress={() => directToChatBox(item.chatID, item.userInfo.name)}
+                onPress={() =>
+                  directToChatBox(
+                    item.chatID,
+                    item.userInfo.name,
+                    item.userInfo.userID
+                  )
+                }
               >
                 <View style={styles.individualMessageMainContainer}>
                   <View style={styles.profilePicContainer}>
