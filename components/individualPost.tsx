@@ -31,6 +31,7 @@ interface IndividualPostProps {
 const IndividualPost: React.FC<IndividualPostProps> = ({ postId }) => {
   const router = useRouter();
   function viewPostDetails() {
+    localStorage.setItem("curPostID", postId);
     setCurPostID(postId);
     router.push("/postdetails");
   }
@@ -115,8 +116,7 @@ const IndividualPost: React.FC<IndividualPostProps> = ({ postId }) => {
 export default IndividualPost;
 
 const styles = StyleSheet.create({
-  itemContainer: {
-  },
+  itemContainer: {},
   userContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -215,7 +215,7 @@ const styles = StyleSheet.create({
   },
   postLikesContainer: {
     flexDirection: "row",
-    alignItems: 'center',
+    alignItems: "center",
   },
   postLikesImg: {
     width: 20,
@@ -226,10 +226,8 @@ const styles = StyleSheet.create({
   postLikesText: {
     fontSize: 14,
   },
-  replyPostContainer:{
-
-  },
-  replyPostImg:{
+  replyPostContainer: {},
+  replyPostImg: {
     maxWidth: 60,
     maxHeight: 20,
     resizeMode: "contain",

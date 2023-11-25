@@ -19,6 +19,19 @@ export default function PostDetails() {
   const router = useRouter();
 
   useEffect(() => {
+    // set curPostID from local storage when the page refreshes
+    if (!curPostID) {
+      const storedPostID = localStorage.getItem("curPostID");
+      if (storedPostID !== null) {
+        console.log("this is storedChatID: ", storedPostID);
+        setCurPostID(storedPostID);
+      }
+    } else {
+      console.log("this is useEffect hook curPostID :", curPostID);
+    }
+  }, []);
+
+  useEffect(() => {
     // Define the fetchData function here to use the state and props
     const loadPosts = async () => {
       setAllPosts(posts);
@@ -27,55 +40,69 @@ export default function PostDetails() {
     console.log(posts);
     // Call the fetchData function when the component mounts
     loadPosts();
-  }, [posts]);
+  }, [posts, curPostID]);
 
-  const filteredPosts = allPosts.find((post) => post.postID == curPostID);
-  console.log(curPostID);
+  useEffect(() => {
+    const filteredPosts = allPosts.find((post) => post.postID == curPostID);
+    console.log(curPostID);
+  }, [allPosts]);
   return (
     <View style={styles.outermostContainer}>
       {/* <View style={styles.tempContainer}> */}
       {/*  Back Button */}
       <View style={styles.backBtnContainer}>
-          <TouchableOpacity
-            style={styles.backBtn}
-            onPress={() => {
-              router.push("/community");
-            }}
-          >
-            <Image style={styles.backBtnImg} source={require("../assets/images/icons/blackBack.png")}/>
-          </TouchableOpacity>
-        </View>
+        <TouchableOpacity
+          style={styles.backBtn}
+          onPress={() => {
+            router.push("/community");
+          }}
+        >
+          <Image
+            style={styles.backBtnImg}
+            source={require("../assets/images/icons/blackBack.png")}
+          />
+        </TouchableOpacity>
+      </View>
       <View style={styles.container}>
         <View style={styles.mainContainer}>
           <View>
             {/* Displays the post */}
             <IndividualPost postId={curPostID} />
             <View style={styles.bottomPartContainer}>
-                {/* Display the like icon and like number */}
-                <TouchableOpacity style={styles.postLikesContainer}>
-                  <Image
+              {/* Display the like icon and like number */}
+              <TouchableOpacity style={styles.postLikesContainer}>
+                <Image
                   style={styles.postLikesImg}
                   source={require("../assets/images/icons/filledHeart.png")}
-                  />
-                  <Text style={styles.postLikesText}>35</Text>
-                </TouchableOpacity>
-                {/* Display the reply button */}
-                <TouchableOpacity style={styles.replyPostContainer}>
-                  <Image
+                />
+                <Text style={styles.postLikesText}>35</Text>
+              </TouchableOpacity>
+              {/* Display the reply button */}
+              <TouchableOpacity style={styles.replyPostContainer}>
+                <Image
                   style={styles.replyPostImg}
                   source={require("../assets/images/icons/reply.png")}
-                  />
-                </TouchableOpacity>
-              </View>
+                />
+              </TouchableOpacity>
+            </View>
           </View>
           {/* Divider line */}
-          <View style={{ borderBottomColor: '#EEEEEE', borderBottomWidth: 1, marginTop: 20 }} />
+          <View
+            style={{
+              borderBottomColor: "#EEEEEE",
+              borderBottomWidth: 1,
+              marginTop: 20,
+            }}
+          />
           {/* Display the comments */}
           <View>
-              <Text style={styles.replyTitle}>Replies</Text>
+            <Text style={styles.replyTitle}>Replies</Text>
           </View>
 
-          <ScrollView style={styles.commentsContainer} showsHorizontalScrollIndicator={false}>
+          <ScrollView
+            style={styles.commentsContainer}
+            showsHorizontalScrollIndicator={false}
+          >
             {/* <IndividualComment
               username={"Sally Smith"}
               intro={"Class of 2026, CS Major"}
@@ -102,7 +129,7 @@ export default function PostDetails() {
             />
           </ScrollView>
         </View>
-        </View>
+      </View>
       {/* </View> */}
     </View>
   );
@@ -154,7 +181,7 @@ const styles = StyleSheet.create({
   },
   postLikesContainer: {
     flexDirection: "row",
-    alignItems: 'center',
+    alignItems: "center",
   },
   postLikesImg: {
     width: 20,
@@ -165,10 +192,8 @@ const styles = StyleSheet.create({
   postLikesText: {
     fontSize: 14,
   },
-  replyPostContainer:{
-
-  },
-  replyPostImg:{
+  replyPostContainer: {},
+  replyPostImg: {
     maxWidth: 60,
     maxHeight: 20,
     resizeMode: "contain",
@@ -227,7 +252,5 @@ const styles = StyleSheet.create({
     marginRight: 8,
     marginLeft: 8,
   },
-  commentsContainer: {
-
-  }
+  commentsContainer: {},
 });
