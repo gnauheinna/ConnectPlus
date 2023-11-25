@@ -105,11 +105,11 @@ export default function Login() {
     console.log("USER: ", user);
   }, [user]);
 
-  useEffect(() => {
-    if (user.name != "") {
-      nextpage();
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   if (user.name != "") {
+  //     nextpage();
+  //   }
+  // }, [user]);
 
   function LogIn() {
     signInWithEmailAndPassword(auth, email, password)
@@ -120,7 +120,7 @@ export default function Login() {
         setLoginError(null);
         setUserID(user.uid);
         setIsLoggedIn(true);
-        // nextpage();
+        //nextpage();
       })
       .catch((error) => {
         const errorCode = error.code;
