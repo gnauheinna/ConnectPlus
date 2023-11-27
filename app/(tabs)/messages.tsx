@@ -230,7 +230,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     marginTop: -30,
     backgroundColor: "transparent",
-    shadowColor: 'rgba(73, 0, 108, 0.11)',
+    shadowColor: "rgba(73, 0, 108, 0.11)",
     shadowOffset: { width: 0, height: -2 },
     shadowOpacity: 0.5,
     shadowRadius: 4,

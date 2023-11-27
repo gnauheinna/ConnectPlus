@@ -54,17 +54,17 @@ export default function ChatBox() {
     if (!currentChatID) {
       const storedChatID = localStorage.getItem("currentChatID");
       if (storedChatID !== null) {
-        console.log("this is storedChatID: ", storedChatID);
+        //console.log("this is storedChatID: ", storedChatID);
         setCurrentChatID(storedChatID);
       }
       const storedChatName = localStorage.getItem("currentChatName");
       if (storedChatName !== null) {
-        console.log("this is storedChatName: ", storedChatName);
+        //console.log("this is storedChatName: ", storedChatName);
         setCurrentChatName(storedChatName);
       }
       const storedChatUserID = localStorage.getItem("currentChatUserID");
       if (storedChatUserID !== null) {
-        console.log("this is storedChatUserID: ", storedChatUserID);
+        //console.log("this is storedChatUserID: ", storedChatUserID);
         setCurrentChatUserID(storedChatUserID);
       }
     } else {
@@ -114,6 +114,8 @@ export default function ChatBox() {
         date: Timestamp.now(),
       }),
     });
+    console.log("current senderID: ", user.userID);
+    console.log("current receiverID: ", currentChatUserID);
 
     await updateDoc(doc(db, "userChats", user.userID), {
       [currentChatID + ".lastMessage"]: inputText.toString(),
@@ -132,7 +134,7 @@ export default function ChatBox() {
   const flatListRef = useRef<FlatList<Chats>>(null);
 
   useEffect(() => {
-    flatListRef.current?.scrollToEnd({animated: true});
+    flatListRef.current?.scrollToEnd({ animated: true });
   }, [chats]);
 
   return (
