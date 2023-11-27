@@ -121,7 +121,7 @@ export default function Message() {
     <View style={styles.outterContainer}>
       <View style={styles.container}>
         <ImageBackground
-          source={require("../../assets/images/background.png")}
+          source={require("../../assets/images/gradient/messagesBackground.png")}
           resizeMode="cover"
           style={styles.gradientBackground}
         >
@@ -228,11 +228,10 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     marginTop: -30,
     backgroundColor: "transparent",
-    shadowColor: "rgba(0, 0, 0, 0.02)",
+    shadowColor: 'rgba(73, 0, 108, 0.11)',
     shadowOffset: { width: 0, height: -2 },
-    shadowRadius: 22,
-    elevation: 22,
-    shadowOpacity: 1,
+    shadowOpacity: 0.5,
+    shadowRadius: 4,
   },
   messagesMainContainer: {
     borderRadius: 30,

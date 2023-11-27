@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useRef, useState, useEffect, useContext } from "react";
 import {
   ScrollView,
   StyleSheet,
@@ -128,6 +128,13 @@ export default function ChatBox() {
     setInputText("");
   };
 
+  // NOT WORKING YET
+  const flatListRef = useRef<FlatList<Chats>>(null);
+
+  useEffect(() => {
+    flatListRef.current?.scrollToEnd({animated: true});
+  }, [chats]);
+
   return (
     <View style={styles.outermostContainer}>
       <View style={styles.topPortionContainer}>
@@ -167,21 +174,26 @@ export default function ChatBox() {
             </Text>
           </View>
         ) : (
-          <FlatList
-            data={chats}
-            renderItem={({ item }) => (
-              <View
-                style={
-                  item.senderID == user.userID
-                    ? styles.sentMessageContainer
-                    : styles.receivedMessageContainer
-                }
-              >
-                <Text style={styles.sentMessageText}>{item.text}</Text>
-              </View>
-            )}
-            keyExtractor={(item, index) => index.toString()}
-          />
+          <View style={styles.chatsContainer}>
+            <FlatList
+              ref={flatListRef}
+              // initialScrollIndex={1}
+              showsVerticalScrollIndicator={false}
+              data={chats}
+              renderItem={({ item }) => (
+                <View
+                  style={
+                    item.senderID == user.userID
+                      ? styles.sentMessageContainer
+                      : styles.receivedMessageContainer
+                  }
+                >
+                  <Text style={styles.sentMessageText}>{item.text}</Text>
+                </View>
+              )}
+              keyExtractor={(item, index) => index.toString()}
+            />
+          </View>
         )}
       </View>
 
@@ -190,7 +202,7 @@ export default function ChatBox() {
         <TouchableOpacity style={styles.inputMessageBox}>
           <TextInput
             style={styles.inputText}
-            placeholder="Search"
+            placeholder="Type your message"
             onChangeText={(text) => {
               setInputText(text);
             }}
@@ -275,6 +287,9 @@ const styles = StyleSheet.create({
     textAlign: "center",
     lineHeight: 25,
   },
+  chatsContainer: {
+    height: 650,
+  },
   sentMessageContainer: {
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
@@ -314,17 +329,18 @@ const styles = StyleSheet.create({
   },
   inputMessageContainer: {
     flexDirection: "row",
-    // justifyContent: "space-between",
     position: "absolute",
     bottom: 20,
     width: "100%",
     marginLeft: 20,
     marginRight: 20,
+    backgroundColor: "transparent",
   },
   inputMessageBox: {
     borderRadius: 30,
     backgroundColor: "#EFEFEF",
     width: 280,
+    height: 42,
     marginRight: 20,
   },
   messageText: {
@@ -341,7 +357,8 @@ const styles = StyleSheet.create({
   },
   inputText: {
     color: "#777777",
-    fontSize: 20,
-    alignItems: "center",
+    fontSize: 16,
+    marginLeft: 20,
+    marginTop: 10,
   },
 });
