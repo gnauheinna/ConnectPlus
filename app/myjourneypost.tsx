@@ -18,6 +18,7 @@ import { useUser } from "./context/UserContext";
 export default function MyJourneyPost() {
   const router = useRouter();
   const { user, setUser } = useUser();
+  const [isSaved, setIsSaved] = useState(false);
   // Extract the mentor's name from the end of the URL
   const urlParams = new URLSearchParams(window.location.search);
   const mentorName = urlParams.get("name");
@@ -135,13 +136,18 @@ export default function MyJourneyPost() {
           {/* Post Title & Save Button */}
           <View style={styles.titleAndSaveButtonContainer}>
             <View style={styles.postTitleContainer}>
-              <Text style={styles.postDate}>Nov 6th 2023</Text>
-              <Text style={styles.postTitle}>Alternative Service Break</Text>
-            </View>
-            <View style={styles.saveButton}>
-              <Image
-                source={require("../assets/images/icons/journeySaved.png")}
-              />
+              <View style={styles.timeAndSaveContainer}>
+                {/* Timestamp */}
+                <Text style={styles.postDate}>Nov 6th 2023</Text>
+                {/* Save Button */}
+                <TouchableOpacity onPress={() => setIsSaved(!isSaved)}>
+                  <Image style={styles.saveIcon} 
+                    source={isSaved ? require("../assets/images/icons/journeySaved.png") : require("../assets/images/icons/journeyUnsaved.png")}
+                  />
+                </TouchableOpacity>
+              </View>
+              {/* Title */}
+              <Text style={styles.postTitle}>School Program - Alternative Service Break</Text>
             </View>
           </View>
           {/* Author's information */}
@@ -392,7 +398,6 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   backBtnContainer: {
-    // position: 'absolute', 
     top: 20, 
     left: 20,
     alignSelf: "flex-start",
@@ -418,7 +423,6 @@ const styles = StyleSheet.create({
     shadowColor: "rgba(0, 0, 0, 0.02)",
     shadowOffset: { width: 0, height: -2 },
     shadowRadius: 22,
-    elevation: 22,
     shadowOpacity: 1,
   },
   topPortionContainer: {
@@ -430,10 +434,20 @@ const styles = StyleSheet.create({
   },
   titleAndSaveButtonContainer: {
     flexDirection: "row",
-    width: "100%",
+    // width: "100%",
   },
   postTitleContainer: {
-    width: 320,
+    width: "100%",
+  },
+  timeAndSaveContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 10,
+  },
+  saveIcon: {
+    width: 26,
+    height: 26,
+    resizeMode: "contain",
   },
   postDate: {
     color: "#818181",
@@ -445,10 +459,7 @@ const styles = StyleSheet.create({
     color: "#000000",
     fontSize: 28,
     fontWeight: "bold",
-  },
-  saveButton: {
-    width: 36,
-    height: 36,
+    width: "100%",
   },
   authorInfoContainer: {
     flexDirection: "row",
