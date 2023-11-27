@@ -155,6 +155,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     marginLeft: 20,
     marginRight: 20,
+    marginTop: 20,
   },
   mainContainer: {
     flex: 1,
@@ -189,7 +190,8 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     marginRight: 20,
   },
-  replyPostContainer: {},
+  replyPostContainer: {
+  },
   replyPostImg: {
     maxWidth: 60,
     maxHeight: 20,
