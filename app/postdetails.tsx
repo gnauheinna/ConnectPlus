@@ -48,89 +48,71 @@ export default function PostDetails() {
   }, [allPosts]);
   return (
     <View style={styles.outermostContainer}>
-      {/* <View style={styles.tempContainer}> */}
+      <View style={styles.tempContainer}>
       {/*  Back Button */}
-      <View style={styles.backBtnContainer}>
-        <TouchableOpacity
-          style={styles.backBtn}
-          onPress={() => {
-            router.push("/community");
-          }}
-        >
-          <Image
-            style={styles.backBtnImg}
-            source={require("../assets/images/icons/blackBack.png")}
-          />
-        </TouchableOpacity>
-      </View>
-      <View style={styles.container}>
-        <View style={styles.mainContainer}>
-          <View>
-            {/* Displays the post */}
-            <IndividualPost postId={curPostID} />
-            <View style={styles.bottomPartContainer}>
-              {/* Display the like icon and like number */}
-              <TouchableOpacity style={styles.postLikesContainer}>
-                <Image
-                  style={styles.postLikesImg}
-                  source={require("../assets/images/icons/filledHeart.png")}
-                />
-                <Text style={styles.postLikesText}>35</Text>
-              </TouchableOpacity>
-              {/* Display the reply button */}
-              <TouchableOpacity style={styles.replyPostContainer}>
-                <Image
-                  style={styles.replyPostImg}
-                  source={require("../assets/images/icons/reply.png")}
-                />
-              </TouchableOpacity>
-            </View>
-          </View>
-          {/* Divider line */}
-          <View
-            style={{
-              borderBottomColor: "#EEEEEE",
-              borderBottomWidth: 1,
-              marginTop: 20,
+        <View style={styles.backBtnContainer}>
+          <TouchableOpacity style={styles.backBtn}
+            onPress={() => {
+              router.push("/community");
             }}
-          />
-          {/* Display the comments */}
-          <View>
-            <Text style={styles.replyTitle}>Replies</Text>
-          </View>
-
-          <ScrollView
-            style={styles.commentsContainer}
-            showsHorizontalScrollIndicator={false}
           >
-            {/* <IndividualComment
-              username={"Sally Smith"}
-              intro={"Class of 2026, CS Major"}
-              timestamp={"1h"}
-              content={"Thank you for sharing these tips!"}
-            /> */}
-            <IndividualComment
-              username={"Ben Wilson"}
-              intro={"Class of 2027, Business Major"}
-              timestamp={"5h"}
-              content={"I would love to connect with you."}
-            />
-            <IndividualComment
-              username={"Stella Liam"}
-              intro={"Class of 2026, Biology Major"}
-              timestamp={"1d"}
-              content={"Who should I reach out to for more academic guidance?"}
-            />
-            <IndividualComment
-              username={"Lana Lei"}
-              intro={"Class of 2027, Data Science Major"}
-              timestamp={"2d"}
-              content={"Very useful information. Thank you!"}
-            />
-          </ScrollView>
+            <Image style={styles.backBtnImg} source={require("../assets/images/icons/blackBack.png")}/>
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.container}>
+          <View style={styles.mainContainer}>
+            <View style={styles.postContainer}>
+              {/* Displays the post */}
+              <IndividualPost postId={curPostID} />
+              <View style={styles.bottomPartContainer}>
+                {/* Display the like icon and like number */}
+                <TouchableOpacity style={styles.postLikesContainer}>
+                  <Image
+                    style={styles.postLikesImg}
+                    source={require("../assets/images/icons/filledHeart.png")}
+                  />
+                  <Text style={styles.postLikesText}>35</Text>
+                </TouchableOpacity>
+                {/* Display the reply button */}
+                <TouchableOpacity style={styles.replyPostContainer}>
+                  <Image
+                    style={styles.replyPostImg}
+                    source={require("../assets/images/icons/reply.png")}
+                  />
+                </TouchableOpacity>
+              </View>
+            </View>
+            {/* Divider line */}
+            <View style={styles.dividerLine}/>
+            {/* Display the comments */}
+            <View style={styles.repliesTitle}>
+              <Text style={styles.replyTitle}>Replies</Text>
+            </View>
+
+            <ScrollView style={styles.commentsContainer} showsHorizontalScrollIndicator={false}>
+              <IndividualComment
+                username={"Ben Wilson"}
+                intro={"Class of 2027, Business Major"}
+                timestamp={"5h"}
+                content={"I would love to connect with you."}
+              />
+              <IndividualComment
+                username={"Stella Liam"}
+                intro={"Class of 2026, Biology Major"}
+                timestamp={"1d"}
+                content={"Who should I reach out to for more academic guidance?"}
+              />
+              <IndividualComment
+                username={"Lana Lei"}
+                intro={"Class of 2027, Data Science Major"}
+                timestamp={"2d"}
+                content={"Very useful information. Thank you!"}
+              />
+            </ScrollView>
+          </View>
         </View>
       </View>
-      {/* </View> */}
     </View>
   );
 }
@@ -139,6 +121,10 @@ const styles = StyleSheet.create({
   outermostContainer: {
     flex: 1,
     backgroundColor: "white",
+  },
+  tempContainer: {
+    marginLeft: 20,
+    marginRight: 20,
   },
   backBtnContainer: {
     marginTop: 40,
@@ -174,6 +160,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
   },
+  postContainer: {
+    marginLeft: 20,
+    marginRight: 20,
+  },
   bottomPartContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -191,6 +181,13 @@ const styles = StyleSheet.create({
   },
   postLikesText: {
     fontSize: 14,
+  },
+  dividerLine: {
+    borderBottomColor: "#EEEEEE",
+    borderBottomWidth: 1,
+    marginTop: 20,
+    marginLeft: 20,
+    marginRight: 20,
   },
   replyPostContainer: {},
   replyPostImg: {
@@ -225,26 +222,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     textAlign: "left",
   },
-  iconsOnPosts: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    backgroundColor: "#E6DBF3",
-    borderBottomLeftRadius: 12,
-    borderBottomRightRadius: 12,
-    paddingHorizontal: 0,
-    marginBottom: 20,
-  },
-  iconWrapper: {
-    marginHorizontal: 8,
-    paddingTop: 10,
-    paddingBottom: 10,
-  },
-  icons: {
-    width: 28,
-    height: 28,
-    resizeMode: "contain",
-  },
   verticalLine: {
     width: 1.5,
     height: 33,
@@ -252,5 +229,12 @@ const styles = StyleSheet.create({
     marginRight: 8,
     marginLeft: 8,
   },
-  commentsContainer: {},
+  repliesTitle: {
+    marginRight: 20,
+    marginLeft: 20,
+  },
+  commentsContainer: {
+    // marginRight: 20,
+    // marginLeft: 20,
+  },
 });

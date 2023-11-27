@@ -193,7 +193,9 @@ const styles = StyleSheet.create({
   outterContainer: {
     flex: 1,
   },
-  container: {},
+  container: {
+    marginBottom: 10,
+  },
   topContainer: {
     marginLeft: 20,
     marginRight: 20,
