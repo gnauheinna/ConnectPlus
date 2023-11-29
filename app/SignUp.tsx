@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, Text, Button, StyleSheet, Alert } from "react-native";
 import { TextInput } from "react-native-paper";
 import { useRouter } from "expo-router";
-import { TouchableOpacity } from "react-native";
+import { TouchableOpacity, ImageBackground, } from "react-native";
 import firebase from "firebase/app";
 import {
   getAuth,
@@ -142,6 +142,11 @@ const SignupForm = () => {
 
   return (
     <View style={styles.outterMostContainer}>
+      <ImageBackground
+            source={require("../assets/images/gradient/whiteGradientAskNShare.png")}
+            resizeMode="cover"
+            style={styles.gradientBackground}
+          >
       {/* Back Button */}
       <View style={styles.backBtnContainer}>
         <TouchableOpacity style={styles.backBtn} onPress={directToIndex}>
@@ -151,13 +156,13 @@ const SignupForm = () => {
           />
         </TouchableOpacity>
       </View>
+      </ImageBackground>
       <View style={styles.container}>
         <Text style={[styles.title]}>Create Your Account</Text>
         <Text style={[styles.subTitle]}>
           Lorem ipsum dolor sit amet consectetur. Quisque mi metus aliquam sed
           neque.
         </Text>
-
         <View style={{ marginTop: 5 }}>
           <View style={[styles.inputContainer]}>
             <Image
@@ -257,30 +262,30 @@ const SignupForm = () => {
         </View>
       </View>
 
-      <TouchableOpacity style={styles.nextButton} onPress={handleSignup}>
-        <Text style={styles.nextButtonText}>Next</Text>
-      </TouchableOpacity>
+      <View style={styles.nextButtonContainer}>
+        <TouchableOpacity style={styles.nextButton} onPress={handleSignup}>
+          <Text style={styles.nextButtonText}>Next</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   outterMostContainer: {
-    backgroundColor: "white",
+    backgroundColor: "#F9F6FF",
+    flex: 1,
   },
   container: {
-    flex: 1,
     justifyContent: "flex-start",
-    padding: 20,
-    // marginTop: 50,
+    marginLeft: 40,
+    marginRight: 40,
   },
   backBtnContainer: {
-    // position: 'absolute',
-    top: 20,
-    left: 20,
+    marginTop: 60,
+    marginLeft: 40,
     alignSelf: "flex-start",
     justifyContent: "center",
-    marginBottom: 40,
   },
   backBtn: {
     padding: 5,
@@ -291,19 +296,23 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
   },
-  inputContainer: {
-    flexDirection: "row",
+  gradientBackground: {
+    width: "100%",
+    height: 130,
+    zIndex: 1,
   },
   title: {
     fontSize: 28,
     fontWeight: "bold",
     marginBottom: 20,
     color: "#453B4F",
+    zIndex: 2,
   },
   subTitle: {
     fontSize: 16,
     marginBottom: 30,
     color: "#453B4F",
+    zIndex: 2,
   },
   signUpIcons: {
     width: 26,
@@ -311,23 +320,32 @@ const styles = StyleSheet.create({
     position: "absolute",
     resizeMode: "contain",
     alignSelf: "center",
+    zIndex: 1,
+    marginLeft: 10,
+  },
+  inputContainer: {
+    flexDirection: "row",
   },
   input: {
-    borderRadius: 5,
+    borderRadius: 10,
     paddingLeft: 30,
     width: "80%",
+    height: 42,
     marginVertical: 10,
-    backgroundColor: "transparent",
-    borderBottomWidth: 0.5,
+    backgroundColor: "white",
+    borderBottomWidth: 0,
     borderColor: "#E3E3E3",
     flex: 1,
     fontSize: 16,
   },
+  nextButtonContainer: {
+    marginLeft: 40,
+    marginRight: 40,
+  },
   nextButton: {
     backgroundColor: "#FFC940",
-    marginTop: 40,
-    marginBottom: 40,
-    width: 240,
+    marginTop: 60,
+    width: "100%",
     borderRadius: 25,
     paddingVertical: 12,
     paddingHorizontal: 20,
