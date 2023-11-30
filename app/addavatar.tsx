@@ -172,12 +172,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginBottom: 20,
     color: "#453B4F",
+    lineHeight: 24,
   },
   avatarsContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
-    // justifyContent: "center",
-    // alignSelf: "center",
   },
   avatar: {
     width: 90,

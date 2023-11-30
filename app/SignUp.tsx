@@ -313,6 +313,7 @@ const styles = StyleSheet.create({
     marginBottom: 30,
     color: "#453B4F",
     zIndex: 2,
+    lineHeight: 24,
   },
   signUpIcons: {
     width: 26,
