@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { StyleSheet, View, Text, TextInput } from "react-native";
+import { StyleSheet, View, Text, TextInput, ImageBackground } from "react-native";
 import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
 import { TouchableOpacity } from "react-native";
@@ -74,12 +74,17 @@ export default function interestScreen() {
   return (
 <View style={styles.outterMostContainer}>
 
+<ImageBackground
+     source={require("../assets/images/gradient/whiteGradientAskNShare.png")}
+     resizeMode="cover"
+      style={styles.gradientBackground}>
   {/* Back Button */}
   <View style={styles.backBtnContainer}>
             <TouchableOpacity style={styles.backBtn} onPress={directToAddAvatar}>
               <Image style={styles.backBtnImg} source={require("../assets/images/icons/blackBack.png")}/>
             </TouchableOpacity>
   </View>
+  </ImageBackground>
 
       <View style={styles.mainContainer}>
         <Text style={[styles.title]}>Last Steps</Text>
@@ -144,50 +149,55 @@ export default function interestScreen() {
         </View>
 
         {/* Done Button */}
-        {!AIsChecked && !FIsChecked && !SIsChecked && !CIsChecked ? (
-          // Render this when none of the interests is selected
-          <TouchableOpacity style={styles.doneButtonDisabled} onPress={nextPage}>
-          <Text style={styles.doneButtonTextDisabled}>Done</Text>
-        </TouchableOpacity>
-        ) : (
-        <TouchableOpacity style={styles.doneButton} onPress={nextPage}>
-          <Text style={styles.doneButtonText}>Done</Text>
-        </TouchableOpacity>)}
-
+        <View style={styles.doneButtonContainer}>
+          {!AIsChecked && !FIsChecked && !SIsChecked && !CIsChecked ? (
+            // Render this when none of the interests is selected
+            <TouchableOpacity style={styles.doneButtonDisabled} onPress={nextPage}>
+              <Text style={styles.doneButtonTextDisabled}>Done</Text>
+            </TouchableOpacity>
+          ) : (
+          <TouchableOpacity style={styles.doneButton} onPress={nextPage}>
+            <Text style={styles.doneButtonText}>Done</Text>
+          </TouchableOpacity>)}
       </View>
-      </View>
+    </View>
+  </View>
   );
 }
 
 const styles = StyleSheet.create({
   outterMostContainer: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: "#F9F6FF",
+  },
+  gradientBackground: {
+    width: "100%",
+    height: 130,
+    zIndex: 1,
   },
   container: {
-    backgroundColor: "white",
+    backgroundColor: "#F9F6FF",
     flex: 1,
   },
   mainContainer: {
     flex: 1,
     justifyContent: "flex-start",
-    padding: 20,
-    marginTop: 50,
+    marginLeft: 40,
+    marginRight: 40,
   },
   inputContainer: {
     flexDirection: "row",
   },
   backBtnContainer: {
-    top: 20, 
-    left: 20,
+    marginTop: 60,
+    marginLeft: 40,
     alignSelf: "flex-start",
-    justifyContent: 'center',
-    marginBottom: 40,
+    justifyContent: "center",
   },
   backBtn: {
     padding: 5,
     resizeMode: "contain",
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   backBtnImg: {
     width: 20,
@@ -198,11 +208,14 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 20,
     color: "#453B4F",
+    zIndex: 2,
   },
   subTitle: {
     fontSize: 16,
     marginBottom: 50,
     color: "#453B4F",
+    zIndex: 2,
+    lineHeight: 24,
   },
   interestBoxContainer: {
     flexDirection: "row",
@@ -210,25 +223,36 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   interestBoxSelected: {
-    width: 165,
-    height: 140,
+    width: 145,
+    height: 120,
     marginBottom: 20,
-    borderWidth: 1.5,
     borderRadius: 10,
-    borderColor: "#FFC940",
+    backgroundColor: "#FFEAB0",
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: "#FFEAB6",
+    shadowColor: "#49006C",
+    shadowOffset: {
+      width: -2,
+      height: 4,
+    },
+    shadowOpacity: 0.06,
+    shadowRadius: 10,
   },
   interestBox: {
-    width: 165,
-    height: 140,
+    width: 145,
+    height: 120,
     marginBottom: 20,
-    borderWidth: 1.5,
     borderRadius: 10,
-    borderColor: "#453B4F",
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: "white",
+    shadowColor: "#49006C",
+    shadowOffset: {
+      width: -2,
+      height: 4,
+    },
+    shadowOpacity: 0.06,
+    shadowRadius: 10,
   },
   interestIcons:{
     width: 70,
@@ -246,11 +270,16 @@ const styles = StyleSheet.create({
   checkbox: {
     borderRadius: 30,
   },
+  doneButtonContainer: {
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
   doneButtonDisabled:{
     backgroundColor: "#DADADA",
     marginTop: 40,
     marginBottom: 40,
-    width: 240,
+    width: "100%",
     borderRadius: 25,
     paddingVertical: 12,
     paddingHorizontal: 20,
@@ -265,7 +294,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFC940",
     marginTop: 40,
     marginBottom: 40,
-    width: 240,
+    width: "100%",
     borderRadius: 25,
     paddingVertical: 12,
     paddingHorizontal: 20,

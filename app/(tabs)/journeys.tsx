@@ -1,7 +1,7 @@
 import EditScreenInfo from "../../components/EditScreenInfo";
 import { Text, View } from "../../components/Themed";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { StyleSheet, ScrollView, Image } from "react-native";
+import { StyleSheet, ScrollView, Image, ImageBackground } from "react-native";
 import MyJourneyPost from "../myjourneypost";
 import { useRouter } from "expo-router";
 import React, { useState, useEffect } from "react";
@@ -22,11 +22,16 @@ export default function JourneyScreen() {
         resizeMode="cover"
         style={styles.gradientBackground}
       > */}
-      <View style={styles.container}>
-        <View style={styles.journeyBigTitleContainer}>
+      <ImageBackground
+        source={require("../../assets/images/gradient/whiteGradientAskNShare.png")}
+        resizeMode="cover"
+        style={styles.gradientBackground}
+      >
+      <View style={styles.journeyBigTitleContainer}>
           <Text style={styles.journeyBigTitle}>My Journey</Text>
-        </View>
-
+      </View>
+      </ImageBackground>
+      <View style={styles.container}>
         <View style={styles.journeySubTitleContainer}>
           <Text style={styles.journeySubTitle}>Featured</Text>
         </View>
@@ -105,6 +110,11 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#F9F6FF",
   },
+  gradientBackground: {
+    width: "100%",
+    height: 150,
+    zIndex: 1,
+  },
   container: {
     flex: 1,
     marginLeft: 20,
@@ -113,7 +123,10 @@ const styles = StyleSheet.create({
   },
   journeyBigTitleContainer: {
     marginTop: 60,
-    backgroundColor: "#F9F6FF",
+    backgroundColor: "transparent",
+    marginLeft: 20,
+    marginRight: 20,
+    zIndex: 2,
   },
   journeyBigTitle: {
     fontSize: 36,
