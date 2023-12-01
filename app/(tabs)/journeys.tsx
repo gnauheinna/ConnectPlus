@@ -36,7 +36,7 @@ export default function JourneyScreen() {
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             {/* 1st Featured Journey */}
             <TouchableOpacity
-              onPress={() => directToMyJourneyPost("rachelli")}
+              onPress={() => directToMyJourneyPost("rachel")}
               style={styles.featuredJourney}
             >
               <Image
@@ -47,7 +47,7 @@ export default function JourneyScreen() {
 
             {/* 2nd Featured Journey */}
             <TouchableOpacity
-              onPress={() => directToMyJourneyPost("racheili")}
+              onPress={() => directToMyJourneyPost("rachel")}
               style={styles.featuredJourney}
             >
               <Image
