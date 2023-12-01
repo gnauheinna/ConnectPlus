@@ -9,7 +9,7 @@ import React, { useState, useEffect } from "react";
 export default function JourneyScreen() {
   const router = useRouter();
   function directToMyJourneyPost(postName: string) {
-    router.push(`/myjourneypost?name=${postName}`);
+    router.push(`/myjourneyposts/${postName}`);
   }
 
   const urlParams = new URLSearchParams(window.location.search);
@@ -68,7 +68,7 @@ export default function JourneyScreen() {
             {/* Neri Ajiatas Arreaga's Journey */}
             <TouchableOpacity
               style={styles.individualJourney}
-              onPress={() => directToMyJourneyPost("shatevalong")}
+              onPress={() => directToMyJourneyPost("neri")}
             >
               {/* Mentor's Image */}
               <View style={styles.mentorImgContainer}>
@@ -94,7 +94,7 @@ export default function JourneyScreen() {
             {/* Shateva Long's Journey */}
             <TouchableOpacity
               style={styles.individualJourney}
-              onPress={() => directToMyJourneyPost("shatevalong")}
+              onPress={() => directToMyJourneyPost("shateva")}
             >
               {/* Mentor's Image */}
               <View style={styles.mentorImgContainer}>
@@ -120,7 +120,7 @@ export default function JourneyScreen() {
             {/* Julia Tran's Journey */}
             <TouchableOpacity
               style={styles.individualJourney}
-              onPress={() => directToMyJourneyPost("shatevalong")}
+              onPress={() => directToMyJourneyPost("julia")}
             >
               {/* Mentor's Image */}
               <View style={styles.mentorImgContainer}>
