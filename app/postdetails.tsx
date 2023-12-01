@@ -9,6 +9,7 @@ import IndividualComment from "../components/individualComment";
 import { useRouter } from "expo-router";
 import { PostIdContext, PostIdProvider } from "./context/PostIDContext";
 import { Post, usePostContext } from "./context/postContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function PostDetails() {
   //use PostIDContext
@@ -20,15 +21,18 @@ export default function PostDetails() {
 
   useEffect(() => {
     // set curPostID from local storage when the page refreshes
-    if (!curPostID) {
-      const storedPostID = localStorage.getItem("curPostID");
-      if (storedPostID !== null) {
-        console.log("this is storedChatID: ", storedPostID);
-        setCurPostID(storedPostID);
+    const setPostIDFromStorage = async () => {
+      if (curPostID != "") {
+        const storedPostID = await AsyncStorage.getItem("curPostID");
+        if (storedPostID !== null) {
+          console.log("this is storedChatID: ", storedPostID);
+          setCurPostID(storedPostID);
+        }
+      } else {
+        console.log("this is useEffect hook curPostID :", curPostID);
       }
-    } else {
-      console.log("this is useEffect hook curPostID :", curPostID);
-    }
+    };
+    setPostIDFromStorage();
   }, []);
 
   useEffect(() => {
@@ -49,14 +53,18 @@ export default function PostDetails() {
   return (
     <View style={styles.outermostContainer}>
       <View style={styles.tempContainer}>
-      {/*  Back Button */}
+        {/*  Back Button */}
         <View style={styles.backBtnContainer}>
-          <TouchableOpacity style={styles.backBtn}
+          <TouchableOpacity
+            style={styles.backBtn}
             onPress={() => {
               router.push("/community");
             }}
           >
-            <Image style={styles.backBtnImg} source={require("../assets/images/icons/blackBack.png")}/>
+            <Image
+              style={styles.backBtnImg}
+              source={require("../assets/images/icons/blackBack.png")}
+            />
           </TouchableOpacity>
         </View>
 
@@ -84,13 +92,16 @@ export default function PostDetails() {
               </View>
             </View>
             {/* Divider line */}
-            <View style={styles.dividerLine}/>
+            <View style={styles.dividerLine} />
             {/* Display the comments */}
             <View style={styles.repliesTitle}>
               <Text style={styles.replyTitle}>Replies</Text>
             </View>
 
-            <ScrollView style={styles.commentsContainer} showsHorizontalScrollIndicator={false}>
+            <ScrollView
+              style={styles.commentsContainer}
+              showsHorizontalScrollIndicator={false}
+            >
               <IndividualComment
                 username={"Ben Wilson"}
                 intro={"Class of 2027, Business Major"}
@@ -101,7 +112,9 @@ export default function PostDetails() {
                 username={"Stella Liam"}
                 intro={"Class of 2026, Biology Major"}
                 timestamp={"1d"}
-                content={"Who should I reach out to for more academic guidance?"}
+                content={
+                  "Who should I reach out to for more academic guidance?"
+                }
               />
               <IndividualComment
                 username={"Lana Lei"}

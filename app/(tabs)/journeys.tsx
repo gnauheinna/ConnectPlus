@@ -12,161 +12,161 @@ export default function JourneyScreen() {
     router.push(`/myjourneypost?name=${postName}`);
   }
 
-  const urlParams = new URLSearchParams(window.location.search);
+  //const urlParams = new URLSearchParams(window.location.search);
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
-    <View style={styles.outermostContainer}>
-      <View style={styles.container}>
-        <View style={styles.journeyBigTitleContainer}>
-          <Text style={styles.journeyBigTitle}>My Journey</Text>
-        </View>
+      <View style={styles.outermostContainer}>
+        <View style={styles.container}>
+          <View style={styles.journeyBigTitleContainer}>
+            <Text style={styles.journeyBigTitle}>My Journey</Text>
+          </View>
 
-        <View style={styles.journeySubTitleContainer}>
-          <Text style={styles.journeySubTitle}>Featured</Text>
-        </View>
+          <View style={styles.journeySubTitleContainer}>
+            <Text style={styles.journeySubTitle}>Featured</Text>
+          </View>
 
-        <View style={styles.featuredJourneysContainer}>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            {/* 1st Featured Journey */}
-            <TouchableOpacity
-              onPress={() => directToMyJourneyPost("rachelli")}
-              style={styles.featuredJourney}
-            >
-              <Image
-                style={styles.featuredJourneyImg}
-                source={require("../../assets/images/featuredMyJourneyPosts/RachelLi.png")}
-              />
-            </TouchableOpacity>
+          <View style={styles.featuredJourneysContainer}>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+              {/* 1st Featured Journey */}
+              <TouchableOpacity
+                onPress={() => directToMyJourneyPost("rachelli")}
+                style={styles.featuredJourney}
+              >
+                <Image
+                  style={styles.featuredJourneyImg}
+                  source={require("../../assets/images/featuredMyJourneyPosts/RachelLi.png")}
+                />
+              </TouchableOpacity>
 
-            {/* 2nd Featured Journey */}
-            <TouchableOpacity
-              onPress={() => directToMyJourneyPost("racheili")}
-              style={styles.featuredJourney}
-            >
-              <Image
-                style={styles.featuredJourneyImg}
-                source={require("../../assets/images/featuredMyJourneyPosts/RachelLi.png")}
-              />
-            </TouchableOpacity>
-          </ScrollView>
-        </View>
+              {/* 2nd Featured Journey */}
+              <TouchableOpacity
+                onPress={() => directToMyJourneyPost("racheili")}
+                style={styles.featuredJourney}
+              >
+                <Image
+                  style={styles.featuredJourneyImg}
+                  source={require("../../assets/images/featuredMyJourneyPosts/RachelLi.png")}
+                />
+              </TouchableOpacity>
+            </ScrollView>
+          </View>
 
-        <View style={styles.journeySubTitleContainer}>
-          <Text style={styles.journeySubTitle}>All</Text>
-        </View>
+          <View style={styles.journeySubTitleContainer}>
+            <Text style={styles.journeySubTitle}>All</Text>
+          </View>
 
-        <View style={styles.allJourneysContainer}>
-          <ScrollView showsVerticalScrollIndicator={false}>
-            {/* 1st Journey */}
-            <TouchableOpacity
-              style={styles.individualJourney}
-              onPress={() => directToMyJourneyPost("shatevalong")}
-            >
-              <Image
-                style={styles.miniGradient}
-                source={require("../../assets/images/gradient/miniGradient1.png")}
-              />
-              <View style={styles.journeyTextContainer}>
-                {/* Journey Title Info */}
-                <View style={styles.journeyTextNonFeaturedContainer}>
-                  <Text style={styles.journeyTitleNonFeatured}>
-                    I Got To Create My Own 4 Credit CS Course!{" "}
-                  </Text>
-                </View>
-                {/* Mentor Info */}
-                <View style={styles.individualJourneyUserContainer}>
-                  <View style={styles.userInfo}>
-                    <Image
-                      style={styles.profileImgNonFeatured}
-                      source={require("../../assets/images/mentorProfilePics/ShatevaLong.png")}
-                    />
-                    <View style={styles.userNameAndIntro}>
-                      <Text style={styles.userNameNonFeatured}>
-                        Shateva Long
-                      </Text>
-                      <Text style={styles.userIntroNonFeatured}>Alumni</Text>
+          <View style={styles.allJourneysContainer}>
+            <ScrollView showsVerticalScrollIndicator={false}>
+              {/* 1st Journey */}
+              <TouchableOpacity
+                style={styles.individualJourney}
+                onPress={() => directToMyJourneyPost("shatevalong")}
+              >
+                <Image
+                  style={styles.miniGradient}
+                  source={require("../../assets/images/gradient/miniGradient1.png")}
+                />
+                <View style={styles.journeyTextContainer}>
+                  {/* Journey Title Info */}
+                  <View style={styles.journeyTextNonFeaturedContainer}>
+                    <Text style={styles.journeyTitleNonFeatured}>
+                      I Got To Create My Own 4 Credit CS Course!{" "}
+                    </Text>
+                  </View>
+                  {/* Mentor Info */}
+                  <View style={styles.individualJourneyUserContainer}>
+                    <View style={styles.userInfo}>
+                      <Image
+                        style={styles.profileImgNonFeatured}
+                        source={require("../../assets/images/mentorProfilePics/ShatevaLong.png")}
+                      />
+                      <View style={styles.userNameAndIntro}>
+                        <Text style={styles.userNameNonFeatured}>
+                          Shateva Long
+                        </Text>
+                        <Text style={styles.userIntroNonFeatured}>Alumni</Text>
+                      </View>
                     </View>
                   </View>
                 </View>
-              </View>
-            </TouchableOpacity>
+              </TouchableOpacity>
 
-            {/* 2nd Journey */}
-            <TouchableOpacity
-              style={styles.individualJourney}
-              onPress={() => directToMyJourneyPost("racheili")}
-            >
-              <Image
-                style={styles.miniGradient}
-                source={require("../../assets/images/gradient/miniGradient2.png")}
-              />
-              <View style={styles.journeyTextContainer}>
-                {/* Journey Info */}
-                <View style={styles.journeyTextNonFeaturedContainer}>
-                  <Text style={styles.journeyTitleNonFeatured}>
-                    Finding Community{" "}
-                  </Text>
-                </View>
-                {/* Mentor Info */}
-                <View style={styles.individualJourneyUserContainer}>
-                  <View style={styles.userInfo}>
-                    <Image
-                      style={styles.profileImgNonFeatured}
-                      source={require("../../assets/images/mentorProfilePics/Neri.png")}
-                    />
-                    <View style={styles.userNameAndIntro}>
-                      <Text style={styles.userNameNonFeatured}>
-                        Neri Ajiatas Arreaga
-                      </Text>
-                      <Text style={styles.userIntroNonFeatured}>
-                        Class of 2025, Data Science Major
-                      </Text>
+              {/* 2nd Journey */}
+              <TouchableOpacity
+                style={styles.individualJourney}
+                onPress={() => directToMyJourneyPost("racheili")}
+              >
+                <Image
+                  style={styles.miniGradient}
+                  source={require("../../assets/images/gradient/miniGradient2.png")}
+                />
+                <View style={styles.journeyTextContainer}>
+                  {/* Journey Info */}
+                  <View style={styles.journeyTextNonFeaturedContainer}>
+                    <Text style={styles.journeyTitleNonFeatured}>
+                      Finding Community{" "}
+                    </Text>
+                  </View>
+                  {/* Mentor Info */}
+                  <View style={styles.individualJourneyUserContainer}>
+                    <View style={styles.userInfo}>
+                      <Image
+                        style={styles.profileImgNonFeatured}
+                        source={require("../../assets/images/mentorProfilePics/Neri.png")}
+                      />
+                      <View style={styles.userNameAndIntro}>
+                        <Text style={styles.userNameNonFeatured}>
+                          Neri Ajiatas Arreaga
+                        </Text>
+                        <Text style={styles.userIntroNonFeatured}>
+                          Class of 2025, Data Science Major
+                        </Text>
+                      </View>
                     </View>
                   </View>
                 </View>
-              </View>
-            </TouchableOpacity>
+              </TouchableOpacity>
 
-            {/* 3rd Journey */}
-            <TouchableOpacity
-              style={styles.individualJourney}
-              onPress={() => directToMyJourneyPost("racheili")}
-            >
-              <Image
-                style={styles.miniGradient}
-                source={require("../../assets/images/gradient/miniGradient3.png")}
-              />
-              <View style={styles.journeyTextContainer}>
-                {/* Journey Info */}
-                <View style={styles.journeyTextNonFeaturedContainer}>
-                  <Text style={styles.journeyTitleNonFeatured}>
-                    As A CS Girlie{" "}
-                  </Text>
-                </View>
-                {/* Mentor Info */}
-                <View style={styles.individualJourneyUserContainer}>
-                  <View style={styles.userInfo}>
-                    <Image
-                      style={styles.profileImgNonFeatured}
-                      source={require("../../assets/images/mentorProfilePics/RachelLi.png")}
-                    />
-                    <View style={styles.userNameAndIntro}>
-                      <Text style={styles.userNameNonFeatured}>
-                        Annie Huang
-                      </Text>
-                      <Text style={styles.userIntroNonFeatured}>
-                        Class of 2025, CS Major
-                      </Text>
+              {/* 3rd Journey */}
+              <TouchableOpacity
+                style={styles.individualJourney}
+                onPress={() => directToMyJourneyPost("racheili")}
+              >
+                <Image
+                  style={styles.miniGradient}
+                  source={require("../../assets/images/gradient/miniGradient3.png")}
+                />
+                <View style={styles.journeyTextContainer}>
+                  {/* Journey Info */}
+                  <View style={styles.journeyTextNonFeaturedContainer}>
+                    <Text style={styles.journeyTitleNonFeatured}>
+                      As A CS Girlie{" "}
+                    </Text>
+                  </View>
+                  {/* Mentor Info */}
+                  <View style={styles.individualJourneyUserContainer}>
+                    <View style={styles.userInfo}>
+                      <Image
+                        style={styles.profileImgNonFeatured}
+                        source={require("../../assets/images/mentorProfilePics/RachelLi.png")}
+                      />
+                      <View style={styles.userNameAndIntro}>
+                        <Text style={styles.userNameNonFeatured}>
+                          Annie Huang
+                        </Text>
+                        <Text style={styles.userIntroNonFeatured}>
+                          Class of 2025, CS Major
+                        </Text>
+                      </View>
                     </View>
                   </View>
                 </View>
-              </View>
-            </TouchableOpacity>
-          </ScrollView>
+              </TouchableOpacity>
+            </ScrollView>
+          </View>
         </View>
       </View>
-    </View>
     </ScrollView>
   );
 }
@@ -245,7 +245,6 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.08,
     shadowRadius: 10,
-    // elevation: 5,
   },
   featuredJourneyImg: {
     maxWidth: 300,
@@ -310,7 +309,6 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.09,
     shadowRadius: 10,
-    // elevation: 5,
   },
   miniGradient: {
     height: "100%",

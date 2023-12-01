@@ -23,6 +23,7 @@ import { useRouter } from "expo-router";
 import { useUser } from "../app/context/UserContext";
 import { PostProvider, usePostContext } from "../app/context/postContext";
 import { PostIdContext } from "../app/context/PostIDContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface IndividualPostProps {
   postId: string;
@@ -31,7 +32,7 @@ interface IndividualPostProps {
 const IndividualPost: React.FC<IndividualPostProps> = ({ postId }) => {
   const router = useRouter();
   function viewPostDetails() {
-    localStorage.setItem("curPostID", postId);
+    AsyncStorage.setItem("curPostID", postId);
     setCurPostID(postId);
     router.push("/postdetails");
   }
