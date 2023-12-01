@@ -68,35 +68,84 @@ export default function JourneyScreen() {
 
         <View style={styles.allJourneysContainer}>
           <ScrollView showsVerticalScrollIndicator={false}>
-            {/* 1st Journey */}
+            {/* Neri Ajiatas Arreaga's Journey */}
             <TouchableOpacity
               style={styles.individualJourney}
               onPress={() => directToMyJourneyPost("shatevalong")}
             >
-              {/* <View style={styles.mentorImgContainer}> */}
-                <Image style={styles.mentorImg} source={require("../../assets/images/mentorMyJourneyPics/shateva.png")} />
-              {/* </View> */}
+              {/* Mentor's Image */}
+              <View style={styles.mentorImgContainer}>
+                <Image
+                  style={styles.mentorImg}
+                  source={require("../../assets/images/mentorMyJourneyPics/neri.png")}
+                />
+              </View>
+              {/* Journey's title and mentor's information container */}
+              <View style={styles.journeyInfoContainer}>
+                {/* Journey's title */}
+                <View style={styles.journeyTitleContainer}>
+                  <Text style={styles.journeyTitle}>Finding Community</Text>
+                </View>
+                {/* Mentor's information container */}
+                <View style={styles.mentorInfoContainer}>
+                    <Text style={styles.mentorName}>Neri Ajiatas Arreaga</Text>
+                    <Text style={styles.mentorYear}>Class of 2025, Data Science Major</Text>
+                </View>
+              </View>
             </TouchableOpacity>
 
-            {/* 2nd Journey */}
+            {/* Shateva Long's Journey */}
             <TouchableOpacity
               style={styles.individualJourney}
               onPress={() => directToMyJourneyPost("shatevalong")}
             >
-              {/* <View style={styles.mentorImgContainer}> */}
-                <Image style={styles.mentorImg} source={require("../../assets/images/mentorMyJourneyPics/shateva.png")} />
-              {/* </View> */}
+              {/* Mentor's Image */}
+              <View style={styles.mentorImgContainer}>
+                <Image
+                  style={styles.mentorImg}
+                  source={require("../../assets/images/mentorMyJourneyPics/shateva.png")}
+                />
+              </View>
+              {/* Journey's title and mentor's information container */}
+              <View style={styles.journeyInfoContainer}>
+                {/* Journey's title */}
+                <View style={styles.journeyTitleContainer}>
+                  <Text style={styles.journeyTitle}>I Got To Create My Own 4 Credit CS Course!</Text>
+                </View>
+                {/* Mentor's information container */}
+                <View style={styles.mentorInfoContainer}>
+                    <Text style={styles.mentorName}>Shaetva Long</Text>
+                    <Text style={styles.mentorYear}>Alumni</Text>
+                </View>
+              </View>
             </TouchableOpacity>
 
-            {/* 3rd Journey */}
+            {/* Julia Tran's Journey */}
             <TouchableOpacity
               style={styles.individualJourney}
               onPress={() => directToMyJourneyPost("shatevalong")}
             >
-              {/* <View style={styles.mentorImgContainer}> */}
-                <Image style={styles.mentorImg} source={require("../../assets/images/mentorMyJourneyPics/shateva.png")} />
-              {/* </View> */}
+              {/* Mentor's Image */}
+              <View style={styles.mentorImgContainer}>
+                <Image
+                  style={styles.mentorImg}
+                  source={require("../../assets/images/mentorMyJourneyPics/julia.png")}
+                />
+              </View>
+              {/* Journey's title and mentor's information container */}
+              <View style={styles.journeyInfoContainer}>
+                {/* Journey's title */}
+                <View style={styles.journeyTitleContainer}>
+                  <Text style={styles.journeyTitle}>I (Accidentally) Got a Job!</Text>
+                </View>
+                {/* Mentor's information container */}
+                <View style={styles.mentorInfoContainer}>
+                    <Text style={styles.mentorName}>Julia Tran</Text>
+                    <Text style={styles.mentorYear}>Class of 2027, Business Administration Major</Text>
+                </View>
+              </View>
             </TouchableOpacity>
+
           </ScrollView>
         </View>
       </View>
@@ -197,31 +246,6 @@ const styles = StyleSheet.create({
     bottom: 0,
     paddingLeft: 16,
   },
-  // profileImg: {
-  //   width: 38,
-  //   height: 38,
-  //   marginRight: 10,
-  //   backgroundColor: "transparent",
-  // },
-  // userInfo: {
-  //   flexDirection: "row",
-  //   justifyContent: "space-between",
-  //   backgroundColor: "transparent",
-  // },
-  // userNameAndIntro: {
-  //   justifyContent: "center",
-  //   backgroundColor: "transparent",
-  // },
-  // userName: {
-  //   fontSize: 12,
-  //   fontWeight: "bold",
-  //   marginBottom: 5,
-  //   color: "#000000",
-  // },
-  // userIntro: {
-  //   fontSize: 10,
-  //   color: "#000000",
-  // },
   featuredJourney2: {
     width: 280,
     height: 180,
@@ -233,38 +257,61 @@ const styles = StyleSheet.create({
     marginTop: 10,
     justifyContent: "flex-start",
   },
-  // individualJourney: {
-  //   flexDirection: "row",
-  //   marginBottom: 16,
-    // shadowColor: "#000",
-    // shadowOffset: {
-    //   width: 0,
-    //   height: 2,
-    //   borderRadius: 15,
-    // },
-    // shadowOpacity: 0.09,
-    // shadowRadius: 10,
-  // },
+  individualJourney: {
+    flexDirection: "row",
+    marginBottom: 16,
+    backgroundColor: "white",
+    padding: 12,
+    borderRadius: 15,
+    shadowColor: "#49006C",
+    shadowOffset: {
+      width: -2,
+      height: 4,
+    },
+    shadowOpacity: 0.06,
+    shadowRadius: 10,
+  },
   journeyTextContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
-    // width: 240,
   },
   journeyTextNonFeaturedContainer: {
     top: 0,
     backgroundColor: "transparent",
     paddingTop: 16,
     marginRight: 16,
-    // width: 200,
   },
-  individualJourney: {
-    marginBottom: 5,
-    justifyContent: "flex-start",
+  mentorImgContainer: {
+    marginRight: 20,
+    justifyContent: 'center',
   },
   mentorImg: {
+    maxWidth: 80,
+    maxHeight: 80,
+  },
+  journeyInfoContainer: {
+    flexDirection: "column",
     flex: 1,
-    width: "100%",
-    height: 130,
-    // height: 130,
+    justifyContent: 'center',
+  },
+  journeyTitleContainer: {
+  },
+  journeyTitle: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginBottom: 16,
+    maxWidth: 200,
+    lineHeight: 20,
+  },
+  mentorInfoContainer: {
+  },
+  mentorName: {
+    fontSize: 13,
+    marginBottom: 4,
+  },
+  mentorYear: {
+    fontSize: 10,
+    color: "#7C7C7C",
+
   },
 });

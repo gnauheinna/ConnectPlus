@@ -226,7 +226,7 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
   },
   messagesContainer: {
-    zIndex: 2,
+    // zIndex: 2,
     borderRadius: 30,
     marginTop: -30,
     backgroundColor: "transparent",
@@ -238,6 +238,7 @@ const styles = StyleSheet.create({
   messagesMainContainer: {
     borderRadius: 30,
     backgroundColor: "white",
+    // zIndex: 2,
   },
   individualMessageContainer: {
     flexDirection: "row",
@@ -284,6 +285,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "95%",
     justifyContent: "flex-start",
+    zIndex: 2,
   },
   timestampContainer: {
     paddingTop: 20,
