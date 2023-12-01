@@ -17,11 +17,6 @@ export default function JourneyScreen() {
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
     <View style={styles.outermostContainer}>
-    {/* <ImageBackground
-        source={require("../../assets/images/gradient/whiteGradientAskNShare.png")}
-        resizeMode="cover"
-        style={styles.gradientBackground}
-      > */}
       <ImageBackground
         source={require("../../assets/images/gradient/whiteGradientAskNShare.png")}
         resizeMode="cover"
@@ -31,6 +26,7 @@ export default function JourneyScreen() {
           <Text style={styles.journeyBigTitle}>My Journey</Text>
       </View>
       </ImageBackground>
+
       <View style={styles.container}>
         <View style={styles.journeySubTitleContainer}>
           <Text style={styles.journeySubTitle}>Featured</Text>
@@ -63,7 +59,8 @@ export default function JourneyScreen() {
         </View>
 
         <View style={styles.journeySubTitleContainer}>
-          <Text style={styles.journeySubTitle}>All</Text>
+          <Text style={styles.journeySubTitle}>Hear From Others</Text>
+          <Text style={styles.seeAll}>See All</Text>
         </View>
 
         <View style={styles.allJourneysContainer}>
@@ -187,16 +184,22 @@ const styles = StyleSheet.create({
   },
   journeySubTitleContainer: {
     backgroundColor: "#F9F6FF",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 10,
+  },
+  seeAll: {
+    color: "#B4AEBB",
   },
   journeySubTitle: {
-    fontSize: 22,
-    color: "#B3AFB7",
+    fontSize: 20,
+    color: "#919191",
     fontWeight: "500",
-    marginBottom: 10,
     justifyContent: "flex-start",
   },
   featuredJourneysContainer: {
-    marginBottom: 16,
+    marginBottom: 32,
     backgroundColor: "#F9F6FF",
   },
   overlay: {
