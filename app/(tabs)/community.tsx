@@ -40,6 +40,7 @@ export default function CommunityScreen() {
   const auth = getAuth();
   const { user, setUser } = useUser();
   const [allPosts, setAllPosts] = useState<Post[]>([]);
+  const [likePressed, setlikePressed] = useState(false);
   // Set the initially selected tag to be All
   const [selectedTag, setSelectedTag] = useState("All");
   const [selectedAll, setSelectedAll] = useState(true);
@@ -66,6 +67,7 @@ export default function CommunityScreen() {
     (post) => post.tag === selectedTag || selectedTag === "All"
   );
 
+  
   return (
     <View style={styles.outermostContainer}>
       <ImageBackground
@@ -174,9 +176,13 @@ export default function CommunityScreen() {
                   <TouchableOpacity style={styles.postLikesContainer}>
                     <Image
                       style={styles.postLikesImg}
-                      source={require("../../assets/images/icons/filledHeart.png")}
+                      source={
+                        item.likes === 0 
+                          ? require("../../assets/images/icons/unfilledHeart.png") 
+                          : require("../../assets/images/icons/filledHeart.png")
+                      }
                     />
-                    <Text style={styles.postLikesText}>35</Text>
+                    <Text style={styles.postLikesText}>{item.likes}</Text>
                   </TouchableOpacity>
                   {/* Display the reply button */}
                   <TouchableOpacity style={styles.replyPostContainer}>
