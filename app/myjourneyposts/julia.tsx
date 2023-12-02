@@ -118,7 +118,7 @@ export default function MyJourneyPost() {
                 </TouchableOpacity>
               </View>
               {/* Title */}
-              <Text style={styles.postTitle}>I Got To Create My Own 4 Credit Computer Science Course!</Text>
+              <Text style={styles.postTitle}>I (Accidentally) Got a Job!</Text>
             </View>
           </View>
           {/* Author's information */}
@@ -129,7 +129,7 @@ export default function MyJourneyPost() {
             /> */}
             <View style={styles.userNameAndIntro}>
               <Text style={styles.userName}>Julia Tran</Text>
-              <Text style={styles.userIntro}>Class of 2025, Data Science Major</Text>
+              <Text style={styles.userIntro}>Class of 2027, Business Administration Major</Text>
             </View>
           </View>
         </View>
@@ -138,23 +138,9 @@ export default function MyJourneyPost() {
           <View style={styles.postContentMainContainer}>
             {/* 1st Step */}
             <View style={styles.individualStep}>
-              <View style={styles.subtitleContainer}>
-                <Text style={styles.subtitleText}>Theme</Text>
-              </View>
               <View style={styles.regularContentContainer}>
                 <Text style={styles.regularContentText}>
-                  If you’re a student working part-time, don’t have a meal plan,
-                  and shop for groceries on your own, here’s a resource for you:
-                  The{" "}
-                  <Text style={styles.regularContentTextBolded}>
-                    Supplemental Nutrition Assistance Program (SNAP){" "}
-                  </Text>
-                  gives people who are eligible around $80-$100 monthly funds to
-                  buy food. Navigating this process has been a headache. I spent
-                  hours on the phone with customer service, figuring out the
-                  right document to submit. Here is a guide to applying for SNAP
-                  from my own experience so that you can have a much smoother
-                  process.
+                I’m an Admissions Ambassador, leading campus tours around our Charles River Campus in BU gear you usually see on your way to class! At first, I thought it was a volunteering opportunity like a Club, so I applied, hoping to engage with BU’s community. What I didn’t anticipate going into the job was that I would get paid (of course!) and the motivation for me to step outside of my comfort zone, to do the things I wouldn’t normally do on my own accord. Getting a job doesn’t mean taking on an additional responsibility that might interfere with academics, but it can also be a chance to try something new and develop your skill set!
                 </Text>
               </View>
             </View>
@@ -165,78 +151,31 @@ export default function MyJourneyPost() {
               </View>
               <View style={styles.regularContentContainer}>
                 <Text style={styles.regularContentText}>
-                  {"1. Do a "}
-                  <TouchableOpacity
-                    onPress={() =>
-                      Linking.openURL(
-                        "https://dtaconnect.eohhs.mass.gov/screening?_gl=1*19vwokf*_ga*NDU5MDQyNTc0LjE2OTkzODAxNTk.*_ga_SW2TVH2WBY*MTY5OTM4MDE1OS4xLjAuMTY5OTM4MDE1OS4wLjAuMA.."
-                      )
-                    }
-                  >
-                    <Text style={styles.linkText}>quick check</Text>
-                  </TouchableOpacity>
-                  {" to see if you’re eligible."}
-                </Text>
-                <Text style={styles.regularContentText}>
-                  {"2. File the "}
-                  <TouchableOpacity
-                    onPress={() =>
-                      Linking.openURL(
-                        "https://dtaconnect.eohhs.mass.gov/?_gl=1*1qkcl0m*_ga*NDU5MDQyNTc0LjE2OTkzODAxNTk.*_ga_SW2TVH2WBY*MTY5OTM4MDE1OS4xLjEuMTY5OTM4MDUxMi4wLjAuMA.."
-                      )
-                    }
-                  >
-                    <Text style={styles.linkText}>initial application</Text>
-                  </TouchableOpacity>
-                  {"."}
-                </Text>
-                <Text style={styles.regularContentText}>
-                  3. The documents I submitted as a full-time student:{" "}
+                  1. Figure out what you can do: 
                 </Text>
                 <View style={styles.indentedContentContainer}>
                   <Text style={styles.regularContentText}>
-                    - Financial aid proof
+                    - For international students: You can only work on-campus for your first year. After one full year of education, however, you can expand to off-campus positions that sponsor a work visa. 
                   </Text>
                   <Text style={styles.regularContentText}>
-                    - Proof that you don’t have a meal plan on campus
-                  </Text>
-                  <Text style={styles.regularContentText}>
-                    - Proof of work-study
-                  </Text>
-                  <Text style={styles.regularContentText}>
-                    - Proof of other work you’re (or have been) participating in
+                    - For U.S. citizens: You can already go off-campus as a first-year. There is also a work-study award available if you are a U.S. citizen that automatically deposits your salary into your Student Account.
                   </Text>
                 </View>
+
                 <Text style={styles.regularContentText}>
-                  4. After the initial application, they require a phone
-                  interview asking you to verify the information.{" "}
+                  2. Search for available opportunities:
                 </Text>
-                <Text
-                  style={[styles.regularContentTextBolded, { marginTop: 20 }]}
-                >
-                  Additional Info:
-                </Text>
-                <Text style={styles.regularContentText}>
-                  {"1. Reach out to BU Housing "}
-                  <TouchableOpacity
-                    onPress={() => Linking.openURL("housing@bu.edu")}
-                  >
-                    <Text style={styles.linkText}>housing@bu.edu</Text>
-                  </TouchableOpacity>
-                  {" to request a signed document."}
-                </Text>
-                <Text style={styles.regularContentText}>
-                  2. You need to be actively participating in the work-study in
-                  order to be qualified. The number of hours you work doesn't
-                  matter.
-                </Text>
-                <Text style={styles.regularContentText}>
-                  3. Go to studentlink work portal to see if you can find a
-                  printable version. If not, reach out to your supervisor.
-                </Text>
-                <Text style={styles.regularContentText}>
-                  4. The document needs to have a specific start and end date.
-                </Text>
+                <View style={styles.indentedContentContainer}>
+                  <Text style={styles.regularContentText}>
+                    - Utilize your Student Link: You can find a list of On/Off-campus Part-time positions or Quick Jobs (one-time jobs) listed under the “Job and Career” tab with the eligibilities, pay rates, and contact information. You can then email the person(s) in charge of the job listings you find interesting to ask for more information or apply!
+                  </Text>
+                  <Text style={styles.regularContentText}>
+                    - Keep up with the BU Student Employment page: BU’s Student Employment Office has an official Instagram page. They post very frequently about available positions and job-tips for students on/off-campus.
+                  </Text>
+                  <Text style={styles.regularContentText}>
+                    - Ask around: Some jobs are referrals, so they are not officially posted on any websites or advertised on poster boards and bulletin boards. You can talk to the people you know who are currently working in a position or organization that you are interested in and they can let you know if they are recruiting.
+                  </Text>
+                </View>
               </View>
             </View>
             {/* 3rd Step */}
@@ -246,72 +185,49 @@ export default function MyJourneyPost() {
               </View>
               <View style={styles.regularContentContainer}>
                 <Text style={styles.regularContentText}>
-                  Trying to figure out what kind of document they need and being
-                  able to connect with a representative is the most daunting
-                  part.
+                  Sorting through the paperwork was a challenge for me. As an international student, there are certainly many more steps to get hired and get all of the required documents in, and it can be confusing at times. However, there are many resources out there that you can refer to, and you can always ask someone at work or your friends for help. Take it slow, you’re not supposed to know everything!
                 </Text>
               </View>
             </View>
             {/* 4th Step */}
             <View style={styles.individualStep}>
               <View style={styles.subtitleContainer}>
-                <Text style={styles.subtitleText}>Takeaways</Text>
-              </View>
-              <View style={styles.regularContentContainer}>
-                <Text style={styles.regularContentText}>
-                  - Try your best to not miss the scheduled phone call because
-                  it’s very hard to connect with a representative when you dial
-                  in yourself. The average wait time is around 30 min.
-                </Text>
-                <Text style={styles.regularContentText}>
-                  - Download DTA Connect App, it’s the place where you submit
-                  all the verification documents.
-                </Text>
-                <Text style={styles.regularContentText}>
-                  - Keep an eye on your mail. They will email letters to you
-                  with your case number (you need this number to sign into your
-                  DTA app account)
-                </Text>
-              </View>
-            </View>
-            {/* 5th Step */}
-            <View style={styles.individualStep}>
-              <View style={styles.subtitleContainer}>
                 <Text style={styles.subtitleText}>Resources</Text>
               </View>
               <View style={styles.regularContentContainer}>
                 <Text style={styles.regularContentText}>
-                  Here are BU resources related to food:
+                   <TouchableOpacity
+                      onPress={() =>
+                        Linking.openURL(
+                          "https://www.bu.edu/seo/"
+                        )
+                      }
+                    >
+                      <Text style={styles.linkText}>Student Employment Office</Text>
+                    </TouchableOpacity>
                 </Text>
-                <View style={styles.indentedContentContainer}>
-                  <Text style={styles.regularContentText}>
-                    {"- "}
+                <Text style={styles.regularContentText}>
                     <TouchableOpacity
                       onPress={() =>
                         Linking.openURL(
-                          "https://www.bu.edu/chapel/programming/community-dinner/"
+                          "https://www.instagram.com/bostonuseo/"
                         )
                       }
                     >
-                      <Text style={styles.linkText}>Marsh Chapel</Text>
+                      <Text style={styles.linkText}>Student Employment Instagram</Text>
                     </TouchableOpacity>
-                    {
-                      " hosts a community dinner on Mondays from 5 p.m. to 6:30 p.m., you do not need to have any religious affiliation to participate."
-                    }
-                  </Text>
-                  <Text style={styles.regularContentText}>
-                    {"- "}
+                </Text>
+                <Text style={styles.regularContentText}>
                     <TouchableOpacity
                       onPress={() =>
                         Linking.openURL(
-                          "https://www.bu.edu/studentwellbeing/place-a-bu-food-pantry-order/"
+                          "https://www.bu.edu/isso/"
                         )
                       }
                     >
-                      <Text style={styles.linkText}>BU Food Pantry</Text>
+                      <Text style={styles.linkText}>International Students & Scholars Office</Text>
                     </TouchableOpacity>
-                  </Text>
-                </View>
+                </Text>
               </View>
             </View>
           </View>

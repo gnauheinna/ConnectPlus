@@ -117,7 +117,6 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
     backgroundColor: "transparent",
     shadowOpacity: 0, // This will remove the shadow on iOS
-    elevation: 0,
   },
   navUnselected: {
     width: 26,
@@ -125,6 +124,5 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
     backgroundColor: "transparent",
     shadowOpacity: 0, // This will remove the shadow on iOS
-    elevation: 0,
   },
 });

@@ -23,7 +23,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import IndividualPost from "../components/individualPost";
 import { useRouter } from "expo-router";
 import { PostIdContext, PostIdProvider } from "./context/PostIDContext";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useCurrentChat } from "./context/currentChatContext";
 import { useUser } from "./context/UserContext";
 
@@ -51,25 +51,28 @@ export default function ChatBox() {
 
   useEffect(() => {
     // set currentChatID from local storage when the page refreshes
-    if (!currentChatID) {
-      const storedChatID = localStorage.getItem("currentChatID");
-      if (storedChatID !== null) {
-        //console.log("this is storedChatID: ", storedChatID);
-        setCurrentChatID(storedChatID);
+    const fetchChatData = async () => {
+      if (currentChatID != "") {
+        const storedChatID = await AsyncStorage.getItem("currentChatID");
+        if (storedChatID !== null) {
+          setCurrentChatID(storedChatID);
+        }
+        const storedChatName = await AsyncStorage.getItem("currentChatName");
+        if (storedChatName !== null) {
+          setCurrentChatName(storedChatName);
+        }
+        const storedChatUserID = await AsyncStorage.getItem(
+          "currentChatUserID"
+        );
+        if (storedChatUserID !== null) {
+          setCurrentChatUserID(storedChatUserID);
+        }
+      } else {
+        console.log("this is useEffect hook currentChatID :", currentChatID);
       }
-      const storedChatName = localStorage.getItem("currentChatName");
-      if (storedChatName !== null) {
-        //console.log("this is storedChatName: ", storedChatName);
-        setCurrentChatName(storedChatName);
-      }
-      const storedChatUserID = localStorage.getItem("currentChatUserID");
-      if (storedChatUserID !== null) {
-        //console.log("this is storedChatUserID: ", storedChatUserID);
-        setCurrentChatUserID(storedChatUserID);
-      }
-    } else {
-      console.log("this is useEffect hook currentChatID :", currentChatID);
-    }
+    };
+
+    fetchChatData();
   }, []);
 
   // fetches the correct chat
