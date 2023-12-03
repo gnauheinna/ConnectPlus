@@ -7,10 +7,12 @@ import {
   getFirestore,
   collection,
   serverTimestamp,
+  doc,
+  getDocs,
+  onSnapshot,
   addDoc,
   setDoc,
   updateDoc,
-  doc,
 } from "firebase/firestore";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useRouter } from "expo-router";
@@ -21,6 +23,7 @@ import { Post, usePostContext } from "./context/postContext";
 
 export default function postQuestions() {
   // Get a reference to the Firebase database
+  const db = getFirestore();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
@@ -34,17 +37,34 @@ export default function postQuestions() {
   const [SButtonVisible, setSButtonVisible] = useState(true);
   const [CrossButtonVisible, setCrossButtonVisible] = useState(false);
   const [isPostCompleted, setIsPostCompleted] = useState(false);
-  const db = getFirestore();
-
+  const { posts, setPosts, loading, setLoading } = usePostContext();
   const router = useRouter();
   function directToComm() {
+    loadPosts();
+
     router.push("/community");
   }
 
-  useEffect(() => {
-    console.log("post user: ");
-    console.log(user);
-  }, [user]);
+  const loadPosts = async () => {
+    try {
+      const postsCollection = collection(db, "posts");
+      const querySnapshot = await getDocs(postsCollection);
+      const postData: Post[] = [];
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        if (data) {
+          // validatePostData is a function you'd need to implement
+          postData.push(data as Post);
+        }
+      });
+      postData.sort((a, b) => b.timestamp.toMillis() - a.timestamp.toMillis());
+      setPosts(postData);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+      setLoading(false);
+    }
+  };
 
   // Set postIsCompleted to true if a post is complete
   useEffect(() => {
@@ -72,13 +92,11 @@ export default function postQuestions() {
       const postID = newPostRef.id;
       // Update the document with the postID field
       await updateDoc(newPostRef, { postID });
-
       createNewComment(postID);
-
       // Add a "likes" subcollection to the new post
       const likesCollection = collection(newPostRef, "likes");
       await addDoc(likesCollection, {});
-
+      // Clear the input fields
       setTitle("");
       setContent("");
       setUserName("");
@@ -153,21 +171,26 @@ export default function postQuestions() {
         <View style={styles.backPostContainer}>
           {/*  Back Button */}
           <View style={styles.backBtnContainer}>
-              <TouchableOpacity
-                style={styles.backBtn}
-                onPress={() => {
-                  router.push("/community");
-                }}
-              >
-                <Image style={styles.backBtnImg} source={require("../assets/images/icons/blackBack.png")}/>
-              </TouchableOpacity>
-            </View>
+            <TouchableOpacity
+              style={styles.backBtn}
+              onPress={() => {
+                router.push("/community");
+              }}
+            >
+              <Image
+                style={styles.backBtnImg}
+                source={require("../assets/images/icons/blackBack.png")}
+              />
+            </TouchableOpacity>
+          </View>
           {/* Post Button */}
           <TouchableOpacity
             style={[
               styles.postBtn,
               { backgroundColor: isPostCompleted ? "#E2B8E0" : "#E6E6E6" },
-            ]} onPress={handlePost}>
+            ]}
+            onPress={handlePost}
+          >
             <Text
               style={[
                 styles.postText,
@@ -208,13 +231,15 @@ export default function postQuestions() {
                 style={
                   CrossButtonVisible ? styles.addTagBtnActive : styles.addTagBtn
                 }
-                onPress={AIsSelected}>
+                onPress={AIsSelected}
+              >
                 <Text
                   style={
                     CrossButtonVisible
                       ? styles.addTagTextActive
                       : styles.addTagText
-                  }>
+                  }
+                >
                   Academic
                 </Text>
               </TouchableOpacity>
