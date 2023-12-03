@@ -367,20 +367,9 @@ const styles = StyleSheet.create({
     marginRight: 8,
     marginLeft: 8,
   },
-  iconsOnPosts: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    backgroundColor: "#E6DBF3",
-    borderBottomLeftRadius: 12,
-    borderBottomRightRadius: 12,
-    paddingHorizontal: 0,
-    marginBottom: 20,
-  },
   bottomPartContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center",
   },
   postLikesContainer: {
     flexDirection: "row",

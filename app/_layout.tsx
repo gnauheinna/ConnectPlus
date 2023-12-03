@@ -94,6 +94,10 @@ function RootLayoutNav() {
         <Stack.Screen name="chatbox" options={{ headerShown: false }} />
         <Stack.Screen name="addavatar" options={{ headerShown: false }} />
         <Stack.Screen name="postdetails" options={{ headerShown: false }} />
+        <Stack.Screen name="julia" options={{ headerShown: false }} />
+        <Stack.Screen name="neri" options={{ headerShown: false }} />
+        <Stack.Screen name="rachel" options={{ headerShown: false }} />
+        <Stack.Screen name="shateva" options={{ headerShown: false }} />
       </Stack>
     </ThemeProvider>
   );

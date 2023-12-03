@@ -17,15 +17,8 @@ import {
 export default function MyJourneyPost() {
   const router = useRouter();
   const [isSaved, setIsSaved] = useState(false);
-  // Extract the mentor's name from the end of the URL
-  const urlParams = new URLSearchParams(window.location.search);
-  const mentorName = urlParams.get("name");
-  //console.log("mentorName: ", mentorName);
-  const { name } = useParams();
 
-  useEffect(() => {
-    console.log("mentorName hook:  ", mentorName);
-  }, [mentorName]);
+
 
   function directToMyJourney() {
     router.push("/journeys");
@@ -83,14 +76,14 @@ export default function MyJourneyPost() {
     <View style={styles.outterContainer}>
       <View style={styles.container}>
         <ImageBackground
-          source={require("../../assets/images/background.png")}
+          source={require("../assets/images/background.png")}
           resizeMode="cover"
           style={styles.gradientBackground}
         >
           {/* Back Button */}
           <View style={styles.backBtnContainer}>
             <TouchableOpacity style={styles.backBtn} onPress={directToMyJourney}>
-              <Image style={styles.backBtnImg} source={require("../../assets/images/icons/blackBack.png")}/>
+              <Image style={styles.backBtnImg} source={require("../assets/images/icons/blackBack.png")}/>
             </TouchableOpacity>
           </View>
           <View style={styles.topContainer}></View>
@@ -109,16 +102,16 @@ export default function MyJourneyPost() {
             <View style={styles.postTitleContainer}>
               <View style={styles.timeAndSaveContainer}>
                 {/* Timestamp */}
-                <Text style={styles.postDate}>Nov 28th 2023</Text>
+                <Text style={styles.postDate}>Nov 18th 2023</Text>
                 {/* Save Button */}
                 <TouchableOpacity onPress={() => setIsSaved(!isSaved)}>
                   <Image style={styles.saveIcon} 
-                    source={isSaved ? require("../../assets/images/icons/journeySaved.png") : require("../../assets/images/icons/journeyUnsaved.png")}
+                    source={isSaved ? require("../assets/images/icons/journeySaved.png") : require("../assets/images/icons/journeyUnsaved.png")}
                   />
                 </TouchableOpacity>
               </View>
               {/* Title */}
-              <Text style={styles.postTitle}>Finding Community</Text>
+              <Text style={styles.postTitle}>I (Accidentally) Got a Job!</Text>
             </View>
           </View>
           {/* Author's information */}
@@ -128,8 +121,8 @@ export default function MyJourneyPost() {
               source={require("../assets/images/mentorProfilePics/RachelLi.png")}
             /> */}
             <View style={styles.userNameAndIntro}>
-              <Text style={styles.userName}>Neri Ajiatas Arreaga</Text>
-              <Text style={styles.userIntro}>Class of 2025, Data Science Major</Text>
+              <Text style={styles.userName}>Julia Tran</Text>
+              <Text style={styles.userIntro}>Class of 2027, Business Administration Major</Text>
             </View>
           </View>
         </View>
@@ -140,9 +133,7 @@ export default function MyJourneyPost() {
             <View style={styles.individualStep}>
               <View style={styles.regularContentContainer}>
                 <Text style={styles.regularContentText}>
-                Are you curious about the various communities on campus, especially those that align with your identity or interests? Stepping out of your comfort zone can be challenging, but BU offers several clubs and organizations that may pertain to your academic, professional or individual interests.
-Identify what you want to do outside of school. Engaging in activities aligned with your interests or exploring new ones can be a refreshing break from the sometimes draining demands of school, allowing you to spend time doing enjoyable and fulfilling things.
-Clubs and organizations offer opportunities to engage with other students and can help you discover interests you may not have considered.
+                I’m an Admissions Ambassador, leading campus tours around our Charles River Campus in BU gear you usually see on your way to class! At first, I thought it was a volunteering opportunity like a Club, so I applied, hoping to engage with BU’s community. What I didn’t anticipate going into the job was that I would get paid (of course!) and the motivation for me to step outside of my comfort zone, to do the things I wouldn’t normally do on my own accord. Getting a job doesn’t mean taking on an additional responsibility that might interfere with academics, but it can also be a chance to try something new and develop your skill set!
                 </Text>
               </View>
             </View>
@@ -153,20 +144,29 @@ Clubs and organizations offer opportunities to engage with other students and ca
               </View>
               <View style={styles.regularContentContainer}>
                 <Text style={styles.regularContentText}>
-                  1. You can visit Terrier Central to learn more about the hundreds of clubs on campus.
-                </Text>
-                <Text style={styles.regularContentText}>
-                  2. Interested in resources or organizations that may be of interest in career development? Make sure you talk to your academic advisor, as they are a great resource for academic and career planning support.
-                </Text>
-                <Text style={styles.regularContentText}>
-                  3. Get in touch with fellow students in class and see what they may be involved in.
-                </Text>
-                <Text style={styles.regularContentText}>
-                  4. Visit Splash that happens at the start of every semester!
+                  1. Figure out what you can do: 
                 </Text>
                 <View style={styles.indentedContentContainer}>
                   <Text style={styles.regularContentText}>
-                    What is Splash? Over 450 student organizations will be scattered across the field, each with its own setup, allowing prospective members to gain more information about each club, speak with current members, and sign up. Currently, SAO anticipates over 2,000 students will attend the event.
+                    - For international students: You can only work on-campus for your first year. After one full year of education, however, you can expand to off-campus positions that sponsor a work visa. 
+                  </Text>
+                  <Text style={styles.regularContentText}>
+                    - For U.S. citizens: You can already go off-campus as a first-year. There is also a work-study award available if you are a U.S. citizen that automatically deposits your salary into your Student Account.
+                  </Text>
+                </View>
+
+                <Text style={styles.regularContentText}>
+                  2. Search for available opportunities:
+                </Text>
+                <View style={styles.indentedContentContainer}>
+                  <Text style={styles.regularContentText}>
+                    - Utilize your Student Link: You can find a list of On/Off-campus Part-time positions or Quick Jobs (one-time jobs) listed under the “Job and Career” tab with the eligibilities, pay rates, and contact information. You can then email the person(s) in charge of the job listings you find interesting to ask for more information or apply!
+                  </Text>
+                  <Text style={styles.regularContentText}>
+                    - Keep up with the BU Student Employment page: BU’s Student Employment Office has an official Instagram page. They post very frequently about available positions and job-tips for students on/off-campus.
+                  </Text>
+                  <Text style={styles.regularContentText}>
+                    - Ask around: Some jobs are referrals, so they are not officially posted on any websites or advertised on poster boards and bulletin boards. You can talk to the people you know who are currently working in a position or organization that you are interested in and they can let you know if they are recruiting.
                   </Text>
                 </View>
               </View>
@@ -177,51 +177,53 @@ Clubs and organizations offer opportunities to engage with other students and ca
                 <Text style={styles.subtitleText}>Challenges</Text>
               </View>
               <View style={styles.regularContentContainer}>
-              <Text style={styles.regularContentText}>
-                  - I've felt that the multitude of clubs and organizations can be overwhelming, and there's the discomfort of trying something new without knowing anyone in the group you want to join.
-                </Text>
                 <Text style={styles.regularContentText}>
-                  - I’ve learned that BU groups are very welcoming to all individuals of any background. So don’t feel alone, there will always be someone that wants to talk and help you feel comfortable.
+                  Sorting through the paperwork was a challenge for me. As an international student, there are certainly many more steps to get hired and get all of the required documents in, and it can be confusing at times. However, there are many resources out there that you can refer to, and you can always ask someone at work or your friends for help. Take it slow, you’re not supposed to know everything!
                 </Text>
               </View>
             </View>
             {/* 4th Step */}
             <View style={styles.individualStep}>
               <View style={styles.subtitleContainer}>
-                <Text style={styles.subtitleText}>Takeaways</Text>
-              </View>
-              <View style={styles.regularContentContainer}>
-                <Text style={styles.regularContentText}>
-                  - You have plenty of time to get involved with a community outside of your classroom. Especially throughout the semester, people are always having events and willing to welcome new members :)
-                </Text>
-                <Text style={styles.regularContentText}>
-                  - You also never have to stick with the organization if you don’t like it. From personal experience, I’ve found it helpful to try a lot of things and reflect on whether I like or don’t like something.
-                </Text>
-              </View>
-            </View>
-            {/* 5th Step */}
-            <View style={styles.individualStep}>
-              <View style={styles.subtitleContainer}>
                 <Text style={styles.subtitleText}>Resources</Text>
               </View>
               <View style={styles.regularContentContainer}>
                 <Text style={styles.regularContentText}>
-                  Make sure you click to learn more about
-                </Text>
-                  <Text style={styles.regularContentText}>
-                    <TouchableOpacity
+                   <TouchableOpacity
                       onPress={() =>
                         Linking.openURL(
-                          "https://www.bu.edu/diversity/our-communities/"
+                          "https://www.bu.edu/seo/"
                         )
                       }
                     >
-                      <Text style={styles.linkText}>Diversity and Inclusion at BU</Text>
+                      <Text style={styles.linkText}>Student Employment Office</Text>
                     </TouchableOpacity>
-                  </Text>
-                </View>
+                </Text>
+                <Text style={styles.regularContentText}>
+                    <TouchableOpacity
+                      onPress={() =>
+                        Linking.openURL(
+                          "https://www.instagram.com/bostonuseo/"
+                        )
+                      }
+                    >
+                      <Text style={styles.linkText}>Student Employment Instagram</Text>
+                    </TouchableOpacity>
+                </Text>
+                <Text style={styles.regularContentText}>
+                    <TouchableOpacity
+                      onPress={() =>
+                        Linking.openURL(
+                          "https://www.bu.edu/isso/"
+                        )
+                      }
+                    >
+                      <Text style={styles.linkText}>International Students & Scholars Office</Text>
+                    </TouchableOpacity>
+                </Text>
               </View>
             </View>
+          </View>
         </View>
       </ScrollView>
       {/* )} */}
@@ -274,11 +276,12 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   backBtnContainer: {
-    top: 20, 
+    top: 60, 
     left: 20,
     alignSelf: "flex-start",
     justifyContent: 'center',
     marginBottom: 20,
+    zIndex: 2,
   },
   backBtn: {
     padding: 5,
@@ -294,7 +297,7 @@ const styles = StyleSheet.create({
     zIndex: 2,
     borderTopRightRadius: 30,
     borderTopLeftRadius: 30,
-    marginTop: -130,
+    marginTop: -80,
     backgroundColor: "white",
     shadowColor: "rgba(0, 0, 0, 0.02)",
     shadowOffset: { width: 0, height: -2 },
