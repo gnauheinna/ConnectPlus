@@ -13,7 +13,6 @@ export default function JourneyScreen() {
     router.push(`/myjourneyposts/${postName}`);
   }
 
-  const urlParams = new URLSearchParams(window.location.search);
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>

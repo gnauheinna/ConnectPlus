@@ -61,7 +61,7 @@ export default function postQuestions() {
       userID: user.userID,
       avatar: user.avatar,
       tag,
-      likes: 0,
+      likesCount: 0,
     };
     if (isPostCompleted) {
       // Push the new post to the database
@@ -69,7 +69,11 @@ export default function postQuestions() {
       const postID = newPostRef.id;
       // Update the document with the postID field
       await updateDoc(newPostRef, { postID });
-      // Clear the input fields
+
+      // Add a "likes" subcollection to the new post
+      const likesCollection = collection(newPostRef, "likes");
+      await addDoc(likesCollection, {});
+
       setTitle("");
       setContent("");
       setUserName("");
