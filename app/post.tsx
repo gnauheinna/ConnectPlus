@@ -19,7 +19,6 @@ import { Image } from "expo-image";
 import { getBackgroundColor } from "react-native-ui-lib/src/helpers/AvatarHelper";
 import { Post, usePostContext } from "./context/postContext";
 
-
 export default function postQuestions() {
   // Get a reference to the Firebase database
   const [title, setTitle] = useState("");
@@ -54,7 +53,6 @@ export default function postQuestions() {
   }, [title, content, tag]);
 
   const handlePost = async () => {
-    
     const postsCollection = collection(db, "posts");
     // Create a new post object
     const newPost = {
@@ -101,20 +99,19 @@ export default function postQuestions() {
     }
   };
 
-  async function createNewComment(postid: string){
+  async function createNewComment(postid: string) {
     await setDoc(doc(db, "comments", postid), {
       postID: postid,
-      postid : []
-  });
+      commentArr: [],
+    });
   }
 
-   const AIsSelected = () => {
+  const AIsSelected = () => {
     setTag("Academic");
     setCrossButtonVisible(true);
     setFButtonVisible(false);
     setCButtonVisible(false);
     setSButtonVisible(false);
-   
   };
 
   const FIsSelected = () => {
