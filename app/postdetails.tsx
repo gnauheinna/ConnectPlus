@@ -30,6 +30,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 type Comment = {
   commentID: string;
   date: Timestamp;
+  userIntro: string;
   userID: string;
   userName: string;
   text: string;
@@ -102,8 +103,10 @@ export default function PostDetails() {
         const cmtdoc = await getDoc(doc(db, "comments", curPostID));
         console.log("comment snapshot data: ", cmtdoc.data());
         const commentData = cmtdoc.data();
-        if (commentData && commentData.curPostID) {
-          setCommentArr(commentData.curPostID);
+        console.log("comment snapshot array: ", commentData?.commentArr);
+        if (commentData && commentData.commentArr) {
+          setCommentArr(commentData.commentArr);
+        } else {
         }
       } catch (error) {
         console.error("Error fetching comments: ", error);
@@ -111,6 +114,10 @@ export default function PostDetails() {
     };
     fetchComments();
   }, []);
+
+  useEffect(() => {
+    console.log("comment array: ", commentarr);
+  }, [commentarr]);
 
   useEffect(() => {
     const filteredPosts = allPosts.find((post) => post.postID == curPostID);
@@ -208,25 +215,18 @@ export default function PostDetails() {
               style={styles.commentsContainer}
               showsHorizontalScrollIndicator={false}
             >
-              <IndividualComment
-                username={"Ben Wilson"}
-                intro={"Class of 2027, Business Major"}
-                timestamp={"5h"}
-                content={"I would love to connect with you."}
-              />
-              <IndividualComment
-                username={"Stella Liam"}
-                intro={"Class of 2026, Biology Major"}
-                timestamp={"1d"}
-                content={
-                  "Who should I reach out to for more academic guidance?"
-                }
-              />
-              <IndividualComment
-                username={"Lana Lei"}
-                intro={"Class of 2027, Data Science Major"}
-                timestamp={"2d"}
-                content={"Very useful information. Thank you!"}
+              <FlatList
+                data={commentarr}
+                showsVerticalScrollIndicator={false}
+                keyExtractor={(item, index) => index.toString()}
+                renderItem={({ item }) => (
+                  <IndividualComment
+                    username={item.userName}
+                    intro={"Class of 2027, Data Science Major"}
+                    timestamp={item.date.toString()}
+                    content={item.text}
+                  />
+                )}
               />
             </ScrollView>
           </View>
