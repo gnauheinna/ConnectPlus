@@ -15,6 +15,7 @@ import {
   getDoc,
   arrayUnion,
   Timestamp,
+  collection,
 } from "firebase/firestore";
 import { FontAwesome5, Feather } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -26,8 +27,16 @@ import { PostIdContext, PostIdProvider } from "./context/PostIDContext";
 import { Post, usePostContext } from "./context/postContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+type Comment = {
+  commentID: string;
+  date: Timestamp;
+  userID: string;
+  userName: string;
+  text: string;
+};
+
 export default function PostDetails() {
-  //use PostIDContext
+  const [commentarr, setCommentArr] = useState<Comment[]>([]);
   const { curPostID, setCurPostID } = useContext(PostIdContext);
   const { posts, loading } = usePostContext();
   const [allPosts, setAllPosts] = useState<Post[]>([]);
@@ -85,6 +94,23 @@ export default function PostDetails() {
     // Call the fetchData function when the component mounts
     loadPosts();
   }, [posts, curPostID]);
+
+  // useEffect hook to load comments
+  useEffect(() => {
+    const fetchComments = async () => {
+      try {
+        const cmtdoc = await getDoc(doc(db, "comments", curPostID));
+        console.log("comment snapshot data: ", cmtdoc.data());
+        const commentData = cmtdoc.data();
+        if (commentData && commentData.curPostID) {
+          setCommentArr(commentData.curPostID);
+        }
+      } catch (error) {
+        console.error("Error fetching comments: ", error);
+      }
+    };
+    fetchComments();
+  }, []);
 
   useEffect(() => {
     const filteredPosts = allPosts.find((post) => post.postID == curPostID);
