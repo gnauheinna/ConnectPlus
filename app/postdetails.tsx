@@ -1,12 +1,27 @@
 import React, { useState, useEffect, useContext } from "react";
-import { ScrollView, StyleSheet, FlatList, Image, Modal, TextInput } from "react-native";
+import {
+  ScrollView,
+  StyleSheet,
+  FlatList,
+  Image,
+  Modal,
+  TextInput,
+} from "react-native";
 import { Text, View } from "../components/Themed";
-import { getFirestore, doc, updateDoc, getDoc } from "firebase/firestore";
+import {
+  getFirestore,
+  doc,
+  updateDoc,
+  getDoc,
+  arrayUnion,
+  Timestamp,
+} from "firebase/firestore";
 import { FontAwesome5, Feather } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import IndividualPost from "../components/individualPost";
 import IndividualComment from "../components/individualComment";
 import { useRouter } from "expo-router";
+import { useUser } from "./context/UserContext";
 import { PostIdContext, PostIdProvider } from "./context/PostIDContext";
 import { Post, usePostContext } from "./context/postContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -18,7 +33,8 @@ export default function PostDetails() {
   const [allPosts, setAllPosts] = useState<Post[]>([]);
   const [content, setContent] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
-
+  const { user, setUser } = useUser();
+  const db = getFirestore();
   const router = useRouter();
   const openModal = () => {
     setModalVisible(true);
@@ -28,9 +44,20 @@ export default function PostDetails() {
     setModalVisible(false);
   };
 
-  const comment =()=>{
-
-  }
+  const comment = async () => {
+    const randomString = Math.random().toString(36).substring(7);
+    await updateDoc(doc(db, "comments", curPostID), {
+      comment: arrayUnion({
+        commentID: randomString,
+        text: content,
+        userID: user.userID,
+        userName: user.name,
+        avatar: user.avatar,
+        date: Timestamp.now(),
+      }),
+    });
+    console.log("current senderID: ", user.userID);
+  };
 
   useEffect(() => {
     // set curPostID from local storage when the page refreshes
@@ -96,7 +123,10 @@ export default function PostDetails() {
                   <Text style={styles.postLikesText}>35</Text>
                 </TouchableOpacity>
                 {/* Display the reply button */}
-                <TouchableOpacity style={styles.replyPostContainer} onPress={openModal}>
+                <TouchableOpacity
+                  style={styles.replyPostContainer}
+                  onPress={openModal}
+                >
                   <Image
                     style={styles.replyPostImg}
                     source={require("../assets/images/icons/reply.png")}
@@ -110,20 +140,37 @@ export default function PostDetails() {
             <View style={styles.repliesTitle}>
               <Text style={styles.replyTitle}>Replies</Text>
             </View>
-
+            {/* Comment Modal */}
             <View>
-              <Modal style={styles.modalContainer} visible={modalVisible} animationType="slide">
+              <Modal
+                style={styles.modalContainer}
+                visible={modalVisible}
+                animationType="slide"
+              >
                 <View>
-                  <Text>This is the modal content</Text>
-                   <TextInput
-                      style={[styles.inputContent]}
-                      placeholder="What is your question?"
-                      placeholderTextColor="#888888"
-                      value={content}
-                      onChangeText={(text) => setContent(text)}
-                      multiline={true}
-                      numberOfLines={10}
+                  <Text>Comment:</Text>
+                  <TextInput
+                    style={[styles.inputContent]}
+                    placeholder="Enter your comment here"
+                    placeholderTextColor="#888888"
+                    value={content}
+                    onChangeText={(text) => setContent(text)}
+                    multiline={true}
+                    numberOfLines={10}
                   />
+                  <TouchableOpacity
+                    style={[
+                      styles.postBtn,
+                      {
+                        backgroundColor: "#E6E6E6",
+                      },
+                    ]}
+                    onPress={comment}
+                  >
+                    <Text style={[styles.postText, { color: "#3A3340" }]}>
+                      comment
+                    </Text>
+                  </TouchableOpacity>
                   <TouchableOpacity onPress={closeModal}>
                     <Text>Close Modal</Text>
                   </TouchableOpacity>
@@ -168,7 +215,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
   },
-  
+
   tempContainer: {
     marginLeft: 20,
     marginRight: 20,
@@ -237,8 +284,7 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     marginRight: 20,
   },
-  replyPostContainer: {
-  },
+  replyPostContainer: {},
   replyPostImg: {
     maxWidth: 60,
     maxHeight: 20,
@@ -294,13 +340,30 @@ const styles = StyleSheet.create({
     shadowOffset: {
       width: -2,
       height: 4,
-  }
-},
-inputContent: {
+    },
+  },
+  inputContent: {
     padding: 10,
     width: "100%",
     fontSize: 18,
     outlineColor: "white",
     marginTop: 10,
+  },
+  postBtn: {
+    backgroundColor: "#E2B8E0",
+    marginTop: 40,
+    marginBottom: 40,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    padding: 5,
+    borderRadius: 20,
+    width: 80,
+    justifyContent: "flex-end",
+    alignSelf: "flex-end",
+  },
+  postText: {
+    fontSize: 18,
+    alignSelf: "center",
+    color: "#9A969F",
   },
 });
