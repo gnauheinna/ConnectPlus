@@ -17,15 +17,6 @@ import {
 export default function MyJourneyPost() {
   const router = useRouter();
   const [isSaved, setIsSaved] = useState(false);
-  // Extract the mentor's name from the end of the URL
-  const urlParams = new URLSearchParams(window.location.search);
-  const mentorName = urlParams.get("name");
-  //console.log("mentorName: ", mentorName);
-  const { name } = useParams();
-
-  useEffect(() => {
-    console.log("mentorName hook:  ", mentorName);
-  }, [mentorName]);
 
   function directToMyJourney() {
     router.push("/journeys");
@@ -83,14 +74,14 @@ export default function MyJourneyPost() {
     <View style={styles.outterContainer}>
       <View style={styles.container}>
         <ImageBackground
-          source={require("../../assets/images/background.png")}
+          source={require("../assets/images/background.png")}
           resizeMode="cover"
           style={styles.gradientBackground}
         >
           {/* Back Button */}
           <View style={styles.backBtnContainer}>
             <TouchableOpacity style={styles.backBtn} onPress={directToMyJourney}>
-              <Image style={styles.backBtnImg} source={require("../../assets/images/icons/blackBack.png")}/>
+              <Image style={styles.backBtnImg} source={require("../assets/images/icons/blackBack.png")}/>
             </TouchableOpacity>
           </View>
           <View style={styles.topContainer}></View>
@@ -109,29 +100,27 @@ export default function MyJourneyPost() {
             <View style={styles.postTitleContainer}>
               <View style={styles.timeAndSaveContainer}>
                 {/* Timestamp */}
-                <Text style={styles.postDate}>Nov 6th 2023</Text>
+                <Text style={styles.postDate}>Nov 28th 2023</Text>
                 {/* Save Button */}
                 <TouchableOpacity onPress={() => setIsSaved(!isSaved)}>
                   <Image style={styles.saveIcon} 
-                    source={isSaved ? require("../../assets/images/icons/journeySaved.png") : require("../../assets/images/icons/journeyUnsaved.png")}
+                    source={isSaved ? require("../assets/images/icons/journeySaved.png") : require("../assets/images/icons/journeyUnsaved.png")}
                   />
                 </TouchableOpacity>
               </View>
               {/* Title */}
-              <Text style={styles.postTitle}>School Program - Alternative Service Break</Text>
+              <Text style={styles.postTitle}>Finding Community</Text>
             </View>
           </View>
           {/* Author's information */}
           <View style={styles.authorInfoContainer}>
-            <Image
+            {/* <Image
               style={styles.profileImg}
-              source={require("../../assets/images/mentorProfilePics/RachelLi.png")}
-            />
+              source={require("../assets/images/mentorProfilePics/RachelLi.png")}
+            /> */}
             <View style={styles.userNameAndIntro}>
-              <Text style={styles.userName}>Rachel Li</Text>
-              <Text style={styles.userIntro}>
-                Class of 2024, Data Science Major
-              </Text>
+              <Text style={styles.userName}>Neri Ajiatas Arreaga</Text>
+              <Text style={styles.userIntro}>Class of 2025, Data Science Major</Text>
             </View>
           </View>
         </View>
@@ -140,23 +129,11 @@ export default function MyJourneyPost() {
           <View style={styles.postContentMainContainer}>
             {/* 1st Step */}
             <View style={styles.individualStep}>
-              <View style={styles.subtitleContainer}>
-                <Text style={styles.subtitleText}>Theme</Text>
-              </View>
               <View style={styles.regularContentContainer}>
                 <Text style={styles.regularContentText}>
-                  If you’re a student working part-time, don’t have a meal plan,
-                  and shop for groceries on your own, here’s a resource for you:
-                  The{" "}
-                  <Text style={styles.regularContentTextBolded}>
-                    Supplemental Nutrition Assistance Program (SNAP){" "}
-                  </Text>
-                  gives people who are eligible around $80-$100 monthly funds to
-                  buy food. Navigating this process has been a headache. I spent
-                  hours on the phone with customer service, figuring out the
-                  right document to submit. Here is a guide to applying for SNAP
-                  from my own experience so that you can have a much smoother
-                  process.
+                Are you curious about the various communities on campus, especially those that align with your identity or interests? Stepping out of your comfort zone can be challenging, but BU offers several clubs and organizations that may pertain to your academic, professional or individual interests.
+Identify what you want to do outside of school. Engaging in activities aligned with your interests or exploring new ones can be a refreshing break from the sometimes draining demands of school, allowing you to spend time doing enjoyable and fulfilling things.
+Clubs and organizations offer opportunities to engage with other students and can help you discover interests you may not have considered.
                 </Text>
               </View>
             </View>
@@ -167,78 +144,22 @@ export default function MyJourneyPost() {
               </View>
               <View style={styles.regularContentContainer}>
                 <Text style={styles.regularContentText}>
-                  {"1. Do a "}
-                  <TouchableOpacity
-                    onPress={() =>
-                      Linking.openURL(
-                        "https://dtaconnect.eohhs.mass.gov/screening?_gl=1*19vwokf*_ga*NDU5MDQyNTc0LjE2OTkzODAxNTk.*_ga_SW2TVH2WBY*MTY5OTM4MDE1OS4xLjAuMTY5OTM4MDE1OS4wLjAuMA.."
-                      )
-                    }
-                  >
-                    <Text style={styles.linkText}>quick check</Text>
-                  </TouchableOpacity>
-                  {" to see if you’re eligible."}
+                  1. You can visit Terrier Central to learn more about the hundreds of clubs on campus.
                 </Text>
                 <Text style={styles.regularContentText}>
-                  {"2. File the "}
-                  <TouchableOpacity
-                    onPress={() =>
-                      Linking.openURL(
-                        "https://dtaconnect.eohhs.mass.gov/?_gl=1*1qkcl0m*_ga*NDU5MDQyNTc0LjE2OTkzODAxNTk.*_ga_SW2TVH2WBY*MTY5OTM4MDE1OS4xLjEuMTY5OTM4MDUxMi4wLjAuMA.."
-                      )
-                    }
-                  >
-                    <Text style={styles.linkText}>initial application</Text>
-                  </TouchableOpacity>
-                  {"."}
+                  2. Interested in resources or organizations that may be of interest in career development? Make sure you talk to your academic advisor, as they are a great resource for academic and career planning support.
                 </Text>
                 <Text style={styles.regularContentText}>
-                  3. The documents I submitted as a full-time student:{" "}
+                  3. Get in touch with fellow students in class and see what they may be involved in.
+                </Text>
+                <Text style={styles.regularContentText}>
+                  4. Visit Splash that happens at the start of every semester!
                 </Text>
                 <View style={styles.indentedContentContainer}>
                   <Text style={styles.regularContentText}>
-                    - Financial aid proof
-                  </Text>
-                  <Text style={styles.regularContentText}>
-                    - Proof that you don’t have a meal plan on campus
-                  </Text>
-                  <Text style={styles.regularContentText}>
-                    - Proof of work-study
-                  </Text>
-                  <Text style={styles.regularContentText}>
-                    - Proof of other work you’re (or have been) participating in
+                    What is Splash? Over 450 student organizations will be scattered across the field, each with its own setup, allowing prospective members to gain more information about each club, speak with current members, and sign up. Currently, SAO anticipates over 2,000 students will attend the event.
                   </Text>
                 </View>
-                <Text style={styles.regularContentText}>
-                  4. After the initial application, they require a phone
-                  interview asking you to verify the information.{" "}
-                </Text>
-                <Text
-                  style={[styles.regularContentTextBolded, { marginTop: 20 }]}
-                >
-                  Additional Info:
-                </Text>
-                <Text style={styles.regularContentText}>
-                  {"1. Reach out to BU Housing "}
-                  <TouchableOpacity
-                    onPress={() => Linking.openURL("housing@bu.edu")}
-                  >
-                    <Text style={styles.linkText}>housing@bu.edu</Text>
-                  </TouchableOpacity>
-                  {" to request a signed document."}
-                </Text>
-                <Text style={styles.regularContentText}>
-                  2. You need to be actively participating in the work-study in
-                  order to be qualified. The number of hours you work doesn't
-                  matter.
-                </Text>
-                <Text style={styles.regularContentText}>
-                  3. Go to studentlink work portal to see if you can find a
-                  printable version. If not, reach out to your supervisor.
-                </Text>
-                <Text style={styles.regularContentText}>
-                  4. The document needs to have a specific start and end date.
-                </Text>
               </View>
             </View>
             {/* 3rd Step */}
@@ -247,10 +168,11 @@ export default function MyJourneyPost() {
                 <Text style={styles.subtitleText}>Challenges</Text>
               </View>
               <View style={styles.regularContentContainer}>
+              <Text style={styles.regularContentText}>
+                  - I've felt that the multitude of clubs and organizations can be overwhelming, and there's the discomfort of trying something new without knowing anyone in the group you want to join.
+                </Text>
                 <Text style={styles.regularContentText}>
-                  Trying to figure out what kind of document they need and being
-                  able to connect with a representative is the most daunting
-                  part.
+                  - I’ve learned that BU groups are very welcoming to all individuals of any background. So don’t feel alone, there will always be someone that wants to talk and help you feel comfortable.
                 </Text>
               </View>
             </View>
@@ -261,18 +183,10 @@ export default function MyJourneyPost() {
               </View>
               <View style={styles.regularContentContainer}>
                 <Text style={styles.regularContentText}>
-                  - Try your best to not miss the scheduled phone call because
-                  it’s very hard to connect with a representative when you dial
-                  in yourself. The average wait time is around 30 min.
+                  - You have plenty of time to get involved with a community outside of your classroom. Especially throughout the semester, people are always having events and willing to welcome new members :)
                 </Text>
                 <Text style={styles.regularContentText}>
-                  - Download DTA Connect App, it’s the place where you submit
-                  all the verification documents.
-                </Text>
-                <Text style={styles.regularContentText}>
-                  - Keep an eye on your mail. They will email letters to you
-                  with your case number (you need this number to sign into your
-                  DTA app account)
+                  - You also never have to stick with the organization if you don’t like it. From personal experience, I’ve found it helpful to try a lot of things and reflect on whether I like or don’t like something.
                 </Text>
               </View>
             </View>
@@ -283,40 +197,22 @@ export default function MyJourneyPost() {
               </View>
               <View style={styles.regularContentContainer}>
                 <Text style={styles.regularContentText}>
-                  Here are BU resources related to food:
+                  Make sure you click to learn more about
                 </Text>
-                <View style={styles.indentedContentContainer}>
                   <Text style={styles.regularContentText}>
-                    {"- "}
                     <TouchableOpacity
                       onPress={() =>
                         Linking.openURL(
-                          "https://www.bu.edu/chapel/programming/community-dinner/"
+                          "https://www.bu.edu/diversity/our-communities/"
                         )
                       }
                     >
-                      <Text style={styles.linkText}>Marsh Chapel</Text>
-                    </TouchableOpacity>
-                    {
-                      " hosts a community dinner on Mondays from 5 p.m. to 6:30 p.m., you do not need to have any religious affiliation to participate."
-                    }
-                  </Text>
-                  <Text style={styles.regularContentText}>
-                    {"- "}
-                    <TouchableOpacity
-                      onPress={() =>
-                        Linking.openURL(
-                          "https://www.bu.edu/studentwellbeing/place-a-bu-food-pantry-order/"
-                        )
-                      }
-                    >
-                      <Text style={styles.linkText}>BU Food Pantry</Text>
+                      <Text style={styles.linkText}>Diversity and Inclusion at BU</Text>
                     </TouchableOpacity>
                   </Text>
                 </View>
               </View>
             </View>
-          </View>
         </View>
       </ScrollView>
       {/* )} */}
@@ -369,11 +265,12 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   backBtnContainer: {
-    top: 20, 
+    top: 60, 
     left: 20,
     alignSelf: "flex-start",
     justifyContent: 'center',
     marginBottom: 20,
+    zIndex: 2,
   },
   backBtn: {
     padding: 5,
@@ -389,7 +286,7 @@ const styles = StyleSheet.create({
     zIndex: 2,
     borderTopRightRadius: 30,
     borderTopLeftRadius: 30,
-    marginTop: -130,
+    marginTop: -80,
     backgroundColor: "white",
     shadowColor: "rgba(0, 0, 0, 0.02)",
     shadowOffset: { width: 0, height: -2 },
@@ -428,7 +325,7 @@ const styles = StyleSheet.create({
   },
   postTitle: {
     color: "#000000",
-    fontSize: 28,
+    fontSize: 24,
     fontWeight: "bold",
     width: "100%",
   },

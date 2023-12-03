@@ -10,7 +10,7 @@ import MJPostCard from '../../components/MJPostCard';
 export default function JourneyScreen() {
   const router = useRouter();
   function directToMyJourneyPost(postName: string) {
-    router.push(`/myjourneyposts/${postName}`);
+    router.push(`/${postName}`);
   }
 
 

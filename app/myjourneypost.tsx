@@ -23,7 +23,7 @@ export default function MyJourneyPost() {
   //const urlParams = new URLSearchParams(window.location.search);
   //const mentorName = urlParams.get("name");
   //console.log("mentorName: ", mentorName);
-  const { name } = useParams();
+  //const { name } = useParams();
   //console.log("name:  ", name);
 
   useEffect(() => {
