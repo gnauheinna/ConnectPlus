@@ -8,6 +8,7 @@ import {
   collection,
   serverTimestamp,
   addDoc,
+  setDoc,
   updateDoc,
 } from "firebase/firestore";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -15,8 +16,11 @@ import { useRouter } from "expo-router";
 import { useUser } from "./context/UserContext";
 import { Image } from "expo-image";
 import { getBackgroundColor } from "react-native-ui-lib/src/helpers/AvatarHelper";
+import { Post, usePostContext } from "./context/postContext";
+
 
 export default function postQuestions() {
+  // Get a reference to the Firebase database
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
@@ -48,8 +52,7 @@ export default function postQuestions() {
   }, [title, content, tag]);
 
   const handlePost = async () => {
-    // Get a reference to the Firebase database
-    const db = getFirestore();
+    
     const postsCollection = collection(db, "posts");
     // Create a new post object
     const newPost = {
@@ -69,6 +72,8 @@ export default function postQuestions() {
       const postID = newPostRef.id;
       // Update the document with the postID field
       await updateDoc(newPostRef, { postID });
+
+      createNewComment(postID);
 
       // Add a "likes" subcollection to the new post
       const likesCollection = collection(newPostRef, "likes");
@@ -94,13 +99,20 @@ export default function postQuestions() {
     }
   };
 
-  const AIsSelected = () => {
+  async function createNewComment(postid: string){
+    await setDoc(doc(db, "comments", postid), {
+      postID: postid,
+      postid : []
+  });
+  }
+
+   const AIsSelected = () => {
     setTag("Academic");
     setCrossButtonVisible(true);
     setFButtonVisible(false);
     setCButtonVisible(false);
     setSButtonVisible(false);
-    // change the background color of this button yellow
+   
   };
 
   const FIsSelected = () => {

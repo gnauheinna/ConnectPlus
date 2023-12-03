@@ -6,6 +6,7 @@ import {
   Image,
   TextInput,
 } from "react-native";
+import "react-native-get-random-values";
 import { Text, View } from "../components/Themed";
 import {
   getFirestore,
@@ -17,13 +18,12 @@ import {
   Timestamp,
   arrayUnion,
 } from "firebase/firestore";
-import { v4 as uuid } from "uuid";
 import { FontAwesome5, Feather } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import IndividualPost from "../components/individualPost";
 import { useRouter } from "expo-router";
 import { PostIdContext, PostIdProvider } from "./context/PostIDContext";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useCurrentChat } from "./context/currentChatContext";
 import { useUser } from "./context/UserContext";
 
@@ -51,25 +51,28 @@ export default function ChatBox() {
 
   useEffect(() => {
     // set currentChatID from local storage when the page refreshes
-    if (!currentChatID) {
-      const storedChatID = localStorage.getItem("currentChatID");
-      if (storedChatID !== null) {
-        //console.log("this is storedChatID: ", storedChatID);
-        setCurrentChatID(storedChatID);
+    const fetchChatData = async () => {
+      if (currentChatID != "") {
+        const storedChatID = await AsyncStorage.getItem("currentChatID");
+        if (storedChatID !== null) {
+          setCurrentChatID(storedChatID);
+        }
+        const storedChatName = await AsyncStorage.getItem("currentChatName");
+        if (storedChatName !== null) {
+          setCurrentChatName(storedChatName);
+        }
+        const storedChatUserID = await AsyncStorage.getItem(
+          "currentChatUserID"
+        );
+        if (storedChatUserID !== null) {
+          setCurrentChatUserID(storedChatUserID);
+        }
+      } else {
+        console.log("this is useEffect hook currentChatID :", currentChatID);
       }
-      const storedChatName = localStorage.getItem("currentChatName");
-      if (storedChatName !== null) {
-        //console.log("this is storedChatName: ", storedChatName);
-        setCurrentChatName(storedChatName);
-      }
-      const storedChatUserID = localStorage.getItem("currentChatUserID");
-      if (storedChatUserID !== null) {
-        //console.log("this is storedChatUserID: ", storedChatUserID);
-        setCurrentChatUserID(storedChatUserID);
-      }
-    } else {
-      console.log("this is useEffect hook currentChatID :", currentChatID);
-    }
+    };
+
+    fetchChatData();
   }, []);
 
   // fetches the correct chat
@@ -106,9 +109,10 @@ export default function ChatBox() {
   }, [currentChatID, user.name]);
 
   const handleSend = async () => {
+    const randomString = Math.random().toString(36).substring(7);
     await updateDoc(doc(db, "chats", currentChatID), {
       messages: arrayUnion({
-        chatID: uuid(),
+        chatID: randomString,
         text: inputText,
         senderID: user.userID,
         date: Timestamp.now(),

@@ -1,34 +1,78 @@
 import React, { useState, useEffect, useContext } from "react";
-import { ScrollView, StyleSheet, FlatList, Image } from "react-native";
+import {
+  ScrollView,
+  StyleSheet,
+  FlatList,
+  Image,
+  Modal,
+  TextInput,
+} from "react-native";
 import { Text, View } from "../components/Themed";
-import { getFirestore, doc, updateDoc, getDoc } from "firebase/firestore";
+import {
+  getFirestore,
+  doc,
+  updateDoc,
+  getDoc,
+  arrayUnion,
+  Timestamp,
+} from "firebase/firestore";
 import { FontAwesome5, Feather } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import IndividualPost from "../components/individualPost";
 import IndividualComment from "../components/individualComment";
 import { useRouter } from "expo-router";
+import { useUser } from "./context/UserContext";
 import { PostIdContext, PostIdProvider } from "./context/PostIDContext";
 import { Post, usePostContext } from "./context/postContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function PostDetails() {
   //use PostIDContext
   const { curPostID, setCurPostID } = useContext(PostIdContext);
   const { posts, loading } = usePostContext();
   const [allPosts, setAllPosts] = useState<Post[]>([]);
-
+  const [content, setContent] = useState("");
+  const [modalVisible, setModalVisible] = useState(false);
+  const { user, setUser } = useUser();
+  const db = getFirestore();
   const router = useRouter();
+  const openModal = () => {
+    setModalVisible(true);
+  };
+
+  const closeModal = () => {
+    setModalVisible(false);
+  };
+
+  const comment = async () => {
+    const randomString = Math.random().toString(36).substring(7);
+    await updateDoc(doc(db, "comments", curPostID), {
+      comment: arrayUnion({
+        commentID: randomString,
+        text: content,
+        userID: user.userID,
+        userName: user.name,
+        avatar: user.avatar,
+        date: Timestamp.now(),
+      }),
+    });
+    console.log("current senderID: ", user.userID);
+  };
 
   useEffect(() => {
     // set curPostID from local storage when the page refreshes
-    if (!curPostID) {
-      const storedPostID = localStorage.getItem("curPostID");
-      if (storedPostID !== null) {
-        console.log("this is storedChatID: ", storedPostID);
-        setCurPostID(storedPostID);
+    const setPostIDFromStorage = async () => {
+      if (curPostID != "") {
+        const storedPostID = await AsyncStorage.getItem("curPostID");
+        if (storedPostID !== null) {
+          console.log("this is storedChatID: ", storedPostID);
+          setCurPostID(storedPostID);
+        }
+      } else {
+        console.log("this is useEffect hook curPostID :", curPostID);
       }
-    } else {
-      console.log("this is useEffect hook curPostID :", curPostID);
-    }
+    };
+    setPostIDFromStorage();
   }, []);
 
   useEffect(() => {
@@ -49,14 +93,18 @@ export default function PostDetails() {
   return (
     <View style={styles.outermostContainer}>
       <View style={styles.tempContainer}>
-      {/*  Back Button */}
+        {/*  Back Button */}
         <View style={styles.backBtnContainer}>
-          <TouchableOpacity style={styles.backBtn}
+          <TouchableOpacity
+            style={styles.backBtn}
             onPress={() => {
               router.push("/community");
             }}
           >
-            <Image style={styles.backBtnImg} source={require("../assets/images/icons/blackBack.png")}/>
+            <Image
+              style={styles.backBtnImg}
+              source={require("../assets/images/icons/blackBack.png")}
+            />
           </TouchableOpacity>
         </View>
 
@@ -75,7 +123,10 @@ export default function PostDetails() {
                   <Text style={styles.postLikesText}>35</Text>
                 </TouchableOpacity>
                 {/* Display the reply button */}
-                <TouchableOpacity style={styles.replyPostContainer}>
+                <TouchableOpacity
+                  style={styles.replyPostContainer}
+                  onPress={openModal}
+                >
                   <Image
                     style={styles.replyPostImg}
                     source={require("../assets/images/icons/reply.png")}
@@ -84,13 +135,53 @@ export default function PostDetails() {
               </View>
             </View>
             {/* Divider line */}
-            <View style={styles.dividerLine}/>
+            <View style={styles.dividerLine} />
             {/* Display the comments */}
             <View style={styles.repliesTitle}>
               <Text style={styles.replyTitle}>Replies</Text>
             </View>
+            {/* Comment Modal */}
+            <View>
+              <Modal
+                style={styles.modalContainer}
+                visible={modalVisible}
+                animationType="slide"
+              >
+                <View>
+                  <Text>Comment:</Text>
+                  <TextInput
+                    style={[styles.inputContent]}
+                    placeholder="Enter your comment here"
+                    placeholderTextColor="#888888"
+                    value={content}
+                    onChangeText={(text) => setContent(text)}
+                    multiline={true}
+                    numberOfLines={10}
+                  />
+                  <TouchableOpacity
+                    style={[
+                      styles.postBtn,
+                      {
+                        backgroundColor: "#E6E6E6",
+                      },
+                    ]}
+                    onPress={comment}
+                  >
+                    <Text style={[styles.postText, { color: "#3A3340" }]}>
+                      comment
+                    </Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={closeModal}>
+                    <Text>Close Modal</Text>
+                  </TouchableOpacity>
+                </View>
+              </Modal>
+            </View>
 
-            <ScrollView style={styles.commentsContainer} showsHorizontalScrollIndicator={false}>
+            <ScrollView
+              style={styles.commentsContainer}
+              showsHorizontalScrollIndicator={false}
+            >
               <IndividualComment
                 username={"Ben Wilson"}
                 intro={"Class of 2027, Business Major"}
@@ -101,7 +192,9 @@ export default function PostDetails() {
                 username={"Stella Liam"}
                 intro={"Class of 2026, Biology Major"}
                 timestamp={"1d"}
-                content={"Who should I reach out to for more academic guidance?"}
+                content={
+                  "Who should I reach out to for more academic guidance?"
+                }
               />
               <IndividualComment
                 username={"Lana Lei"}
@@ -122,6 +215,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
   },
+
   tempContainer: {
     marginLeft: 20,
     marginRight: 20,
@@ -190,8 +284,7 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     marginRight: 20,
   },
-  replyPostContainer: {
-  },
+  replyPostContainer: {},
   replyPostImg: {
     maxWidth: 60,
     maxHeight: 20,
@@ -238,5 +331,39 @@ const styles = StyleSheet.create({
   commentsContainer: {
     // marginRight: 20,
     // marginLeft: 20,
+  },
+  modalContainer: {
+    backgroundColor: "white",
+    borderRadius: 12,
+    padding: 16,
+    shadowColor: "#49006C",
+    shadowOffset: {
+      width: -2,
+      height: 4,
+    },
+  },
+  inputContent: {
+    padding: 10,
+    width: "100%",
+    fontSize: 18,
+    outlineColor: "white",
+    marginTop: 10,
+  },
+  postBtn: {
+    backgroundColor: "#E2B8E0",
+    marginTop: 40,
+    marginBottom: 40,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    padding: 5,
+    borderRadius: 20,
+    width: 80,
+    justifyContent: "flex-end",
+    alignSelf: "flex-end",
+  },
+  postText: {
+    fontSize: 18,
+    alignSelf: "center",
+    color: "#9A969F",
   },
 });

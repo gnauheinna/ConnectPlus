@@ -20,8 +20,8 @@ export default function MyJourneyPost() {
   const { user, setUser } = useUser();
   const [isSaved, setIsSaved] = useState(false);
   // Extract the mentor's name from the end of the URL
-  const urlParams = new URLSearchParams(window.location.search);
-  const mentorName = urlParams.get("name");
+  //const urlParams = new URLSearchParams(window.location.search);
+  //const mentorName = urlParams.get("name");
   //console.log("mentorName: ", mentorName);
   const { name } = useParams();
   //console.log("name:  ", name);
@@ -30,9 +30,9 @@ export default function MyJourneyPost() {
     console.log("this is user:   ", user);
   }, [user]);
 
-  useEffect(() => {
-    console.log("mentorName hook:  ", mentorName);
-  }, [mentorName]);
+  // useEffect(() => {
+  //   console.log("mentorName hook:  ", mentorName);
+  // }, [mentorName]);
 
   function directToMyJourney() {
     router.push("/journeys");
@@ -118,8 +118,14 @@ export default function MyJourneyPost() {
         >
           {/* Back Button */}
           <View style={styles.backBtnContainer}>
-            <TouchableOpacity style={styles.backBtn} onPress={directToMyJourney}>
-              <Image style={styles.backBtnImg} source={require("../assets/images/icons/blackBack.png")}/>
+            <TouchableOpacity
+              style={styles.backBtn}
+              onPress={directToMyJourney}
+            >
+              <Image
+                style={styles.backBtnImg}
+                source={require("../assets/images/icons/blackBack.png")}
+              />
             </TouchableOpacity>
           </View>
           <View style={styles.topContainer}></View>
@@ -141,13 +147,20 @@ export default function MyJourneyPost() {
                 <Text style={styles.postDate}>Nov 6th 2023</Text>
                 {/* Save Button */}
                 <TouchableOpacity onPress={() => setIsSaved(!isSaved)}>
-                  <Image style={styles.saveIcon} 
-                    source={isSaved ? require("../assets/images/icons/journeySaved.png") : require("../assets/images/icons/journeyUnsaved.png")}
+                  <Image
+                    style={styles.saveIcon}
+                    source={
+                      isSaved
+                        ? require("../assets/images/icons/journeySaved.png")
+                        : require("../assets/images/icons/journeyUnsaved.png")
+                    }
                   />
                 </TouchableOpacity>
               </View>
               {/* Title */}
-              <Text style={styles.postTitle}>School Program - Alternative Service Break</Text>
+              <Text style={styles.postTitle}>
+                School Program - Alternative Service Break
+              </Text>
             </View>
           </View>
           {/* Author's information */}
@@ -398,16 +411,16 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   backBtnContainer: {
-    top: 20, 
+    top: 20,
     left: 20,
     alignSelf: "flex-start",
-    justifyContent: 'center',
+    justifyContent: "center",
     marginBottom: 20,
   },
   backBtn: {
     padding: 5,
     resizeMode: "contain",
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   backBtnImg: {
     width: 20,

@@ -7,6 +7,8 @@ import { FontSize, Color, FontFamily } from "../GlobalStyles";
 import { useRouter } from "expo-router";
 import { useState, useEffect } from "react";
 import Search from "../../components/search";
+import "react-native-get-random-values";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   collectionGroup,
   query,
@@ -54,10 +56,10 @@ export default function Message() {
 
   function directToChatBox(chatID: string, name: string, userID: string) {
     // passes the state to CurrentChatContext
-    // Save currentChatID to localStorage
-    localStorage.setItem("currentChatID", chatID);
-    localStorage.setItem("currentChatName", name);
-    localStorage.setItem("currentChatUserID", userID);
+    // Save currentChatID to AsyncStorage
+    AsyncStorage.setItem("currentChatID", chatID);
+    AsyncStorage.setItem("currentChatName", name);
+    AsyncStorage.setItem("currentChatUserID", userID);
     setCurrentChatID(chatID);
     setCurrentChatName(name);
     setCurrentChatUserID(userID);
