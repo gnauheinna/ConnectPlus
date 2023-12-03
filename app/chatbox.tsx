@@ -6,6 +6,7 @@ import {
   Image,
   TextInput,
 } from "react-native";
+import "react-native-get-random-values";
 import { Text, View } from "../components/Themed";
 import {
   getFirestore,
@@ -17,7 +18,6 @@ import {
   Timestamp,
   arrayUnion,
 } from "firebase/firestore";
-import { v4 as uuid } from "uuid";
 import { FontAwesome5, Feather } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import IndividualPost from "../components/individualPost";
@@ -109,9 +109,10 @@ export default function ChatBox() {
   }, [currentChatID, user.name]);
 
   const handleSend = async () => {
+    const randomString = Math.random().toString(36).substring(7);
     await updateDoc(doc(db, "chats", currentChatID), {
       messages: arrayUnion({
-        chatID: uuid(),
+        chatID: randomString,
         text: inputText,
         senderID: user.userID,
         date: Timestamp.now(),
