@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { ScrollView, StyleSheet, FlatList, Image } from "react-native";
+import { ScrollView, StyleSheet, FlatList, Image, Modal, TextInput } from "react-native";
 import { Text, View } from "../components/Themed";
 import { getFirestore, doc, updateDoc, getDoc } from "firebase/firestore";
 import { FontAwesome5, Feather } from "@expo/vector-icons";
@@ -16,8 +16,21 @@ export default function PostDetails() {
   const { curPostID, setCurPostID } = useContext(PostIdContext);
   const { posts, loading } = usePostContext();
   const [allPosts, setAllPosts] = useState<Post[]>([]);
+  const [content, setContent] = useState("");
+  const [modalVisible, setModalVisible] = useState(false);
 
   const router = useRouter();
+  const openModal = () => {
+    setModalVisible(true);
+  };
+
+  const closeModal = () => {
+    setModalVisible(false);
+  };
+
+  const comment =()=>{
+
+  }
 
   useEffect(() => {
     // set curPostID from local storage when the page refreshes
@@ -83,7 +96,7 @@ export default function PostDetails() {
                   <Text style={styles.postLikesText}>35</Text>
                 </TouchableOpacity>
                 {/* Display the reply button */}
-                <TouchableOpacity style={styles.replyPostContainer}>
+                <TouchableOpacity style={styles.replyPostContainer} onPress={openModal}>
                   <Image
                     style={styles.replyPostImg}
                     source={require("../assets/images/icons/reply.png")}
@@ -96,6 +109,26 @@ export default function PostDetails() {
             {/* Display the comments */}
             <View style={styles.repliesTitle}>
               <Text style={styles.replyTitle}>Replies</Text>
+            </View>
+
+            <View>
+              <Modal style={styles.modalContainer} visible={modalVisible} animationType="slide">
+                <View>
+                  <Text>This is the modal content</Text>
+                   <TextInput
+                      style={[styles.inputContent]}
+                      placeholder="What is your question?"
+                      placeholderTextColor="#888888"
+                      value={content}
+                      onChangeText={(text) => setContent(text)}
+                      multiline={true}
+                      numberOfLines={10}
+                  />
+                  <TouchableOpacity onPress={closeModal}>
+                    <Text>Close Modal</Text>
+                  </TouchableOpacity>
+                </View>
+              </Modal>
             </View>
 
             <ScrollView
@@ -135,6 +168,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
   },
+  
   tempContainer: {
     marginLeft: 20,
     marginRight: 20,
@@ -251,5 +285,22 @@ const styles = StyleSheet.create({
   commentsContainer: {
     // marginRight: 20,
     // marginLeft: 20,
+  },
+  modalContainer: {
+    backgroundColor: "white",
+    borderRadius: 12,
+    padding: 16,
+    shadowColor: "#49006C",
+    shadowOffset: {
+      width: -2,
+      height: 4,
+  }
+},
+inputContent: {
+    padding: 10,
+    width: "100%",
+    fontSize: 18,
+    outlineColor: "white",
+    marginTop: 10,
   },
 });
