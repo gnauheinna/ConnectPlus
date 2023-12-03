@@ -28,6 +28,7 @@ export type Post = {
   timestamp: Timestamp;
   userName: string;
   avatar: string;
+  likesCount: number;
 };
 
 interface PostContextValue {

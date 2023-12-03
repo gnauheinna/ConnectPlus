@@ -5,7 +5,6 @@ import {
   Image,
   ScrollView,
   FlatList,
-  ImageBackground,
 } from "react-native";
 import { useState, useEffect } from "react";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
@@ -217,7 +216,7 @@ const styles = StyleSheet.create({
     paddingTop: 60,
   },
   profileInfoContainer: {
-    height: 330,
+    height: 300,
     width: "100%",
     justifyContent: "center",
     alignSelf: "center",
@@ -230,17 +229,17 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   profileImage: {
-    width: 120,
-    height: 120,
+    width: 90,
+    height: 90,
     borderRadius: 100,
     overflow: "hidden",
     justifyContent: "center",
   },
   userName: {
     fontWeight: "bold",
-    fontSize: 24,
+    fontSize: 20,
     color: "#000000",
-    marginBottom: 10,
+    marginBottom: 8,
   },
   userIntro: {
     fontSize: 14,

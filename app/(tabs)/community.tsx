@@ -16,6 +16,12 @@ import {
   Timestamp,
   doc,
   updateDoc,
+  increment,
+  addDoc,
+  deleteDoc,
+  query, 
+  where,
+  getDoc,
 } from "firebase/firestore";
 import { AuthErrorCodes } from "firebase/auth";
 import { FontAwesome5, Feather } from "@expo/vector-icons";
@@ -40,6 +46,7 @@ export default function CommunityScreen() {
   const auth = getAuth();
   const { user, setUser } = useUser();
   const [allPosts, setAllPosts] = useState<Post[]>([]);
+  const [likePressed, setlikePressed] = useState(false);
   // Set the initially selected tag to be All
   const [selectedTag, setSelectedTag] = useState("All");
   const [selectedAll, setSelectedAll] = useState(true);
@@ -65,6 +72,48 @@ export default function CommunityScreen() {
   const filteredPosts = allPosts.filter(
     (post) => post.tag === selectedTag || selectedTag === "All"
   );
+
+  const [likedPostId, setLikedPostId] = useState<string | null>(null);
+  const [likedPostLikesCount, setLikedPostLikesCount] = useState<number>(0);
+
+  const handleLikePress = async (postId: string) => {
+    console.log('Before pressing:', likePressed);
+    const postRef = doc(db, "posts", postId);
+    await updateDoc(postRef, {
+      likesCount: increment(likePressed ? -1 : 1)
+    });
+
+    setLikedPostId(postId);
+
+    // Get a reference to the "likes" subcollection of the post
+    const likesCollection = collection(postRef, "likes");
+
+    // Get the updated likesCount
+    const postSnapshot = await getDoc(postRef);
+    if (postSnapshot.exists()) {
+      setLikedPostLikesCount(postSnapshot.data().likesCount);
+    }
+
+    // Query to check if the user has already liked the post
+    const likesQuery = query(likesCollection, where("userId", "==", user.userID));
+    const querySnapshot = await getDocs(likesQuery);
+
+    // Add the current user's userId to the "likes" subcollection
+    if (querySnapshot.empty && !likePressed) {
+      await addDoc(likesCollection, { userId: user.userID, liked: true });
+    } else {
+      // If the user is unliking the post, remove their userId from the "likes" subcollection
+      querySnapshot.forEach((doc) => {
+        if (!likePressed) {
+          updateDoc(doc.ref, { liked: true });
+        } else {
+          updateDoc(doc.ref, { liked: false });
+        }
+      });
+    }
+    setlikePressed(!likePressed);
+  console.log('After pressing:', !likePressed);
+}
 
   return (
     <View style={styles.outermostContainer}>
@@ -171,12 +220,21 @@ export default function CommunityScreen() {
                 <IndividualPost postId={item.postID} />
                 <View style={styles.bottomPartContainer}>
                   {/* Display the like icon and like number */}
-                  <TouchableOpacity style={styles.postLikesContainer}>
+                  <TouchableOpacity 
+                    style={styles.postLikesContainer} 
+                    onPress={() => handleLikePress(item.postID)}
+                  >
                     <Image
                       style={styles.postLikesImg}
-                      source={require("../../assets/images/icons/filledHeart.png")}
+                      source={
+                        likePressed && likedPostId === item.postID
+                          ? require("../../assets/images/icons/filledHeart.png")
+                          : require("../../assets/images/icons/unfilledHeart.png")
+                      }
                     />
-                    <Text style={styles.postLikesText}>35</Text>
+                    <Text style={styles.postLikesText}>
+                      {likePressed && likedPostId === item.postID ? likedPostLikesCount : item.likesCount}
+                    </Text>
                   </TouchableOpacity>
                   {/* Display the reply button */}
                   <TouchableOpacity style={styles.replyPostContainer}>
@@ -233,10 +291,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "transparent",
-    marginTop: 40,
+    marginTop: 80,
   },
   topContainer: {
-    paddingTop: 50,
+    paddingTop: 80,
     backgroundColor: "transparent",
     marginLeft: 20,
     marginRight: 20,
@@ -318,16 +376,6 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 12,
     paddingHorizontal: 0,
     marginBottom: 20,
-  },
-  iconWrapper: {
-    marginHorizontal: 8,
-    paddingTop: 10,
-    paddingBottom: 10,
-  },
-  icons: {
-    width: 28,
-    height: 28,
-    resizeMode: "contain",
   },
   bottomPartContainer: {
     flexDirection: "row",
