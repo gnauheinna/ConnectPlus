@@ -7,6 +7,7 @@ import { FontSize, Color, FontFamily } from "../GlobalStyles";
 import { useRouter } from "expo-router";
 import { useState, useEffect } from "react";
 import Search from "../../components/search";
+import "react-native-get-random-values";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   collectionGroup,
