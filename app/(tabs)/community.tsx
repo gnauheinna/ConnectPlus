@@ -19,7 +19,7 @@ import {
   increment,
   addDoc,
   deleteDoc,
-  query, 
+  query,
   where,
   getDoc,
 } from "firebase/firestore";
@@ -35,6 +35,8 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useUser } from "../context/UserContext";
 import postQuestions from "../post";
 import { Post, PostProvider, usePostContext } from "../context/postContext";
+import { PostIdContext } from "../context/PostIDContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function CommunityScreen() {
   if (getApps() == null) {
@@ -50,9 +52,16 @@ export default function CommunityScreen() {
   // Set the initially selected tag to be All
   const [selectedTag, setSelectedTag] = useState("All");
   const [selectedAll, setSelectedAll] = useState(true);
-
+  //use PostIDContext
+  const { curPostID, setCurPostID } = useContext(PostIdContext);
   function directToPost() {
     router.push("/post");
+  }
+
+  function viewPostDetails(postId: string) {
+    AsyncStorage.setItem("curPostID", postId);
+    setCurPostID(postId);
+    router.push("/postdetails");
   }
 
   useEffect(() => {
@@ -77,10 +86,10 @@ export default function CommunityScreen() {
   const [likedPostLikesCount, setLikedPostLikesCount] = useState<number>(0);
 
   const handleLikePress = async (postId: string) => {
-    console.log('Before pressing:', likePressed);
+    console.log("Before pressing:", likePressed);
     const postRef = doc(db, "posts", postId);
     await updateDoc(postRef, {
-      likesCount: increment(likePressed ? -1 : 1)
+      likesCount: increment(likePressed ? -1 : 1),
     });
 
     setLikedPostId(postId);
@@ -95,7 +104,10 @@ export default function CommunityScreen() {
     }
 
     // Query to check if the user has already liked the post
-    const likesQuery = query(likesCollection, where("userId", "==", user.userID));
+    const likesQuery = query(
+      likesCollection,
+      where("userId", "==", user.userID)
+    );
     const querySnapshot = await getDocs(likesQuery);
 
     // Add the current user's userId to the "likes" subcollection
@@ -112,8 +124,8 @@ export default function CommunityScreen() {
       });
     }
     setlikePressed(!likePressed);
-  console.log('After pressing:', !likePressed);
-}
+    console.log("After pressing:", !likePressed);
+  };
 
   return (
     <View style={styles.outermostContainer}>
@@ -220,8 +232,8 @@ export default function CommunityScreen() {
                 <IndividualPost postId={item.postID} />
                 <View style={styles.bottomPartContainer}>
                   {/* Display the like icon and like number */}
-                  <TouchableOpacity 
-                    style={styles.postLikesContainer} 
+                  <TouchableOpacity
+                    style={styles.postLikesContainer}
                     onPress={() => handleLikePress(item.postID)}
                   >
                     <Image
@@ -233,11 +245,16 @@ export default function CommunityScreen() {
                       }
                     />
                     <Text style={styles.postLikesText}>
-                      {likePressed && likedPostId === item.postID ? likedPostLikesCount : item.likesCount}
+                      {likePressed && likedPostId === item.postID
+                        ? likedPostLikesCount
+                        : item.likesCount}
                     </Text>
                   </TouchableOpacity>
                   {/* Display the reply button */}
-                  <TouchableOpacity style={styles.replyPostContainer}>
+                  <TouchableOpacity
+                    style={styles.replyPostContainer}
+                    onPress={() => viewPostDetails(item.postID)}
+                  >
                     <Image
                       style={styles.replyPostImg}
                       source={require("../../assets/images/icons/reply.png")}

@@ -27,7 +27,7 @@ import { PostIdContext, PostIdProvider } from "./context/PostIDContext";
 import { Post, usePostContext } from "./context/postContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-type Comment = {
+export type Comment = {
   commentID: string;
   date: Timestamp;
   userIntro: string;
@@ -63,6 +63,7 @@ export default function PostDetails() {
         userID: user.userID,
         userName: user.name,
         avatar: user.avatar,
+        userIntro: "Class of " + user.year + ", " + user.major + " Major",
         date: Timestamp.now(),
       }),
     });
@@ -222,7 +223,7 @@ export default function PostDetails() {
                 renderItem={({ item }) => (
                   <IndividualComment
                     username={item.userName}
-                    intro={"Class of 2027, Data Science Major"}
+                    intro={item.userIntro}
                     timestamp={item.date.toString()}
                     content={item.text}
                   />

@@ -18,7 +18,7 @@ import {
 import { FontAwesome5, Feather } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Card, Avatar, IconButton } from "react-native-paper";
-import { Image } from "react-native";
+import { Image, Modal } from "react-native";
 import { useRouter } from "expo-router";
 import { useUser } from "../app/context/UserContext";
 import { PostProvider, usePostContext } from "../app/context/postContext";
@@ -40,6 +40,7 @@ const IndividualPost: React.FC<IndividualPostProps> = ({ postId }) => {
   // User PostContext
   const { posts, loading } = usePostContext();
   const [tag, setTag] = useState("");
+
   const post = posts.find((post) => post.postID === postId);
   //use PostIDContext
   const { curPostID, setCurPostID } = useContext(PostIdContext);
