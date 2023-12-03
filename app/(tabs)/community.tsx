@@ -291,10 +291,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "transparent",
-    marginTop: 40,
+    marginTop: 80,
   },
   topContainer: {
-    paddingTop: 50,
+    paddingTop: 80,
     backgroundColor: "transparent",
     marginLeft: 20,
     marginRight: 20,
@@ -376,16 +376,6 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 12,
     paddingHorizontal: 0,
     marginBottom: 20,
-  },
-  iconWrapper: {
-    marginHorizontal: 8,
-    paddingTop: 10,
-    paddingBottom: 10,
-  },
-  icons: {
-    width: 28,
-    height: 28,
-    resizeMode: "contain",
   },
   bottomPartContainer: {
     flexDirection: "row",

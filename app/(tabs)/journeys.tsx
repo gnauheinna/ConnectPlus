@@ -16,52 +16,52 @@ export default function JourneyScreen() {
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
-      <View style={styles.outermostContainer}>
-        <ImageBackground
-          source={require("../../assets/images/gradient/whiteGradientAskNShare.png")}
-          resizeMode="cover"
-          style={styles.gradientBackground}
-        >
-          <View style={styles.journeyBigTitleContainer}>
-            <Text style={styles.journeyBigTitle}>My Journey</Text>
-          </View>
-        </ImageBackground>
+    <View style={styles.outermostContainer}>
+      <ImageBackground
+        source={require("../../assets/images/gradient/whiteGradientAskNShare.png")}
+        resizeMode="cover"
+        style={styles.gradientBackground}
+      >
+      <View style={styles.journeyBigTitleContainer}>
+          <Text style={styles.journeyBigTitle}>My Journey</Text>
+      </View>
+      </ImageBackground>
 
-        <View style={styles.container}>
-          <View style={styles.journeySubTitleContainer}>
-            <Text style={styles.journeySubTitle}>Featured</Text>
-          </View>
+      <View style={styles.container}>
+        <View style={styles.journeySubTitleContainer}>
+          <Text style={styles.journeySubTitle}>Featured</Text>
+        </View>
 
-          <View style={styles.featuredJourneysContainer}>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              {/* 1st Featured Journey */}
-              <TouchableOpacity
-                onPress={() => directToMyJourneyPost("rachel")}
-                style={styles.featuredJourney}
-              >
-                <Image
-                  style={styles.featuredJourneyImg}
-                  source={require("../../assets/images/featuredMyJourneyPosts/RachelLi.png")}
-                />
-              </TouchableOpacity>
+        <View style={styles.featuredJourneysContainer}>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            {/* 1st Featured Journey */}
+            <TouchableOpacity
+              onPress={() => directToMyJourneyPost("rachel")}
+              style={styles.featuredJourney}
+            >
+              <Image
+                style={styles.featuredJourneyImg}
+                source={require("../../assets/images/featuredMyJourneyPosts/RachelLi.png")}
+              />
+            </TouchableOpacity>
 
-              {/* 2nd Featured Journey */}
-              <TouchableOpacity
-                onPress={() => directToMyJourneyPost("rachel")}
-                style={styles.featuredJourney}
-              >
-                <Image
-                  style={styles.featuredJourneyImg}
-                  source={require("../../assets/images/featuredMyJourneyPosts/RachelLi.png")}
-                />
-              </TouchableOpacity>
-            </ScrollView>
-          </View>
+            {/* 2nd Featured Journey */}
+            <TouchableOpacity
+              onPress={() => directToMyJourneyPost("rachel")}
+              style={styles.featuredJourney}
+            >
+              <Image
+                style={styles.featuredJourneyImg}
+                source={require("../../assets/images/featuredMyJourneyPosts/RachelLi.png")}
+              />
+            </TouchableOpacity>
+          </ScrollView>
+        </View>
 
-          <View style={styles.journeySubTitleContainer}>
-            <Text style={styles.journeySubTitle}>Hear From Others</Text>
-            <Text style={styles.seeAll}>See All</Text>
-          </View>
+        <View style={styles.journeySubTitleContainer}>
+          <Text style={styles.journeySubTitle}>Hear From Others</Text>
+          <Text style={styles.seeAll}>See All</Text>
+        </View>
 
         <View style={styles.allJourneysContainer}>
           <ScrollView showsVerticalScrollIndicator={false}>
@@ -94,7 +94,9 @@ export default function JourneyScreen() {
           </ScrollView>
         </View>
       </View>
+    </View>
     </ScrollView>
+
   );
 }
 
@@ -122,7 +124,7 @@ const styles = StyleSheet.create({
     zIndex: 2,
   },
   journeyBigTitle: {
-    fontSize: 36,
+    fontSize: 42,
     color: "#453B4F",
     fontWeight: "bold",
     marginTop: 20,
@@ -193,59 +195,5 @@ const styles = StyleSheet.create({
     backgroundColor: "#F9F6FF",
     marginTop: 10,
     justifyContent: "flex-start",
-  },
-  individualJourney: {
-    flexDirection: "row",
-    marginBottom: 16,
-    backgroundColor: "white",
-    padding: 12,
-    borderRadius: 15,
-    shadowColor: "#49006C",
-    shadowOffset: {
-      width: -2,
-      height: 4,
-    },
-    shadowOpacity: 0.06,
-    shadowRadius: 10,
-  },
-  journeyTextContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-  },
-  journeyTextNonFeaturedContainer: {
-    top: 0,
-    backgroundColor: "transparent",
-    paddingTop: 16,
-    marginRight: 16,
-  },
-  mentorImgContainer: {
-    marginRight: 20,
-    justifyContent: "center",
-  },
-  mentorImg: {
-    maxWidth: 80,
-    maxHeight: 80,
-  },
-  journeyInfoContainer: {
-    flexDirection: "column",
-    flex: 1,
-    justifyContent: "center",
-  },
-  journeyTitleContainer: {},
-  journeyTitle: {
-    fontSize: 16,
-    fontWeight: "bold",
-    marginBottom: 16,
-    maxWidth: 200,
-    lineHeight: 20,
-  },
-  mentorInfoContainer: {},
-  mentorName: {
-    fontSize: 13,
-    marginBottom: 4,
-  },
-  mentorYear: {
-    fontSize: 10,
-    color: "#7C7C7C",
   },
 });

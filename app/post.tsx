@@ -10,6 +10,7 @@ import {
   addDoc,
   setDoc,
   updateDoc,
+  doc,
 } from "firebase/firestore";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useRouter } from "expo-router";
@@ -34,6 +35,7 @@ export default function postQuestions() {
   const [SButtonVisible, setSButtonVisible] = useState(true);
   const [CrossButtonVisible, setCrossButtonVisible] = useState(false);
   const [isPostCompleted, setIsPostCompleted] = useState(false);
+  const db = getFirestore();
 
   const router = useRouter();
   function directToComm() {
