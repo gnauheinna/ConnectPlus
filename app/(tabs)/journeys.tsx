@@ -13,7 +13,6 @@ export default function JourneyScreen() {
     router.push(`/${postName}`);
   }
 
-
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
     <View style={styles.outermostContainer}>
@@ -149,7 +148,8 @@ const styles = StyleSheet.create({
   },
   featuredJourneysContainer: {
     marginBottom: 32,
-    backgroundColor: "#F9F6FF",
+    height: 220,
+    backgroundColor: "transparent",
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,
@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
   },
   featuredJourneyImg: {
     maxWidth: 300,
-    maxHeight: 210,
+    maxHeight: 200,
     borderRadius: 15,
   },
   allJourneysContainer: {
