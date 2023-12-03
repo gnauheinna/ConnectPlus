@@ -69,14 +69,15 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.06,
     shadowRadius: 10,
+    height: 120,
   },
   mentorImgContainer: {
     marginRight: 20,
     justifyContent: 'center',
   },
   mentorImg: {
-    maxWidth: 80,
-    maxHeight: 80,
+    maxWidth: 90,
+    maxHeight: 90,
   },
   journeyInfoContainer: {
     flexDirection: "column",
