@@ -70,12 +70,12 @@ const AddAvatar = () => {
 
       <View style={styles.avatarsContainer}>
 
-        <View style={{ marginRight: 20 }}>
+        <View>
           <TouchableOpacity onPress={() => avatarSelected("avatar1")}>
               <Image style={[styles.avatar]} source={selectedAvatar === "avatar1" ? require("../assets/images/avatars/avatar1Selected.png") : require("../assets/images/avatars/avatar1.png")}/>
           </TouchableOpacity>
         </View>
-        <View style={{ marginRight: 20 }}>
+        <View>
           <TouchableOpacity onPress={() => avatarSelected("avatar2")}>
               <Image style={[styles.avatar]} source={selectedAvatar === "avatar2" ? require("../assets/images/avatars/avatar2Selected.png") : require("../assets/images/avatars/avatar2.png")}/>
           </TouchableOpacity>
@@ -85,12 +85,12 @@ const AddAvatar = () => {
               <Image style={[styles.avatar]} source={selectedAvatar === "avatar3" ? require("../assets/images/avatars/avatar3Selected.png") : require("../assets/images/avatars/avatar3.png")}/>
           </TouchableOpacity>
         </View>
-        <View style={{ marginRight: 20 }}>
+        <View>
           <TouchableOpacity onPress={() => avatarSelected("avatar4")}>
               <Image style={[styles.avatar]} source={selectedAvatar === "avatar4" ? require("../assets/images/avatars/avatar4Selected.png") : require("../assets/images/avatars/avatar4.png")}/>
           </TouchableOpacity>
         </View>
-        <View style={{ marginRight: 20 }}>
+        <View>
           <TouchableOpacity onPress={() => avatarSelected("avatar5")}>
               <Image style={[styles.avatar]} source={selectedAvatar === "avatar5" ? require("../assets/images/avatars/avatar5Selected.png") : require("../assets/images/avatars/avatar5.png")}/>
           </TouchableOpacity>
@@ -100,12 +100,12 @@ const AddAvatar = () => {
               <Image style={[styles.avatar]} source={selectedAvatar === "avatar6" ? require("../assets/images/avatars/avatar6Selected.png") : require("../assets/images/avatars/avatar6.png")}/>
           </TouchableOpacity>
         </View>
-        <View style={{ marginRight: 20 }}>
+        <View>
           <TouchableOpacity onPress={() => avatarSelected("avatar7")}>
               <Image style={[styles.avatar]} source={selectedAvatar === "avatar7" ? require("../assets/images/avatars/avatar7Selected.png") : require("../assets/images/avatars/avatar7.png")}/>
           </TouchableOpacity>
         </View>
-        <View style={{ marginRight: 20 }}>
+        <View>
           <TouchableOpacity onPress={() => avatarSelected("avatar8")}>
               <Image style={[styles.avatar]} source={selectedAvatar === "avatar8" ? require("../assets/images/avatars/avatar8Selected.png") : require("../assets/images/avatars/avatar8.png")}/>
           </TouchableOpacity>
@@ -138,16 +138,15 @@ const styles = StyleSheet.create({
     backgroundColor: "#F9F6FF",
   },
   backBtnContainer: {
-    marginTop: 60,
+    marginTop: 40,
     marginLeft: 40,
     alignSelf: "flex-start",
-    justifyContent: 'center',
-    marginBottom: 40,
+    justifyContent: "center",
   },
   backBtn: {
     padding: 5,
     resizeMode: "contain",
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   backBtnImg: {
     width: 20,
@@ -155,34 +154,36 @@ const styles = StyleSheet.create({
   },
   gradientBackground: {
     width: "100%",
-    height: 130,
+    height: 90,
     zIndex: 1,
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: "bold",
+    marginBottom: 8,
+    color: "#453B4F",
+    zIndex: 2,
+  },
+  subTitle: {
+    fontSize: 16,
+    marginBottom: 16,
+    color: "#453B4F",
+    zIndex: 2,
+    lineHeight: 20,
   },
   topPortion:{
     paddingBottom: 20,
     justifyContent: "flex-start",
   },
-  title: {
-    fontSize: 28,
-    fontWeight: "bold",
-    marginBottom: 20,
-    color: "#453B4F",
-  },
-  subTitle: {
-    fontSize: 16,
-    marginBottom: 20,
-    color: "#453B4F",
-    lineHeight: 24,
-  },
   avatarsContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
+    width: "100%"
   },
   avatar: {
-    width: 90,
-    height: 90,
-    // marginHorizontal: 14,
-    marginVertical: 14,
+    width: 60,
+    height: 60,
+    margin: 10,
   },
   nextButtonContainer: {
     marginLeft: 40,
