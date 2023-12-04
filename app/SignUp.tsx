@@ -159,11 +159,8 @@ const SignupForm = () => {
       </ImageBackground>
       <View style={styles.container}>
         <Text style={[styles.title]}>Create Your Account</Text>
-        <Text style={[styles.subTitle]}>
-          Lorem ipsum dolor sit amet consectetur. Quisque mi metus aliquam sed
-          neque.
-        </Text>
-        <View style={{ marginTop: 5 }}>
+        <Text style={[styles.subTitle]}>Begin your journey here at Connect+</Text>
+        <View style={{ marginTop: 3 }}>
           <View style={[styles.inputContainer]}>
             <Image
               style={[styles.signUpIcons]}
@@ -179,7 +176,7 @@ const SignupForm = () => {
           </View>
         </View>
 
-        <View style={{ marginTop: 5 }}>
+        <View style={{ marginTop: 3 }}>
           <View style={[styles.inputContainer]}>
             <Image
               style={[styles.signUpIcons]}
@@ -195,7 +192,7 @@ const SignupForm = () => {
           </View>
         </View>
 
-        <View style={{ marginTop: 5 }}>
+        <View style={{ marginTop: 3 }}>
           <View style={[styles.inputContainer]}>
             <Image
               style={[styles.signUpIcons]}
@@ -211,7 +208,7 @@ const SignupForm = () => {
           </View>
         </View>
 
-        <View style={{ marginTop: 5 }}>
+        <View style={{ marginTop: 3 }}>
           <View style={[styles.inputContainer]}>
             <Image
               style={[styles.signUpIcons]}
@@ -229,7 +226,7 @@ const SignupForm = () => {
           </View>
         </View>
 
-        <View style={{ marginTop: 5 }}>
+        <View style={{ marginTop: 3 }}>
           <View style={[styles.inputContainer]}>
             <Image
               style={[styles.signUpIcons]}
@@ -245,11 +242,11 @@ const SignupForm = () => {
           </View>
         </View>
 
-        <View style={{ marginTop: 5 }}>
+        <View style={{ marginTop: 3 }}>
           <View style={[styles.inputContainer]}>
             <Image
               style={[styles.signUpIcons]}
-              source={require("../assets/images/signUpIcons/password.png")}
+              source={require("../assets/images/signUpIcons/year.png")}
             />
             <TextInput
               placeholder="Year"
@@ -282,7 +279,7 @@ const styles = StyleSheet.create({
     marginRight: 40,
   },
   backBtnContainer: {
-    marginTop: 60,
+    marginTop: 40,
     marginLeft: 40,
     alignSelf: "flex-start",
     justifyContent: "center",
@@ -298,22 +295,22 @@ const styles = StyleSheet.create({
   },
   gradientBackground: {
     width: "100%",
-    height: 130,
+    height: 90,
     zIndex: 1,
   },
   title: {
     fontSize: 28,
     fontWeight: "bold",
-    marginBottom: 20,
+    marginBottom: 8,
     color: "#453B4F",
     zIndex: 2,
   },
   subTitle: {
     fontSize: 16,
-    marginBottom: 30,
+    marginBottom: 16,
     color: "#453B4F",
     zIndex: 2,
-    lineHeight: 24,
+    lineHeight: 20,
   },
   signUpIcons: {
     width: 26,
@@ -345,7 +342,7 @@ const styles = StyleSheet.create({
   },
   nextButton: {
     backgroundColor: "#FFC940",
-    marginTop: 60,
+    marginTop: 20,
     width: "100%",
     borderRadius: 25,
     paddingVertical: 12,
