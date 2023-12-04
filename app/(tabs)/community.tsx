@@ -311,14 +311,14 @@ const styles = StyleSheet.create({
     marginTop: 80,
   },
   topContainer: {
-    paddingTop: 80,
+    paddingTop: 40,
     backgroundColor: "transparent",
     marginLeft: 20,
     marginRight: 20,
   },
   gradientBackground: {
     width: "100%",
-    height: 130,
+    height: 90,
     zIndex: 1,
   },
   bigTitleContainer: {
@@ -347,7 +347,7 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
   },
   horizontalSubNavMainContainer: {
-    position: "sticky",
+    // position: "sticky",
     top: 0,
     zIndex: 1,
     backgroundColor: "transparent",
@@ -387,6 +387,7 @@ const styles = StyleSheet.create({
   bottomPartContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
+    height: 24,
   },
   postLikesContainer: {
     flexDirection: "row",
