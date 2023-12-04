@@ -164,24 +164,29 @@ export default function Login() {
       <View style={styles.container}>
         {/* ConnectPlus Logo */}
         <Image
-          style={[styles.connectPlusLogo]}
+          style={styles.connectPlusLogo}
           source={require("../assets/images/connectPlusLogo.png")}
         />
 
         {/* Welcome Message */}
-        <Text style={styles.welcomeMessage}>{`Welcome to Connect+ `}</Text>
+        <View style={styles.welcomeMessageContainer}>
+          <Text style={styles.welcomeMessage}>{`Welcome to Connect+ `}</Text>
+        </View>
 
         {/* Email Input */}
-        <Text style={[styles.inputTitle]}>Email</Text>
-        <TextInput
-          style={[styles.input]}
-          value={email}
-          onChangeText={(email) => setEmail(email)}
-          // placeholder="example@gmail.com"
-        ></TextInput>
+        <View style={styles.emailInputContainer}>
+          <Text style={styles.inputTitle}>Email</Text>
+          <TextInput
+            style={[styles.input]}
+            value={email}
+            onChangeText={(email) => setEmail(email)}
+            // placeholder="example@gmail.com"
+          ></TextInput>
+        </View>
 
         {/* Password Input */}
-        <Text style={[styles.inputTitle]}>Password</Text>
+         <View style={styles.passwordInputContainer}>
+        <Text style={styles.inputTitle}>Password</Text>
         <TextInput
           style={[styles.input]}
           secureTextEntry
@@ -189,52 +194,59 @@ export default function Login() {
           onChangeText={(password) => setPassword(password)}
           // placeholder="123456"
         ></TextInput>
+        </View>
 
         {/* Checkbox + Remember Me Text */}
-        <View style={styles.rememberMeContainer}>
+        {/* <View style={styles.rememberMeContainer}>
           <CheckBox
             checked={false} // Set the initial checked state here
             onPress={() => {}}
             containerStyle={styles.checkboxContainer}
           />
           <Text style={[styles.rememberMeText]}>Remember me</Text>
-        </View>
+        </View> */}
 
         {/* Sign In Button */}
-        <TouchableOpacity style={styles.createAccountBtn} onPress={LogIn}>
-          <Text style={styles.createAccountText}>Sign In</Text>
-        </TouchableOpacity>
+        <View style={styles.signInBtn}>
+          <TouchableOpacity onPress={LogIn}>
+            <Text style={styles.createAccountText}>Sign In</Text>
+          </TouchableOpacity>
+        </View>
 
         {/* Divider for 3rd Party Login Options */}
         <View style={styles.orDivider}>
-          <View style={styles.line}></View>
-          <Text style={{ marginHorizontal: 5 }}>OR</Text>
-          <View style={styles.line}></View>
+          <View style={styles.line1}></View>
+          <Text style={styles.orText}>OR</Text>
+          <View style={styles.line2}></View>
         </View>
 
-        <View style={[styles.thirdPartyLogIn]}>
+        <View style={styles.thirdPartyLogIn}>
           {/* Google Login Button */}
+          <View>
           <TouchableOpacity onPress={GoogleLogin}>
             <Image
               source={require("../assets/images/googleLogo.png")}
               style={[styles.thirdPartyIcon]}
             />
           </TouchableOpacity>
+          </View>
           <View style={{ width: 50 }}></View>
           {/* Kerberos Login Button */}
+          <View>
           <TouchableOpacity>
             <Image
               source={require("../assets/images/kerberosLogo.png")}
               style={[styles.thirdPartyIcon]}
             />
           </TouchableOpacity>
+          </View>
         </View>
 
         {/* Switch to Sign Up Option */}
-        <View style={[styles.switchToSignIn]}>
-          <Text style={{ fontSize: 16 }}>Don't have an account? </Text>
+        <View style={styles.switchToSignUp}>
+          <Text>Don't have an account? </Text>
           <TouchableOpacity onPress={createUser}>
-            <Text style={{ fontSize: 16, fontWeight: "bold" }}>Sign Up</Text>
+            <Text style={{ fontWeight: "bold"}}>Sign Up</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -244,7 +256,9 @@ export default function Login() {
 
 const styles = StyleSheet.create({
   outterMostContainer: {
+    flex: 1,
     backgroundColor: "white",
+    justifyContent: "center",
   },
   container: {
     flex: 1,
@@ -253,25 +267,33 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   connectPlusLogo: {
-    height: 120,
-    width: 150,
-    position: "relative",
+    height: 100,
+    width: 120,
     justifyContent: "center",
     alignSelf: "center",
     marginTop: 50,
-    marginBottom: 50,
+    marginBottom: 20,
     resizeMode: "contain",
+  },
+  welcomeMessageContainer: {
+    marginBottom: 24,
   },
   welcomeMessage: {
     fontSize: 28,
     fontWeight: "bold",
     color: "#453b4f",
     textAlign: "center",
-    marginBottom: 40,
+  },
+  emailInputContainer: {
+    marginBottom: 10,
+  },
+  passwordInputContainer: {
+    marginBottom: 24,
   },
   inputTitle: {
-    color: "#000000",
-    fontSize: 16,
+    color: "black",
+    fontSize: 14,
+    marginBottom: 8,
   },
   input: {
     borderWidth: 1,
@@ -294,11 +316,11 @@ const styles = StyleSheet.create({
   checkboxContainer: {
     marginRight: 0,
   },
-  createAccountBtn: {
+  signInBtn: {
     backgroundColor: "#FFC940",
-    marginTop: 40,
-    marginBottom: 40,
-    width: 240,
+    marginBottom: 30,
+    width: "100%",
+    height: 48,
     borderRadius: 25,
     paddingVertical: 12,
     paddingHorizontal: 20,
@@ -309,22 +331,32 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   orDivider: {
-    marginVertical: 20,
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 30,
+    marginBottom: 20,
   },
-  line: {
+  line1: {
     height: 1,
-    width: 40,
-    backgroundColor: "#828282",
+    width: 80,
+    marginRight: 15,
+    backgroundColor: "#8F8F8F",
+  },
+  line2: {
+    height: 1,
+    width: 80,
+    marginLeft: 15,
+    backgroundColor: "#8F8F8F",
+  },
+  orText: {
+    color: "#8F8F8F",
+    fontSize: 12,
   },
   thirdPartyLogIn: {
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 40,
+    marginBottom: 20,
   },
   thirdPartyIcon: {
     borderRadius: 50,
@@ -334,11 +366,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  switchToSignIn: {
+  switchToSignUp: {
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 30,
     fontSize: 18,
   },
 });

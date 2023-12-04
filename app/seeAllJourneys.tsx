@@ -64,6 +64,24 @@ export default function allJourneys() {
               name="Julia Tran"
               year="Class of 2027, Business Administration Major"
             />
+
+            {/* Annie Huang's Journey */}
+            <MJPostCard
+              onPress={() => directToMyJourneyPost("annie")}
+              img={require("../assets/images/mentorMyJourneyPics/julia.png")}
+              title="I (Accidentally) Got a Job!"
+              name="Annie Huang"
+              year="Class of 2025, Computer Science Major"
+            />
+
+            {/* Kristi Li's Journey */}
+            <MJPostCard
+              onPress={() => directToMyJourneyPost("kristi")}
+              img={require("../assets/images/mentorMyJourneyPics/julia.png")}
+              title="I (Accidentally) Got a Job!"
+              name="Kristi Li"
+              year="Class of 2023, CS & Advertising Major"
+            />
           </ScrollView>
         </View>
       </View>
