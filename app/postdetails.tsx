@@ -14,6 +14,7 @@ import {
   updateDoc,
   getDoc,
   arrayUnion,
+  onSnapshot,
   Timestamp,
   collection,
 } from "firebase/firestore";
@@ -57,7 +58,7 @@ export default function PostDetails() {
   const comment = async () => {
     const randomString = Math.random().toString(36).substring(7);
     await updateDoc(doc(db, "comments", curPostID), {
-      comment: arrayUnion({
+      commentArr: arrayUnion({
         commentID: randomString,
         text: content,
         userID: user.userID,
@@ -97,25 +98,35 @@ export default function PostDetails() {
     loadPosts();
   }, [posts, curPostID]);
 
-  // useEffect hook to load comments
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const cmtdoc = await getDoc(doc(db, "comments", curPostID));
-        console.log("comment snapshot data: ", cmtdoc.data());
-        const commentData = cmtdoc.data();
-        console.log("comment snapshot array: ", commentData?.commentArr);
-        if (commentData && commentData.commentArr) {
-          setCommentArr(commentData.commentArr);
-        } else {
-        }
+        const commentRef = doc(db, "comments", curPostID);
+
+        // Use onSnapshot to listen for real-time updates
+        const unsubscribe = onSnapshot(commentRef, (docSnapshot) => {
+          if (docSnapshot.exists()) {
+            const commentData = docSnapshot.data();
+            console.log("comment snapshot array: ", commentData?.commentArr);
+            if (commentData && commentData.commentArr) {
+              setCommentArr(commentData.commentArr);
+            } else {
+              setCommentArr([]);
+            }
+          } else {
+            setCommentArr([]);
+          }
+        });
+
+        // Clean up the listener when the component is unmounted
+        return () => unsubscribe();
       } catch (error) {
         console.error("Error fetching comments: ", error);
       }
     };
-    fetchComments();
-  }, []);
 
+    fetchComments();
+  }, [curPostID]); // Add curPostID as a dependency
   useEffect(() => {
     console.log("comment array: ", commentarr);
   }, [commentarr]);
@@ -174,43 +185,6 @@ export default function PostDetails() {
             <View style={styles.repliesTitle}>
               <Text style={styles.replyTitle}>Replies</Text>
             </View>
-            {/* Comment Modal */}
-            <View>
-              <Modal
-                style={styles.modalContainer}
-                visible={modalVisible}
-                animationType="slide"
-              >
-                <View>
-                  <Text>Comment:</Text>
-                  <TextInput
-                    style={[styles.inputContent]}
-                    placeholder="Enter your comment here"
-                    placeholderTextColor="#888888"
-                    value={content}
-                    onChangeText={(text) => setContent(text)}
-                    multiline={true}
-                    numberOfLines={10}
-                  />
-                  <TouchableOpacity
-                    style={[
-                      styles.postBtn,
-                      {
-                        backgroundColor: "#E6E6E6",
-                      },
-                    ]}
-                    onPress={comment}
-                  >
-                    <Text style={[styles.postText, { color: "#3A3340" }]}>
-                      comment
-                    </Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity onPress={closeModal}>
-                    <Text>Close Modal</Text>
-                  </TouchableOpacity>
-                </View>
-              </Modal>
-            </View>
 
             <ScrollView
               style={styles.commentsContainer}
@@ -232,6 +206,26 @@ export default function PostDetails() {
             </ScrollView>
           </View>
         </View>
+        <View style={styles.inputMessageContainer}>
+          {/* Box to type your message */}
+          <TouchableOpacity style={styles.inputMessageBox}>
+            <TextInput
+              style={styles.inputText}
+              placeholder="Enter your comment here"
+              value={content}
+              onChangeText={(text) => setContent(text)}
+              multiline={true}
+              numberOfLines={10}
+            />
+          </TouchableOpacity>
+          {/* Send Icon */}
+          <TouchableOpacity onPress={comment}>
+            <Image
+              style={styles.sendIcon}
+              source={require("../assets/images/icons/sendMessage.png")}
+            />
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
@@ -244,8 +238,7 @@ const styles = StyleSheet.create({
   },
 
   tempContainer: {
-    marginLeft: 20,
-    marginRight: 20,
+    flex: 1,
   },
   backBtnContainer: {
     marginTop: 40,
@@ -356,18 +349,7 @@ const styles = StyleSheet.create({
     marginLeft: 20,
   },
   commentsContainer: {
-    // marginRight: 20,
-    // marginLeft: 20,
-  },
-  modalContainer: {
-    backgroundColor: "white",
-    borderRadius: 12,
-    padding: 16,
-    shadowColor: "#49006C",
-    shadowOffset: {
-      width: -2,
-      height: 4,
-    },
+    flex: 1,
   },
   inputContent: {
     padding: 10,
@@ -392,5 +374,39 @@ const styles = StyleSheet.create({
     fontSize: 18,
     alignSelf: "center",
     color: "#9A969F",
+  },
+  inputMessageContainer: {
+    flexDirection: "row",
+    position: "absolute",
+    bottom: 20,
+    width: "100%",
+    marginLeft: 20,
+    marginRight: 20,
+    backgroundColor: "transparent",
+  },
+  inputMessageBox: {
+    borderRadius: 30,
+    backgroundColor: "#EFEFEF",
+    width: 280,
+    height: 42,
+    marginRight: 20,
+  },
+  messageText: {
+    color: "#9A969F",
+    fontSize: 14,
+    marginLeft: 20,
+    marginRight: 70,
+    marginTop: 15,
+    marginBottom: 15,
+  },
+  sendIcon: {
+    width: 42,
+    height: 42,
+  },
+  inputText: {
+    color: "#777777",
+    fontSize: 16,
+    marginLeft: 20,
+    marginTop: 10,
   },
 });
