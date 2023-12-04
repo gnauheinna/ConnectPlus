@@ -224,7 +224,7 @@ export default function PostDetails() {
                   <IndividualComment
                     username={item.userName}
                     intro={item.userIntro}
-                    timestamp={item.date.toString()}
+                    timestamp={item.date.toDate().toLocaleDateString()}
                     content={item.text}
                   />
                 )}
