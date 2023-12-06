@@ -31,21 +31,21 @@ export default function MyJourneyPost() {
   const handleScroll = useCallback(
     (event: NativeSyntheticEvent<NativeScrollEvent>) => {
       const scrollY = event.nativeEvent.contentOffset.y;
-      if (scrollY < 500) {
+      if (scrollY < 300) {
         setVerticalLine1(true);
         setVerticalLine2(false);
         setVerticalLine3(false);
         setVerticalLine4(false);
         setVerticalLine5(false);
       }
-      if (scrollY >= 700) {
+      if (scrollY >= 500) {
         setVerticalLine2(true);
         setVerticalLine1(false);
         setVerticalLine3(false);
         setVerticalLine4(false);
         setVerticalLine5(false);
       }
-      if (scrollY >= 1050) {
+      if (scrollY >= 950) {
         setVerticalLine3(true);
         setVerticalLine1(false);
         setVerticalLine2(false);
@@ -224,11 +224,11 @@ const styles = StyleSheet.create({
   },
   gradientBackground: {
     width: 390,
-    height: 200,
+    height: 170,
     zIndex: 1,
   },
   backBtnContainer: {
-    top: 60, 
+    top: 40, 
     left: 20,
     alignSelf: "flex-start",
     justifyContent: 'center',
@@ -388,7 +388,7 @@ const styles = StyleSheet.create({
     right: 20,
     top: 280,
     flexDirection: "column",
-    height: 450,
+    height: 360,
   },
   verticalLine1Active: {
     flex: 1,
