@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#F9F6FF",
   },
   journeyBigTitleContainer: {
-    marginTop: 30,
+    marginTop: 50,
     backgroundColor: "transparent",
     marginLeft: 20,
     marginRight: 20,

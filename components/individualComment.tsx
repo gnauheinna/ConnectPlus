@@ -99,19 +99,19 @@ const styles = StyleSheet.create({
   topPortionContainer: {
     // flexDirection: "row",
     // justifyContent: "space-between",
-    marginBottom: 5,
+    marginBottom: 8,
   },
   userInfoContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginBottom: 5,
+    marginBottom: 4,
   },
   userName: {
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: "500",
   },
   timestamp: {
-    fontSize: 12,
+    fontSize: 10,
     color: "gray",
   },
   userIntro: {

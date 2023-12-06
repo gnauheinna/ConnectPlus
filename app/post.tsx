@@ -374,11 +374,11 @@ const styles = StyleSheet.create({
   mainContainer: {
     justifyContent: "flex-start",
     backgroundColor: "white",
-    marginLeft: 40,
-    marginRight: 40,
+    marginLeft: 20,
+    marginRight: 20,
   },
   backBtnContainer: {
-    marginTop: 40,
+    marginTop: 60,
     marginBottom: 20,
     alignSelf: "flex-start",
     justifyContent: "center",
@@ -419,7 +419,7 @@ const styles = StyleSheet.create({
   },
   postBtn: {
     backgroundColor: "#E2B8E0",
-    marginTop: 40,
+    marginTop: 60,
     marginBottom: 40,
     paddingVertical: 10,
     paddingHorizontal: 20,
@@ -458,7 +458,7 @@ const styles = StyleSheet.create({
   },
   addTagBtn: {
     borderColor: "#FFC940",
-    borderWidth: 1.5,
+    borderWidth: 1,
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 20,

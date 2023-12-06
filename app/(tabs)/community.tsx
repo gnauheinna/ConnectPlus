@@ -308,10 +308,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "transparent",
-    marginTop: 80,
+    marginTop: 100,
   },
   topContainer: {
-    paddingTop: 40,
+    paddingTop: 60,
     backgroundColor: "transparent",
     marginLeft: 20,
     marginRight: 20,
