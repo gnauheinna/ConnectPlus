@@ -457,7 +457,7 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     marginBottom: 8,
     marginTop: 120,
-    fontFamily: 'Stolzl Regular',
+    fontFamily: 'Stolzl Medium',
   },
   addTagBtn: {
     borderColor: "#FFC940",

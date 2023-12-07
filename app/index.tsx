@@ -171,7 +171,7 @@ export default function Login() {
         // ...
       });
   }
-
+  
   return (
     <View style={styles.outterMostContainer}>
       <View style={styles.container}>
@@ -183,7 +183,7 @@ export default function Login() {
 
         {/* Welcome Message */}
         <View style={styles.welcomeMessageContainer}>
-          <Text style={styles.welcomeMessage}>{`Welcome to Connect+ `}</Text>
+          <Text style={styles.welcomeMessage}>Welcome to Connect+</Text>
         </View>
 
         {/* Email Input */}
@@ -281,17 +281,16 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   connectPlusLogo: {
-    height: 100,
-    width: 120,
+    height: 120,
+    width: 140,
     justifyContent: "center",
     alignSelf: "center",
-    marginTop: 50,
-    marginBottom: 20,
+    marginTop: 90,
+    marginBottom: 40,
     resizeMode: "contain",
   },
   welcomeMessageContainer: {
-    marginBottom: 24,
-    fontFamily: 'Stolzl Bold',
+    marginBottom: 32,
   },
   welcomeMessage: {
     fontSize: 28,
@@ -320,22 +319,22 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     height: 40,
   },
-  rememberMeContainer: {
-    flexDirection: "row",
-    justifyContent: "flex-end",
-    alignItems: "center",
-  },
-  rememberMeText: {
-    color: "#9b9b9b",
-    fontSize: 14,
-  },
-  checkboxContainer: {
-    marginRight: 0,
-  },
+  // rememberMeContainer: {
+  //   flexDirection: "row",
+  //   justifyContent: "flex-end",
+  //   alignItems: "center",
+  // },
+  // rememberMeText: {
+  //   color: "#9b9b9b",
+  //   fontSize: 14,
+  // },
+  // checkboxContainer: {
+  //   marginRight: 0,
+  // },
   signInBtn: {
     backgroundColor: "#FFC940",
-    marginBottom: 30,
-    width: "100%",
+    marginBottom: 64,
+    width: 320,
     height: 48,
     borderRadius: 25,
     paddingVertical: 12,
@@ -345,12 +344,13 @@ const styles = StyleSheet.create({
   createAccountText: {
     fontSize: 18,
     alignSelf: "center",
+    fontFamily: 'Stolzl Regular',
   },
   orDivider: {
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 20,
+    marginBottom: 32,
   },
   line1: {
     height: 1,
@@ -372,7 +372,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 20,
+    marginBottom: 40,
   },
   thirdPartyIcon: {
     borderRadius: 50,
