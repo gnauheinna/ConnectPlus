@@ -415,14 +415,14 @@ const styles = StyleSheet.create({
   postDate: {
     color: "#818181",
     fontSize: 16,
-    fontWeight: "600",
+    fontFamily: 'Stolzl Medium',
     marginBottom: 5,
   },
   postTitle: {
     color: "#000000",
     fontSize: 28,
-    fontWeight: "bold",
     width: "100%",
+    fontFamily: 'Stolzl Bold',
   },
   authorInfoContainer: {
     flexDirection: "row",
@@ -442,12 +442,13 @@ const styles = StyleSheet.create({
   },
   userName: {
     fontSize: 14,
-    fontWeight: "bold",
+    fontFamily: 'Stolzl Medium',
     marginBottom: 5,
   },
   userIntro: {
     fontSize: 12,
     color: "#888888",
+    fontFamily: 'Stolzl Regular',
   },
   postContentContainer: {
     flexDirection: "row",
@@ -478,6 +479,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "bold",
     textAlign: "center",
+    fontFamily: 'Stolzl Medium',
   },
   boldedContentContainer: {
     marginBottom: 10,
@@ -494,6 +496,7 @@ const styles = StyleSheet.create({
     lineHeight: 25,
     color: "#393939",
     marginBottom: 10,
+    fontFamily: 'Stolzl Regular',
   },
   regularContentTextBolded: {
     fontSize: 16,
@@ -513,6 +516,7 @@ const styles = StyleSheet.create({
     color: "#CA95C8",
     fontWeight: "bold",
     textDecorationLine: "underline",
+    fontFamily: 'Stolzl Regular',
   },
   progressBarContainer: {
     zIndex: 3,

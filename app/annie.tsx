@@ -335,7 +335,7 @@ const styles = StyleSheet.create({
   postTitle: {
     color: "#000000",
     fontSize: 24,
-    fontWeight: "bold",
+    fontFamily: 'Stolzl Bold',
     width: "100%",
   },
   authorInfoContainer: {

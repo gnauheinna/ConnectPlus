@@ -399,14 +399,14 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    fontWeight: "bold",
+    fontFamily: 'Stolzl Bold',
   },
   inputTitle: {
     padding: 10,
     width: "80%",
     marginVertical: 10,
     fontSize: 32,
-    fontWeight: "bold",
+    fontFamily: 'Stolzl Bold',
     marginBottom: -10,
     outlineColor: "white",
   },
@@ -416,6 +416,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     outlineColor: "white",
     marginTop: 10,
+    fontFamily: 'Stolzl Regular',
   },
   postBtn: {
     backgroundColor: "#E2B8E0",
@@ -430,9 +431,10 @@ const styles = StyleSheet.create({
     alignSelf: "flex-end",
   },
   postText: {
-    fontSize: 18,
+    fontSize: 16,
     alignSelf: "center",
     color: "#9A969F",
+    fontFamily: 'Stolzl Regular',
   },
   addTagContainer: {
     flexDirection: "row",
@@ -455,6 +457,7 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     marginBottom: 8,
     marginTop: 120,
+    fontFamily: 'Stolzl Regular',
   },
   addTagBtn: {
     borderColor: "#FFC940",
@@ -478,12 +481,14 @@ const styles = StyleSheet.create({
     color: "#FFC940",
     alignSelf: "center",
     fontWeight: "500",
+    fontFamily: 'Stolzl Regular',
   },
   addTagTextActive: {
     fontSize: 16,
     color: "#3A3340",
     alignSelf: "center",
     fontWeight: "500",
+    fontFamily: 'Stolzl Regular',
   },
   crossBtn: {
     width: 36,

@@ -136,7 +136,7 @@ export default function App() {
           <Text
             style={[
               styles.myQuestionsText,
-              showLineForJourneys ? { color: "#85808C", fontWeight: '500' } : {},
+              showLineForJourneys ? { color: "#85808C", fontFamily: 'Stolzl Regular' } : {},
             ]}
           >
             My Questions
@@ -154,7 +154,7 @@ export default function App() {
           <Text
             style={[
               styles.savedJourneysText,
-              showLineForQuestions ? { color: "#85808C", fontWeight: '500' } : {},
+              showLineForQuestions ? { color: "#85808C", fontFamily: 'Stolzl Regular' } : {},
             ]}
           >
             Saved Journeys
@@ -236,8 +236,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   userName: {
-    fontWeight: "bold",
-    fontSize: 20,
+    fontFamily: 'Stolzl Medium',
+    fontSize: 24,
     color: "#000000",
     marginBottom: 8,
   },
@@ -245,6 +245,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: "#838383",
     marginBottom: 10,
+    fontFamily: 'Stolzl Regular',
   },
   infoContainer: {
     alignSelf: "center",
@@ -261,13 +262,11 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     paddingVertical: 10,
     paddingHorizontal: 15,
-    // borderWidth: 1.5,
-    // borderColor: "#D3A0E2",
     backgroundColor: "#F7F4FA",
   },
   interestText: {
     color: "#724EAE",
-    fontWeight: "600",
+    fontFamily: 'Stolzl Regular',
   },
   horizontalBarContainer: {
     flexDirection: "row",
@@ -286,11 +285,13 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginHorizontal: 30,
     marginBottom: 0,
+    fontFamily: 'Stolzl Medium',
   },
   savedJourneysText: {
     fontWeight: "bold",
     marginHorizontal: 30,
     marginBottom: 0,
+    fontFamily: 'Stolzl Medium',
   },
   lineForQuestions: {
     backgroundColor: "#724EAE",

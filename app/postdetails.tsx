@@ -221,9 +221,11 @@ export default function PostDetails() {
             {/* Send Icon */}
             <TouchableOpacity
               onPress={() => {
-                comment();
-                Keyboard.dismiss();
-                setContent(""); 
+                if (content.trim() !== "") {
+                  comment();
+                  Keyboard.dismiss();
+                  setContent(""); 
+                }
               }}
             >
               <Image
@@ -387,6 +389,7 @@ const styles = StyleSheet.create({
     bottom: 20,
     width: "100%",
     marginLeft: 20,
+    paddingTop: 16,
     marginRight: 20,
     backgroundColor: "white",
   },
@@ -410,5 +413,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginLeft: 20,
     marginTop: 10,
+    fontFamily: 'Stolzl Regular',
   },
 });

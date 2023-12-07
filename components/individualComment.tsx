@@ -109,19 +109,23 @@ const styles = StyleSheet.create({
   userName: {
     fontSize: 14,
     fontWeight: "500",
+    fontFamily: 'Stolzl Medium',
   },
   timestamp: {
     fontSize: 10,
     color: "gray",
+    fontFamily: 'Stolzl Regular',
   },
   userIntro: {
     fontSize: 12,
     color: "#888888",
+    fontFamily: 'Stolzl Regular',
   },
   introContainer: {},
   bottomPortionContainer: {},
   commentContent: {
     fontSize: 14,
     textAlign: "left",
+    fontFamily: 'Stolzl Regular',
   },
 });

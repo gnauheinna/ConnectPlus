@@ -26,6 +26,7 @@ import {
 import { CheckBox } from "react-native-elements";
 import { AuthContext } from "./context/AuthContext";
 import { useUser } from "./context/UserContext";
+import * as Font from 'expo-font';
 import { usePostContext } from "./context/postContext";
 
 export default function Login() {
@@ -39,12 +40,24 @@ export default function Login() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userID, setUserID] = useState("");
 
+  const loadFonts = async () => {
+    await Font.loadAsync({
+      'Stolzl Bold': require('../assets/fonts/stolzlBold.ttf'),
+      'Stolzl Medium': require('../assets/fonts/stolzlMedium.otf'),
+      'Stolzl Regular': require('../assets/fonts/stolzlRegular.ttf'),
+      'Stolzl Light': require('../assets/fonts/stolzlLight.ttf'),
+    });
+  }
+  useEffect(() => {
+    loadFonts();
+  }, []);
+
   const provider = new GoogleAuthProvider();
   const router = useRouter();
   const auth = getAuth();
   const { setLoggedIn } = useContext(AuthContext);
 
-  const handleNewUserGoogle = async () => {
+  const handleNewUserGoogle = async () => {  
     // get a instance of Firebase db
 
     const userCollection = collection(db, "users");
@@ -278,12 +291,13 @@ const styles = StyleSheet.create({
   },
   welcomeMessageContainer: {
     marginBottom: 24,
+    fontFamily: 'Stolzl Bold',
   },
   welcomeMessage: {
     fontSize: 28,
-    fontWeight: "bold",
     color: "#453b4f",
     textAlign: "center",
+    fontFamily: 'Stolzl Bold',
   },
   emailInputContainer: {
     marginBottom: 10,
@@ -295,6 +309,7 @@ const styles = StyleSheet.create({
     color: "black",
     fontSize: 14,
     marginBottom: 8,
+    fontFamily: 'Stolzl Regular',
   },
   input: {
     borderWidth: 1,

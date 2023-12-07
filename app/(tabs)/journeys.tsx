@@ -130,7 +130,6 @@ const styles = StyleSheet.create({
   journeyBigTitle: {
     fontSize: 42,
     color: "#453B4F",
-    fontWeight: "bold",
     marginTop: 20,
     marginBottom: 10,
     justifyContent: "flex-start",
@@ -150,6 +149,7 @@ const styles = StyleSheet.create({
     color: "#919191",
     fontWeight: "500",
     justifyContent: "flex-start",
+    fontFamily: 'Stolzl Medium',
   },
   featuredJourneysContainer: {
     marginBottom: 32,

@@ -289,8 +289,8 @@ const styles = StyleSheet.create({
   postTitle: {
     color: "#000000",
     fontSize: 24,
-    fontWeight: "bold",
     width: "100%",
+    fontFamily: 'Stolzl Bold',
   },
   authorInfoContainer: {
     flexDirection: "row",
@@ -362,6 +362,7 @@ const styles = StyleSheet.create({
     lineHeight: 25,
     color: "#393939",
     marginBottom: 10,
+    fontFamily: 'Stolzl Regular',
   },
   regularContentTextBolded: {
     fontSize: 16,
@@ -381,6 +382,7 @@ const styles = StyleSheet.create({
     color: "#CA95C8",
     fontWeight: "bold",
     textDecorationLine: "underline",
+    fontFamily: 'Stolzl Regular',
   },
   progressBarContainer: {
     zIndex: 3,
