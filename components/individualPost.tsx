@@ -24,12 +24,26 @@ import { useUser } from "../app/context/UserContext";
 import { PostProvider, usePostContext } from "../app/context/postContext";
 import { PostIdContext } from "../app/context/PostIDContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as Font from 'expo-font';
 
 interface IndividualPostProps {
   postId: string;
 }
 
 const IndividualPost: React.FC<IndividualPostProps> = ({ postId }) => {
+  // const loadFonts = async () => {
+  //   await Font.loadAsync({
+  //     'Stolzl Bold': require('../assets/fonts/stolzlBold.ttf'),
+  //     'Stolzl Regular': require('../assets/fonts/stolzlRegular.ttf'),
+  //     'Stolzl Light': require('../assets/fonts/stolzlLight.ttf'),
+  //     'Stolzl Medium': require('../assets/fonts/stolzlMedium.otf'),
+  //   });
+  // }
+  // // Call the function in a useEffect hook
+  // useEffect(() => {
+  //   loadFonts();
+  // }, []);
+
   const router = useRouter();
   function viewPostDetails() {
     AsyncStorage.setItem("curPostID", postId);
@@ -82,7 +96,6 @@ const IndividualPost: React.FC<IndividualPostProps> = ({ postId }) => {
             {/* Display the tag that is associated with the post to the right of the user's information */}
             <View style={styles.tagContainer}>
               {post.tag && (
-                // <View style={styles.individualInterest}>
                 <View>
                   <Text style={styles.tagText}>{post.tag}</Text>
                 </View>
@@ -139,16 +152,19 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "500",
     marginBottom: 5,
+    fontFamily: 'Stolzl Regular',
   },
   userIntro: {
     fontSize: 12,
     color: "#888888",
+    fontFamily: 'Stolzl Regular'
   },
   title: {
     fontSize: 16,
-    fontWeight: "bold",
+    fontWeight: "700",
     marginRight: 48,
     textAlign: "left",
+    fontFamily: 'Stolzl Medium',
   },
   titleTimestampContainer: {
     flexDirection: "row",
@@ -160,11 +176,14 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: "gray",
     marginBottom: 20,
+    fontFamily: 'Stolzl Regular'
   },
   content: {
     fontSize: 14,
     textAlign: "left",
     marginBottom: 10,
+    fontFamily: 'Stolzl Regular',
+    lineHeight: 20,
   },
   tagContainer: {
     backgroundColor: "#FFD465",
@@ -181,6 +200,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     alignSelf: "center",
     fontWeight: "400",
+    fontFamily: 'Stolzl Regular'
   },
   interestsContainer: {
     alignItems: "center",

@@ -27,6 +27,7 @@ import {
 import { CheckBox } from "react-native-elements";
 import { AuthContext } from "./context/AuthContext";
 import { useUser } from "./context/UserContext";
+import * as Font from 'expo-font';
 import { usePostContext } from "./context/postContext";
 
 export default function Login() {
@@ -40,12 +41,24 @@ export default function Login() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userID, setUserID] = useState("");
 
+  const loadFonts = async () => {
+    await Font.loadAsync({
+      'Stolzl Bold': require('../assets/fonts/stolzlBold.ttf'),
+      'Stolzl Medium': require('../assets/fonts/stolzlMedium.otf'),
+      'Stolzl Regular': require('../assets/fonts/stolzlRegular.ttf'),
+      'Stolzl Light': require('../assets/fonts/stolzlLight.ttf'),
+    });
+  }
+  useEffect(() => {
+    loadFonts();
+  }, []);
+
   const provider = new GoogleAuthProvider();
   const router = useRouter();
   const auth = getAuth();
   const { setLoggedIn } = useContext(AuthContext);
 
-  const handleNewUserGoogle = async () => {
+  const handleNewUserGoogle = async () => {  
     // get a instance of Firebase db
 
     const userCollection = collection(db, "users");
@@ -159,7 +172,7 @@ export default function Login() {
         // ...
       });
   }
-
+  
   return (
     <View style={styles.outterMostContainer}>
       <View style={styles.container}>
@@ -171,7 +184,7 @@ export default function Login() {
 
         {/* Welcome Message */}
         <View style={styles.welcomeMessageContainer}>
-          <Text style={styles.welcomeMessage}>{`Welcome to Connect+ `}</Text>
+          <Text style={styles.welcomeMessage}>Welcome to Connect+</Text>
         </View>
 
         {/* Email Input */}
@@ -260,6 +273,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
     justifyContent: "center",
+    alignItems: "center",
   },
   container: {
     flex: 1,
@@ -268,22 +282,22 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   connectPlusLogo: {
-    height: 100,
-    width: 120,
+    height: 120,
+    width: 140,
     justifyContent: "center",
     alignSelf: "center",
-    marginTop: 50,
-    marginBottom: 20,
+    marginTop: 90,
+    marginBottom: 40,
     resizeMode: "contain",
   },
   welcomeMessageContainer: {
-    marginBottom: 24,
+    marginBottom: 32,
   },
   welcomeMessage: {
     fontSize: 28,
-    fontWeight: "bold",
     color: "#453b4f",
     textAlign: "center",
+    fontFamily: 'Stolzl Bold',
   },
   emailInputContainer: {
     marginBottom: 10,
@@ -295,6 +309,7 @@ const styles = StyleSheet.create({
     color: "black",
     fontSize: 14,
     marginBottom: 8,
+    fontFamily: 'Stolzl Regular',
   },
   input: {
     borderWidth: 1,
@@ -305,22 +320,22 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     height: 40,
   },
-  rememberMeContainer: {
-    flexDirection: "row",
-    justifyContent: "flex-end",
-    alignItems: "center",
-  },
-  rememberMeText: {
-    color: "#9b9b9b",
-    fontSize: 14,
-  },
-  checkboxContainer: {
-    marginRight: 0,
-  },
+  // rememberMeContainer: {
+  //   flexDirection: "row",
+  //   justifyContent: "flex-end",
+  //   alignItems: "center",
+  // },
+  // rememberMeText: {
+  //   color: "#9b9b9b",
+  //   fontSize: 14,
+  // },
+  // checkboxContainer: {
+  //   marginRight: 0,
+  // },
   signInBtn: {
     backgroundColor: "#FFC940",
-    marginBottom: 30,
-    width: "100%",
+    marginBottom: 64,
+    width: 320,
     height: 48,
     borderRadius: 25,
     paddingVertical: 12,
@@ -330,12 +345,13 @@ const styles = StyleSheet.create({
   createAccountText: {
     fontSize: 18,
     alignSelf: "center",
+    fontFamily: 'Stolzl Regular',
   },
   orDivider: {
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 20,
+    marginBottom: 32,
   },
   line1: {
     height: 1,
@@ -357,7 +373,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 20,
+    marginBottom: 40,
   },
   thirdPartyIcon: {
     borderRadius: 50,

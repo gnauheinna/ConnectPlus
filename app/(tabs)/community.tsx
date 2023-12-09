@@ -1,28 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
-import {
-  StyleSheet,
-  TextInput,
-  FlatList,
-  ScrollView,
-  Image,
-  ImageBackground,
-} from "react-native";
+import { StyleSheet, TextInput, FlatList, ScrollView, Image, ImageBackground } from "react-native";
 import { Text, View } from "../../components/Themed";
-import {
-  getFirestore,
-  collection,
-  getDocs,
-  onSnapshot,
-  Timestamp,
-  doc,
-  updateDoc,
-  increment,
-  addDoc,
-  deleteDoc,
-  query,
-  where,
-  getDoc,
-} from "firebase/firestore";
+import { getFirestore, collection, getDocs, Timestamp, doc, updateDoc, increment, addDoc, deleteDoc, query, where, getDoc, } from "firebase/firestore";
 import { AuthErrorCodes } from "firebase/auth";
 import { FontAwesome5, Feather } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -161,7 +140,7 @@ export default function CommunityScreen() {
                     setSelectedAll(true);
                   }}
                 >
-                  <Text>All</Text>
+                  <Text style={styles.categoryText}>All</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={
@@ -174,7 +153,7 @@ export default function CommunityScreen() {
                     setSelectedAll(false);
                   }}
                 >
-                  <Text>Financial</Text>
+                  <Text style={styles.categoryText}>Financial</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={
@@ -187,7 +166,7 @@ export default function CommunityScreen() {
                     setSelectedAll(false);
                   }}
                 >
-                  <Text>Academic</Text>
+                  <Text style={styles.categoryText}>Academic</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={
@@ -200,7 +179,7 @@ export default function CommunityScreen() {
                     setSelectedAll(false);
                   }}
                 >
-                  <Text>Student Life</Text>
+                  <Text style={styles.categoryText}>Student Life</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={
@@ -213,7 +192,7 @@ export default function CommunityScreen() {
                     setSelectedAll(false);
                   }}
                 >
-                  <Text>Career</Text>
+                  <Text style={styles.categoryText}>Career</Text>
                 </TouchableOpacity>
               </ScrollView>
             </View>
@@ -308,17 +287,17 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "transparent",
-    marginTop: 80,
+    marginTop: 100,
   },
   topContainer: {
-    paddingTop: 80,
+    paddingTop: 60,
     backgroundColor: "transparent",
     marginLeft: 20,
     marginRight: 20,
   },
   gradientBackground: {
     width: "100%",
-    height: 130,
+    height: 90,
     zIndex: 1,
   },
   bigTitleContainer: {
@@ -337,6 +316,7 @@ const styles = StyleSheet.create({
     fontSize: 42,
     color: "#453B4F",
     fontWeight: "bold",
+    fontFamily: 'Stolzl Bold'
   },
   notificationIcon: {
     width: 32,
@@ -347,7 +327,7 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
   },
   horizontalSubNavMainContainer: {
-    position: "sticky",
+    // position: "sticky",
     top: 0,
     zIndex: 1,
     backgroundColor: "transparent",
@@ -374,6 +354,9 @@ const styles = StyleSheet.create({
     marginRight: 10,
     alignItems: "center",
   },
+  categoryText: {
+    fontFamily: 'Stolzl Regular'
+  },
   postContainer: {
     backgroundColor: "#F9F6FF",
   },
@@ -387,6 +370,7 @@ const styles = StyleSheet.create({
   bottomPartContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
+    height: 24,
   },
   postLikesContainer: {
     flexDirection: "row",

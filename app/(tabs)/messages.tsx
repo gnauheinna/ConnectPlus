@@ -219,8 +219,8 @@ const styles = StyleSheet.create({
   chatBigTitle: {
     fontSize: 36,
     color: "#453B4F",
-    fontWeight: "bold",
     alignItems: "center",
+    fontFamily: 'Stolzl Bold',
   },
   startAChatButton: {
     height: 24,

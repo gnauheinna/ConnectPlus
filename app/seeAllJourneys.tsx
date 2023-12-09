@@ -6,6 +6,7 @@ import MyJourneyPost from "./myjourneypost";
 import { useRouter } from "expo-router";
 import React, { useState, useEffect } from "react";
 import MJPostCard from '../components/MJPostCard';
+import Search from "../components/search";
 
 export default function allJourneys() {
   const router = useRouter();
@@ -24,16 +25,21 @@ export default function allJourneys() {
         resizeMode="cover"
         style={styles.gradientBackground}
       >
-      {/* Back Button */}
-      <View style={styles.backBtnContainer}>
-          <TouchableOpacity style={styles.backBtn} onPress={directToMyJourney}>
-            <Image style={styles.backBtnImg} source={require("../assets/images/icons/blackBack.png")}/>
-          </TouchableOpacity>
+        {/* Back Button and Page Title */}
+        <View style={styles.backBtnContainer}>
+            <TouchableOpacity style={styles.backBtn} onPress={directToMyJourney}>
+              <Image style={styles.backBtnImg} source={require("../assets/images/icons/blackBack.png")}/>
+            </TouchableOpacity>
+
+            <View style={styles.pageTitleContainer}>
+              <Text style={styles.pageTitle}>More Journeys</Text>
+            </View>
         </View>
-      <View style={styles.journeyBigTitleContainer}>
-          <Text style={styles.journeyBigTitle}>All Journeys</Text>
-      </View>
       </ImageBackground>
+
+      <View style={styles.searchBarContainer}>
+        <Search />
+      </View>
 
       <View style={styles.container}>
         <View style={styles.allJourneysContainer}>
@@ -96,29 +102,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#F9F6FF",
   },
-  gradientBackground: {
-    width: "100%",
-    height: 150,
-    zIndex: 1,
-  },
-  backBtnContainer: {
-    top: 60, 
-    left: 20,
-    alignSelf: "flex-start",
-    justifyContent: 'center',
-    marginBottom: 20,
-    zIndex: 2,
-    backgroundColor: "transparent",
-  },
-  backBtn: {
-    padding: 5,
-    resizeMode: "contain",
-    justifyContent: 'center',
-  },
-  backBtnImg: {
-    width: 20,
-    height: 20,
-  },
   container: {
     flex: 1,
     marginTop: 20,
@@ -126,26 +109,46 @@ const styles = StyleSheet.create({
     marginRight: 20,
     backgroundColor: "#F9F6FF",
   },
-  journeyBigTitleContainer: {
-    marginTop: 60,
-    backgroundColor: "transparent",
-    marginLeft: 20,
-    marginRight: 20,
-    zIndex: 2,
+  gradientBackground: {
+    width: "100%",
+    height: 120,
+    zIndex: 1,
   },
-  journeyBigTitle: {
-    fontSize: 42,
+  backBtnContainer: {
+    top: 60, 
+    left: 20,
+    flexDirection: "row",
+    alignSelf: "flex-start",
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 0,
+    zIndex: 2,
+    backgroundColor: "transparent",
+  },
+  backBtn: {
+    padding: 5,
+    resizeMode: "contain",
+    justifyContent: 'center',
+    marginRight: 50,
+  },
+  backBtnImg: {
+    width: 20,
+    height: 20,
+  },
+  pageTitleContainer: {
+    zIndex: 2,
+    backgroundColor: "transparent",
+  },
+  pageTitle: {
+    fontSize: 24,
     color: "#453B4F",
     fontWeight: "bold",
-    marginBottom: 20,
-    justifyContent: "flex-start",
+    backgroundColor: "transparent",
   },
-  journeySubTitleContainer: {
-    backgroundColor: "#F9F6FF",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: 10,
+  searchBarContainer: {
+    marginLeft: 20,
+    marginRight: 20,
+    backgroundColor: "transparent",
   },
   seeAll: {
     color: "#B4AEBB",

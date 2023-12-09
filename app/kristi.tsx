@@ -270,11 +270,11 @@ const styles = StyleSheet.create({
   },
   gradientBackground: {
     width: 390,
-    height: 200,
+    height: 170,
     zIndex: 1,
   },
   backBtnContainer: {
-    top: 60, 
+    top: 40, 
     left: 20,
     alignSelf: "flex-start",
     justifyContent: 'center',
@@ -335,8 +335,8 @@ const styles = StyleSheet.create({
   postTitle: {
     color: "#000000",
     fontSize: 24,
-    fontWeight: "bold",
     width: "100%",
+    fontFamily: 'Stolzl Bold',
   },
   authorInfoContainer: {
     flexDirection: "row",

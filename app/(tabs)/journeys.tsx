@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
   },
   gradientBackground: {
     width: "100%",
-    height: 150,
+    height: 130,
     zIndex: 1,
   },
   container: {
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#F9F6FF",
   },
   journeyBigTitleContainer: {
-    marginTop: 60,
+    marginTop: 50,
     backgroundColor: "transparent",
     marginLeft: 20,
     marginRight: 20,
@@ -130,9 +130,8 @@ const styles = StyleSheet.create({
   journeyBigTitle: {
     fontSize: 42,
     color: "#453B4F",
-    fontWeight: "bold",
     marginTop: 20,
-    marginBottom: 20,
+    marginBottom: 10,
     justifyContent: "flex-start",
   },
   journeySubTitleContainer: {
@@ -150,6 +149,7 @@ const styles = StyleSheet.create({
     color: "#919191",
     fontWeight: "500",
     justifyContent: "flex-start",
+    fontFamily: 'Stolzl Medium',
   },
   featuredJourneysContainer: {
     marginBottom: 32,

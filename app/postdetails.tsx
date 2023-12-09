@@ -1,12 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import {
-  ScrollView,
-  StyleSheet,
-  FlatList,
-  Image,
-  Modal,
-  TextInput,
-} from "react-native";
+import { ScrollView, StyleSheet, FlatList, Image, TextInput, KeyboardAvoidingView, Platform, Keyboard } from "react-native";
 import { Text, View } from "../components/Themed";
 import {
   getFirestore,
@@ -135,6 +128,8 @@ export default function PostDetails() {
     const filteredPosts = allPosts.find((post) => post.postID == curPostID);
     console.log(curPostID);
   }, [allPosts]);
+
+  
   return (
     <View style={styles.outermostContainer}>
       <View style={styles.tempContainer}>
@@ -191,41 +186,55 @@ export default function PostDetails() {
               showsHorizontalScrollIndicator={false}
             >
               <FlatList
-                data={commentarr}
-                showsVerticalScrollIndicator={false}
-                keyExtractor={(item, index) => index.toString()}
-                renderItem={({ item }) => (
-                  <IndividualComment
-                    username={item.userName}
-                    intro={item.userIntro}
-                    timestamp={item.date.toDate().toLocaleDateString()}
-                    content={item.text}
-                  />
-                )}
-              />
+  data={commentarr.sort((a, b) => new Date(b.date.toDate()).getTime() - new Date(a.date.toDate()).getTime())}
+  showsVerticalScrollIndicator={false}
+  keyExtractor={(item, index) => index.toString()}
+  renderItem={({ item }) => (
+    <IndividualComment
+      username={item.userName}
+      intro={item.userIntro}
+      timestamp={item.date.toDate().toLocaleDateString()}
+      content={item.text}
+    />
+  )}
+/>
             </ScrollView>
           </View>
         </View>
-        <View style={styles.inputMessageContainer}>
-          {/* Box to type your message */}
-          <TouchableOpacity style={styles.inputMessageBox}>
-            <TextInput
-              style={styles.inputText}
-              placeholder="Enter your comment here"
-              value={content}
-              onChangeText={(text) => setContent(text)}
-              multiline={true}
-              numberOfLines={10}
-            />
-          </TouchableOpacity>
-          {/* Send Icon */}
-          <TouchableOpacity onPress={comment}>
-            <Image
-              style={styles.sendIcon}
-              source={require("../assets/images/icons/sendMessage.png")}
-            />
-          </TouchableOpacity>
-        </View>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          keyboardVerticalOffset={-10}
+          style={{ backgroundColor: 'white' }} 
+        >
+          <View style={styles.inputMessageContainer}>
+            {/* Box to type your message */}
+            <TouchableOpacity style={styles.inputMessageBox}>
+              <TextInput
+                style={styles.inputText}
+                placeholder="Add a Comment"
+                value={content}
+                onChangeText={(text) => setContent(text)}
+                multiline={true}
+                numberOfLines={10}
+              />
+            </TouchableOpacity>
+            {/* Send Icon */}
+            <TouchableOpacity
+              onPress={() => {
+                if (content.trim() !== "") {
+                  comment();
+                  Keyboard.dismiss();
+                  setContent(""); 
+                }
+              }}
+            >
+              <Image
+                style={styles.sendIcon}
+                source={require("../assets/images/icons/sendMessage.png")}
+              />
+            </TouchableOpacity>
+          </View>
+        </KeyboardAvoidingView>
       </View>
     </View>
   );
@@ -241,15 +250,17 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   backBtnContainer: {
-    marginTop: 40,
-    marginBottom: 20,
+    top: 60, 
+    left: 20,
     alignSelf: "flex-start",
-    justifyContent: "center",
+    justifyContent: 'center',
+    marginBottom: 60,
+    zIndex: 2,
   },
   backBtn: {
     padding: 5,
     resizeMode: "contain",
-    justifyContent: "center",
+    justifyContent: 'center',
   },
   backBtnImg: {
     width: 20,
@@ -276,13 +287,11 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   postContainer: {
-    marginLeft: 20,
-    marginRight: 20,
   },
   bottomPartContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center",
+    height: 24,
   },
   postLikesContainer: {
     flexDirection: "row",
@@ -297,18 +306,16 @@ const styles = StyleSheet.create({
   postLikesText: {
     fontSize: 14,
   },
-  dividerLine: {
-    borderBottomColor: "#EEEEEE",
-    borderBottomWidth: 1,
-    marginTop: 20,
-    marginLeft: 20,
-    marginRight: 20,
-  },
   replyPostContainer: {},
   replyPostImg: {
     maxWidth: 60,
     maxHeight: 20,
     resizeMode: "contain",
+  },
+  dividerLine: {
+    borderBottomColor: "#EEEEEE",
+    borderBottomWidth: 1,
+    marginTop: 20,
   },
   itemContainer: {
     borderWidth: 1,
@@ -346,14 +353,16 @@ const styles = StyleSheet.create({
   },
   repliesTitle: {
     marginRight: 20,
-    marginLeft: 20,
   },
   commentsContainer: {
     flex: 1,
+    paddingBottom: 32,
+    borderWidth: 0,
+    marginBottom: 16,
   },
   inputContent: {
-    padding: 10,
-    width: "100%",
+    paddingTop: 32,
+    // width: "100%",
     fontSize: 18,
     outlineColor: "white",
     marginTop: 10,
@@ -377,12 +386,12 @@ const styles = StyleSheet.create({
   },
   inputMessageContainer: {
     flexDirection: "row",
-    position: "absolute",
     bottom: 20,
     width: "100%",
     marginLeft: 20,
+    paddingTop: 16,
     marginRight: 20,
-    backgroundColor: "transparent",
+    backgroundColor: "white",
   },
   inputMessageBox: {
     borderRadius: 30,
@@ -394,10 +403,6 @@ const styles = StyleSheet.create({
   messageText: {
     color: "#9A969F",
     fontSize: 14,
-    marginLeft: 20,
-    marginRight: 70,
-    marginTop: 15,
-    marginBottom: 15,
   },
   sendIcon: {
     width: 42,
@@ -408,5 +413,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginLeft: 20,
     marginTop: 10,
+    fontFamily: 'Stolzl Regular',
   },
 });

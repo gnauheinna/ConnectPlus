@@ -48,14 +48,14 @@ const IndividualComment: React.FC<IndividualCommentProps> = ({
         <View style={styles.commentContainer}>
           {/* Display the user info and timestamp of the comment */}
           <View style={styles.topPortionContainer}>
-            {/* Display the username and intro */}
+            {/* Display the username and timestamp */}
             <View style={styles.userInfoContainer}>
               <Text style={styles.userName}>{username}</Text>
-              <Text style={styles.userIntro}>{intro}</Text>
+              <Text style={styles.timestamp}>{timestamp}</Text>
             </View>
             {/* Display the timestamp */}
-            <View style={styles.timestampContainer}>
-              <Text style={styles.timestamp}>{timestamp}</Text>
+            <View style={styles.introContainer}>
+            <Text style={styles.userIntro}>{intro}</Text>
             </View>
           </View>
           {/* Display the comment content */}
@@ -97,29 +97,35 @@ const styles = StyleSheet.create({
     padding: 15,
   },
   topPortionContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginBottom: 10,
+    // flexDirection: "row",
+    // justifyContent: "space-between",
+    marginBottom: 8,
   },
   userInfoContainer: {
-    justifyContent: "center",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 4,
   },
   userName: {
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: "500",
+    fontFamily: 'Stolzl Medium',
+  },
+  timestamp: {
+    fontSize: 10,
+    color: "gray",
+    fontFamily: 'Stolzl Regular',
   },
   userIntro: {
     fontSize: 12,
     color: "#888888",
+    fontFamily: 'Stolzl Regular',
   },
-  timestampContainer: {},
-  timestamp: {
-    fontSize: 12,
-    color: "gray",
-  },
+  introContainer: {},
   bottomPortionContainer: {},
   commentContent: {
     fontSize: 14,
     textAlign: "left",
+    fontFamily: 'Stolzl Regular',
   },
 });

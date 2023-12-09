@@ -272,11 +272,11 @@ const styles = StyleSheet.create({
   },
   gradientBackground: {
     width: 390,
-    height: 200,
+    height: 170,
     zIndex: 1,
   },
   backBtnContainer: {
-    top: 60, 
+    top: 40, 
     left: 20,
     alignSelf: "flex-start",
     justifyContent: 'center',
@@ -337,7 +337,7 @@ const styles = StyleSheet.create({
   postTitle: {
     color: "#000000",
     fontSize: 24,
-    fontWeight: "bold",
+    fontFamily: 'Stolzl Bold',
     width: "100%",
   },
   authorInfoContainer: {
@@ -410,6 +410,7 @@ const styles = StyleSheet.create({
     lineHeight: 25,
     color: "#393939",
     marginBottom: 10,
+    fontFamily: 'Stolzl Regular',
   },
   regularContentTextBolded: {
     fontSize: 16,
@@ -427,7 +428,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 25,
     color: "#CA95C8",
-    fontWeight: "bold",
+    fontFamily: 'Stolzl Regular',
     textDecorationLine: "underline",
   },
   progressBarContainer: {
