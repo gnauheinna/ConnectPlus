@@ -15,6 +15,7 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 import { getApps } from "firebase/app";
+import "expo-router/entry";
 import {
   getFirestore,
   collection,
@@ -185,15 +186,15 @@ export default function Login() {
         </View>
 
         {/* Password Input */}
-         <View style={styles.passwordInputContainer}>
-        <Text style={styles.inputTitle}>Password</Text>
-        <TextInput
-          style={[styles.input]}
-          secureTextEntry
-          value={password}
-          onChangeText={(password) => setPassword(password)}
-          // placeholder="123456"
-        ></TextInput>
+        <View style={styles.passwordInputContainer}>
+          <Text style={styles.inputTitle}>Password</Text>
+          <TextInput
+            style={[styles.input]}
+            secureTextEntry
+            value={password}
+            onChangeText={(password) => setPassword(password)}
+            // placeholder="123456"
+          ></TextInput>
         </View>
 
         {/* Checkbox + Remember Me Text */}
@@ -223,22 +224,22 @@ export default function Login() {
         <View style={styles.thirdPartyLogIn}>
           {/* Google Login Button */}
           <View>
-          <TouchableOpacity onPress={GoogleLogin}>
-            <Image
-              source={require("../assets/images/googleLogo.png")}
-              style={[styles.thirdPartyIcon]}
-            />
-          </TouchableOpacity>
+            <TouchableOpacity onPress={GoogleLogin}>
+              <Image
+                source={require("../assets/images/googleLogo.png")}
+                style={[styles.thirdPartyIcon]}
+              />
+            </TouchableOpacity>
           </View>
           <View style={{ width: 50 }}></View>
           {/* Kerberos Login Button */}
           <View>
-          <TouchableOpacity>
-            <Image
-              source={require("../assets/images/kerberosLogo.png")}
-              style={[styles.thirdPartyIcon]}
-            />
-          </TouchableOpacity>
+            <TouchableOpacity>
+              <Image
+                source={require("../assets/images/kerberosLogo.png")}
+                style={[styles.thirdPartyIcon]}
+              />
+            </TouchableOpacity>
           </View>
         </View>
 
@@ -246,7 +247,7 @@ export default function Login() {
         <View style={styles.switchToSignUp}>
           <Text>Don't have an account? </Text>
           <TouchableOpacity onPress={createUser}>
-            <Text style={{ fontWeight: "bold"}}>Sign Up</Text>
+            <Text style={{ fontWeight: "bold" }}>Sign Up</Text>
           </TouchableOpacity>
         </View>
       </View>
