@@ -14,8 +14,12 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import IndividualPost from "../../components/individualPost";
 import { useUser } from "../context/UserContext";
 import { Post, usePostContext } from "../context/postContext";
+import MJPostCard from "../../components/MJPostCard";
+import { useRouter } from "expo-router";
+import { useSavedJourneyContext } from "../context/savedJourneyContext";
 
 export default function App() {
+  const router = useRouter();
   const { user, setUser } = useUser();
   const [name, setName] = useState("");
   const [year, setYear] = useState("");
@@ -29,6 +33,9 @@ export default function App() {
   const [allPosts, setAllPosts] = useState<Post[]>([]);
   const [showLineForQuestions, setshowLineForQuestions] = useState(true);
   const [showLineForJourneys, setshowLineForJourneys] = useState(false);
+  const { savedJourneys, setSavedJourneys } = useSavedJourneyContext();
+  const [Mname, setMName] = useState("");
+  const [img, setImg] = useState(Image);
 
   useEffect(() => {
     setName(user.name);
@@ -47,6 +54,26 @@ export default function App() {
     }
   }, [user]);
 
+  function mentorName(authorName: string) {
+    switch (authorName) {
+      case "Rachel Li":
+        return "rachel";
+        break;
+      case "Neri Ajiatas Arreaga":
+        return "neri";
+        break;
+      case "Shateva Long":
+        return "shateva";
+        break;
+      case "Julia Tran":
+        return "julia";
+
+      default:
+        return "rachel";
+
+        break;
+    }
+  }
   useEffect(() => {
     // Define the fetchData function here to use the state and props
     const loadPosts = async () => {
@@ -62,6 +89,8 @@ export default function App() {
     (post) => user && post.userID == user.userID
   );
 
+  const filteredJourneys = savedJourneys;
+
   const avatarImages: { [key: string]: any } = {
     avatar1: require("../../assets/images/avatars/avatar1.png"),
     avatar2: require("../../assets/images/avatars/avatar2.png"),
@@ -73,9 +102,9 @@ export default function App() {
     avatar8: require("../../assets/images/avatars/avatar8.png"),
     avatar9: require("../../assets/images/avatars/avatar9.png"),
   };
-
-  // console.log(avatar); // Check what avatar contains
-  // console.log(avatarImages[avatar]); // Check what image it maps to
+  function directToMyJourneyPost(postName: string) {
+    router.push(`/${postName}`);
+  }
 
   return (
     <View style={styles.outterMostContainer}>
@@ -136,7 +165,9 @@ export default function App() {
           <Text
             style={[
               styles.myQuestionsText,
-              showLineForJourneys ? { color: "#85808C", fontFamily: 'Stolzl Regular' } : {},
+              showLineForJourneys
+                ? { color: "#85808C", fontFamily: "Stolzl Regular" }
+                : {},
             ]}
           >
             My Questions
@@ -154,7 +185,9 @@ export default function App() {
           <Text
             style={[
               styles.savedJourneysText,
-              showLineForQuestions ? { color: "#85808C", fontFamily: 'Stolzl Regular' } : {},
+              showLineForQuestions
+                ? { color: "#85808C", fontFamily: "Stolzl Regular" }
+                : {},
             ]}
           >
             Saved Journeys
@@ -163,13 +196,12 @@ export default function App() {
         {/* Display the line underneath the Saved Journeys tab */}
         {showLineForJourneys && <View style={styles.lineForJourneys}></View>}
       </View>
-
-      <ScrollView
-        style={styles.questionsContainer}
-        showsVerticalScrollIndicator={false}
-      >
-        <View style={styles.mainQuestionsContainer}>
-          {!showLineForJourneys && (
+      {!showLineForJourneys ? (
+        <ScrollView
+          style={styles.questionsContainer}
+          showsVerticalScrollIndicator={false}
+        >
+          <View style={styles.mainQuestionsContainer}>
             <FlatList
               data={filteredPosts}
               showsVerticalScrollIndicator={false}
@@ -179,28 +211,68 @@ export default function App() {
                   {/* Displays the post */}
                   <IndividualPost postId={item.postID} />
                   <View style={styles.bottomPartContainer}>
-                      {/* Display the like icon and like number */}
-                      <TouchableOpacity style={styles.postLikesContainer}>
-                        <Image
+                    {/* Display the like icon and like number */}
+                    <TouchableOpacity style={styles.postLikesContainer}>
+                      <Image
                         style={styles.postLikesImg}
                         source={require("../../assets/images/icons/filledHeart.png")}
-                        />
-                        <Text style={styles.postLikesText}>35</Text>
-                      </TouchableOpacity>
-                      {/* Display the reply button */}
-                      <TouchableOpacity style={styles.replyPostContainer}>
-                        <Image
+                      />
+                      <Text style={styles.postLikesText}>35</Text>
+                    </TouchableOpacity>
+                    {/* Display the reply button */}
+                    <TouchableOpacity style={styles.replyPostContainer}>
+                      <Image
                         style={styles.replyPostImg}
                         source={require("../../assets/images/icons/reply.png")}
-                        />
-                      </TouchableOpacity>
+                      />
+                    </TouchableOpacity>
                   </View>
                 </View>
               )}
             />
-          )}
-        </View>
-      </ScrollView>
+          </View>
+        </ScrollView>
+      ) : (
+        <ScrollView
+          style={styles.questionsContainer}
+          showsVerticalScrollIndicator={false}
+        >
+          <View style={styles.mainQuestionsContainer}>
+            <FlatList
+              data={filteredJourneys}
+              showsVerticalScrollIndicator={false}
+              keyExtractor={(item, index) => index.toString()}
+              renderItem={({ item }) => {
+                const imgSource =
+                  item.authorName === "Rachel Li"
+                    ? require("../../assets/images/featuredMyJourneyPosts/RachelLi.png")
+                    : item.authorName === "Neri Ajiatas Arreaga"
+                    ? require("../../assets/images/mentorMyJourneyPics/neri.png")
+                    : item.authorName === "Shateva Long"
+                    ? require("../../assets/images/mentorMyJourneyPics/shateva.png")
+                    : item.authorName === "Julia Tran"
+                    ? require("../../assets/images/mentorMyJourneyPics/julia.png")
+                    : require("../../assets/images/featuredMyJourneyPosts/RachelLi.png");
+
+                return (
+                  <View style={styles.postShadowContainer}>
+                    {/* Displays the post */}
+                    <MJPostCard
+                      onPress={() =>
+                        directToMyJourneyPost(mentorName(item.authorName))
+                      }
+                      img={imgSource}
+                      title={item.journeyTitle}
+                      name={item.authorName}
+                      year={item.Intro}
+                    />
+                  </View>
+                );
+              }}
+            />
+          </View>
+        </ScrollView>
+      )}
     </View>
   );
 }
@@ -236,7 +308,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   userName: {
-    fontFamily: 'Stolzl Medium',
+    fontFamily: "Stolzl Medium",
     fontSize: 24,
     color: "#000000",
     marginBottom: 8,
@@ -245,7 +317,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: "#838383",
     marginBottom: 10,
-    fontFamily: 'Stolzl Regular',
+    fontFamily: "Stolzl Regular",
   },
   infoContainer: {
     alignSelf: "center",
@@ -266,7 +338,7 @@ const styles = StyleSheet.create({
   },
   interestText: {
     color: "#724EAE",
-    fontFamily: 'Stolzl Regular',
+    fontFamily: "Stolzl Regular",
   },
   horizontalBarContainer: {
     flexDirection: "row",
@@ -285,13 +357,13 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginHorizontal: 30,
     marginBottom: 0,
-    fontFamily: 'Stolzl Medium',
+    fontFamily: "Stolzl Medium",
   },
   savedJourneysText: {
     fontWeight: "bold",
     marginHorizontal: 30,
     marginBottom: 0,
-    fontFamily: 'Stolzl Medium',
+    fontFamily: "Stolzl Medium",
   },
   lineForQuestions: {
     backgroundColor: "#724EAE",
@@ -332,7 +404,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 12,
     padding: 16,
-    shadowColor: '#49006C',
+    shadowColor: "#49006C",
     shadowOffset: {
       width: -2,
       height: 4,
@@ -349,7 +421,7 @@ const styles = StyleSheet.create({
   },
   postLikesContainer: {
     flexDirection: "row",
-    alignItems: 'center',
+    alignItems: "center",
   },
   postLikesImg: {
     width: 20,
@@ -360,10 +432,8 @@ const styles = StyleSheet.create({
   postLikesText: {
     fontSize: 14,
   },
-  replyPostContainer:{
-
-  },
-  replyPostImg:{
+  replyPostContainer: {},
+  replyPostImg: {
     maxWidth: 60,
     maxHeight: 20,
     resizeMode: "contain",

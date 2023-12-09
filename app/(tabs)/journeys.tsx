@@ -123,7 +123,7 @@ export default function JourneyScreen() {
                 onPress={() => directToMyJourneyPost("shateva")}
                 img={require("../../assets/images/mentorMyJourneyPics/shateva.png")}
                 title="I Got To Create My Own 4 Credit CS Course!"
-                name="Shaetva Long"
+                name="Shateva Long"
                 year="Alumni"
               />
 

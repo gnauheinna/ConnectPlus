@@ -30,13 +30,13 @@ export default function MyJourneyPost() {
   // updates savebutton status according to saveJourney context
   useEffect(() => {
     const isShatevaSaved = savedJourneys.some(
-      (journey) => journey.authorName === "Shaetva Long"
+      (journey) => journey.authorName === "Shateva Long"
     );
     if (isShatevaSaved) {
-      // Shaetva Long's journey is saved
+      // Shateva Long's journey is saved
       setIsSaved(true);
     } else {
-      // Shaetva Long's journey is not saved
+      // Shateva Long's journey is not saved
       setIsSaved(false);
     }
   }, []);
@@ -44,7 +44,7 @@ export default function MyJourneyPost() {
   const unsaveJourney = async () => {
     const updatedSavedJourneys = savedJourneys.filter(
       (journey) =>
-        journey.authorName !== "Shaetva Long" &&
+        journey.authorName !== "Shateva Long" &&
         journey.journeyTitle !==
           "I Got To Create My Own 4 Credit Computer Science Course!"
     );
@@ -67,7 +67,7 @@ export default function MyJourneyPost() {
     // If it doesn't exist, add a new entry
     const newJourney = {
       journeyTitle: "I Got To Create My Own 4 Credit Computer Science Course!",
-      authorName: "Shaetva Long",
+      authorName: "Shateva Long",
       journeyID: "XlT9K5adSYcud8VOybpKjQL0wHrR5og4",
       Intro: "Alumni",
     };
@@ -213,7 +213,7 @@ export default function MyJourneyPost() {
               source={require("../assets/images/mentorProfilePics/ShatevaLong.png")}
             />
             <View style={styles.userNameAndIntro}>
-              <Text style={styles.userName}>Shaetva Long</Text>
+              <Text style={styles.userName}>Shateva Long</Text>
               <Text style={styles.userIntro}>Alumni</Text>
             </View>
           </View>
