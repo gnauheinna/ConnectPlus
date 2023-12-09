@@ -45,6 +45,7 @@ export default function MyJourneyPost() {
     } else {
     }
   }, [isSaved]);
+
   function directToMyJourney() {
     router.push("/journeys");
   }
