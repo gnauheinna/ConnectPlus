@@ -15,14 +15,30 @@ import {
 } from "react-native";
 import { useUser } from "./context/UserContext";
 import { getFirestore } from "firebase/firestore";
+import { useSavedJourneyContext } from "./context/savedJourneyContext";
 export default function MyJourneyPost() {
   const router = useRouter();
   const [isSaved, setIsSaved] = useState(false);
   const { user, setUser } = useUser();
   const db = getFirestore();
+  const { savedJourneys, setSavedJourneys, setLoading, loading } =
+    useSavedJourneyContext();
 
   // updates savebutton status according to saveJourney context
-  useEffect(() => {}, []);
+  useEffect(() => {
+    const isJuliaSaved = savedJourneys.some(
+      (journey) => journey.authorName === "Julia Tran"
+    );
+    if (isJuliaSaved) {
+      // Julia's journey is saved
+      setIsSaved(true);
+    } else {
+      // Julia's journey is not saved
+      setIsSaved(false);
+    }
+  }, []);
+
+  // saves and unsaves the journey
   useEffect(() => {
     if (isSaved) {
       //if()

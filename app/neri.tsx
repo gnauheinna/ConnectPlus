@@ -13,10 +13,28 @@ import {
   TouchableOpacity,
   NativeScrollEvent,
 } from "react-native";
+import { useSavedJourneyContext } from "./context/savedJourneyContext";
 
 export default function MyJourneyPost() {
   const router = useRouter();
   const [isSaved, setIsSaved] = useState(false);
+
+  const { savedJourneys, setSavedJourneys, setLoading, loading } =
+    useSavedJourneyContext();
+
+  // updates savebutton status according to saveJourney context
+  useEffect(() => {
+    const isNeriSaved = savedJourneys.some(
+      (journey) => journey.authorName === "Neri Ajiatas Arreaga"
+    );
+    if (isNeriSaved) {
+      // Neri's journey is saved
+      setIsSaved(true);
+    } else {
+      // Neri's journey is not saved
+      setIsSaved(false);
+    }
+  }, []);
 
   function directToMyJourney() {
     router.push("/journeys");
@@ -80,8 +98,14 @@ export default function MyJourneyPost() {
         >
           {/* Back Button */}
           <View style={styles.backBtnContainer}>
-            <TouchableOpacity style={styles.backBtn} onPress={directToMyJourney}>
-              <Image style={styles.backBtnImg} source={require("../assets/images/icons/blackBack.png")}/>
+            <TouchableOpacity
+              style={styles.backBtn}
+              onPress={directToMyJourney}
+            >
+              <Image
+                style={styles.backBtnImg}
+                source={require("../assets/images/icons/blackBack.png")}
+              />
             </TouchableOpacity>
           </View>
           <View style={styles.topContainer}></View>
@@ -103,8 +127,13 @@ export default function MyJourneyPost() {
                 <Text style={styles.postDate}>Nov 28th 2023</Text>
                 {/* Save Button */}
                 <TouchableOpacity onPress={() => setIsSaved(!isSaved)}>
-                  <Image style={styles.saveIcon} 
-                    source={isSaved ? require("../assets/images/icons/journeySaved.png") : require("../assets/images/icons/journeyUnsaved.png")}
+                  <Image
+                    style={styles.saveIcon}
+                    source={
+                      isSaved
+                        ? require("../assets/images/icons/journeySaved.png")
+                        : require("../assets/images/icons/journeyUnsaved.png")
+                    }
                   />
                 </TouchableOpacity>
               </View>
@@ -120,7 +149,9 @@ export default function MyJourneyPost() {
             /> */}
             <View style={styles.userNameAndIntro}>
               <Text style={styles.userName}>Neri Ajiatas Arreaga</Text>
-              <Text style={styles.userIntro}>Class of 2025, Data Science Major</Text>
+              <Text style={styles.userIntro}>
+                Class of 2025, Data Science Major
+              </Text>
             </View>
           </View>
         </View>
@@ -131,9 +162,18 @@ export default function MyJourneyPost() {
             <View style={styles.individualStep}>
               <View style={styles.regularContentContainer}>
                 <Text style={styles.regularContentText}>
-                Are you curious about the various communities on campus, especially those that align with your identity or interests? Stepping out of your comfort zone can be challenging, but BU offers several clubs and organizations that may pertain to your academic, professional or individual interests.
-Identify what you want to do outside of school. Engaging in activities aligned with your interests or exploring new ones can be a refreshing break from the sometimes draining demands of school, allowing you to spend time doing enjoyable and fulfilling things.
-Clubs and organizations offer opportunities to engage with other students and can help you discover interests you may not have considered.
+                  Are you curious about the various communities on campus,
+                  especially those that align with your identity or interests?
+                  Stepping out of your comfort zone can be challenging, but BU
+                  offers several clubs and organizations that may pertain to
+                  your academic, professional or individual interests. Identify
+                  what you want to do outside of school. Engaging in activities
+                  aligned with your interests or exploring new ones can be a
+                  refreshing break from the sometimes draining demands of
+                  school, allowing you to spend time doing enjoyable and
+                  fulfilling things. Clubs and organizations offer opportunities
+                  to engage with other students and can help you discover
+                  interests you may not have considered.
                 </Text>
               </View>
             </View>
@@ -144,20 +184,30 @@ Clubs and organizations offer opportunities to engage with other students and ca
               </View>
               <View style={styles.regularContentContainer}>
                 <Text style={styles.regularContentText}>
-                  1. You can visit Terrier Central to learn more about the hundreds of clubs on campus.
+                  1. You can visit Terrier Central to learn more about the
+                  hundreds of clubs on campus.
                 </Text>
                 <Text style={styles.regularContentText}>
-                  2. Interested in resources or organizations that may be of interest in career development? Make sure you talk to your academic advisor, as they are a great resource for academic and career planning support.
+                  2. Interested in resources or organizations that may be of
+                  interest in career development? Make sure you talk to your
+                  academic advisor, as they are a great resource for academic
+                  and career planning support.
                 </Text>
                 <Text style={styles.regularContentText}>
-                  3. Get in touch with fellow students in class and see what they may be involved in.
+                  3. Get in touch with fellow students in class and see what
+                  they may be involved in.
                 </Text>
                 <Text style={styles.regularContentText}>
                   4. Visit Splash that happens at the start of every semester!
                 </Text>
                 <View style={styles.indentedContentContainer}>
                   <Text style={styles.regularContentText}>
-                    What is Splash? Over 450 student organizations will be scattered across the field, each with its own setup, allowing prospective members to gain more information about each club, speak with current members, and sign up. Currently, SAO anticipates over 2,000 students will attend the event.
+                    What is Splash? Over 450 student organizations will be
+                    scattered across the field, each with its own setup,
+                    allowing prospective members to gain more information about
+                    each club, speak with current members, and sign up.
+                    Currently, SAO anticipates over 2,000 students will attend
+                    the event.
                   </Text>
                 </View>
               </View>
@@ -168,11 +218,17 @@ Clubs and organizations offer opportunities to engage with other students and ca
                 <Text style={styles.subtitleText}>Challenges</Text>
               </View>
               <View style={styles.regularContentContainer}>
-              <Text style={styles.regularContentText}>
-                  - I've felt that the multitude of clubs and organizations can be overwhelming, and there's the discomfort of trying something new without knowing anyone in the group you want to join.
+                <Text style={styles.regularContentText}>
+                  - I've felt that the multitude of clubs and organizations can
+                  be overwhelming, and there's the discomfort of trying
+                  something new without knowing anyone in the group you want to
+                  join.
                 </Text>
                 <Text style={styles.regularContentText}>
-                  - I’ve learned that BU groups are very welcoming to all individuals of any background. So don’t feel alone, there will always be someone that wants to talk and help you feel comfortable.
+                  - I’ve learned that BU groups are very welcoming to all
+                  individuals of any background. So don’t feel alone, there will
+                  always be someone that wants to talk and help you feel
+                  comfortable.
                 </Text>
               </View>
             </View>
@@ -183,10 +239,16 @@ Clubs and organizations offer opportunities to engage with other students and ca
               </View>
               <View style={styles.regularContentContainer}>
                 <Text style={styles.regularContentText}>
-                  - You have plenty of time to get involved with a community outside of your classroom. Especially throughout the semester, people are always having events and willing to welcome new members :)
+                  - You have plenty of time to get involved with a community
+                  outside of your classroom. Especially throughout the semester,
+                  people are always having events and willing to welcome new
+                  members :)
                 </Text>
                 <Text style={styles.regularContentText}>
-                  - You also never have to stick with the organization if you don’t like it. From personal experience, I’ve found it helpful to try a lot of things and reflect on whether I like or don’t like something.
+                  - You also never have to stick with the organization if you
+                  don’t like it. From personal experience, I’ve found it helpful
+                  to try a lot of things and reflect on whether I like or don’t
+                  like something.
                 </Text>
               </View>
             </View>
@@ -199,20 +261,22 @@ Clubs and organizations offer opportunities to engage with other students and ca
                 <Text style={styles.regularContentText}>
                   Make sure you click to learn more about
                 </Text>
-                  <Text style={styles.regularContentText}>
-                    <TouchableOpacity
-                      onPress={() =>
-                        Linking.openURL(
-                          "https://www.bu.edu/diversity/our-communities/"
-                        )
-                      }
-                    >
-                      <Text style={styles.linkText}>Diversity and Inclusion at BU</Text>
-                    </TouchableOpacity>
-                  </Text>
-                </View>
+                <Text style={styles.regularContentText}>
+                  <TouchableOpacity
+                    onPress={() =>
+                      Linking.openURL(
+                        "https://www.bu.edu/diversity/our-communities/"
+                      )
+                    }
+                  >
+                    <Text style={styles.linkText}>
+                      Diversity and Inclusion at BU
+                    </Text>
+                  </TouchableOpacity>
+                </Text>
               </View>
             </View>
+          </View>
         </View>
       </ScrollView>
       {/* )} */}
@@ -265,17 +329,17 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   backBtnContainer: {
-    top: 40, 
+    top: 40,
     left: 20,
     alignSelf: "flex-start",
-    justifyContent: 'center',
+    justifyContent: "center",
     marginBottom: 20,
     zIndex: 2,
   },
   backBtn: {
     padding: 5,
     resizeMode: "contain",
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   backBtnImg: {
     width: 20,

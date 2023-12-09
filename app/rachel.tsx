@@ -13,10 +13,28 @@ import {
   TouchableOpacity,
   NativeScrollEvent,
 } from "react-native";
+import { useSavedJourneyContext } from "./context/savedJourneyContext";
 
 export default function MyJourneyPost() {
   const router = useRouter();
   const [isSaved, setIsSaved] = useState(false);
+
+  const { savedJourneys, setSavedJourneys, setLoading, loading } =
+    useSavedJourneyContext();
+
+  // updates savebutton status according to saveJourney context
+  useEffect(() => {
+    const isRachelSaved = savedJourneys.some(
+      (journey) => journey.authorName === "Rachel Li"
+    );
+    if (isRachelSaved) {
+      //Rachel's journey is saved
+      setIsSaved(true);
+    } else {
+      // Rachel's journey is not saved
+      setIsSaved(false);
+    }
+  }, []);
 
   function directToMyJourney() {
     router.push(`/(tabs)/journeys`);
@@ -80,8 +98,14 @@ export default function MyJourneyPost() {
         >
           {/* Back Button */}
           <View style={styles.backBtnContainer}>
-            <TouchableOpacity style={styles.backBtn} onPress={directToMyJourney}>
-              <Image style={styles.backBtnImg} source={require("../assets/images/icons/blackBack.png")}/>
+            <TouchableOpacity
+              style={styles.backBtn}
+              onPress={directToMyJourney}
+            >
+              <Image
+                style={styles.backBtnImg}
+                source={require("../assets/images/icons/blackBack.png")}
+              />
             </TouchableOpacity>
           </View>
           <View style={styles.topContainer}></View>
@@ -103,13 +127,20 @@ export default function MyJourneyPost() {
                 <Text style={styles.postDate}>Nov 6th 2023</Text>
                 {/* Save Button */}
                 <TouchableOpacity onPress={() => setIsSaved(!isSaved)}>
-                  <Image style={styles.saveIcon} 
-                    source={isSaved ? require("../assets/images/icons/journeySaved.png") : require("../assets/images/icons/journeyUnsaved.png")}
+                  <Image
+                    style={styles.saveIcon}
+                    source={
+                      isSaved
+                        ? require("../assets/images/icons/journeySaved.png")
+                        : require("../assets/images/icons/journeyUnsaved.png")
+                    }
                   />
                 </TouchableOpacity>
               </View>
               {/* Title */}
-              <Text style={styles.postTitle}>School Program - Alternative Service Break</Text>
+              <Text style={styles.postTitle}>
+                School Program - Alternative Service Break
+              </Text>
             </View>
           </View>
           {/* Author's information */}
@@ -360,17 +391,17 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   backBtnContainer: {
-    top: 40, 
+    top: 40,
     left: 20,
     alignSelf: "flex-start",
-    justifyContent: 'center',
+    justifyContent: "center",
     marginBottom: 20,
     zIndex: 2,
   },
   backBtn: {
     padding: 5,
     resizeMode: "contain",
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   backBtnImg: {
     width: 20,
@@ -415,14 +446,14 @@ const styles = StyleSheet.create({
   postDate: {
     color: "#818181",
     fontSize: 16,
-    fontFamily: 'Stolzl Medium',
+    fontFamily: "Stolzl Medium",
     marginBottom: 5,
   },
   postTitle: {
     color: "#000000",
     fontSize: 28,
     width: "100%",
-    fontFamily: 'Stolzl Bold',
+    fontFamily: "Stolzl Bold",
   },
   authorInfoContainer: {
     flexDirection: "row",
@@ -442,13 +473,13 @@ const styles = StyleSheet.create({
   },
   userName: {
     fontSize: 14,
-    fontFamily: 'Stolzl Medium',
+    fontFamily: "Stolzl Medium",
     marginBottom: 5,
   },
   userIntro: {
     fontSize: 12,
     color: "#888888",
-    fontFamily: 'Stolzl Regular',
+    fontFamily: "Stolzl Regular",
   },
   postContentContainer: {
     flexDirection: "row",
@@ -479,7 +510,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "bold",
     textAlign: "center",
-    fontFamily: 'Stolzl Medium',
+    fontFamily: "Stolzl Medium",
   },
   boldedContentContainer: {
     marginBottom: 10,
@@ -496,7 +527,7 @@ const styles = StyleSheet.create({
     lineHeight: 25,
     color: "#393939",
     marginBottom: 10,
-    fontFamily: 'Stolzl Regular',
+    fontFamily: "Stolzl Regular",
   },
   regularContentTextBolded: {
     fontSize: 16,
@@ -516,7 +547,7 @@ const styles = StyleSheet.create({
     color: "#CA95C8",
     fontWeight: "bold",
     textDecorationLine: "underline",
-    fontFamily: 'Stolzl Regular',
+    fontFamily: "Stolzl Regular",
   },
   progressBarContainer: {
     zIndex: 3,

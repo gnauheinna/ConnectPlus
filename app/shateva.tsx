@@ -13,10 +13,28 @@ import {
   TouchableOpacity,
   NativeScrollEvent,
 } from "react-native";
+import { useSavedJourneyContext } from "./context/savedJourneyContext";
 
 export default function MyJourneyPost() {
   const router = useRouter();
   const [isSaved, setIsSaved] = useState(false);
+
+  const { savedJourneys, setSavedJourneys, setLoading, loading } =
+    useSavedJourneyContext();
+
+  // updates savebutton status according to saveJourney context
+  useEffect(() => {
+    const isShatevaSaved = savedJourneys.some(
+      (journey) => journey.authorName === "Shaetva Long"
+    );
+    if (isShatevaSaved) {
+      // Shaetva Long's journey is saved
+      setIsSaved(true);
+    } else {
+      // Shaetva Long's journey is not saved
+      setIsSaved(false);
+    }
+  }, []);
 
   function directToMyJourney() {
     router.push("/journeys");
@@ -73,8 +91,14 @@ export default function MyJourneyPost() {
         >
           {/* Back Button */}
           <View style={styles.backBtnContainer}>
-            <TouchableOpacity style={styles.backBtn} onPress={directToMyJourney}>
-              <Image style={styles.backBtnImg} source={require("../assets/images/icons/blackBack.png")}/>
+            <TouchableOpacity
+              style={styles.backBtn}
+              onPress={directToMyJourney}
+            >
+              <Image
+                style={styles.backBtnImg}
+                source={require("../assets/images/icons/blackBack.png")}
+              />
             </TouchableOpacity>
           </View>
           <View style={styles.topContainer}></View>
@@ -96,13 +120,20 @@ export default function MyJourneyPost() {
                 <Text style={styles.postDate}>Nov 6th 2023</Text>
                 {/* Save Button */}
                 <TouchableOpacity onPress={() => setIsSaved(!isSaved)}>
-                  <Image style={styles.saveIcon} 
-                    source={isSaved ? require("../assets/images/icons/journeySaved.png") : require("../assets/images/icons/journeyUnsaved.png")}
+                  <Image
+                    style={styles.saveIcon}
+                    source={
+                      isSaved
+                        ? require("../assets/images/icons/journeySaved.png")
+                        : require("../assets/images/icons/journeyUnsaved.png")
+                    }
                   />
                 </TouchableOpacity>
               </View>
               {/* Title */}
-              <Text style={styles.postTitle}>I Got To Create My Own 4 Credit Computer Science Course!</Text>
+              <Text style={styles.postTitle}>
+                I Got To Create My Own 4 Credit Computer Science Course!
+              </Text>
             </View>
           </View>
           {/* Author's information */}
@@ -124,7 +155,13 @@ export default function MyJourneyPost() {
             <View style={styles.individualStep}>
               <View style={styles.regularContentContainer}>
                 <Text style={styles.regularContentText}>
-                It was my last year in college and I still needed one more elective course to fulfill my Computer Science degree requirements. I had a poor lottery number, which left me with higher level 500+ courses that did not peak my interest. After lots of searching through our course site, I saw that as a senior computer science student, I was eligible for a directed study so that’s what I did!
+                  It was my last year in college and I still needed one more
+                  elective course to fulfill my Computer Science degree
+                  requirements. I had a poor lottery number, which left me with
+                  higher level 500+ courses that did not peak my interest. After
+                  lots of searching through our course site, I saw that as a
+                  senior computer science student, I was eligible for a directed
+                  study so that’s what I did!
                 </Text>
               </View>
             </View>
@@ -134,17 +171,21 @@ export default function MyJourneyPost() {
                 <Text style={styles.subtitleText}>Processes</Text>
               </View>
               <View style={styles.regularContentContainer}>
-              <Text style={styles.regularContentText}>
-                  1. Figure out what to study! This can be anything related to your major.
+                <Text style={styles.regularContentText}>
+                  1. Figure out what to study! This can be anything related to
+                  your major.
                 </Text>
                 <Text style={styles.regularContentText}>
                   2. Find a professor to work with.
                 </Text>
                 <Text style={styles.regularContentText}>
-                  3. Fill out your department’s directed study application. It will ask you questions about your project, what assignments you’ll be submitting, how many hours you’ll be working, etc.
+                  3. Fill out your department’s directed study application. It
+                  will ask you questions about your project, what assignments
+                  you’ll be submitting, how many hours you’ll be working, etc.
                 </Text>
                 <Text style={styles.regularContentText}>
-                  4. Go through your “course” content with your professor and submit your application.
+                  4. Go through your “course” content with your professor and
+                  submit your application.
                 </Text>
               </View>
             </View>
@@ -155,7 +196,17 @@ export default function MyJourneyPost() {
               </View>
               <View style={styles.regularContentContainer}>
                 <Text style={styles.regularContentText}>
-                As my project, I analyzed data from a DEI climate survey I conducted and created an analysis report. I had so much fun. The professor I worked with was amazing. He was extremely helpful throughout the entire process and our work styles meshed well. The project itself was also the perfect combination of challenging and interesting. I got to learn a new programming language and use it to build an interactive data report, and I enjoyed every minute of it. I got to utilize all of the skills I developed over the years and put my all into this project. It  was genuinely the first time I’ve felt overall fulfillment with a course at BU.
+                  As my project, I analyzed data from a DEI climate survey I
+                  conducted and created an analysis report. I had so much fun.
+                  The professor I worked with was amazing. He was extremely
+                  helpful throughout the entire process and our work styles
+                  meshed well. The project itself was also the perfect
+                  combination of challenging and interesting. I got to learn a
+                  new programming language and use it to build an interactive
+                  data report, and I enjoyed every minute of it. I got to
+                  utilize all of the skills I developed over the years and put
+                  my all into this project. It was genuinely the first time I’ve
+                  felt overall fulfillment with a course at BU.
                 </Text>
               </View>
             </View>
@@ -166,7 +217,12 @@ export default function MyJourneyPost() {
               </View>
               <View style={styles.regularContentContainer}>
                 <Text style={styles.regularContentText}>
-                The hardest part of the directed study was the initial application process. Finding a professor was not easy since many professors were busy or did not have the skills I needed for my project. Luckily, I was able to find a professor outside of my department who had the exact skills I needed. Everything else was great.
+                  The hardest part of the directed study was the initial
+                  application process. Finding a professor was not easy since
+                  many professors were busy or did not have the skills I needed
+                  for my project. Luckily, I was able to find a professor
+                  outside of my department who had the exact skills I needed.
+                  Everything else was great.
                 </Text>
               </View>
             </View>
@@ -176,9 +232,11 @@ export default function MyJourneyPost() {
                 <Text style={styles.subtitleText}>Takeaways</Text>
               </View>
               <View style={styles.regularContentContainer}>
-                  <Text style={styles.regularContentText}>
-                  Doing a directed study is not for everyone. You have to essentially build your own course and keep yourself on track. While it may be challenging, the experience was rewarding.
-                  </Text>
+                <Text style={styles.regularContentText}>
+                  Doing a directed study is not for everyone. You have to
+                  essentially build your own course and keep yourself on track.
+                  While it may be challenging, the experience was rewarding.
+                </Text>
               </View>
             </View>
           </View>
@@ -228,17 +286,17 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   backBtnContainer: {
-    top: 40, 
+    top: 40,
     left: 20,
     alignSelf: "flex-start",
-    justifyContent: 'center',
+    justifyContent: "center",
     marginBottom: 20,
     zIndex: 2,
   },
   backBtn: {
     padding: 5,
     resizeMode: "contain",
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   backBtnImg: {
     width: 20,
@@ -290,7 +348,7 @@ const styles = StyleSheet.create({
     color: "#000000",
     fontSize: 24,
     width: "100%",
-    fontFamily: 'Stolzl Bold',
+    fontFamily: "Stolzl Bold",
   },
   authorInfoContainer: {
     flexDirection: "row",
@@ -362,7 +420,7 @@ const styles = StyleSheet.create({
     lineHeight: 25,
     color: "#393939",
     marginBottom: 10,
-    fontFamily: 'Stolzl Regular',
+    fontFamily: "Stolzl Regular",
   },
   regularContentTextBolded: {
     fontSize: 16,
@@ -382,7 +440,7 @@ const styles = StyleSheet.create({
     color: "#CA95C8",
     fontWeight: "bold",
     textDecorationLine: "underline",
-    fontFamily: 'Stolzl Regular',
+    fontFamily: "Stolzl Regular",
   },
   progressBarContainer: {
     zIndex: 3,
