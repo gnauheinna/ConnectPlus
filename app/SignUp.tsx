@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, Text, Button, StyleSheet, Alert } from "react-native";
 import { TextInput } from "react-native-paper";
 import { useRouter } from "expo-router";
-import { TouchableOpacity, ImageBackground, } from "react-native";
+import { TouchableOpacity, ImageBackground } from "react-native";
 import firebase from "firebase/app";
 import {
   getAuth,
@@ -97,11 +97,12 @@ const SignupForm = () => {
         // create user on firestore
         const newUserRef = doc(db, "users", user.uid);
         await setDoc(newUserRef, newUser);
-
         // Update the document with the userID field
         await updateDoc(newUserRef, { userID });
         //create empty user chats on firestore
         await setDoc(doc(db, "userChats", user.uid), {});
+        // create empty savedJourneys
+        await setDoc(doc(db, "savedJourneys", user.uid), { savedjourneys: [] });
       }
     } catch (error) {
       console.log(error);
@@ -143,23 +144,25 @@ const SignupForm = () => {
   return (
     <View style={styles.outterMostContainer}>
       <ImageBackground
-            source={require("../assets/images/gradient/whiteGradientAskNShare.png")}
-            resizeMode="cover"
-            style={styles.gradientBackground}
-          >
-      {/* Back Button */}
-      <View style={styles.backBtnContainer}>
-        <TouchableOpacity style={styles.backBtn} onPress={directToIndex}>
-          <Image
-            style={styles.backBtnImg}
-            source={require("../assets/images/icons/blackBack.png")}
-          />
-        </TouchableOpacity>
-      </View>
+        source={require("../assets/images/gradient/whiteGradientAskNShare.png")}
+        resizeMode="cover"
+        style={styles.gradientBackground}
+      >
+        {/* Back Button */}
+        <View style={styles.backBtnContainer}>
+          <TouchableOpacity style={styles.backBtn} onPress={directToIndex}>
+            <Image
+              style={styles.backBtnImg}
+              source={require("../assets/images/icons/blackBack.png")}
+            />
+          </TouchableOpacity>
+        </View>
       </ImageBackground>
       <View style={styles.container}>
         <Text style={[styles.title]}>Create Your Account</Text>
-        <Text style={[styles.subTitle]}>Begin your journey here at Connect+</Text>
+        <Text style={[styles.subTitle]}>
+          Begin your journey here at Connect+
+        </Text>
         <View style={{ marginTop: 3 }}>
           <View style={[styles.inputContainer]}>
             <Image
@@ -300,7 +303,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 28,
-    fontFamily: 'Stolzl Medium',
+    fontFamily: "Stolzl Medium",
     marginBottom: 8,
     color: "#453B4F",
     zIndex: 2,
@@ -311,7 +314,7 @@ const styles = StyleSheet.create({
     color: "#453B4F",
     zIndex: 2,
     lineHeight: 20,
-    fontFamily: 'Stolzl Regular',
+    fontFamily: "Stolzl Regular",
   },
   signUpIcons: {
     width: 26,
@@ -336,7 +339,7 @@ const styles = StyleSheet.create({
     borderColor: "#E3E3E3",
     flex: 1,
     fontSize: 16,
-    fontFamily: 'Stolzl Regular',
+    fontFamily: "Stolzl Regular",
   },
   nextButtonContainer: {
     marginLeft: 40,
