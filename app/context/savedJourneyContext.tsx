@@ -49,34 +49,6 @@ const SavedJourneyProvider: React.FC<{ children: ReactNode }> = ({
   const [savedJourneys, setSavedJourneys] = useState<Journey[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const loadSavedJourneys = async () => {
-      try {
-        // get reference of Firestore document
-        console.log("savedJourney Context userid: ", currentUserID);
-        const savedjourneyDocRef = doc(db, "savedJourneys", currentUserID);
-        // get instance of document
-        const savedjourneySnapshot = await getDoc(savedjourneyDocRef);
-
-        if (savedjourneySnapshot.exists()) {
-          // get savedJourney data
-          const SJData = savedjourneySnapshot.data();
-          if (SJData) {
-            // updated SavedJourneys with array
-            setSavedJourneys(SJData.savedjourneys);
-            setLoading(false);
-          }
-        }
-      } catch (error) {
-        console.error("Error fetching posts:", error);
-        setLoading(false);
-      }
-    };
-    if (currentUserID != "") {
-      loadSavedJourneys();
-    }
-  }, [currentUserID]);
-
   return (
     <SavedJourneyContext.Provider
       value={{ savedJourneys, setSavedJourneys, setLoading, loading }}
