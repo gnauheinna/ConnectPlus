@@ -12,6 +12,7 @@ import { Image } from "react-native";
 import { StyleSheet, ScrollView } from "react-native";
 import JourneyScreen from "./journeys";
 import { CurrentChatContextProvider } from "../context/currentChatContext";
+import { SavedJourneyProvider } from "../context/savedJourneyContext";
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
  */
@@ -32,6 +33,7 @@ export default function TabLayout() {
   // } else {
   return (
     // <UserProvider>
+
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
@@ -105,6 +107,7 @@ export default function TabLayout() {
         }}
       />
     </Tabs>
+
     // </UserProvider>
   );
 }

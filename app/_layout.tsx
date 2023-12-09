@@ -17,7 +17,7 @@ import { UserProvider } from "./context/UserContext";
 import { PostIdProvider } from "./context/PostIDContext";
 import { PostProvider } from "./context/postContext";
 import { CurrentChatContextProvider } from "./context/currentChatContext";
-
+import { SavedJourneyProvider } from "./context/savedJourneyContext";
 export {
   // Catch any errors thrown by the Layout component.
   ErrorBoundary,
@@ -66,7 +66,9 @@ export default function RootLayout() {
         <PostIdProvider>
           <PostProvider>
             <CurrentChatContextProvider>
-              <RootLayoutNav />
+              <SavedJourneyProvider>
+                <RootLayoutNav />
+              </SavedJourneyProvider>
             </CurrentChatContextProvider>
           </PostProvider>
         </PostIdProvider>

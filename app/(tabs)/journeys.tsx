@@ -5,9 +5,17 @@ import { StyleSheet, ScrollView, Image, ImageBackground } from "react-native";
 import MyJourneyPost from "../myjourneypost";
 import { useRouter } from "expo-router";
 import React, { useState, useEffect } from "react";
-import MJPostCard from '../../components/MJPostCard';
+import { getFirestore, doc, getDoc } from "firebase/firestore";
+import MJPostCard from "../../components/MJPostCard";
+import { useSavedJourneyContext } from "../context/savedJourneyContext";
+import { useUser } from "../context/UserContext";
 
 export default function JourneyScreen() {
+  const db = getFirestore();
+  const { savedJourneys, setSavedJourneys, setLoading, loading } =
+    useSavedJourneyContext();
+  const { user, setUser } = useUser();
+  const currentUserID = user.userID;
   const router = useRouter();
   function directToMyJourneyPost(postName: string) {
     router.push(`/${postName}`);
@@ -15,92 +23,123 @@ export default function JourneyScreen() {
   function directToSeeAllJourneys() {
     router.push("/seeAllJourneys");
   }
+  useEffect(() => {
+    console.log("this is saved Journeys'", savedJourneys);
+  }, [savedJourneys]);
+
+  useEffect(() => {
+    const loadSavedJourneys = async () => {
+      try {
+        // get reference of Firestore document
+        console.log("savedJourney Context userid: ", currentUserID);
+        const savedjourneyDocRef = doc(db, "savedJourneys", currentUserID);
+        // get instance of document
+        const savedjourneySnapshot = await getDoc(savedjourneyDocRef);
+
+        if (savedjourneySnapshot.exists()) {
+          // get savedJourney data
+          const SJData = savedjourneySnapshot.data();
+          if (SJData) {
+            // updated SavedJourneys with array
+            console.log("Journey SJDATA", SJData.savedjourneys);
+            setSavedJourneys(SJData.savedjourneys);
+            setLoading(false);
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+        setLoading(false);
+      }
+    };
+    if (currentUserID != "") {
+      loadSavedJourneys();
+    }
+  }, [currentUserID]);
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
-    <View style={styles.outermostContainer}>
-      <ImageBackground
-        source={require("../../assets/images/gradient/whiteGradientAskNShare.png")}
-        resizeMode="cover"
-        style={styles.gradientBackground}
-      >
-      <View style={styles.journeyBigTitleContainer}>
-          <Text style={styles.journeyBigTitle}>My Journey</Text>
-      </View>
-      </ImageBackground>
+      <View style={styles.outermostContainer}>
+        <ImageBackground
+          source={require("../../assets/images/gradient/whiteGradientAskNShare.png")}
+          resizeMode="cover"
+          style={styles.gradientBackground}
+        >
+          <View style={styles.journeyBigTitleContainer}>
+            <Text style={styles.journeyBigTitle}>My Journey</Text>
+          </View>
+        </ImageBackground>
 
-      <View style={styles.container}>
-        <View style={styles.journeySubTitleContainer}>
-          <Text style={styles.journeySubTitle}>Featured</Text>
-        </View>
+        <View style={styles.container}>
+          <View style={styles.journeySubTitleContainer}>
+            <Text style={styles.journeySubTitle}>Featured</Text>
+          </View>
 
-        <View style={styles.featuredJourneysContainer}>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            {/* 1st Featured Journey */}
-            <TouchableOpacity
-              onPress={() => directToMyJourneyPost("rachel")}
-              style={styles.featuredJourney}
-            >
-              <Image
-                style={styles.featuredJourneyImg}
-                source={require("../../assets/images/featuredMyJourneyPosts/RachelLi.png")}
-              />
+          <View style={styles.featuredJourneysContainer}>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+              {/* 1st Featured Journey */}
+              <TouchableOpacity
+                onPress={() => directToMyJourneyPost("rachel")}
+                style={styles.featuredJourney}
+              >
+                <Image
+                  style={styles.featuredJourneyImg}
+                  source={require("../../assets/images/featuredMyJourneyPosts/RachelLi.png")}
+                />
+              </TouchableOpacity>
+
+              {/* 2nd Featured Journey */}
+              <TouchableOpacity
+                onPress={() => directToMyJourneyPost("rachel")}
+                style={styles.featuredJourney}
+              >
+                <Image
+                  style={styles.featuredJourneyImg}
+                  source={require("../../assets/images/featuredMyJourneyPosts/RachelLi.png")}
+                />
+              </TouchableOpacity>
+            </ScrollView>
+          </View>
+
+          <View style={styles.journeySubTitleContainer}>
+            <Text style={styles.journeySubTitle}>Hear From Others</Text>
+            <TouchableOpacity onPress={directToSeeAllJourneys}>
+              <Text style={styles.seeAll}>See All</Text>
             </TouchableOpacity>
+          </View>
 
-            {/* 2nd Featured Journey */}
-            <TouchableOpacity
-              onPress={() => directToMyJourneyPost("rachel")}
-              style={styles.featuredJourney}
-            >
-              <Image
-                style={styles.featuredJourneyImg}
-                source={require("../../assets/images/featuredMyJourneyPosts/RachelLi.png")}
+          <View style={styles.allJourneysContainer}>
+            <ScrollView showsVerticalScrollIndicator={false}>
+              {/* Neri Ajiatas Arreaga's Journey */}
+              <MJPostCard
+                onPress={() => directToMyJourneyPost("neri")}
+                img={require("../../assets/images/mentorMyJourneyPics/neri.png")}
+                title="Finding Community"
+                name="Neri Ajiatas Arreaga"
+                year="Class of 2025, Data Science Major"
               />
-            </TouchableOpacity>
-          </ScrollView>
-        </View>
 
-        <View style={styles.journeySubTitleContainer}>
-          <Text style={styles.journeySubTitle}>Hear From Others</Text>
-          <TouchableOpacity onPress={directToSeeAllJourneys}>
-            <Text style={styles.seeAll}>See All</Text>
-          </TouchableOpacity>
-        </View>
+              {/* Shateva Long's Journey */}
+              <MJPostCard
+                onPress={() => directToMyJourneyPost("shateva")}
+                img={require("../../assets/images/mentorMyJourneyPics/shateva.png")}
+                title="I Got To Create My Own 4 Credit CS Course!"
+                name="Shaetva Long"
+                year="Alumni"
+              />
 
-        <View style={styles.allJourneysContainer}>
-          <ScrollView showsVerticalScrollIndicator={false}>
-            {/* Neri Ajiatas Arreaga's Journey */}
-            <MJPostCard
-              onPress={() => directToMyJourneyPost("neri")}
-              img={require("../../assets/images/mentorMyJourneyPics/neri.png")}
-              title="Finding Community"
-              name="Neri Ajiatas Arreaga"
-              year="Class of 2025, Data Science Major"
-            />
-
-            {/* Shateva Long's Journey */}
-            <MJPostCard
-              onPress={() => directToMyJourneyPost("shateva")}
-              img={require("../../assets/images/mentorMyJourneyPics/shateva.png")}
-              title="I Got To Create My Own 4 Credit CS Course!"
-              name="Shaetva Long"
-              year="Alumni"
-            />
-
-            {/* Julia Tran's Journey */}
-            <MJPostCard
-              onPress={() => directToMyJourneyPost("julia")}
-              img={require("../../assets/images/mentorMyJourneyPics/julia.png")}
-              title="I (Accidentally) Got a Job!"
-              name="Julia Tran"
-              year="Class of 2027, Business Administration Major"
-            />
-          </ScrollView>
+              {/* Julia Tran's Journey */}
+              <MJPostCard
+                onPress={() => directToMyJourneyPost("julia")}
+                img={require("../../assets/images/mentorMyJourneyPics/julia.png")}
+                title="I (Accidentally) Got a Job!"
+                name="Julia Tran"
+                year="Class of 2027, Business Administration Major"
+              />
+            </ScrollView>
+          </View>
         </View>
       </View>
-    </View>
     </ScrollView>
-
   );
 }
 
@@ -149,7 +188,7 @@ const styles = StyleSheet.create({
     color: "#919191",
     fontWeight: "500",
     justifyContent: "flex-start",
-    fontFamily: 'Stolzl Medium',
+    fontFamily: "Stolzl Medium",
   },
   featuredJourneysContainer: {
     marginBottom: 32,

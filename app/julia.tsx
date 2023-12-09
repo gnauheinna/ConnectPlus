@@ -13,13 +13,22 @@ import {
   TouchableOpacity,
   NativeScrollEvent,
 } from "react-native";
-
+import { useUser } from "./context/UserContext";
+import { getFirestore } from "firebase/firestore";
 export default function MyJourneyPost() {
   const router = useRouter();
   const [isSaved, setIsSaved] = useState(false);
+  const { user, setUser } = useUser();
+  const db = getFirestore();
 
-
-
+  // updates savebutton status according to saveJourney context
+  useEffect(() => {}, []);
+  useEffect(() => {
+    if (isSaved) {
+      //if()
+    } else {
+    }
+  }, [isSaved]);
   function directToMyJourney() {
     router.push("/journeys");
   }
@@ -82,8 +91,14 @@ export default function MyJourneyPost() {
         >
           {/* Back Button */}
           <View style={styles.backBtnContainer}>
-            <TouchableOpacity style={styles.backBtn} onPress={directToMyJourney}>
-              <Image style={styles.backBtnImg} source={require("../assets/images/icons/blackBack.png")}/>
+            <TouchableOpacity
+              style={styles.backBtn}
+              onPress={directToMyJourney}
+            >
+              <Image
+                style={styles.backBtnImg}
+                source={require("../assets/images/icons/blackBack.png")}
+              />
             </TouchableOpacity>
           </View>
           <View style={styles.topContainer}></View>
@@ -105,8 +120,13 @@ export default function MyJourneyPost() {
                 <Text style={styles.postDate}>Nov 18th 2023</Text>
                 {/* Save Button */}
                 <TouchableOpacity onPress={() => setIsSaved(!isSaved)}>
-                  <Image style={styles.saveIcon} 
-                    source={isSaved ? require("../assets/images/icons/journeySaved.png") : require("../assets/images/icons/journeyUnsaved.png")}
+                  <Image
+                    style={styles.saveIcon}
+                    source={
+                      isSaved
+                        ? require("../assets/images/icons/journeySaved.png")
+                        : require("../assets/images/icons/journeyUnsaved.png")
+                    }
                   />
                 </TouchableOpacity>
               </View>
@@ -122,7 +142,9 @@ export default function MyJourneyPost() {
             /> */}
             <View style={styles.userNameAndIntro}>
               <Text style={styles.userName}>Julia Tran</Text>
-              <Text style={styles.userIntro}>Class of 2027, Business Administration Major</Text>
+              <Text style={styles.userIntro}>
+                Class of 2027, Business Administration Major
+              </Text>
             </View>
           </View>
         </View>
@@ -133,7 +155,17 @@ export default function MyJourneyPost() {
             <View style={styles.individualStep}>
               <View style={styles.regularContentContainer}>
                 <Text style={styles.regularContentText}>
-                I’m an Admissions Ambassador, leading campus tours around our Charles River Campus in BU gear you usually see on your way to class! At first, I thought it was a volunteering opportunity like a Club, so I applied, hoping to engage with BU’s community. What I didn’t anticipate going into the job was that I would get paid (of course!) and the motivation for me to step outside of my comfort zone, to do the things I wouldn’t normally do on my own accord. Getting a job doesn’t mean taking on an additional responsibility that might interfere with academics, but it can also be a chance to try something new and develop your skill set!
+                  I’m an Admissions Ambassador, leading campus tours around our
+                  Charles River Campus in BU gear you usually see on your way to
+                  class! At first, I thought it was a volunteering opportunity
+                  like a Club, so I applied, hoping to engage with BU’s
+                  community. What I didn’t anticipate going into the job was
+                  that I would get paid (of course!) and the motivation for me
+                  to step outside of my comfort zone, to do the things I
+                  wouldn’t normally do on my own accord. Getting a job doesn’t
+                  mean taking on an additional responsibility that might
+                  interfere with academics, but it can also be a chance to try
+                  something new and develop your skill set!
                 </Text>
               </View>
             </View>
@@ -144,14 +176,20 @@ export default function MyJourneyPost() {
               </View>
               <View style={styles.regularContentContainer}>
                 <Text style={styles.regularContentText}>
-                  1. Figure out what you can do: 
+                  1. Figure out what you can do:
                 </Text>
                 <View style={styles.indentedContentContainer}>
                   <Text style={styles.regularContentText}>
-                    - For international students: You can only work on-campus for your first year. After one full year of education, however, you can expand to off-campus positions that sponsor a work visa. 
+                    - For international students: You can only work on-campus
+                    for your first year. After one full year of education,
+                    however, you can expand to off-campus positions that sponsor
+                    a work visa.
                   </Text>
                   <Text style={styles.regularContentText}>
-                    - For U.S. citizens: You can already go off-campus as a first-year. There is also a work-study award available if you are a U.S. citizen that automatically deposits your salary into your Student Account.
+                    - For U.S. citizens: You can already go off-campus as a
+                    first-year. There is also a work-study award available if
+                    you are a U.S. citizen that automatically deposits your
+                    salary into your Student Account.
                   </Text>
                 </View>
 
@@ -160,13 +198,26 @@ export default function MyJourneyPost() {
                 </Text>
                 <View style={styles.indentedContentContainer}>
                   <Text style={styles.regularContentText}>
-                    - Utilize your Student Link: You can find a list of On/Off-campus Part-time positions or Quick Jobs (one-time jobs) listed under the “Job and Career” tab with the eligibilities, pay rates, and contact information. You can then email the person(s) in charge of the job listings you find interesting to ask for more information or apply!
+                    - Utilize your Student Link: You can find a list of
+                    On/Off-campus Part-time positions or Quick Jobs (one-time
+                    jobs) listed under the “Job and Career” tab with the
+                    eligibilities, pay rates, and contact information. You can
+                    then email the person(s) in charge of the job listings you
+                    find interesting to ask for more information or apply!
                   </Text>
                   <Text style={styles.regularContentText}>
-                    - Keep up with the BU Student Employment page: BU’s Student Employment Office has an official Instagram page. They post very frequently about available positions and job-tips for students on/off-campus.
+                    - Keep up with the BU Student Employment page: BU’s Student
+                    Employment Office has an official Instagram page. They post
+                    very frequently about available positions and job-tips for
+                    students on/off-campus.
                   </Text>
                   <Text style={styles.regularContentText}>
-                    - Ask around: Some jobs are referrals, so they are not officially posted on any websites or advertised on poster boards and bulletin boards. You can talk to the people you know who are currently working in a position or organization that you are interested in and they can let you know if they are recruiting.
+                    - Ask around: Some jobs are referrals, so they are not
+                    officially posted on any websites or advertised on poster
+                    boards and bulletin boards. You can talk to the people you
+                    know who are currently working in a position or organization
+                    that you are interested in and they can let you know if they
+                    are recruiting.
                   </Text>
                 </View>
               </View>
@@ -178,7 +229,13 @@ export default function MyJourneyPost() {
               </View>
               <View style={styles.regularContentContainer}>
                 <Text style={styles.regularContentText}>
-                  Sorting through the paperwork was a challenge for me. As an international student, there are certainly many more steps to get hired and get all of the required documents in, and it can be confusing at times. However, there are many resources out there that you can refer to, and you can always ask someone at work or your friends for help. Take it slow, you’re not supposed to know everything!
+                  Sorting through the paperwork was a challenge for me. As an
+                  international student, there are certainly many more steps to
+                  get hired and get all of the required documents in, and it can
+                  be confusing at times. However, there are many resources out
+                  there that you can refer to, and you can always ask someone at
+                  work or your friends for help. Take it slow, you’re not
+                  supposed to know everything!
                 </Text>
               </View>
             </View>
@@ -189,37 +246,33 @@ export default function MyJourneyPost() {
               </View>
               <View style={styles.regularContentContainer}>
                 <Text style={styles.regularContentText}>
-                   <TouchableOpacity
-                      onPress={() =>
-                        Linking.openURL(
-                          "https://www.bu.edu/seo/"
-                        )
-                      }
-                    >
-                      <Text style={styles.linkText}>Student Employment Office</Text>
-                    </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => Linking.openURL("https://www.bu.edu/seo/")}
+                  >
+                    <Text style={styles.linkText}>
+                      Student Employment Office
+                    </Text>
+                  </TouchableOpacity>
                 </Text>
                 <Text style={styles.regularContentText}>
-                    <TouchableOpacity
-                      onPress={() =>
-                        Linking.openURL(
-                          "https://www.instagram.com/bostonuseo/"
-                        )
-                      }
-                    >
-                      <Text style={styles.linkText}>Student Employment Instagram</Text>
-                    </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() =>
+                      Linking.openURL("https://www.instagram.com/bostonuseo/")
+                    }
+                  >
+                    <Text style={styles.linkText}>
+                      Student Employment Instagram
+                    </Text>
+                  </TouchableOpacity>
                 </Text>
                 <Text style={styles.regularContentText}>
-                    <TouchableOpacity
-                      onPress={() =>
-                        Linking.openURL(
-                          "https://www.bu.edu/isso/"
-                        )
-                      }
-                    >
-                      <Text style={styles.linkText}>International Students & Scholars Office</Text>
-                    </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => Linking.openURL("https://www.bu.edu/isso/")}
+                  >
+                    <Text style={styles.linkText}>
+                      International Students & Scholars Office
+                    </Text>
+                  </TouchableOpacity>
                 </Text>
               </View>
             </View>
@@ -276,17 +329,17 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   backBtnContainer: {
-    top: 40, 
+    top: 40,
     left: 20,
     alignSelf: "flex-start",
-    justifyContent: 'center',
+    justifyContent: "center",
     marginBottom: 20,
     zIndex: 2,
   },
   backBtn: {
     padding: 5,
     resizeMode: "contain",
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   backBtnImg: {
     width: 20,
@@ -337,7 +390,7 @@ const styles = StyleSheet.create({
   postTitle: {
     color: "#000000",
     fontSize: 24,
-    fontFamily: 'Stolzl Bold',
+    fontFamily: "Stolzl Bold",
     width: "100%",
   },
   authorInfoContainer: {
@@ -410,7 +463,7 @@ const styles = StyleSheet.create({
     lineHeight: 25,
     color: "#393939",
     marginBottom: 10,
-    fontFamily: 'Stolzl Regular',
+    fontFamily: "Stolzl Regular",
   },
   regularContentTextBolded: {
     fontSize: 16,
@@ -428,7 +481,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 25,
     color: "#CA95C8",
-    fontFamily: 'Stolzl Regular',
+    fontFamily: "Stolzl Regular",
     textDecorationLine: "underline",
   },
   progressBarContainer: {
