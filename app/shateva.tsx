@@ -14,10 +14,15 @@ import {
   NativeScrollEvent,
 } from "react-native";
 import { useSavedJourneyContext } from "./context/savedJourneyContext";
+import { useUser } from "./context/UserContext";
+import { getFirestore, doc, getDoc, updateDoc } from "firebase/firestore";
 
 export default function MyJourneyPost() {
   const router = useRouter();
   const [isSaved, setIsSaved] = useState(false);
+  const { user, setUser } = useUser();
+  const currentUserID = user.userID;
+  const db = getFirestore();
 
   const { savedJourneys, setSavedJourneys, setLoading, loading } =
     useSavedJourneyContext();
@@ -35,6 +40,71 @@ export default function MyJourneyPost() {
       setIsSaved(false);
     }
   }, []);
+
+  const unsaveJourney = async () => {
+    const updatedSavedJourneys = savedJourneys.filter(
+      (journey) =>
+        journey.authorName !== "Shaetva Long" &&
+        journey.journeyTitle !==
+          "I Got To Create My Own 4 Credit Computer Science Course!"
+    );
+
+    // updates context
+    await setSavedJourneys(updatedSavedJourneys);
+    // updates firestore
+    // 1. get reference of Firestore document
+    console.log("unsaving Journey userid: ", currentUserID);
+    const savedjourneyDocRef = doc(db, "savedJourneys", currentUserID);
+    // 2. get instance of document
+    const savedjourneySnapshot = await getDoc(savedjourneyDocRef);
+    // 3. Update the Firestore document with the modified savedJourneys array
+    await updateDoc(savedjourneyDocRef, {
+      savedjourneys: updatedSavedJourneys,
+    });
+  };
+
+  const saveJourney = async () => {
+    // If it doesn't exist, add a new entry
+    const newJourney = {
+      journeyTitle: "I Got To Create My Own 4 Credit Computer Science Course!",
+      authorName: "Shaetva Long",
+      journeyID: "XlT9K5adSYcud8VOybpKjQL0wHrR5og4",
+      Intro: "Alumni",
+    };
+    // Add the new entry to the savedJourneys array
+    await savedJourneys.push(newJourney);
+    // updates firestore
+    // 1. get reference of Firestore document
+    console.log("saving Journey  userid: ", currentUserID);
+    const savedjourneyDocRef = doc(db, "savedJourneys", currentUserID);
+    // 2. get instance of document
+    const savedjourneySnapshot = await getDoc(savedjourneyDocRef);
+    // 3. Update the Firestore document with the modified savedJourneys array
+    await updateDoc(savedjourneyDocRef, {
+      savedjourneys: savedJourneys,
+    });
+  };
+
+  // saves and unsaves the journey
+  const handleClick = async () => {
+    await setIsSaved(!isSaved);
+    // Check if there exists an entry with journeyTitle "I Got To Create My Own 4 Credit Computer Science Course!"
+    const isPostExists = savedJourneys.some(
+      (journey) =>
+        journey.journeyTitle ===
+        "I Got To Create My Own 4 Credit Computer Science Course!"
+    );
+    if (isSaved && isPostExists) {
+      // unsave the journey
+      console.log("unsave!");
+      unsaveJourney();
+    } else if (!isSaved && !isPostExists) {
+      // saves journey
+      console.log("save!");
+
+      saveJourney();
+    }
+  };
 
   function directToMyJourney() {
     router.push("/journeys");
@@ -119,7 +189,7 @@ export default function MyJourneyPost() {
                 {/* Timestamp */}
                 <Text style={styles.postDate}>Nov 6th 2023</Text>
                 {/* Save Button */}
-                <TouchableOpacity onPress={() => setIsSaved(!isSaved)}>
+                <TouchableOpacity onPress={() => handleClick()}>
                   <Image
                     style={styles.saveIcon}
                     source={
