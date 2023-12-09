@@ -255,18 +255,15 @@ export default function App() {
                     : require("../../assets/images/featuredMyJourneyPosts/RachelLi.png");
 
                 return (
-                  <View style={styles.postShadowContainer}>
-                    {/* Displays the post */}
-                    <MJPostCard
-                      onPress={() =>
-                        directToMyJourneyPost(mentorName(item.authorName))
-                      }
-                      img={imgSource}
-                      title={item.journeyTitle}
-                      name={item.authorName}
-                      year={item.Intro}
-                    />
-                  </View>
+                  <MJPostCard
+                    onPress={() =>
+                      directToMyJourneyPost(mentorName(item.authorName))
+                    }
+                    img={imgSource}
+                    title={item.journeyTitle}
+                    name={item.authorName}
+                    year={item.Intro}
+                  />
                 );
               }}
             />
