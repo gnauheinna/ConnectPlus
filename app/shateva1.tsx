@@ -13,10 +13,98 @@ import {
   TouchableOpacity,
   NativeScrollEvent,
 } from "react-native";
+import { useSavedJourneyContext } from "./context/savedJourneyContext";
+import { useUser } from "./context/UserContext";
+import { getFirestore, doc, getDoc, updateDoc } from "firebase/firestore";
 
 export default function MyJourneyPost() {
   const router = useRouter();
   const [isSaved, setIsSaved] = useState(false);
+  const { user, setUser } = useUser();
+  const currentUserID = user.userID;
+  const db = getFirestore();
+
+  const { savedJourneys, setSavedJourneys, setLoading, loading } =
+    useSavedJourneyContext();
+
+  // updates savebutton status according to saveJourney context
+  useEffect(() => {
+    const isShatevaSaved = savedJourneys.some(
+      (journey) => journey.authorName === "Shateva Long"
+    );
+    if (isShatevaSaved) {
+      // Shateva Long's journey is saved
+      setIsSaved(true);
+    } else {
+      // Shateva Long's journey is not saved
+      setIsSaved(false);
+    }
+  }, []);
+
+  const unsaveJourney = async () => {
+    const updatedSavedJourneys = savedJourneys.filter(
+      (journey) =>
+        journey.authorName !== "Shateva Long" &&
+        journey.journeyTitle !==
+          "I Got To Create My Own 4 Credit Computer Science Course!"
+    );
+
+    // updates context
+    await setSavedJourneys(updatedSavedJourneys);
+    // updates firestore
+    // 1. get reference of Firestore document
+    console.log("unsaving Journey userid: ", currentUserID);
+    const savedjourneyDocRef = doc(db, "savedJourneys", currentUserID);
+    // 2. get instance of document
+    const savedjourneySnapshot = await getDoc(savedjourneyDocRef);
+    // 3. Update the Firestore document with the modified savedJourneys array
+    await updateDoc(savedjourneyDocRef, {
+      savedjourneys: updatedSavedJourneys,
+    });
+  };
+
+  const saveJourney = async () => {
+    // If it doesn't exist, add a new entry
+    const newJourney = {
+      journeyTitle: "I Got To Create My Own 4 Credit Computer Science Course!",
+      authorName: "Shateva Long",
+      journeyID: "XlT9K5adSYcud8VOybpKjQL0wHrR5og4",
+      Intro: "Alumni",
+    };
+    // Add the new entry to the savedJourneys array
+    await savedJourneys.push(newJourney);
+    // updates firestore
+    // 1. get reference of Firestore document
+    console.log("saving Journey  userid: ", currentUserID);
+    const savedjourneyDocRef = doc(db, "savedJourneys", currentUserID);
+    // 2. get instance of document
+    const savedjourneySnapshot = await getDoc(savedjourneyDocRef);
+    // 3. Update the Firestore document with the modified savedJourneys array
+    await updateDoc(savedjourneyDocRef, {
+      savedjourneys: savedJourneys,
+    });
+  };
+
+  // saves and unsaves the journey
+  const handleClick = async () => {
+    await setIsSaved(!isSaved);
+    // Check if there exists an entry with journeyTitle "I Got To Create My Own 4 Credit Computer Science Course!"
+    const isPostExists = savedJourneys.some(
+      (journey) =>
+        journey.journeyTitle ===
+        "I Got To Create My Own 4 Credit Computer Science Course!"
+    );
+    if (isSaved && isPostExists) {
+      // unsave the journey
+      console.log("unsave!");
+      unsaveJourney();
+    } else if (!isSaved && !isPostExists) {
+      // saves journey
+      console.log("save!");
+
+      saveJourney();
+    }
+  };
 
   function directToMyJourney() {
     router.push("/journeys");
@@ -38,33 +126,26 @@ export default function MyJourneyPost() {
         setVerticalLine4(false);
         setVerticalLine5(false);
       }
-      if (scrollY >= 300) {
+      if (scrollY >= 500) {
         setVerticalLine2(true);
         setVerticalLine1(false);
         setVerticalLine3(false);
         setVerticalLine4(false);
         setVerticalLine5(false);
       }
-      if (scrollY >= 1050) {
+      if (scrollY >= 950) {
         setVerticalLine3(true);
         setVerticalLine1(false);
         setVerticalLine2(false);
         setVerticalLine4(false);
         setVerticalLine5(false);
       }
-      if (scrollY >= 1350) {
+      if (scrollY >= 1100) {
         setVerticalLine4(true);
         setVerticalLine1(false);
         setVerticalLine2(false);
         setVerticalLine3(false);
         setVerticalLine5(false);
-      }
-      if (scrollY >= 1450) {
-        setVerticalLine5(true);
-        setVerticalLine1(false);
-        setVerticalLine2(false);
-        setVerticalLine3(false);
-        setVerticalLine4(false);
       }
     },
     []
@@ -80,8 +161,14 @@ export default function MyJourneyPost() {
         >
           {/* Back Button */}
           <View style={styles.backBtnContainer}>
-            <TouchableOpacity style={styles.backBtn} onPress={directToMyJourney}>
-              <Image style={styles.backBtnImg} source={require("../assets/images/icons/blackBack.png")}/>
+            <TouchableOpacity
+              style={styles.backBtn}
+              onPress={directToMyJourney}
+            >
+              <Image
+                style={styles.backBtnImg}
+                source={require("../assets/images/icons/blackBack.png")}
+              />
             </TouchableOpacity>
           </View>
           <View style={styles.topContainer}></View>
@@ -100,27 +187,34 @@ export default function MyJourneyPost() {
             <View style={styles.postTitleContainer}>
               <View style={styles.timeAndSaveContainer}>
                 {/* Timestamp */}
-                <Text style={styles.postDate}>Nov 18th 2023</Text>
+                <Text style={styles.postDate}>Nov 6th 2023</Text>
                 {/* Save Button */}
-                <TouchableOpacity onPress={() => setIsSaved(!isSaved)}>
-                  <Image style={styles.saveIcon} 
-                    source={isSaved ? require("../assets/images/icons/journeySaved.png") : require("../assets/images/icons/journeyUnsaved.png")}
+                <TouchableOpacity onPress={() => handleClick()}>
+                  <Image
+                    style={styles.saveIcon}
+                    source={
+                      isSaved
+                        ? require("../assets/images/icons/journeySaved.png")
+                        : require("../assets/images/icons/journeyUnsaved.png")
+                    }
                   />
                 </TouchableOpacity>
               </View>
               {/* Title */}
-              <Text style={styles.postTitle}>I (Accidentally) Got a Job!</Text>
+              <Text style={styles.postTitle}>
+                I Got To Create My Own 4 Credit Computer Science Course!
+              </Text>
             </View>
           </View>
           {/* Author's information */}
           <View style={styles.authorInfoContainer}>
-            {/* <Image
+            <Image
               style={styles.profileImg}
-              source={require("../assets/images/mentorProfilePics/RachelLi.png")}
-            /> */}
+              source={require("../assets/images/mentorProfilePics/ShatevaLong.png")}
+            />
             <View style={styles.userNameAndIntro}>
-              <Text style={styles.userName}>Kristi Li</Text>
-              <Text style={styles.userIntro}>Class of 2023, CS & Advertising Major</Text>
+              <Text style={styles.userName}>Shateva Long</Text>
+              <Text style={styles.userIntro}>Alumni</Text>
             </View>
           </View>
         </View>
@@ -131,7 +225,13 @@ export default function MyJourneyPost() {
             <View style={styles.individualStep}>
               <View style={styles.regularContentContainer}>
                 <Text style={styles.regularContentText}>
-                I’m an Admissions Ambassador, leading campus tours around our Charles River Campus in BU gear you usually see on your way to class! At first, I thought it was a volunteering opportunity like a Club, so I applied, hoping to engage with BU’s community. What I didn’t anticipate going into the job was that I would get paid (of course!) and the motivation for me to step outside of my comfort zone, to do the things I wouldn’t normally do on my own accord. Getting a job doesn’t mean taking on an additional responsibility that might interfere with academics, but it can also be a chance to try something new and develop your skill set!
+                  It was my last year in college and I still needed one more
+                  elective course to fulfill my Computer Science degree
+                  requirements. I had a poor lottery number, which left me with
+                  higher level 500+ courses that did not peak my interest. After
+                  lots of searching through our course site, I saw that as a
+                  senior computer science student, I was eligible for a directed
+                  study so that’s what I did!
                 </Text>
               </View>
             </View>
@@ -142,89 +242,77 @@ export default function MyJourneyPost() {
               </View>
               <View style={styles.regularContentContainer}>
                 <Text style={styles.regularContentText}>
-                  1. Figure out what you can do: 
+                  1. Figure out what to study! This can be anything related to
+                  your major.
                 </Text>
-                <View style={styles.indentedContentContainer}>
-                  <Text style={styles.regularContentText}>
-                    - For international students: You can only work on-campus for your first year. After one full year of education, however, you can expand to off-campus positions that sponsor a work visa. 
-                  </Text>
-                  <Text style={styles.regularContentText}>
-                    - For U.S. citizens: You can already go off-campus as a first-year. There is also a work-study award available if you are a U.S. citizen that automatically deposits your salary into your Student Account.
-                  </Text>
-                </View>
-
                 <Text style={styles.regularContentText}>
-                  2. Search for available opportunities:
+                  2. Find a professor to work with.
                 </Text>
-                <View style={styles.indentedContentContainer}>
-                  <Text style={styles.regularContentText}>
-                    - Utilize your Student Link: You can find a list of On/Off-campus Part-time positions or Quick Jobs (one-time jobs) listed under the “Job and Career” tab with the eligibilities, pay rates, and contact information. You can then email the person(s) in charge of the job listings you find interesting to ask for more information or apply!
-                  </Text>
-                  <Text style={styles.regularContentText}>
-                    - Keep up with the BU Student Employment page: BU’s Student Employment Office has an official Instagram page. They post very frequently about available positions and job-tips for students on/off-campus.
-                  </Text>
-                  <Text style={styles.regularContentText}>
-                    - Ask around: Some jobs are referrals, so they are not officially posted on any websites or advertised on poster boards and bulletin boards. You can talk to the people you know who are currently working in a position or organization that you are interested in and they can let you know if they are recruiting.
-                  </Text>
-                </View>
+                <Text style={styles.regularContentText}>
+                  3. Fill out your department’s directed study application. It
+                  will ask you questions about your project, what assignments
+                  you’ll be submitting, how many hours you’ll be working, etc.
+                </Text>
+                <Text style={styles.regularContentText}>
+                  4. Go through your “course” content with your professor and
+                  submit your application.
+                </Text>
               </View>
             </View>
             {/* 3rd Step */}
             <View style={styles.individualStep}>
               <View style={styles.subtitleContainer}>
-                <Text style={styles.subtitleText}>Challenges</Text>
+                <Text style={styles.subtitleText}>Experience</Text>
               </View>
               <View style={styles.regularContentContainer}>
                 <Text style={styles.regularContentText}>
-                  Sorting through the paperwork was a challenge for me. As an international student, there are certainly many more steps to get hired and get all of the required documents in, and it can be confusing at times. However, there are many resources out there that you can refer to, and you can always ask someone at work or your friends for help. Take it slow, you’re not supposed to know everything!
+                  As my project, I analyzed data from a DEI climate survey I
+                  conducted and created an analysis report. I had so much fun.
+                  The professor I worked with was amazing. He was extremely
+                  helpful throughout the entire process and our work styles
+                  meshed well. The project itself was also the perfect
+                  combination of challenging and interesting. I got to learn a
+                  new programming language and use it to build an interactive
+                  data report, and I enjoyed every minute of it. I got to
+                  utilize all of the skills I developed over the years and put
+                  my all into this project. It was genuinely the first time I’ve
+                  felt overall fulfillment with a course at BU.
                 </Text>
               </View>
             </View>
             {/* 4th Step */}
             <View style={styles.individualStep}>
               <View style={styles.subtitleContainer}>
-                <Text style={styles.subtitleText}>Resources</Text>
+                <Text style={styles.subtitleText}>Challenges</Text>
               </View>
               <View style={styles.regularContentContainer}>
                 <Text style={styles.regularContentText}>
-                   <TouchableOpacity
-                      onPress={() =>
-                        Linking.openURL(
-                          "https://www.bu.edu/seo/"
-                        )
-                      }
-                    >
-                      <Text style={styles.linkText}>Student Employment Office</Text>
-                    </TouchableOpacity>
+                  The hardest part of the directed study was the initial
+                  application process. Finding a professor was not easy since
+                  many professors were busy or did not have the skills I needed
+                  for my project. Luckily, I was able to find a professor
+                  outside of my department who had the exact skills I needed.
+                  Everything else was great.
                 </Text>
+              </View>
+            </View>
+            {/* 5th Step */}
+            <View style={styles.individualStep}>
+              <View style={styles.subtitleContainer}>
+                <Text style={styles.subtitleText}>Takeaways</Text>
+              </View>
+              <View style={styles.regularContentContainer}>
                 <Text style={styles.regularContentText}>
-                    <TouchableOpacity
-                      onPress={() =>
-                        Linking.openURL(
-                          "https://www.instagram.com/bostonuseo/"
-                        )
-                      }
-                    >
-                      <Text style={styles.linkText}>Student Employment Instagram</Text>
-                    </TouchableOpacity>
-                </Text>
-                <Text style={styles.regularContentText}>
-                    <TouchableOpacity
-                      onPress={() =>
-                        Linking.openURL(
-                          "https://www.bu.edu/isso/"
-                        )
-                      }
-                    >
-                      <Text style={styles.linkText}>International Students & Scholars Office</Text>
-                    </TouchableOpacity>
+                  Doing a directed study is not for everyone. You have to
+                  essentially build your own course and keep yourself on track.
+                  While it may be challenging, the experience was rewarding.
                 </Text>
               </View>
             </View>
           </View>
         </View>
       </ScrollView>
-      {/* )} */}
+
       <View style={styles.progressBarContainer}>
         <View
           style={
@@ -246,13 +334,7 @@ export default function MyJourneyPost() {
             verticalLine4 ? styles.verticalLine4Active : styles.verticalLine4
           }
         ></View>
-        <View
-          style={
-            verticalLine5 ? styles.verticalLine5Active : styles.verticalLine5
-          }
-        ></View>
       </View>
-      {/* </View>)} */}
     </View>
   );
 }
@@ -274,17 +356,17 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   backBtnContainer: {
-    top: 60, 
+    top: 60,
     left: 20,
     alignSelf: "flex-start",
-    justifyContent: 'center',
+    justifyContent: "center",
     marginBottom: 20,
     zIndex: 2,
   },
   backBtn: {
     padding: 5,
     resizeMode: "contain",
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   backBtnImg: {
     width: 20,
@@ -336,7 +418,7 @@ const styles = StyleSheet.create({
     color: "#000000",
     fontSize: 24,
     width: "100%",
-    fontFamily: 'Stolzl Bold',
+    fontFamily: "Stolzl Bold",
   },
   authorInfoContainer: {
     flexDirection: "row",
@@ -408,6 +490,7 @@ const styles = StyleSheet.create({
     lineHeight: 25,
     color: "#393939",
     marginBottom: 10,
+    fontFamily: "Stolzl Regular",
   },
   regularContentTextBolded: {
     fontSize: 16,
@@ -427,6 +510,7 @@ const styles = StyleSheet.create({
     color: "#CA95C8",
     fontWeight: "bold",
     textDecorationLine: "underline",
+    fontFamily: "Stolzl Regular",
   },
   progressBarContainer: {
     zIndex: 3,
@@ -434,7 +518,7 @@ const styles = StyleSheet.create({
     right: 20,
     top: 280,
     flexDirection: "column",
-    height: 450,
+    height: 360,
   },
   verticalLine1Active: {
     flex: 1,

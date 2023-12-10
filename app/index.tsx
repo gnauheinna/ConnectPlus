@@ -2,7 +2,7 @@ import { View, Text, Button, TextField } from "react-native-ui-lib";
 import React, { useState, useEffect, useContext } from "react";
 import { StyleSheet, TextInput, Pressable } from "react-native";
 import { useRouter } from "expo-router";
-import { TouchableOpacity } from "react-native";
+import { TouchableOpacity, ImageBackground } from "react-native";
 import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
 import { FontFamily, Color, Border } from "./GlobalStyles";
@@ -163,6 +163,10 @@ export default function Login() {
   
   return (
     <View style={styles.outterMostContainer}>
+      {/* <ImageBackground
+            source={require("../assets/images/gradient/whiteGradientAskNShare.png")}
+            resizeMode="cover"
+            style={styles.gradientBackground}></ImageBackground> */}
       <View style={styles.container}>
         {/* ConnectPlus Logo */}
         <Image
@@ -175,38 +179,25 @@ export default function Login() {
           <Text style={styles.welcomeMessage}>Welcome to Connect+</Text>
         </View>
 
-        {/* Email Input */}
-        <View style={styles.emailInputContainer}>
-          <Text style={styles.inputTitle}>Email</Text>
-          <TextInput
-            style={[styles.input]}
-            value={email}
-            onChangeText={(email) => setEmail(email)}
-            // placeholder="example@gmail.com"
-          ></TextInput>
-        </View>
+        <View style={[styles.inputContainer]}>
+            <Text style={styles.inputTitle}>Email</Text>
+            <TextInput
+              style={styles.input}
+              secureTextEntry
+              value={email}
+              onChangeText={(email) => setEmail(email)}
+            />
+          </View>
 
-        {/* Password Input */}
-        <View style={styles.passwordInputContainer}>
-          <Text style={styles.inputTitle}>Password</Text>
-          <TextInput
-            style={[styles.input]}
-            secureTextEntry
+        <View style={[styles.inputContainer]}>
+            <Text style={styles.inputTitle}>Password</Text>
+            <TextInput
+              style={[styles.input]}
+              secureTextEntry
             value={password}
             onChangeText={(password) => setPassword(password)}
-            // placeholder="123456"
-          ></TextInput>
-        </View>
-
-        {/* Checkbox + Remember Me Text */}
-        {/* <View style={styles.rememberMeContainer}>
-          <CheckBox
-            checked={false} // Set the initial checked state here
-            onPress={() => {}}
-            containerStyle={styles.checkboxContainer}
-          />
-          <Text style={[styles.rememberMeText]}>Remember me</Text>
-        </View> */}
+            />
+          </View>
 
         {/* Sign In Button */}
         <View style={styles.signInBtn}>
@@ -246,9 +237,9 @@ export default function Login() {
 
         {/* Switch to Sign Up Option */}
         <View style={styles.switchToSignUp}>
-          <Text>Don't have an account? </Text>
+          <Text style={styles.switchToSignUpText}>Don't have an account? </Text>
           <TouchableOpacity onPress={createUser}>
-            <Text style={{ fontWeight: "bold" }}>Sign Up</Text>
+            <Text style={{ fontFamily: 'Stolzl Medium', fontSize: 16 }}>Sign Up</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -259,15 +250,21 @@ export default function Login() {
 const styles = StyleSheet.create({
   outterMostContainer: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: "#F9F6FF",
     justifyContent: "center",
     alignItems: "center",
+  },
+  gradientBackground: {
+    width: "100%",
+    height: 120,
+    zIndex: 1,
   },
   container: {
     flex: 1,
     marginLeft: 40,
     marginRight: 40,
-    backgroundColor: "white",
+    backgroundColor: "#F9F6FF",
+    zIndex: 2,
   },
   connectPlusLogo: {
     height: 120,
@@ -287,26 +284,31 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontFamily: 'Stolzl Bold',
   },
-  emailInputContainer: {
-    marginBottom: 10,
-  },
-  passwordInputContainer: {
-    marginBottom: 24,
-  },
   inputTitle: {
     color: "black",
     fontSize: 14,
-    marginBottom: 8,
+    marginBottom: 2,
     fontFamily: 'Stolzl Regular',
   },
+  inputContainer: {
+  },
   input: {
-    borderWidth: 1,
-    borderColor: "#828282",
-    borderRadius: 5,
-    padding: 10,
+    borderRadius: 10,
     width: "100%",
+    height: 42,
     marginVertical: 10,
-    height: 40,
+    backgroundColor: "white",
+    borderBottomWidth: 0,
+    borderColor: "#E3E3E3",
+    fontSize: 16,
+    fontFamily: "Stolzl Regular",
+    shadowColor: "#49006C",
+    shadowOffset: {
+      width: -2,
+      height: 4,
+    },
+    shadowOpacity: 0.06,
+    shadowRadius: 10,
   },
   // rememberMeContainer: {
   //   flexDirection: "row",
@@ -322,6 +324,7 @@ const styles = StyleSheet.create({
   // },
   signInBtn: {
     backgroundColor: "#FFC940",
+    marginTop: 48,
     marginBottom: 64,
     width: 320,
     height: 48,
@@ -356,6 +359,7 @@ const styles = StyleSheet.create({
   orText: {
     color: "#8F8F8F",
     fontSize: 12,
+    fontFamily: 'Stolzl Regular',
   },
   thirdPartyLogIn: {
     flexDirection: "row",
@@ -375,6 +379,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    fontSize: 18,
+    fontSize: 16,
+  },
+  switchToSignUpText: {
+    fontSize: 16,
+    fontFamily: 'Stolzl Regular',
   },
 });

@@ -44,50 +44,68 @@ export default function allJourneys() {
       <View style={styles.container}>
         <View style={styles.allJourneysContainer}>
           <ScrollView showsVerticalScrollIndicator={false}>
-            {/* Neri Ajiatas Arreaga's Journey */}
+            {/* Rachel Li's Journey */}
             <MJPostCard
-              onPress={() => directToMyJourneyPost("neri")}
-              img={require("../assets/images/mentorMyJourneyPics/neri.png")}
-              title="Finding Community"
-              name="Neri Ajiatas Arreaga"
-              year="Class of 2025, Data Science Major"
-            />
+                onPress={() => directToMyJourneyPost("rachel1")}
+                img={require("../assets/images/mentorMyJourneyPics/rachel.png")}
+                title="Save on Groceries"
+                name="Rachel Li"
+                year="Class of 2024, Data Science Major"
+              />
 
-            {/* Shateva Long's Journey */}
-            <MJPostCard
-              onPress={() => directToMyJourneyPost("shateva")}
-              img={require("../assets/images/mentorMyJourneyPics/shateva.png")}
-              title="I Got To Create My Own 4 Credit CS Course!"
-              name="Shaetva Long"
-              year="Alumni"
-            />
+              {/* Julia Tran's Journey */}
+              <MJPostCard
+                onPress={() => directToMyJourneyPost("julia")}
+                img={require("../assets/images/mentorMyJourneyPics/julia.png")}
+                title="I (Accidentally) Got a Job!"
+                name="Julia Tran"
+                year="Class of 2027, Business Administration Major"
+              />
 
-            {/* Julia Tran's Journey */}
-            <MJPostCard
-              onPress={() => directToMyJourneyPost("julia")}
-              img={require("../assets/images/mentorMyJourneyPics/julia.png")}
-              title="I (Accidentally) Got a Job!"
-              name="Julia Tran"
-              year="Class of 2027, Business Administration Major"
-            />
+              {/* Neri Ajiatas Arreaga's Journey */}
+              <MJPostCard
+                onPress={() => directToMyJourneyPost("neri")}
+                img={require("../assets/images/mentorMyJourneyPics/neri.png")}
+                title="Finding Community"
+                name="Neri Ajiatas Arreaga"
+                year="Class of 2025, Data Science Major"
+              />
 
-            {/* Annie Huang's Journey */}
-            <MJPostCard
-              onPress={() => directToMyJourneyPost("annie")}
-              img={require("../assets/images/mentorMyJourneyPics/julia.png")}
-              title="I (Accidentally) Got a Job!"
-              name="Annie Huang"
-              year="Class of 2025, Computer Science Major"
-            />
+              {/* Shateva Long's Journey */}
+              <MJPostCard
+                onPress={() => directToMyJourneyPost("shateva2")}
+                img={require("../assets/images/mentorMyJourneyPics/shateva.png")}
+                title="I Got To Create My Own 4 Credit CS Course!"
+                name="Shateva Long"
+                year="Alumni"
+              />
 
-            {/* Kristi Li's Journey */}
-            <MJPostCard
-              onPress={() => directToMyJourneyPost("kristi")}
-              img={require("../assets/images/mentorMyJourneyPics/julia.png")}
-              title="I (Accidentally) Got a Job!"
-              name="Kristi Li"
-              year="Class of 2023, CS & Advertising Major"
-            />
+              {/* Annie Huang's Journey */}
+              <MJPostCard
+                onPress={() => directToMyJourneyPost("annie")}
+                img={require("../assets/images/mentorMyJourneyPics/julia.png")}
+                title="I (Accidentally) Got a Job!"
+                name="Julia Tran"
+                year="Class of 2027, Business Administration Major"
+              />
+
+              {/* Kristi Li's Journey */}
+              <MJPostCard
+                onPress={() => directToMyJourneyPost("kristi")}
+                img={require("../assets/images/mentorMyJourneyPics/neri.png")}
+                title="Finding Community"
+                name="Neri Ajiatas Arreaga"
+                year="Class of 2025, Data Science Major"
+              />
+
+              {/* Gaby's Journey */}
+              <MJPostCard
+                onPress={() => directToMyJourneyPost("gaby")}
+                img={require("../assets/images/mentorMyJourneyPics/shateva.png")}
+                title="I Got To Create My Own 4 Credit CS Course!"
+                name="Shateva Long"
+                year="Alumni"
+              />
           </ScrollView>
         </View>
       </View>
@@ -144,46 +162,12 @@ const styles = StyleSheet.create({
     color: "#453B4F",
     fontWeight: "bold",
     backgroundColor: "transparent",
+    fontFamily: "Stolzl Bold",
   },
   searchBarContainer: {
     marginLeft: 20,
     marginRight: 20,
     backgroundColor: "transparent",
-  },
-  seeAll: {
-    color: "#B4AEBB",
-  },
-  journeySubTitle: {
-    fontSize: 20,
-    color: "#919191",
-    fontWeight: "500",
-    justifyContent: "flex-start",
-  },
-  featuredJourneysContainer: {
-    marginTop: 20,
-    marginBottom: 32,
-    height: 220,
-    flex: 1,
-    backgroundColor: "transparent",
-  },
-  overlay: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: "transparent",
-    marginTop: 16,
-  },
-  overlayTextContainer: {
-    position: "absolute",
-    top: 0,
-    paddingLeft: 16,
-    backgroundColor: "transparent",
-  },
-  overlayText: {
-    color: "black",
-    fontWeight: "bold",
-    fontSize: 22,
-    lineHeight: 25,
-    marginTop: 10,
-    width: 130,
   },
   featuredJourney: {
     borderRadius: 15,

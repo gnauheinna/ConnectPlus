@@ -110,11 +110,11 @@ export default function JourneyScreen() {
             <ScrollView showsVerticalScrollIndicator={false}>
               {/* Rachel Li's Journey */}
               <MJPostCard
-                onPress={() => directToMyJourneyPost("rachel")}
-                img={require("../../assets/images/mentorMyJourneyPics/shateva.png")}
-                title="I Got To Create My Own 4 Credit CS Course!"
+                onPress={() => directToMyJourneyPost("rachel1")}
+                img={require("../../assets/images/mentorMyJourneyPics/rachel.png")}
+                title="Save on Groceries"
                 name="Rachel Li"
-                year="Alumni"
+                year="Class of 2024, Data Science Major"
               />
 
               {/* Julia Tran's Journey */}
@@ -137,7 +137,7 @@ export default function JourneyScreen() {
 
               {/* Shateva Long's Journey */}
               <MJPostCard
-                onPress={() => directToMyJourneyPost("shateva")}
+                onPress={() => directToMyJourneyPost("shateva2")}
                 img={require("../../assets/images/mentorMyJourneyPics/shateva.png")}
                 title="I Got To Create My Own 4 Credit CS Course!"
                 name="Shateva Long"
@@ -178,7 +178,7 @@ const styles = StyleSheet.create({
     fontSize: 42,
     color: "#453B4F",
     marginTop: 20,
-    marginBottom: 10,
+    marginBottom: 16,
     justifyContent: "flex-start",
     fontFamily: "Stolzl Bold",
   },

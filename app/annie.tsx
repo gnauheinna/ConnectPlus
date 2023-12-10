@@ -274,7 +274,7 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   backBtnContainer: {
-    top: 40, 
+    top: 60, 
     left: 20,
     alignSelf: "flex-start",
     justifyContent: 'center',
@@ -295,7 +295,7 @@ const styles = StyleSheet.create({
     zIndex: 2,
     borderTopRightRadius: 30,
     borderTopLeftRadius: 30,
-    marginTop: -80,
+    marginTop: -60,
     backgroundColor: "white",
     shadowColor: "rgba(0, 0, 0, 0.02)",
     shadowOffset: { width: 0, height: -2 },

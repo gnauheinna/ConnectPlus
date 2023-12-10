@@ -193,8 +193,9 @@ const styles = StyleSheet.create({
   },
   searchText: {
     color: "#777777",
-    fontSize: 20,
+    fontSize: 16,
     alignItems: "center",
+    fontFamily: "Stolzl Regular",
   },
   individualMessageContainer: {
     flexDirection: "row",

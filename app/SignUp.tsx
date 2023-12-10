@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, Button, StyleSheet, Alert } from "react-native";
-import { TextInput } from "react-native-paper";
+import { TextInput } from "react-native";
 import { useRouter } from "expo-router";
 import { TouchableOpacity, ImageBackground } from "react-native";
 import firebase from "firebase/app";
@@ -163,21 +163,20 @@ const SignupForm = () => {
         <Text style={[styles.subTitle]}>
           Begin your journey here at Connect+
         </Text>
-        <View style={{ marginTop: 3 }}>
           <View style={[styles.inputContainer]}>
             <Image
               style={[styles.signUpIcons]}
               source={require("../assets/images/signUpIcons/name.png")}
             />
-            <TextInput
-              placeholder="Name"
-              style={[styles.input]}
-              value={name}
-              onChangeText={(name) => setName(name)}
-              placeholderTextColor="#A3A3A3"
-            />
-          </View>
-        </View>
+              <TextInput
+                placeholder="Name"
+                style={styles.input}
+                value={name}
+                onChangeText={(name) => setName(name)}
+                placeholderTextColor="#A3A3A3"
+              />
+            </View>
+          {/* </View> */}
 
         <View style={{ marginTop: 3 }}>
           <View style={[styles.inputContainer]}>
@@ -280,6 +279,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     marginLeft: 40,
     marginRight: 40,
+    backgroundColor: "#F9F6FF",
   },
   backBtnContainer: {
     marginTop: 60,
@@ -330,16 +330,22 @@ const styles = StyleSheet.create({
   },
   input: {
     borderRadius: 10,
-    paddingLeft: 30,
-    width: "80%",
+    paddingLeft: 48,
+    width: "100%",
     height: 42,
     marginVertical: 10,
     backgroundColor: "white",
     borderBottomWidth: 0,
     borderColor: "#E3E3E3",
-    flex: 1,
     fontSize: 16,
     fontFamily: "Stolzl Regular",
+    shadowColor: "#49006C",
+    shadowOffset: {
+      width: -2,
+      height: 4,
+    },
+    shadowOpacity: 0.06,
+    shadowRadius: 10,
   },
   nextButtonContainer: {
     marginLeft: 40,
