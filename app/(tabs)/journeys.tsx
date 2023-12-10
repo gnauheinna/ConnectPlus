@@ -2,7 +2,6 @@ import EditScreenInfo from "../../components/EditScreenInfo";
 import { Text, View } from "../../components/Themed";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { StyleSheet, ScrollView, Image, ImageBackground } from "react-native";
-import MyJourneyPost from "../myjourneypost";
 import { useRouter } from "expo-router";
 import React, { useState, useEffect } from "react";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
@@ -109,6 +108,24 @@ export default function JourneyScreen() {
 
           <View style={styles.allJourneysContainer}>
             <ScrollView showsVerticalScrollIndicator={false}>
+              {/* Rachel Li's Journey */}
+              <MJPostCard
+                onPress={() => directToMyJourneyPost("rachel")}
+                img={require("../../assets/images/mentorMyJourneyPics/shateva.png")}
+                title="I Got To Create My Own 4 Credit CS Course!"
+                name="Rachel Li"
+                year="Alumni"
+              />
+
+              {/* Julia Tran's Journey */}
+              <MJPostCard
+                onPress={() => directToMyJourneyPost("julia")}
+                img={require("../../assets/images/mentorMyJourneyPics/julia.png")}
+                title="I (Accidentally) Got a Job!"
+                name="Julia Tran"
+                year="Class of 2027, Business Administration Major"
+              />
+
               {/* Neri Ajiatas Arreaga's Journey */}
               <MJPostCard
                 onPress={() => directToMyJourneyPost("neri")}
@@ -125,15 +142,6 @@ export default function JourneyScreen() {
                 title="I Got To Create My Own 4 Credit CS Course!"
                 name="Shateva Long"
                 year="Alumni"
-              />
-
-              {/* Julia Tran's Journey */}
-              <MJPostCard
-                onPress={() => directToMyJourneyPost("julia")}
-                img={require("../../assets/images/mentorMyJourneyPics/julia.png")}
-                title="I (Accidentally) Got a Job!"
-                name="Julia Tran"
-                year="Class of 2027, Business Administration Major"
               />
             </ScrollView>
           </View>
@@ -172,6 +180,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginBottom: 10,
     justifyContent: "flex-start",
+    fontFamily: "Stolzl Bold",
   },
   journeySubTitleContainer: {
     backgroundColor: "#F9F6FF",
@@ -182,6 +191,7 @@ const styles = StyleSheet.create({
   },
   seeAll: {
     color: "#B4AEBB",
+    fontFamily: "Stolzl Regular",
   },
   journeySubTitle: {
     fontSize: 20,

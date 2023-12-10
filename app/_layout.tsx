@@ -38,7 +38,11 @@ export default function RootLayout() {
   }
 
   const [loaded, error] = useFonts({
-    SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
+    // SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
+    'Stolzl Bold': require('../assets/fonts/stolzlBold.ttf'),
+    'Stolzl Medium': require('../assets/fonts/stolzlMedium.otf'),
+    'Stolzl Regular': require('../assets/fonts/stolzlRegular.ttf'),
+    'Stolzl Light': require('../assets/fonts/stolzlLight.ttf'),
     ...FontAwesome.font,
   });
 
