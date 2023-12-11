@@ -210,7 +210,7 @@ export default function MyJourneyPost() {
           <View style={styles.authorInfoContainer}>
             <Image
               style={styles.profileImg}
-              source={require("../assets/images/mentorProfilePics/ShatevaLong.png")}
+              source={require("../assets/images/mentorProfilePics/shateva.png")}
             />
             <View style={styles.userNameAndIntro}>
               <Text style={styles.userName}>Shateva Long</Text>

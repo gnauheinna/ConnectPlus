@@ -128,26 +128,19 @@ export default function MyJourneyPost() {
         setVerticalLine4(false);
         setVerticalLine5(false);
       }
-      if (scrollY >= 1050) {
+      if (scrollY >= 2500) {
         setVerticalLine3(true);
         setVerticalLine1(false);
         setVerticalLine2(false);
         setVerticalLine4(false);
         setVerticalLine5(false);
       }
-      if (scrollY >= 1350) {
+      if (scrollY >= 2750) {
         setVerticalLine4(true);
         setVerticalLine1(false);
         setVerticalLine2(false);
         setVerticalLine3(false);
         setVerticalLine5(false);
-      }
-      if (scrollY >= 1450) {
-        setVerticalLine5(true);
-        setVerticalLine1(false);
-        setVerticalLine2(false);
-        setVerticalLine3(false);
-        setVerticalLine4(false);
       }
     },
     []
@@ -208,15 +201,13 @@ export default function MyJourneyPost() {
           </View>
           {/* Author's information */}
           <View style={styles.authorInfoContainer}>
-            {/* <Image
+            <Image
               style={styles.profileImg}
-              source={require("../assets/images/mentorProfilePics/RachelLi.png")}
-            /> */}
+              source={require("../assets/images/mentorProfilePics/julia.png")}
+            />
             <View style={styles.userNameAndIntro}>
               <Text style={styles.userName}>Julia Tran</Text>
-              <Text style={styles.userIntro}>
-                Class of 2027, Business Administration Major
-              </Text>
+              <Text style={styles.userIntro}>Class of 2027, Business Administration Major</Text>
             </View>
           </View>
         </View>
@@ -252,13 +243,17 @@ export default function MyJourneyPost() {
                 </Text>
                 <View style={styles.indentedContentContainer}>
                   <Text style={styles.regularContentText}>
-                    - For international students: You can only work on-campus
+                    - {" "}
+                  <Text style={styles.regularContentTextBolded}>For international students:{" "}</Text>
+                  For international students: You can only work on-campus
                     for your first year. After one full year of education,
                     however, you can expand to off-campus positions that sponsor
                     a work visa.
                   </Text>
                   <Text style={styles.regularContentText}>
-                    - For U.S. citizens: You can already go off-campus as a
+                    - {" "}
+                    <Text style={styles.regularContentTextBolded}>For U.S. citizens:{" "}</Text>
+                    You can already go off-campus as a
                     first-year. There is also a work-study award available if
                     you are a U.S. citizen that automatically deposits your
                     salary into your Student Account.
@@ -270,7 +265,9 @@ export default function MyJourneyPost() {
                 </Text>
                 <View style={styles.indentedContentContainer}>
                   <Text style={styles.regularContentText}>
-                    - Utilize your Student Link: You can find a list of
+                    - Utilize{" "}
+                    <Text style={styles.regularContentTextBolded}>Student Link{" "}</Text>
+                    : You can find a list of
                     On/Off-campus Part-time positions or Quick Jobs (one-time
                     jobs) listed under the “Job and Career” tab with the
                     eligibilities, pay rates, and contact information. You can
@@ -278,18 +275,53 @@ export default function MyJourneyPost() {
                     find interesting to ask for more information or apply!
                   </Text>
                   <Text style={styles.regularContentText}>
-                    - Keep up with the BU Student Employment page: BU’s Student
-                    Employment Office has an official Instagram page. They post
+                    - Keep up with the BU Student Employment page:{" "}
+                    <Text style={styles.regularContentTextBolded}>BU’s Student Employment Office{" "}</Text>
+                    has an official Instagram page. They post
                     very frequently about available positions and job-tips for
                     students on/off-campus.
                   </Text>
                   <Text style={styles.regularContentText}>
-                    - Ask around: Some jobs are referrals, so they are not
-                    officially posted on any websites or advertised on poster
+                    - Ask around:{" "}
+                    <Text style={styles.regularContentTextBolded}>Some jobs are referrals, so they are not officially posted{" "}</Text>
+                    on any websites or advertised on poster
                     boards and bulletin boards. You can talk to the people you
                     know who are currently working in a position or organization
                     that you are interested in and they can let you know if they
                     are recruiting.
+                  </Text>
+                </View>
+
+                <Text style={styles.regularContentText}>
+                  3. Apply
+                </Text>
+                <View style={styles.indentedContentContainer}>
+                  <Text style={styles.regularContentText}>
+                  - Resume, Cover letter, and Application form: Most Quick Jobs don’t require any of these, but Part-time Jobs usually require a Resume. Use the{" "}
+                  <Text style={styles.regularContentTextBolded}>Career Development Center (CDC){" "}</Text>
+                  to help you polish your documents!
+                  </Text>
+                  <Text style={styles.regularContentText}>
+                    - Interview: Make sure you come prepared and be confident! I had a group interview with 2 other candidates and they were both Upperclassmen, it was nerve-wracking, but{" "}
+                    <Text style={styles.regularContentTextBolded}>just be yourself, be sincere{" "}
+                    , and the interviewer will notice that!
+                  </Text>
+                  </Text>
+                </View>
+
+                <Text style={styles.regularContentText}>
+                  4. Sort through the paperwork:
+                </Text>
+                <View style={styles.indentedContentContainer}>
+                  <Text style={styles.regularContentText}>
+                    -{" "}<Text style={styles.regularContentTextBolded}>Enter your hours on the Student Employment Portal{" "}</Text>
+                    : Once you’re officially hired and working, you will be entering your hours yourself every week. The period ends on Thursday (so you will need to enter future hours that you will be working after Thursday that week) and your supervisor will review your hours after you have submitted them. 
+                  </Text>
+                  <Text style={styles.regularContentText}>
+                  - Direct Deposit: You can also{" "}<Text style={styles.regularContentTextBolded}>set up Direct Deposit{" "}</Text>
+                  to have your paycheck directly deposited into your account without having to get a physical check every week! This would 
+                  {" "}<Text style={styles.regularContentTextBolded}>require you to obtain a Social Security Card{" "}</Text>
+                  that you can apply for once you are hired if you are employed for the first time in the U.S.!
                   </Text>
                 </View>
               </View>
@@ -371,11 +403,6 @@ export default function MyJourneyPost() {
         <View
           style={
             verticalLine4 ? styles.verticalLine4Active : styles.verticalLine4
-          }
-        ></View>
-        <View
-          style={
-            verticalLine5 ? styles.verticalLine5Active : styles.verticalLine5
           }
         ></View>
       </View>
@@ -483,12 +510,13 @@ const styles = StyleSheet.create({
   },
   userName: {
     fontSize: 14,
-    fontWeight: "bold",
+    fontFamily: "Stolzl Medium",
     marginBottom: 5,
   },
   userIntro: {
     fontSize: 12,
     color: "#888888",
+    fontFamily: "Stolzl Regular",
   },
   postContentContainer: {
     flexDirection: "row",
@@ -519,13 +547,14 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "bold",
     textAlign: "center",
+    fontFamily: "Stolzl Medium",
   },
   boldedContentContainer: {
     marginBottom: 10,
   },
   boldedContentText: {
     fontSize: 16,
-    fontWeight: "bold",
+    fontFamily: "Stolzl Medium",
   },
   regularContentContainer: {
     marginBottom: 10,
@@ -542,7 +571,7 @@ const styles = StyleSheet.create({
     lineHeight: 25,
     color: "#393939",
     marginBottom: 10,
-    fontWeight: "bold",
+    fontFamily: "Stolzl Medium",
   },
   indentedContentContainer: {
     marginBottom: 10,

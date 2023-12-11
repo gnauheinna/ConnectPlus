@@ -183,7 +183,6 @@ export default function Login() {
             <Text style={styles.inputTitle}>Email</Text>
             <TextInput
               style={styles.input}
-              secureTextEntry
               value={email}
               onChangeText={(email) => setEmail(email)}
             />
@@ -295,6 +294,7 @@ const styles = StyleSheet.create({
   input: {
     borderRadius: 10,
     width: "100%",
+    paddingLeft: 16,
     height: 42,
     marginVertical: 10,
     backgroundColor: "white",

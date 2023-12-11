@@ -286,16 +286,16 @@ The Supplemental Nutrition Assistance Program (SNAP) gives people who are eligib
                 </Text>
                 <View style={styles.indentedContentContainer}>
                   <Text style={styles.regularContentText}>
-                    - Financial aid proof
+                  • Financial aid proof
                   </Text>
                   <Text style={styles.regularContentText}>
-                    - Proof that you don’t have a meal plan on campus
+                  • Proof that you don’t have a meal plan on campus
                   </Text>
                   <Text style={styles.regularContentText}>
-                    - Proof of work-study
+                  • Proof of work-study
                   </Text>
                   <Text style={styles.regularContentText}>
-                    - Proof of other work you’re (or have been) participating in
+                  • Proof of other work you’re (or have been) participating in
                   </Text>
                 </View>
                 <Text style={styles.regularContentText}>
@@ -350,16 +350,16 @@ The Supplemental Nutrition Assistance Program (SNAP) gives people who are eligib
               </View>
               <View style={styles.regularContentContainer}>
                 <Text style={styles.regularContentText}>
-                  - Try your best to not miss the scheduled phone call because
+                • Try your best to not miss the scheduled phone call because
                   it’s very hard to connect with a representative when you dial
                   in yourself. The average wait time is around 30 min.
                 </Text>
                 <Text style={styles.regularContentText}>
-                  - Download DTA Connect App, it’s the place where you submit
+                • Download DTA Connect App, it’s the place where you submit
                   all the verification documents.
                 </Text>
                 <Text style={styles.regularContentText}>
-                  - Keep an eye on your mail. They will email letters to you
+                • Keep an eye on your mail. They will email letters to you
                   with your case number (you need this number to sign into your
                   DTA app account)
                 </Text>

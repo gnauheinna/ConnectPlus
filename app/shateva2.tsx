@@ -133,14 +133,14 @@ export default function MyJourneyPost() {
         setVerticalLine4(false);
         setVerticalLine5(false);
       }
-      if (scrollY >= 950) {
+      if (scrollY >= 2050) {
         setVerticalLine3(true);
         setVerticalLine1(false);
         setVerticalLine2(false);
         setVerticalLine4(false);
         setVerticalLine5(false);
       }
-      if (scrollY >= 1100) {
+      if (scrollY >= 2500) {
         setVerticalLine4(true);
         setVerticalLine1(false);
         setVerticalLine2(false);
@@ -155,7 +155,7 @@ export default function MyJourneyPost() {
     <View style={styles.outterContainer}>
       <View style={styles.container}>
         <ImageBackground
-          source={require("../assets/images/background.png")}
+          source={require("../assets/images/journeyPostsGradients/shateva2.png")}
           resizeMode="cover"
           style={styles.gradientBackground}
         >
@@ -209,7 +209,7 @@ export default function MyJourneyPost() {
           <View style={styles.authorInfoContainer}>
             <Image
               style={styles.profileImg}
-              source={require("../assets/images/mentorProfilePics/ShatevaLong.png")}
+              source={require("../assets/images/mentorProfilePics/shateva.png")}
             />
             <View style={styles.userNameAndIntro}>
               <Text style={styles.userName}>Shateva Long</Text>
@@ -223,88 +223,87 @@ export default function MyJourneyPost() {
             {/* 1st Step */}
             <View style={styles.individualStep}>
               <View style={styles.regularContentContainer}>
+                <Text style={styles.regularContentTextBolded}>What are the three words for our students to quickly get to know you?</Text>
+                <Text style={styles.regularContentText}>Twenty-two, New-york-city, dynamic</Text>
+                <Text style={styles.regularContentTextBolded}>How do you understand your first-gen identity?</Text>
                 <Text style={styles.regularContentText}>
-                  It was my last year in college and I still needed one more
-                  elective course to fulfill my Computer Science degree
-                  requirements. I had a poor lottery number, which left me with
-                  higher level 500+ courses that did not peak my interest. After
-                  lots of searching through our course site, I saw that as a
-                  senior computer science student, I was eligible for a directed
-                  study so that’s what I did!
+                I first became aware of my first-gen identity when I was applying to FY101 sections my freshman year. I think being a first-gen college student is comparable to being late to a lecture. You had a rough morning, missed the bus, and it's raining, but you still showed up. Everyone else around you was there on time and some were of course extra early, so you’re a bit behind in the material. Catching up is challenging but by the end of the lecture, you were able to grasp the concepts and learn just as much as everyone else
                 </Text>
               </View>
             </View>
             {/* 2nd Step */}
             <View style={styles.individualStep}>
               <View style={styles.subtitleContainer}>
-                <Text style={styles.subtitleText}>Processes</Text>
+                <Text style={styles.subtitleText}>Internship Experience</Text>
               </View>
               <View style={styles.regularContentContainer}>
-                <Text style={styles.regularContentText}>
-                  1. Figure out what to study! This can be anything related to
-                  your major.
+                <Text style={styles.regularContentTextBolded}>
+                Q: Could you share with us your journey to obtaining an internship at Microsoft?
                 </Text>
                 <Text style={styles.regularContentText}>
-                  2. Find a professor to work with.
+                I think what helped me the most was not focusing on getting an internship. Instead,{" "}
+                <Text style={styles.underlinedText}>I focused on taking on opportunities I was passionate about and spent my time bettering myself.{" "}</Text>
+                I started various personal projects, took on leadership roles, and worked as a project manager on campus. These were all experiences I cared deeply about and they also prepared me for a role in product management.{" "}
+                <Text style={styles.underlinedText}>If you put genuine time and effort into your learning, it will shine through.</Text>
                 </Text>
                 <Text style={styles.regularContentText}>
-                  3. Fill out your department’s directed study application. It
-                  will ask you questions about your project, what assignments
-                  you’ll be submitting, how many hours you’ll be working, etc.
+                As for the internship application process,{" "}
+                <Text style={styles.underlinedText}>the hardest part is getting through the first screening process.{" "}</Text>
+                The only way to really do this for an internship is by having a good resume. Yes,{" "}
+                <Text style={styles.underlinedText}>how your resume is written is important.{" "}</Text>
+                Using strong action verbs, role specific terminology, and having a clean layout are all valuable components. But the most important thing is your experience and what it says about you.
+                </Text>
+
+                <Text style={styles.regularContentTextBolded}>
+                Q: What do you think recruiters at these big companies are looking for in a candidate?
                 </Text>
                 <Text style={styles.regularContentText}>
-                  4. Go through your “course” content with your professor and
-                  submit your application.
+                I think they look for different qualities at different stages. Initially, they probably are just looking for people who can do the job. Things are slightly different with internships because employers are aware of the limited opportunities to gain relevant experience. This means{" "}
+                <Text style={styles.underlinedText}>they are at least looking for any indicator of potential to successfully take on the role.{" "}</Text>
+                For the next stages, it seems like{" "}
+                <Text style={styles.underlinedText}>they start evaluating your thinking and problem solving patterns.{" "}</Text>
+                This is done through the more technical interviews which look different depending on the role. Lastly, I think{" "}
+                <Text style={styles.underlinedText}>they look for personality.{" "}</Text>
+                They want to see how you communicate with others and for a lack of better words, evaluate your “energy”. They want to see whether you’re trustworthy, likable, and would make a good fit at the company.
                 </Text>
               </View>
             </View>
             {/* 3rd Step */}
             <View style={styles.individualStep}>
               <View style={styles.subtitleContainer}>
-                <Text style={styles.subtitleText}>Experience</Text>
+                <Text style={styles.subtitleText}>Adulting & Professional Experience</Text>
               </View>
               <View style={styles.regularContentContainer}>
+                <Text style={styles.regularContentTextBolded}>
+                Q: Now as a young professional, what are some responsibilities or challenges you face that never crossed your mind as a student?
+                </Text>
                 <Text style={styles.regularContentText}>
-                  As my project, I analyzed data from a DEI climate survey I
-                  conducted and created an analysis report. I had so much fun.
-                  The professor I worked with was amazing. He was extremely
-                  helpful throughout the entire process and our work styles
-                  meshed well. The project itself was also the perfect
-                  combination of challenging and interesting. I got to learn a
-                  new programming language and use it to build an interactive
-                  data report, and I enjoyed every minute of it. I got to
-                  utilize all of the skills I developed over the years and put
-                  my all into this project. It was genuinely the first time I’ve
-                  felt overall fulfillment with a course at BU.
+                There are just so many more responsibilities to manage. Just to list a few — bills on bills, purchasing and upkeep of furniture/appliances, somehow fitting in dentist/doctors visits, making time to cook and grocery shopping, setting time aside for socializing and just time for myself, and then you have to do all of that on top of working for the majority of the day time. It’s a lot.{" "}
+                <Text style={styles.underlinedText}>For the first few months, it felt like my world was spinning. But once you plan everything on your calendar, you eventually get into a routine (and you set up auto payments) and it gets easier.{" "}</Text>
                 </Text>
               </View>
             </View>
             {/* 4th Step */}
             <View style={styles.individualStep}>
               <View style={styles.subtitleContainer}>
-                <Text style={styles.subtitleText}>Challenges</Text>
+                <Text style={styles.subtitleText}>Tips and Advice</Text>
               </View>
               <View style={styles.regularContentContainer}>
-                <Text style={styles.regularContentText}>
-                  The hardest part of the directed study was the initial
-                  application process. Finding a professor was not easy since
-                  many professors were busy or did not have the skills I needed
-                  for my project. Luckily, I was able to find a professor
-                  outside of my department who had the exact skills I needed.
-                  Everything else was great.
+                <Text style={styles.regularContentTextBolded}>
+                Q: For students who are just beginning their college journey, what is one piece of advice would you offer to them?
                 </Text>
-              </View>
-            </View>
-            {/* 5th Step */}
-            <View style={styles.individualStep}>
-              <View style={styles.subtitleContainer}>
-                <Text style={styles.subtitleText}>Takeaways</Text>
-              </View>
-              <View style={styles.regularContentContainer}>
                 <Text style={styles.regularContentText}>
-                  Doing a directed study is not for everyone. You have to
-                  essentially build your own course and keep yourself on track.
-                  While it may be challenging, the experience was rewarding.
+                The mistakes you make freshman year do not define your next three years. If anything, if you acknowledge these mistakes and put in effort to change, they’ll make you an even better student.
+                </Text>
+
+                <Text style={styles.regularContentTextBolded}>
+                Q: What are your top 3 pieces of advice for navigating the professional world, adulting challenges, or life after college?
+                </Text>
+                <Text style={styles.regularContentText}>
+                Have people you can talk to.{" "}
+                <Text style={styles.underlinedText}>My family, friends, and my mentors have been my rocks to keep me grounded. Also, be honest about how you feel and face these feelings head on.{" "}</Text>
+                If you’re feeling overwhelmed, you need to sit down and think about what small changes you can implement now to make things better. And if you don’t know what to do, you have those rocks or people in your life. And if you don’t have people in your life or if they aren’t helpful, you have Google and Reddit.{" "}
+                <Text style={styles.underlinedText}>There is not shame in asking the internet for advice.{" "}</Text>
                 </Text>
               </View>
             </View>
@@ -416,8 +415,8 @@ const styles = StyleSheet.create({
   postTitle: {
     color: "#000000",
     fontSize: 24,
-    width: "100%",
     fontFamily: "Stolzl Bold",
+    width: "100%",
   },
   authorInfoContainer: {
     flexDirection: "row",
@@ -437,12 +436,13 @@ const styles = StyleSheet.create({
   },
   userName: {
     fontSize: 14,
-    fontWeight: "bold",
+    fontFamily: "Stolzl Medium",
     marginBottom: 5,
   },
   userIntro: {
     fontSize: 12,
     color: "#888888",
+    fontFamily: "Stolzl Regular",
   },
   postContentContainer: {
     flexDirection: "row",
@@ -473,13 +473,14 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "bold",
     textAlign: "center",
+    fontFamily: "Stolzl Medium",
   },
   boldedContentContainer: {
     marginBottom: 10,
   },
   boldedContentText: {
     fontSize: 16,
-    fontWeight: "bold",
+    fontFamily: "Stolzl Medium",
   },
   regularContentContainer: {
     marginBottom: 10,
@@ -496,20 +497,18 @@ const styles = StyleSheet.create({
     lineHeight: 25,
     color: "#393939",
     marginBottom: 10,
-    fontWeight: "bold",
+    fontFamily: "Stolzl Medium",
   },
   indentedContentContainer: {
     marginBottom: 10,
     marginLeft: 20,
     marginRight: 20,
   },
-  linkText: {
+  underlinedText: {
     fontSize: 16,
     lineHeight: 25,
-    color: "#CA95C8",
-    fontWeight: "bold",
-    textDecorationLine: "underline",
     fontFamily: "Stolzl Regular",
+    textDecorationLine: "underline",
   },
   progressBarContainer: {
     zIndex: 3,
@@ -517,7 +516,7 @@ const styles = StyleSheet.create({
     right: 20,
     top: 280,
     flexDirection: "column",
-    height: 360,
+    height: 450,
   },
   verticalLine1Active: {
     flex: 1,

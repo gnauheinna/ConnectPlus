@@ -309,7 +309,7 @@ export default function MyJourneyPost() {
                   interview asking you to verify the information.{" "}
                 </Text>
                 <Text
-                  style={[styles.regularContentTextBolded, { marginTop: 20 }]}
+                  style={[styles.regularContentTextBolded, { marginTop: 20, fontFamily: "Stolzl Medium" }]}
                 >
                   Additional Info:
                 </Text>
@@ -367,7 +367,7 @@ export default function MyJourneyPost() {
                 <Text style={styles.regularContentText}>
                   - Keep an eye on your mail. They will email letters to you
                   with your case number (you need this number to sign into your
-                  DTA app account)
+                  DTA app account).
                 </Text>
               </View>
             </View>
@@ -607,7 +607,7 @@ const styles = StyleSheet.create({
     lineHeight: 25,
     color: "#393939",
     marginBottom: 10,
-    fontWeight: "bold",
+    fontFamily: "Stolzl Medium",
   },
   indentedContentContainer: {
     marginBottom: 10,
