@@ -46,7 +46,7 @@ export default function allJourneys() {
           <ScrollView showsVerticalScrollIndicator={false}>
             {/* Rachel Li's Journey */}
             <MJPostCard
-                onPress={() => directToMyJourneyPost("rachel1")}
+                onPress={() => directToMyJourneyPost("rachel")}
                 img={require("../assets/images/mentorMyJourneyPics/rachel.png")}
                 title="Save on Groceries"
                 name="Rachel Li"
@@ -73,34 +73,7 @@ export default function allJourneys() {
 
               {/* Shateva Long's Journey */}
               <MJPostCard
-                onPress={() => directToMyJourneyPost("shateva2")}
-                img={require("../assets/images/mentorMyJourneyPics/shateva.png")}
-                title="I Got To Create My Own 4 Credit CS Course!"
-                name="Shateva Long"
-                year="Alumni"
-              />
-
-              {/* Annie Huang's Journey */}
-              <MJPostCard
-                onPress={() => directToMyJourneyPost("annie")}
-                img={require("../assets/images/mentorMyJourneyPics/julia.png")}
-                title="I (Accidentally) Got a Job!"
-                name="Julia Tran"
-                year="Class of 2027, Business Administration Major"
-              />
-
-              {/* Kristi Li's Journey */}
-              <MJPostCard
-                onPress={() => directToMyJourneyPost("kristi")}
-                img={require("../assets/images/mentorMyJourneyPics/neri.png")}
-                title="Finding Community"
-                name="Neri Ajiatas Arreaga"
-                year="Class of 2025, Data Science Major"
-              />
-
-              {/* Gaby's Journey */}
-              <MJPostCard
-                onPress={() => directToMyJourneyPost("gaby")}
+                onPress={() => directToMyJourneyPost("shateva")}
                 img={require("../assets/images/mentorMyJourneyPics/shateva.png")}
                 title="I Got To Create My Own 4 Credit CS Course!"
                 name="Shateva Long"

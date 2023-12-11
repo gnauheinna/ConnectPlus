@@ -196,53 +196,44 @@ export default function App() {
         {/* Display the line underneath the Saved Journeys tab */}
         {showLineForJourneys && <View style={styles.lineForJourneys}></View>}
       </View>
+      {/* <View style={styles.questionsBigContainer}> */}
       {!showLineForJourneys ? (
-        <ScrollView
-          style={styles.questionsContainer}
-          showsVerticalScrollIndicator={false}
-        >
-          <View style={styles.mainQuestionsContainer}>
-            <FlatList
-              data={filteredPosts}
-              showsVerticalScrollIndicator={false}
-              keyExtractor={(item, index) => index.toString()}
-              renderItem={({ item }) => (
-                <View style={styles.postShadowContainer}>
-                  {/* Displays the post */}
-                  <IndividualPost postId={item.postID} />
-                  <View style={styles.bottomPartContainer}>
-                    {/* Display the like icon and like number */}
-                    <TouchableOpacity style={styles.postLikesContainer}>
-                      <Image
-                        style={styles.postLikesImg}
-                        source={require("../../assets/images/icons/filledHeart.png")}
-                      />
-                      <Text style={styles.postLikesText}>35</Text>
-                    </TouchableOpacity>
-                    {/* Display the reply button */}
-                    <TouchableOpacity style={styles.replyPostContainer}>
-                      <Image
-                        style={styles.replyPostImg}
-                        source={require("../../assets/images/icons/reply.png")}
-                      />
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              )}
-            />
+        <FlatList
+        style={styles.questionsContainer}
+        showsVerticalScrollIndicator={false}
+        data={filteredPosts}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={({ item }) => (
+          <View style={styles.postShadowContainer}>
+            {/* Displays the post */}
+            <IndividualPost postId={item.postID} />
+            <View style={styles.bottomPartContainer}>
+              {/* Display the like icon and like number */}
+              <TouchableOpacity style={styles.postLikesContainer}>
+                <Image
+                  style={styles.postLikesImg}
+                  source={require("../../assets/images/icons/filledHeart.png")}
+                />
+                <Text style={styles.postLikesText}>35</Text>
+              </TouchableOpacity>
+              {/* Display the reply button */}
+              <TouchableOpacity style={styles.replyPostContainer}>
+                <Image
+                  style={styles.replyPostImg}
+                  source={require("../../assets/images/icons/reply.png")}
+                />
+              </TouchableOpacity>
+            </View>
           </View>
-        </ScrollView>
+        )}
+      />
       ) : (
-        <ScrollView
-          style={styles.questionsContainer}
-          showsVerticalScrollIndicator={false}
-        >
-          <View style={styles.mainQuestionsContainer}>
-            <FlatList
-              data={filteredJourneys}
-              showsVerticalScrollIndicator={false}
-              keyExtractor={(item, index) => index.toString()}
-              renderItem={({ item }) => {
+        <FlatList
+            style={styles.questionsContainer}
+            showsVerticalScrollIndicator={false}
+            data={filteredJourneys}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({ item }) => {
                 const imgSource =
                   item.authorName === "Rachel Li"
                     ? require("../../assets/images/featuredMyJourneyPosts/rachel.png")
@@ -253,23 +244,25 @@ export default function App() {
                     : item.authorName === "Julia Tran"
                     ? require("../../assets/images/mentorMyJourneyPics/julia.png")
                     : require("../../assets/images/featuredMyJourneyPosts/rachel.png");
-                return (
-                  <MJPostCard
-                    onPress={() =>
-                      directToMyJourneyPost(mentorName(item.authorName))
-                    }
-                    img={imgSource}
-                    title={item.journeyTitle}
-                    name={item.authorName}
-                    year={item.Intro}
-                  />
-                );
-              }}
-            />
-          </View>
-        </ScrollView>
+
+            return (
+              <View style={styles.myJourneyContainer}>
+              <MJPostCard
+                onPress={() =>
+                  directToMyJourneyPost(mentorName(item.authorName))
+                }
+                img={imgSource}
+                title={item.journeyTitle}
+                name={item.authorName}
+                year={item.Intro}
+              />
+              </View>
+            );
+          }}
+        />
       )}
     </View>
+    // </View>
   );
 }
 
@@ -343,6 +336,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     paddingBottom: 20,
     backgroundColor: "white",
+    // marginBottom: 24,
   },
   horizontalBarText: {
     fontWeight: "bold",
@@ -360,6 +354,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 30,
     marginBottom: 0,
     fontFamily: "Stolzl Medium",
+  },
+  myJourneyContainer: {
+    marginLeft: 20,
+    marginRight: 20,
   },
   lineForQuestions: {
     backgroundColor: "#724EAE",
@@ -382,6 +380,7 @@ const styles = StyleSheet.create({
   questionsContainer: {
     flex: 1,
     backgroundColor: "#F9F6FF",
+    paddingTop: 24,
   },
   mainQuestionsContainer: {
     marginLeft: 20,
@@ -398,6 +397,8 @@ const styles = StyleSheet.create({
   },
   postShadowContainer: {
     backgroundColor: "white",
+    marginLeft: 20,
+    marginRight: 20,
     borderRadius: 12,
     padding: 16,
     shadowColor: "#49006C",
