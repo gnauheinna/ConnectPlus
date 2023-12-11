@@ -106,8 +106,6 @@ function RootLayoutNav() {
         <Stack.Screen name="rachel" options={{ headerShown: false }} />
         <Stack.Screen name="shateva" options={{ headerShown: false }} />
         <Stack.Screen name="shatevaFeatured" options={{ headerShown: false }} />
-        <Stack.Screen name="annie" options={{ headerShown: false }} />
-        <Stack.Screen name="kristi" options={{ headerShown: false }} />
         <Stack.Screen name="seeAllJourneys" options={{ headerShown: false }} />
       </Stack>
     </ThemeProvider>

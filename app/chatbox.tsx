@@ -198,6 +198,9 @@ export default function ChatBox() {
                 </View>
               )}
               keyExtractor={(item, index) => index.toString()}
+              // The following 2 lines make sure that the FlatList is scrolled to the bottom
+              onLayout={() => flatListRef.current?.scrollToEnd({animated: true})}
+              onContentSizeChange={() => flatListRef.current?.scrollToEnd({animated: true})}
             />
           </View>
         )}
@@ -233,13 +236,13 @@ const styles = StyleSheet.create({
   },
   topPortionContainer: {
     flexDirection: "row",
-    marginTop: 20,
+    marginTop: 52,
     marginLeft: 20,
     marginRight: 20,
     justifyContent: "space-between",
   },
   container: {
-    marginTop: 40,
+    marginTop: 20,
     marginLeft: 20,
     marginRight: 20,
     backgroundColor: "white",
@@ -267,7 +270,7 @@ const styles = StyleSheet.create({
   recipient: {
     color: "black",
     fontSize: 24,
-    fontWeight: "bold",
+    fontFamily: 'Stolzl Medium',
     textAlign: "center",
   },
   recipientImg: {
@@ -292,6 +295,7 @@ const styles = StyleSheet.create({
     marginRight: 60,
     textAlign: "center",
     lineHeight: 25,
+    fontFamily: 'Stolzl Regular',
   },
   chatsContainer: {
     height: 650,
@@ -317,6 +321,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     justifyContent: "center",
     alignItems: "center",
+    fontFamily: 'Stolzl Regular',
   },
   receivedMessageContainer: {
     borderTopLeftRadius: 20,
@@ -336,7 +341,7 @@ const styles = StyleSheet.create({
   inputMessageContainer: {
     flexDirection: "row",
     position: "absolute",
-    bottom: 20,
+    bottom: 32,
     width: "100%",
     marginLeft: 20,
     marginRight: 20,
@@ -356,6 +361,7 @@ const styles = StyleSheet.create({
     marginRight: 70,
     marginTop: 15,
     marginBottom: 15,
+    fontFamily: 'Stolzl Regular',
   },
   sendIcon: {
     width: 42,
@@ -366,5 +372,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginLeft: 20,
     marginTop: 10,
+    fontFamily: 'Stolzl Regular',
   },
 });
