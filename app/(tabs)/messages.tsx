@@ -144,14 +144,15 @@ export default function Message() {
         </ImageBackground>
       </View>
       {/* Scrollable Container */}
-      <ScrollView
+      {/* <ScrollView
         style={styles.messagesContainer}
         showsVerticalScrollIndicator={false}
-      >
+      > */}
         <View style={styles.messagesMainContainer}>
           {/* Message Box */}
           <FlatList
             data={allMessage}
+            style={styles.messagesContainer}
             showsVerticalScrollIndicator={false}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item }) => (
@@ -186,7 +187,7 @@ export default function Message() {
             )}
           />
         </View>
-      </ScrollView>
+      {/* </ScrollView> */}
     </View>
   );
 }
@@ -206,7 +207,7 @@ const styles = StyleSheet.create({
   },
   gradientBackground: {
     width: "100%",
-    height: 200,
+    height: 220,
     zIndex: 1,
   },
   titleContainer: {
@@ -215,9 +216,10 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     backgroundColor: "transparent",
     marginBottom: 10,
+    marginTop: 24,
   },
   chatBigTitle: {
-    fontSize: 36,
+    fontSize: 42,
     color: "#453B4F",
     alignItems: "center",
     fontFamily: 'Stolzl Bold',
@@ -227,20 +229,21 @@ const styles = StyleSheet.create({
     width: 24,
     resizeMode: "contain",
   },
-  messagesContainer: {
-    // zIndex: 2,
+  messagesMainContainer: {
     borderRadius: 30,
-    marginTop: -30,
-    backgroundColor: "transparent",
+    backgroundColor: "white",
+    flex: 1,
+    marginTop: -36,
+    zIndex: 2,
     shadowColor: "rgba(73, 0, 108, 0.11)",
     shadowOffset: { width: 0, height: -2 },
     shadowOpacity: 0.5,
     shadowRadius: 4,
   },
-  messagesMainContainer: {
+  messagesContainer: {
+    zIndex: 2,
     borderRadius: 30,
-    backgroundColor: "white",
-    // zIndex: 2,
+    backgroundColor: "transparent",
   },
   individualMessageContainer: {
     flexDirection: "row",
@@ -276,12 +279,13 @@ const styles = StyleSheet.create({
     color: "black",
     textAlign: "left",
     fontSize: 18,
-    fontWeight: "bold",
+    fontFamily: 'Stolzl Medium',
     marginBottom: 5,
   },
   lastMessage: {
     fontSize: 14,
     color: "grey",
+    fontFamily: 'Stolzl Regular',
   },
   messageTextContainer: {
     flex: 1,
@@ -290,13 +294,12 @@ const styles = StyleSheet.create({
     zIndex: 2,
   },
   timestampContainer: {
-    paddingTop: 20,
-    paddingBottom: 20,
+    marginTop: 24,
   },
   messageTimestamp: {
     color: "#777777",
     fontSize: 12,
-    fontWeight: "600",
     position: "absolute",
+    fontFamily: 'Stolzl Regular',
   },
 });
