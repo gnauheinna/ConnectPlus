@@ -30,7 +30,9 @@ export default function MyJourneyPost() {
   // updates savebutton status according to saveJourney context
   useEffect(() => {
     const isNeriSaved = savedJourneys.some(
-      (journey) => journey.authorName === "Neri Ajiatas Arreaga"
+      (journey) =>
+        journey.authorName === "Neri Ajiatas Arreaga" &&
+        journey.journeyTitle === "Discovering BU: Campus Communities and Organizations"
     );
     if (isNeriSaved) {
       // Neri's journey is saved
@@ -46,7 +48,7 @@ export default function MyJourneyPost() {
     await setIsSaved(!isSaved);
     // Check if there exists an entry with journeyTitle "School Program"
     const isSchoolProgramExists = savedJourneys.some(
-      (journey) => journey.journeyTitle === "Finding Community"
+      (journey) => journey.journeyTitle === "Discovering BU: Campus Communities and Organizations"
     );
     if (isSaved && isSchoolProgramExists) {
       // unsave the journey
@@ -64,7 +66,7 @@ export default function MyJourneyPost() {
     const updatedSavedJourneys = savedJourneys.filter(
       (journey) =>
         journey.authorName !== "Neri Ajiatas Arreaga" &&
-        journey.journeyTitle !== "Finding Community"
+        journey.journeyTitle !== "Discovering BU: Campus Communities and Organizations"
     );
 
     // updates context
@@ -84,7 +86,7 @@ export default function MyJourneyPost() {
   const saveJourney = async () => {
     // If it doesn't exist, add a new entry
     const newJourney = {
-      journeyTitle: "Finding Community",
+      journeyTitle: "Discovering BU: Campus Communities and Organizations",
       authorName: "Neri Ajiatas Arreaga",
       journeyID: "vEJlU8RCqhAgX6gX004t4ckpyfVbyPHy",
       Intro: "Class of 2025, Data Science Major",
@@ -159,7 +161,7 @@ export default function MyJourneyPost() {
     <View style={styles.outterContainer}>
       <View style={styles.container}>
         <ImageBackground
-          source={require("../assets/images/background.png")}
+          source={require("../assets/images/journeyPostsGradients/neri.png")}
           resizeMode="cover"
           style={styles.gradientBackground}
         >
@@ -191,7 +193,7 @@ export default function MyJourneyPost() {
             <View style={styles.postTitleContainer}>
               <View style={styles.timeAndSaveContainer}>
                 {/* Timestamp */}
-                <Text style={styles.postDate}>Nov 28th 2023</Text>
+                <Text style={styles.postDate}>Nov 13th 2023</Text>
                 {/* Save Button */}
                 <TouchableOpacity onPress={() => handleClick()}>
                   <Image
@@ -205,15 +207,15 @@ export default function MyJourneyPost() {
                 </TouchableOpacity>
               </View>
               {/* Title */}
-              <Text style={styles.postTitle}>Finding Community</Text>
+              <Text style={styles.postTitle}>Discovering BU: Campus Communities and Organizations</Text>
             </View>
           </View>
           {/* Author's information */}
           <View style={styles.authorInfoContainer}>
-            {/* <Image
+            <Image
               style={styles.profileImg}
-              source={require("../assets/images/mentorProfilePics/RachelLi.png")}
-            /> */}
+              source={require("../assets/images/mentorProfilePics/neri.png")}
+            />
             <View style={styles.userNameAndIntro}>
               <Text style={styles.userName}>Neri Ajiatas Arreaga</Text>
               <Text style={styles.userIntro}>
@@ -229,18 +231,7 @@ export default function MyJourneyPost() {
             <View style={styles.individualStep}>
               <View style={styles.regularContentContainer}>
                 <Text style={styles.regularContentText}>
-                  Are you curious about the various communities on campus,
-                  especially those that align with your identity or interests?
-                  Stepping out of your comfort zone can be challenging, but BU
-                  offers several clubs and organizations that may pertain to
-                  your academic, professional or individual interests. Identify
-                  what you want to do outside of school. Engaging in activities
-                  aligned with your interests or exploring new ones can be a
-                  refreshing break from the sometimes draining demands of
-                  school, allowing you to spend time doing enjoyable and
-                  fulfilling things. Clubs and organizations offer opportunities
-                  to engage with other students and can help you discover
-                  interests you may not have considered.
+                Clubs and organizations offer opportunities to engage with other students and can help you discover interests you may not have considered.
                 </Text>
               </View>
             </View>
@@ -251,32 +242,25 @@ export default function MyJourneyPost() {
               </View>
               <View style={styles.regularContentContainer}>
                 <Text style={styles.regularContentText}>
-                  1. You can visit Terrier Central to learn more about the
-                  hundreds of clubs on campus.
+                {"1. You can visit "}
+                  <TouchableOpacity
+                    onPress={() => Linking.openURL("https://bu.campuslabs.com/engage/")}
+                  >
+                    <Text style={styles.linkText}>Terrier Central</Text>
+                  </TouchableOpacity>
+                  {" to learn more about the hundreds of clubs on campus."}
                 </Text>
                 <Text style={styles.regularContentText}>
-                  2. Interested in resources or organizations that may be of
-                  interest in career development? Make sure you talk to your
-                  academic advisor, as they are a great resource for academic
-                  and career planning support.
+                  2. Get in touch with fellow students in class and see what they may be involved in.
                 </Text>
                 <Text style={styles.regularContentText}>
-                  3. Get in touch with fellow students in class and see what
-                  they may be involved in.
+                {"3. Visit "}
+                  <TouchableOpacity
+                    onPress={() => Linking.openURL("https://www.bu.edu/articles/2023/everything-you-need-to-know-about-boston-university-splash/")}>
+                    <Text style={styles.linkText}>Splash</Text>
+                  </TouchableOpacity>
+                  {" that happens at the start of every semester!"}
                 </Text>
-                <Text style={styles.regularContentText}>
-                  4. Visit Splash that happens at the start of every semester!
-                </Text>
-                <View style={styles.indentedContentContainer}>
-                  <Text style={styles.regularContentText}>
-                    What is Splash? Over 450 student organizations will be
-                    scattered across the field, each with its own setup,
-                    allowing prospective members to gain more information about
-                    each club, speak with current members, and sign up.
-                    Currently, SAO anticipates over 2,000 students will attend
-                    the event.
-                  </Text>
-                </View>
               </View>
             </View>
             {/* 3rd Step */}
@@ -326,23 +310,65 @@ export default function MyJourneyPost() {
               </View>
               <View style={styles.regularContentContainer}>
                 <Text style={styles.regularContentText}>
-                  Make sure you click to learn more about
-                </Text>
+                {"- Make sure you click to learn more about "}
+                  <TouchableOpacity
+                    onPress={() => Linking.openURL("https://www.bu.edu/diversity/our-communities/")}>
+                    <Text style={styles.linkText}>Diversity and Inclusion at BU</Text>
+                  </TouchableOpacity>
+                 </Text>
                 <Text style={styles.regularContentText}>
+                {"- Click here to view all "}
                   <TouchableOpacity
                     onPress={() =>
-                      Linking.openURL(
-                        "https://www.bu.edu/diversity/our-communities/"
-                      )
-                    }
-                  >
-                    <Text style={styles.linkText}>
-                      Diversity and Inclusion at BU
-                    </Text>
+                      Linking.openURL("https://bu.campuslabs.com/engage/organizations")}>
+                    <Text style={styles.linkText}>BU Clubs and Organizations</Text>
                   </TouchableOpacity>
                 </Text>
               </View>
             </View>
+            {/* 6th Step */}
+            <View style={styles.individualStep}>
+              <View style={styles.subtitleContainer}>
+                <Text style={styles.subtitleText}>Additional Groups</Text>
+              </View>
+              <View style={styles.regularContentContainer}>
+                <Text style={styles.regularContentText}>
+                  <TouchableOpacity
+                    onPress={() => Linking.openURL("https://www.bu.edu/questrom/diversity-and-inclusion/")}>
+                    <Text style={styles.linkText}>Center for Diversity, Equity, & Inclusion (DEI), Questrom School of Business</Text>
+                  </TouchableOpacity>
+                  <View style={styles.indentedContentContainer}>
+                    <Text style={styles.regularContentText}>
+                    The center provides diversity education, programs, and community building initiatives for all Questrom students, both undergraduate and graduate.
+                    </Text>
+                  </View>
+                 </Text>
+                <Text style={styles.regularContentText}>
+                  <TouchableOpacity
+                    onPress={() =>
+                      Linking.openURL("https://www.bu.edu/newbury-center/about/")}>
+                    <Text style={styles.linkText}>The Newbury Center</Text>
+                  </TouchableOpacity>
+                  <View style={styles.indentedContentContainer}>
+                    <Text style={styles.regularContentText}>
+                    Supporting and celebrating first-generation undergraduate, graduate, and professional students at BU.
+                    </Text>
+                  </View>
+                </Text>
+                <Text style={styles.regularContentText}>
+                  <TouchableOpacity
+                    onPress={() =>
+                      Linking.openURL("https://www.bu.edu/thurman/programs/")}>
+                    <Text style={styles.linkText}>Howard Thurman Center</Text>
+                  </TouchableOpacity>
+                  <View style={styles.indentedContentContainer}>
+                    <Text style={styles.regularContentText}>
+                    This is a place where cultural expression in all of its forms is embraced and encouraged.
+                    </Text>
+                  </View>
+                </Text>
+              </View>
+          </View>
           </View>
         </View>
       </ScrollView>
@@ -451,14 +477,14 @@ const styles = StyleSheet.create({
   postDate: {
     color: "#818181",
     fontSize: 16,
-    fontWeight: "600",
+    fontFamily: "Stolzl Medium",
     marginBottom: 5,
   },
   postTitle: {
     color: "#000000",
-    fontSize: 24,
-    fontWeight: "bold",
+    fontSize: 28,
     width: "100%",
+    fontFamily: "Stolzl Bold",
   },
   authorInfoContainer: {
     flexDirection: "row",
@@ -478,12 +504,13 @@ const styles = StyleSheet.create({
   },
   userName: {
     fontSize: 14,
-    fontWeight: "bold",
+    fontFamily: "Stolzl Medium",
     marginBottom: 5,
   },
   userIntro: {
     fontSize: 12,
     color: "#888888",
+    fontFamily: "Stolzl Regular",
   },
   postContentContainer: {
     flexDirection: "row",
@@ -514,6 +541,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "bold",
     textAlign: "center",
+    fontFamily: "Stolzl Medium",
   },
   boldedContentContainer: {
     marginBottom: 10,
@@ -530,6 +558,7 @@ const styles = StyleSheet.create({
     lineHeight: 25,
     color: "#393939",
     marginBottom: 10,
+    fontFamily: "Stolzl Regular",
   },
   regularContentTextBolded: {
     fontSize: 16,
@@ -549,6 +578,7 @@ const styles = StyleSheet.create({
     color: "#CA95C8",
     fontWeight: "bold",
     textDecorationLine: "underline",
+    fontFamily: "Stolzl Regular",
   },
   progressBarContainer: {
     zIndex: 3,

@@ -77,23 +77,34 @@ export default function JourneyScreen() {
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
               {/* 1st Featured Journey */}
               <TouchableOpacity
-                onPress={() => directToMyJourneyPost("rachel")}
+                onPress={() => directToMyJourneyPost("rachelFeatured")}
                 style={styles.featuredJourney}
               >
                 <Image
                   style={styles.featuredJourneyImg}
-                  source={require("../../assets/images/featuredMyJourneyPosts/RachelLi.png")}
+                  source={require("../../assets/images/featuredMyJourneyPosts/rachel.png")}
                 />
               </TouchableOpacity>
 
               {/* 2nd Featured Journey */}
               <TouchableOpacity
-                onPress={() => directToMyJourneyPost("rachel")}
+                onPress={() => directToMyJourneyPost("shatevaFeatured")}
                 style={styles.featuredJourney}
               >
                 <Image
                   style={styles.featuredJourneyImg}
-                  source={require("../../assets/images/featuredMyJourneyPosts/RachelLi.png")}
+                  source={require("../../assets/images/featuredMyJourneyPosts/shateva.png")}
+                />
+              </TouchableOpacity>
+
+               {/* 3rd Featured Journey */}
+               <TouchableOpacity
+                onPress={() => directToMyJourneyPost("rachelFeatured")}
+                style={styles.featuredJourney}
+              >
+                <Image
+                  style={styles.featuredJourneyImg}
+                  source={require("../../assets/images/featuredMyJourneyPosts/rachel.png")}
                 />
               </TouchableOpacity>
             </ScrollView>
@@ -110,38 +121,38 @@ export default function JourneyScreen() {
             <ScrollView showsVerticalScrollIndicator={false}>
               {/* Rachel Li's Journey */}
               <MJPostCard
-                onPress={() => directToMyJourneyPost("rachel1")}
+                onPress={() => directToMyJourneyPost("rachel")}
                 img={require("../../assets/images/mentorMyJourneyPics/rachel.png")}
-                title="Save on Groceries"
+                title="The Ultimate SNAP Guide: Get $200 Monthly for Groceries"
                 name="Rachel Li"
-                year="Class of 2024, Data Science Major"
+                year="Data Science Major, 2024"
               />
 
               {/* Julia Tran's Journey */}
               <MJPostCard
                 onPress={() => directToMyJourneyPost("julia")}
                 img={require("../../assets/images/mentorMyJourneyPics/julia.png")}
-                title="I (Accidentally) Got a Job!"
+                title="Everything You Need to Know About On-Campus Jobs"
                 name="Julia Tran"
-                year="Class of 2027, Business Administration Major"
+                year="Business Administration Major, 2027"
               />
 
               {/* Neri Ajiatas Arreaga's Journey */}
               <MJPostCard
                 onPress={() => directToMyJourneyPost("neri")}
                 img={require("../../assets/images/mentorMyJourneyPics/neri.png")}
-                title="Finding Community"
+                title="Discovering BU: Campus Communities & Organizations"
                 name="Neri Ajiatas Arreaga"
-                year="Class of 2025, Data Science Major"
+                year="Data Science Major, 2025"
               />
 
               {/* Shateva Long's Journey */}
               <MJPostCard
-                onPress={() => directToMyJourneyPost("shateva2")}
+                onPress={() => directToMyJourneyPost("shateva")}
                 img={require("../../assets/images/mentorMyJourneyPics/shateva.png")}
                 title="I Got To Create My Own 4 Credit CS Course!"
                 name="Shateva Long"
-                year="Alumni"
+                year="BU Alumni"
               />
             </ScrollView>
           </View>

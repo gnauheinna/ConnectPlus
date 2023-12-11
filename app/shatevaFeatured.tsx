@@ -46,7 +46,7 @@ export default function MyJourneyPost() {
       (journey) =>
         journey.authorName !== "Shateva Long" &&
         journey.journeyTitle !==
-          "I Got To Create My Own 4 Credit Computer Science Course!"
+          "A First-Gen's Journey from BU to Microsoft"
     );
 
     // updates context
@@ -66,7 +66,7 @@ export default function MyJourneyPost() {
   const saveJourney = async () => {
     // If it doesn't exist, add a new entry
     const newJourney = {
-      journeyTitle: "I Got To Create My Own 4 Credit Computer Science Course!",
+      journeyTitle: "A First-Gen's Journey from BU to Microsoft",
       authorName: "Shateva Long",
       journeyID: "XlT9K5adSYcud8VOybpKjQL0wHrR5og4",
       Intro: "Alumni",
@@ -75,7 +75,7 @@ export default function MyJourneyPost() {
     await savedJourneys.push(newJourney);
     // updates firestore
     // 1. get reference of Firestore document
-    console.log("saving Journey  userid: ", currentUserID);
+    console.log("saving Journey userid: ", currentUserID);
     const savedjourneyDocRef = doc(db, "savedJourneys", currentUserID);
     // 2. get instance of document
     const savedjourneySnapshot = await getDoc(savedjourneyDocRef);
@@ -92,7 +92,7 @@ export default function MyJourneyPost() {
     const isPostExists = savedJourneys.some(
       (journey) =>
         journey.journeyTitle ===
-        "I Got To Create My Own 4 Credit Computer Science Course!"
+        "A First-Gen's Journey from BU to Microsoft"
     );
     if (isSaved && isPostExists) {
       // unsave the journey
@@ -155,7 +155,7 @@ export default function MyJourneyPost() {
     <View style={styles.outterContainer}>
       <View style={styles.container}>
         <ImageBackground
-          source={require("../assets/images/journeyPostsGradients/shateva2.png")}
+          source={require("../assets/images/journeyPostsGradients/shateva.png")}
           resizeMode="cover"
           style={styles.gradientBackground}
         >
@@ -187,7 +187,7 @@ export default function MyJourneyPost() {
             <View style={styles.postTitleContainer}>
               <View style={styles.timeAndSaveContainer}>
                 {/* Timestamp */}
-                <Text style={styles.postDate}>Nov 6th 2023</Text>
+                <Text style={styles.postDate}>Nov 2th 2023</Text>
                 {/* Save Button */}
                 <TouchableOpacity onPress={() => handleClick()}>
                   <Image
@@ -201,8 +201,7 @@ export default function MyJourneyPost() {
                 </TouchableOpacity>
               </View>
               {/* Title */}
-              <Text style={styles.postTitle}>Shateva's Second Post
-              </Text>
+              <Text style={styles.postTitle}>A First-Gen's Journey from BU to Microsoft</Text>
             </View>
           </View>
           {/* Author's information */}
@@ -409,14 +408,14 @@ const styles = StyleSheet.create({
   postDate: {
     color: "#818181",
     fontSize: 16,
-    fontWeight: "600",
+    fontFamily: "Stolzl Medium",
     marginBottom: 5,
   },
   postTitle: {
     color: "#000000",
-    fontSize: 24,
-    fontFamily: "Stolzl Bold",
+    fontSize: 28,
     width: "100%",
+    fontFamily: "Stolzl Bold",
   },
   authorInfoContainer: {
     flexDirection: "row",
@@ -475,6 +474,12 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontFamily: "Stolzl Medium",
   },
+  underlinedText: {
+    fontSize: 16,
+    lineHeight: 25,
+    fontFamily: "Stolzl Regular",
+    textDecorationLine: "underline",
+  },
   boldedContentContainer: {
     marginBottom: 10,
   },
@@ -497,18 +502,20 @@ const styles = StyleSheet.create({
     lineHeight: 25,
     color: "#393939",
     marginBottom: 10,
-    fontFamily: "Stolzl Medium",
+    fontWeight: "bold",
   },
   indentedContentContainer: {
     marginBottom: 10,
     marginLeft: 20,
     marginRight: 20,
   },
-  underlinedText: {
+  linkText: {
     fontSize: 16,
     lineHeight: 25,
-    fontFamily: "Stolzl Regular",
+    color: "#CA95C8",
+    fontWeight: "bold",
     textDecorationLine: "underline",
+    fontFamily: "Stolzl Regular",
   },
   progressBarContainer: {
     zIndex: 3,

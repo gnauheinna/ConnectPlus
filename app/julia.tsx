@@ -29,7 +29,9 @@ export default function MyJourneyPost() {
   // updates savebutton status according to saveJourney context
   useEffect(() => {
     const isJuliaSaved = savedJourneys.some(
-      (journey) => journey.authorName === "Julia Tran"
+      (journey) =>
+        journey.authorName === "Julia Tran" &&
+        journey.journeyTitle === "Everything You Need to Know About On-Campus Jobs"
     );
     if (isJuliaSaved) {
       // Julia's journey is saved
@@ -44,7 +46,7 @@ export default function MyJourneyPost() {
     const updatedSavedJourneys = savedJourneys.filter(
       (journey) =>
         journey.authorName !== "Julia Tran" &&
-        journey.journeyTitle !== "I (Accidentally) Got a Job!"
+        journey.journeyTitle !== "Everything You Need to Know About On-Campus Jobs"
     );
 
     // updates context
@@ -64,7 +66,7 @@ export default function MyJourneyPost() {
   const saveJourney = async () => {
     // If it doesn't exist, add a new entry
     const newJourney = {
-      journeyTitle: "I (Accidentally) Got a Job!",
+      journeyTitle: "Everything You Need to Know About On-Campus Jobs",
       authorName: "Julia Tran",
       journeyID: "0tDW3Y3MSmJsElnvYXKEOc6RT8lwaU1p",
       Intro: "Class of 2027, Business Administration Major",
@@ -87,7 +89,7 @@ export default function MyJourneyPost() {
     await setIsSaved(!isSaved);
     // Check if there exists an entry with journeyTitle "School Program"
     const isSchoolProgramExists = savedJourneys.some(
-      (journey) => journey.journeyTitle === "I (Accidentally) Got a Job!"
+      (journey) => journey.journeyTitle === "Everything You Need to Know About On-Campus Jobs"
     );
     if (isSaved && isSchoolProgramExists) {
       // unsave the journey
@@ -196,7 +198,7 @@ export default function MyJourneyPost() {
                 </TouchableOpacity>
               </View>
               {/* Title */}
-              <Text style={styles.postTitle}>I (Accidentally) Got a Job!</Text>
+              <Text style={styles.postTitle}>Everything You Need to Know About On-Campus Jobs</Text>
             </View>
           </View>
           {/* Author's information */}
@@ -483,14 +485,14 @@ const styles = StyleSheet.create({
   postDate: {
     color: "#818181",
     fontSize: 16,
-    fontWeight: "600",
+    fontFamily: "Stolzl Medium",
     marginBottom: 5,
   },
   postTitle: {
     color: "#000000",
-    fontSize: 24,
-    fontFamily: "Stolzl Bold",
+    fontSize: 28,
     width: "100%",
+    fontFamily: "Stolzl Bold",
   },
   authorInfoContainer: {
     flexDirection: "row",
@@ -554,7 +556,7 @@ const styles = StyleSheet.create({
   },
   boldedContentText: {
     fontSize: 16,
-    fontFamily: "Stolzl Medium",
+    fontWeight: "bold",
   },
   regularContentContainer: {
     marginBottom: 10,
@@ -582,8 +584,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 25,
     color: "#CA95C8",
-    fontFamily: "Stolzl Regular",
+    fontWeight: "bold",
     textDecorationLine: "underline",
+    fontFamily: "Stolzl Regular",
   },
   progressBarContainer: {
     zIndex: 3,

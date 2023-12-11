@@ -93,10 +93,10 @@ const styles = StyleSheet.create({
   journeyTitleContainer: {
   },
   journeyTitle: {
-    fontSize: 16,
+    fontSize: 13,
     marginBottom: 16,
-    maxWidth: 200,
-    lineHeight: 20,
+    maxWidth: 210,
+    lineHeight: 16,
     fontFamily: 'Stolzl Medium',
   },
   mentorInfoContainer: {
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Stolzl Regular',
   },
   mentorYear: {
-    fontSize: 10,
+    fontSize: 12,
     color: "#7C7C7C",
     fontFamily: 'Stolzl Light',
   },

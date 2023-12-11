@@ -245,15 +245,14 @@ export default function App() {
               renderItem={({ item }) => {
                 const imgSource =
                   item.authorName === "Rachel Li"
-                    ? require("../../assets/images/featuredMyJourneyPosts/RachelLi.png")
+                    ? require("../../assets/images/featuredMyJourneyPosts/rachel.png")
                     : item.authorName === "Neri Ajiatas Arreaga"
                     ? require("../../assets/images/mentorMyJourneyPics/neri.png")
                     : item.authorName === "Shateva Long"
                     ? require("../../assets/images/mentorMyJourneyPics/shateva.png")
                     : item.authorName === "Julia Tran"
                     ? require("../../assets/images/mentorMyJourneyPics/julia.png")
-                    : require("../../assets/images/featuredMyJourneyPosts/RachelLi.png");
-
+                    : require("../../assets/images/featuredMyJourneyPosts/rachel.png");
                 return (
                   <MJPostCard
                     onPress={() =>

@@ -119,12 +119,12 @@ export default function CommunityScreen() {
             <View style={styles.titleContainer}>
               <Text style={styles.askAndShareTitle}>Ask & Share</Text>
             </View>
-            <TouchableOpacity>
+            {/* <TouchableOpacity>
               <Image
                 source={require("../../assets/images/icons/notification.png")}
                 style={styles.notificationIcon}
               />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
           <View style={styles.horizontalNavOuttermostContainer}>
             <View style={styles.horizontalSubNavMainContainer}>

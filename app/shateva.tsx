@@ -23,21 +23,22 @@ export default function MyJourneyPost() {
   const { user, setUser } = useUser();
   const currentUserID = user.userID;
   const db = getFirestore();
+
   const { savedJourneys, setSavedJourneys, setLoading, loading } =
     useSavedJourneyContext();
 
   // updates savebutton status according to saveJourney context
   useEffect(() => {
-    const isRachelSaved = savedJourneys.some(
+    const isShatevaSaved = savedJourneys.some(
       (journey) =>
-        journey.authorName === "Rachel Li" &&
-        journey.journeyTitle === "School Program - Alternative Service Break"
+        journey.authorName === "Shateva Long" &&
+        journey.journeyTitle === "I Got To Create My Own 4 Credit CS Course!"
     );
-    if (isRachelSaved) {
-      //Rachel's journey is saved
+    if (isShatevaSaved) {
+      // Shateva Long's journey is saved
       setIsSaved(true);
     } else {
-      // Rachel's journey is not saved
+      // Shateva Long's journey is not saved
       setIsSaved(false);
     }
   }, []);
@@ -45,8 +46,9 @@ export default function MyJourneyPost() {
   const unsaveJourney = async () => {
     const updatedSavedJourneys = savedJourneys.filter(
       (journey) =>
-        journey.authorName !== "Rachel Li" &&
-        journey.journeyTitle !== "School Program - Alternative Service Break"
+        journey.authorName !== "Shateva Long" &&
+        journey.journeyTitle !==
+          "I Got To Create My Own 4 Credit CS Course!"
     );
 
     // updates context
@@ -66,10 +68,10 @@ export default function MyJourneyPost() {
   const saveJourney = async () => {
     // If it doesn't exist, add a new entry
     const newJourney = {
-      journeyTitle: "School Program - Alternative Service Break",
-      authorName: "Rachel Li",
-      journeyID: "Q9heA4AhlceX6jxsBgbEezCsZV4mYk6f",
-      Intro: "Class of 2024, Data Science Major",
+      journeyTitle: "I Got To Create My Own 4 Credit CS Course!",
+      authorName: "Shateva Long",
+      journeyID: "XlT9K5adSYcud8VOybpKjQL0wHrR5og4",
+      Intro: "Alumni",
     };
     // Add the new entry to the savedJourneys array
     await savedJourneys.push(newJourney);
@@ -85,23 +87,20 @@ export default function MyJourneyPost() {
     });
   };
 
-  useEffect(() => {
-    console.log("changed: ", savedJourneys);
-  }, [savedJourneys]);
-
   // saves and unsaves the journey
   const handleClick = async () => {
     await setIsSaved(!isSaved);
-    // Check if there exists an entry with journeyTitle "School Program"
-    const isSchoolProgramExists = savedJourneys.some(
+    // Check if there exists an entry with journeyTitle "I Got To Create My Own 4 Credit Computer Science Course!"
+    const isPostExists = savedJourneys.some(
       (journey) =>
-        journey.journeyTitle === "School Program - Alternative Service Break"
+        journey.journeyTitle ===
+        "I Got To Create My Own 4 Credit CS Course!"
     );
-    if (isSaved && isSchoolProgramExists) {
+    if (isSaved && isPostExists) {
       // unsave the journey
       console.log("unsave!");
       unsaveJourney();
-    } else if (!isSaved && !isSchoolProgramExists) {
+    } else if (!isSaved && !isPostExists) {
       // saves journey
       console.log("save!");
 
@@ -110,7 +109,7 @@ export default function MyJourneyPost() {
   };
 
   function directToMyJourney() {
-    router.push(`/(tabs)/journeys`);
+    router.push("/journeys");
   }
   // For the Progress Bar
   const [verticalLine1, setVerticalLine1] = useState(true);
@@ -129,28 +128,28 @@ export default function MyJourneyPost() {
         setVerticalLine4(false);
         setVerticalLine5(false);
       }
-      if (scrollY >= 300) {
+      if (scrollY >= 400) {
         setVerticalLine2(true);
         setVerticalLine1(false);
         setVerticalLine3(false);
         setVerticalLine4(false);
         setVerticalLine5(false);
       }
-      if (scrollY >= 1050) {
+      if (scrollY >= 650) {
         setVerticalLine3(true);
         setVerticalLine1(false);
         setVerticalLine2(false);
         setVerticalLine4(false);
         setVerticalLine5(false);
       }
-      if (scrollY >= 1350) {
+      if (scrollY >= 1150) {
         setVerticalLine4(true);
         setVerticalLine1(false);
         setVerticalLine2(false);
         setVerticalLine3(false);
         setVerticalLine5(false);
       }
-      if (scrollY >= 1450) {
+      if (scrollY >= 1200) {
         setVerticalLine5(true);
         setVerticalLine1(false);
         setVerticalLine2(false);
@@ -165,7 +164,7 @@ export default function MyJourneyPost() {
     <View style={styles.outterContainer}>
       <View style={styles.container}>
         <ImageBackground
-          source={require("../assets/images/background.png")}
+          source={require("../assets/images/journeyPostsGradients/shateva.png")}
           resizeMode="cover"
           style={styles.gradientBackground}
         >
@@ -212,7 +211,7 @@ export default function MyJourneyPost() {
               </View>
               {/* Title */}
               <Text style={styles.postTitle}>
-                School Program - Alternative Service Break
+                I Got To Create My Own 4 Credit Computer Science Course!
               </Text>
             </View>
           </View>
@@ -220,13 +219,11 @@ export default function MyJourneyPost() {
           <View style={styles.authorInfoContainer}>
             <Image
               style={styles.profileImg}
-              source={require("../assets/images/mentorProfilePics/RachelLi.png")}
+              source={require("../assets/images/mentorProfilePics/shateva.png")}
             />
             <View style={styles.userNameAndIntro}>
-              <Text style={styles.userName}>Rachel Li</Text>
-              <Text style={styles.userIntro}>
-                Class of 2024, Data Science Major
-              </Text>
+              <Text style={styles.userName}>Shateva Long</Text>
+              <Text style={styles.userIntro}>Alumni</Text>
             </View>
           </View>
         </View>
@@ -235,17 +232,15 @@ export default function MyJourneyPost() {
           <View style={styles.postContentMainContainer}>
             {/* 1st Step */}
             <View style={styles.individualStep}>
-              {/* <View style={styles.subtitleContainer}>
-                <Text style={styles.subtitleText}>Theme</Text>
-              </View> */}
               <View style={styles.regularContentContainer}>
                 <Text style={styles.regularContentText}>
-                If you’re a student working part-time, don’t have a meal plan, and shop for groceries on your own, here’s a resource for you:
-The Supplemental Nutrition Assistance Program (SNAP) gives people who are eligible around {" "}
-                  <Text style={styles.regularContentTextBolded}>
-                  $200 monthly funds to buy food.{" "}
-                  </Text>
-                  Navigating this process has been a headache. I spent hours on the phone with customer service, figuring out the right document to submit. Here is a guide to applying for SNAP from my own experience so that you can have a much smoother process. 
+                  It was my last year in college and I still needed one more
+                  elective course to fulfill my Computer Science degree
+                  requirements. I had a poor lottery number, which left me with
+                  higher level 500+ courses that did not peak my interest. After
+                  lots of searching through our course site, I saw that as a
+                  senior computer science student, I was eligible for a directed
+                  study so that’s what I did!
                 </Text>
               </View>
             </View>
@@ -256,159 +251,76 @@ The Supplemental Nutrition Assistance Program (SNAP) gives people who are eligib
               </View>
               <View style={styles.regularContentContainer}>
                 <Text style={styles.regularContentText}>
-                  {"1. Do a "}
-                  <TouchableOpacity
-                    onPress={() =>
-                      Linking.openURL(
-                        "https://dtaconnect.eohhs.mass.gov/screening?_gl=1*19vwokf*_ga*NDU5MDQyNTc0LjE2OTkzODAxNTk.*_ga_SW2TVH2WBY*MTY5OTM4MDE1OS4xLjAuMTY5OTM4MDE1OS4wLjAuMA.."
-                      )
-                    }
-                  >
-                    <Text style={styles.linkText}>quick check</Text>
-                  </TouchableOpacity>
-                  {" to see if you’re eligible."}
+                  1. Figure out what to study! This can be anything related to
+                  your major.
                 </Text>
                 <Text style={styles.regularContentText}>
-                  {"2. File the "}
-                  <TouchableOpacity
-                    onPress={() =>
-                      Linking.openURL(
-                        "https://dtaconnect.eohhs.mass.gov/?_gl=1*1qkcl0m*_ga*NDU5MDQyNTc0LjE2OTkzODAxNTk.*_ga_SW2TVH2WBY*MTY5OTM4MDE1OS4xLjEuMTY5OTM4MDUxMi4wLjAuMA.."
-                      )
-                    }
-                  >
-                    <Text style={styles.linkText}>initial application</Text>
-                  </TouchableOpacity>
-                  {"."}
+                  2. Find a professor to work with.
                 </Text>
                 <Text style={styles.regularContentText}>
-                  3. The documents I submitted as a full-time student:{" "}
-                </Text>
-                <View style={styles.indentedContentContainer}>
-                  <Text style={styles.regularContentText}>
-                  • Financial aid proof
-                  </Text>
-                  <Text style={styles.regularContentText}>
-                  • Proof that you don’t have a meal plan on campus
-                  </Text>
-                  <Text style={styles.regularContentText}>
-                  • Proof of work-study
-                  </Text>
-                  <Text style={styles.regularContentText}>
-                  • Proof of other work you’re (or have been) participating in
-                  </Text>
-                </View>
-                <Text style={styles.regularContentText}>
-                  4. After the initial application, they require a phone
-                  interview asking you to verify the information.{" "}
-                </Text>
-                <Text
-                  style={[styles.regularContentTextBolded, { marginTop: 20 }]}
-                >
-                  Additional Info:
+                  3. Fill out your department’s directed study application. It
+                  will ask you questions about your project, what assignments
+                  you’ll be submitting, how many hours you’ll be working, etc.
                 </Text>
                 <Text style={styles.regularContentText}>
-                  {"1. Reach out to BU Housing "}
-                  <TouchableOpacity
-                    onPress={() => Linking.openURL("housing@bu.edu")}
-                  >
-                    <Text style={styles.linkText}>housing@bu.edu</Text>
-                  </TouchableOpacity>
-                  {" to request a signed document."}
-                </Text>
-                <Text style={styles.regularContentText}>
-                  2. You need to be actively participating in the work-study in
-                  order to be qualified. The number of hours you work doesn't
-                  matter.
-                </Text>
-                <Text style={styles.regularContentText}>
-                  3. Go to studentlink work portal to see if you can find a
-                  printable version. If not, reach out to your supervisor.
-                </Text>
-                <Text style={styles.regularContentText}>
-                  4. The document needs to have a specific start and end date.
+                  4. Go through your “course” content with your professor and
+                  submit your application.
                 </Text>
               </View>
             </View>
             {/* 3rd Step */}
             <View style={styles.individualStep}>
               <View style={styles.subtitleContainer}>
-                <Text style={styles.subtitleText}>Challenges</Text>
+                <Text style={styles.subtitleText}>Experience</Text>
               </View>
               <View style={styles.regularContentContainer}>
                 <Text style={styles.regularContentText}>
-                  Trying to figure out what kind of document they need and being
-                  able to connect with a representative is the most daunting
-                  part.
+                  As my project, I analyzed data from a DEI climate survey I
+                  conducted and created an analysis report. I had so much fun.
+                  The professor I worked with was amazing. He was extremely
+                  helpful throughout the entire process and our work styles
+                  meshed well. The project itself was also{" "}<Text style={styles.regularContentTextBolded}>the perfect combination of challenging and interesting.{" "}</Text>
+                  I got to learn a new programming language and use it to build an interactive
+                  data report, and I enjoyed every minute of it. I got to
+                  utilize all of the skills I developed over the years and put
+                  my all into this project. It was genuinely the first time I’ve
+                  felt overall fulfillment with a course at BU.
                 </Text>
               </View>
             </View>
             {/* 4th Step */}
             <View style={styles.individualStep}>
               <View style={styles.subtitleContainer}>
-                <Text style={styles.subtitleText}>Takeaways</Text>
+                <Text style={styles.subtitleText}>Challenges</Text>
               </View>
               <View style={styles.regularContentContainer}>
                 <Text style={styles.regularContentText}>
-                • Try your best to not miss the scheduled phone call because
-                  it’s very hard to connect with a representative when you dial
-                  in yourself. The average wait time is around 30 min.
-                </Text>
-                <Text style={styles.regularContentText}>
-                • Download DTA Connect App, it’s the place where you submit
-                  all the verification documents.
-                </Text>
-                <Text style={styles.regularContentText}>
-                • Keep an eye on your mail. They will email letters to you
-                  with your case number (you need this number to sign into your
-                  DTA app account)
+                  The hardest part of the directed study was the initial
+                  application process. Finding a professor was not easy since
+                  many professors were busy or did not have the skills I needed
+                  for my project. Luckily, I was able to find a professor
+                  outside of my department who had the exact skills I needed.
+                  Everything else was great.
                 </Text>
               </View>
             </View>
             {/* 5th Step */}
             <View style={styles.individualStep}>
               <View style={styles.subtitleContainer}>
-                <Text style={styles.subtitleText}>Resources</Text>
+                <Text style={styles.subtitleText}>Takeaways</Text>
               </View>
               <View style={styles.regularContentContainer}>
                 <Text style={styles.regularContentText}>
-                  Here are BU resources related to food:
+                  Doing a directed study is not for everyone. You have to
+                  essentially build your own course and keep yourself on track.
+                  {" "}<Text style={styles.regularContentTextBolded}>While it may be challenging, the experience was rewarding.{" "}</Text>
                 </Text>
-                <View style={styles.indentedContentContainer}>
-                  <Text style={styles.regularContentText}>
-                    {"- "}
-                    <TouchableOpacity
-                      onPress={() =>
-                        Linking.openURL(
-                          "https://www.bu.edu/chapel/programming/community-dinner/"
-                        )
-                      }
-                    >
-                      <Text style={styles.linkText}>Marsh Chapel</Text>
-                    </TouchableOpacity>
-                    {
-                      " hosts a community dinner on Mondays from 5 p.m. to 6:30 p.m., you do not need to have any religious affiliation to participate."
-                    }
-                  </Text>
-                  <Text style={styles.regularContentText}>
-                    {"- "}
-                    <TouchableOpacity
-                      onPress={() =>
-                        Linking.openURL(
-                          "https://www.bu.edu/studentwellbeing/place-a-bu-food-pantry-order/"
-                        )
-                      }
-                    >
-                      <Text style={styles.linkText}>BU Food Pantry</Text>
-                    </TouchableOpacity>
-                  </Text>
-                </View>
               </View>
             </View>
           </View>
         </View>
       </ScrollView>
-      {/* )} */}
+
       <View style={styles.progressBarContainer}>
         <View
           style={
@@ -436,7 +348,6 @@ The Supplemental Nutrition Assistance Program (SNAP) gives people who are eligib
           }
         ></View>
       </View>
-      {/* </View>)} */}
     </View>
   );
 }
@@ -513,12 +424,12 @@ const styles = StyleSheet.create({
   postDate: {
     color: "#818181",
     fontSize: 16,
-    fontFamily: "Stolzl Medium",
+    fontWeight: "600",
     marginBottom: 5,
   },
   postTitle: {
     color: "#000000",
-    fontSize: 28,
+    fontSize: 24,
     width: "100%",
     fontFamily: "Stolzl Bold",
   },
@@ -540,13 +451,12 @@ const styles = StyleSheet.create({
   },
   userName: {
     fontSize: 14,
-    fontFamily: "Stolzl Medium",
+    fontWeight: "bold",
     marginBottom: 5,
   },
   userIntro: {
     fontSize: 12,
     color: "#888888",
-    fontFamily: "Stolzl Regular",
   },
   postContentContainer: {
     flexDirection: "row",
@@ -575,16 +485,15 @@ const styles = StyleSheet.create({
   subtitleText: {
     color: "#AF6BAB",
     fontSize: 14,
-    fontWeight: "bold",
-    textAlign: "center",
     fontFamily: "Stolzl Medium",
+    textAlign: "center",
   },
   boldedContentContainer: {
     marginBottom: 10,
   },
   boldedContentText: {
     fontSize: 16,
-    fontWeight: "bold",
+    fontFamily: "Stolzl Medium",
   },
   regularContentContainer: {
     marginBottom: 10,
@@ -601,7 +510,7 @@ const styles = StyleSheet.create({
     lineHeight: 25,
     color: "#393939",
     marginBottom: 10,
-    fontWeight: "bold",
+    fontFamily: "Stolzl Medium",
   },
   indentedContentContainer: {
     marginBottom: 10,
@@ -622,7 +531,7 @@ const styles = StyleSheet.create({
     right: 20,
     top: 280,
     flexDirection: "column",
-    height: 450,
+    height: 360,
   },
   verticalLine1Active: {
     flex: 1,
