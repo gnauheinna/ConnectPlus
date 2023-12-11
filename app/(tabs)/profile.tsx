@@ -199,63 +199,63 @@ export default function App() {
       {/* <View style={styles.questionsBigContainer}> */}
       {!showLineForJourneys ? (
         <FlatList
-        style={styles.questionsContainer}
-        showsVerticalScrollIndicator={false}
-        data={filteredPosts}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={({ item }) => (
-          <View style={styles.postShadowContainer}>
-            {/* Displays the post */}
-            <IndividualPost postId={item.postID} />
-            <View style={styles.bottomPartContainer}>
-              {/* Display the like icon and like number */}
-              <TouchableOpacity style={styles.postLikesContainer}>
-                <Image
-                  style={styles.postLikesImg}
-                  source={require("../../assets/images/icons/filledHeart.png")}
-                />
-                <Text style={styles.postLikesText}>35</Text>
-              </TouchableOpacity>
-              {/* Display the reply button */}
-              <TouchableOpacity style={styles.replyPostContainer}>
-                <Image
-                  style={styles.replyPostImg}
-                  source={require("../../assets/images/icons/reply.png")}
-                />
-              </TouchableOpacity>
+          style={styles.questionsContainer}
+          showsVerticalScrollIndicator={false}
+          data={filteredPosts}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({ item }) => (
+            <View style={styles.postShadowContainer}>
+              {/* Displays the post */}
+              <IndividualPost postId={item.postID} />
+              <View style={styles.bottomPartContainer}>
+                {/* Display the like icon and like number */}
+                <TouchableOpacity style={styles.postLikesContainer}>
+                  <Image
+                    style={styles.postLikesImg}
+                    source={require("../../assets/images/icons/filledHeart.png")}
+                  />
+                  <Text style={styles.postLikesText}>35</Text>
+                </TouchableOpacity>
+                {/* Display the reply button */}
+                <TouchableOpacity style={styles.replyPostContainer}>
+                  <Image
+                    style={styles.replyPostImg}
+                    source={require("../../assets/images/icons/reply.png")}
+                  />
+                </TouchableOpacity>
+              </View>
             </View>
-          </View>
-        )}
-      />
+          )}
+        />
       ) : (
         <FlatList
-            style={styles.questionsContainer}
-            showsVerticalScrollIndicator={false}
-            data={filteredJourneys}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item }) => {
-                const imgSource =
-                  item.authorName === "Rachel Li"
-                    ? require("../../assets/images/featuredMyJourneyPosts/rachel.png")
-                    : item.authorName === "Neri Ajiatas Arreaga"
-                    ? require("../../assets/images/mentorMyJourneyPics/neri.png")
-                    : item.authorName === "Shateva Long"
-                    ? require("../../assets/images/mentorMyJourneyPics/shateva.png")
-                    : item.authorName === "Julia Tran"
-                    ? require("../../assets/images/mentorMyJourneyPics/julia.png")
-                    : require("../../assets/images/featuredMyJourneyPosts/rachel.png");
+          style={styles.questionsContainer}
+          showsVerticalScrollIndicator={false}
+          data={filteredJourneys}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({ item }) => {
+            const imgSource =
+              item.authorName === "Rachel Li"
+                ? require("../../assets/images/mentorMyJourneyPics/rachel.png")
+                : item.authorName === "Neri Ajiatas Arreaga"
+                ? require("../../assets/images/mentorMyJourneyPics/neri.png")
+                : item.authorName === "Shateva Long"
+                ? require("../../assets/images/mentorMyJourneyPics/shateva.png")
+                : item.authorName === "Julia Tran"
+                ? require("../../assets/images/mentorMyJourneyPics/julia.png")
+                : require("../../assets/images/mentorMyJourneyPics/rachel.png");
 
             return (
               <View style={styles.myJourneyContainer}>
-              <MJPostCard
-                onPress={() =>
-                  directToMyJourneyPost(mentorName(item.authorName))
-                }
-                img={imgSource}
-                title={item.journeyTitle}
-                name={item.authorName}
-                year={item.Intro}
-              />
+                <MJPostCard
+                  onPress={() =>
+                    directToMyJourneyPost(mentorName(item.authorName))
+                  }
+                  img={imgSource}
+                  title={item.journeyTitle}
+                  name={item.authorName}
+                  year={item.Intro}
+                />
               </View>
             );
           }}
