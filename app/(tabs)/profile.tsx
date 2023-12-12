@@ -214,7 +214,6 @@ export default function App() {
                     style={styles.postLikesImg}
                     source={require("../../assets/images/icons/filledHeart.png")}
                   />
-                  <Text style={styles.postLikesText}>35</Text>
                 </TouchableOpacity>
                 {/* Display the reply button */}
                 <TouchableOpacity style={styles.replyPostContainer}>
