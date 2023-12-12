@@ -24,28 +24,16 @@ import { useUser } from "../app/context/UserContext";
 import { PostProvider, usePostContext } from "../app/context/postContext";
 import { PostIdContext } from "../app/context/PostIDContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import * as Font from 'expo-font';
+import * as Font from "expo-font";
 
 interface IndividualPostProps {
   postId: string;
 }
 
 const IndividualPost: React.FC<IndividualPostProps> = ({ postId }) => {
-  // const loadFonts = async () => {
-  //   await Font.loadAsync({
-  //     'Stolzl Bold': require('../assets/fonts/stolzlBold.ttf'),
-  //     'Stolzl Regular': require('../assets/fonts/stolzlRegular.ttf'),
-  //     'Stolzl Light': require('../assets/fonts/stolzlLight.ttf'),
-  //     'Stolzl Medium': require('../assets/fonts/stolzlMedium.otf'),
-  //   });
-  // }
-  // // Call the function in a useEffect hook
-  // useEffect(() => {
-  //   loadFonts();
-  // }, []);
-
+  const [likePressed, setlikePressed] = useState(false);
   const router = useRouter();
-  function viewPostDetails() {
+  function viewPostDetails(postId: string) {
     AsyncStorage.setItem("curPostID", postId);
     setCurPostID(postId);
     router.push("/postdetails");
@@ -77,53 +65,85 @@ const IndividualPost: React.FC<IndividualPostProps> = ({ postId }) => {
     avatar9: require("../assets/images/avatars/avatar9.png"),
   };
 
+  const handleLikePress = async () => {
+    setlikePressed(!likePressed);
+  };
+
   return (
-    <TouchableOpacity onPress={viewPostDetails}>
-      {post && (
-        <View style={{ ...styles.itemContainer }}>
-          {/* Display the user's profile image, name, and intro on the top */}
-          <View style={styles.userContainer}>
-            <View style={styles.userInfo}>
-              <Image
-                style={styles.profileImg}
-                source={avatarImages[post.avatar]}
-              />
-              <View style={styles.userNameAndIntro}>
-                <Text style={styles.userName}>{post.userName}</Text>
-                <Text style={styles.userIntro}>{post.major}</Text>
+    <>
+      <TouchableOpacity onPress={() => viewPostDetails(postId)}>
+        {post && (
+          <View style={{ ...styles.itemContainer }}>
+            {/* Display the user's profile image, name, and intro on the top */}
+            <View style={styles.userContainer}>
+              <View style={styles.userInfo}>
+                <Image
+                  style={styles.profileImg}
+                  source={avatarImages[post.avatar]}
+                />
+                <View style={styles.userNameAndIntro}>
+                  <Text style={styles.userName}>{post.userName}</Text>
+                  <Text style={styles.userIntro}>{post.major}</Text>
+                </View>
+              </View>
+              {/* Display the tag that is associated with the post to the right of the user's information */}
+              <View style={styles.tagContainer}>
+                {post.tag && (
+                  <View>
+                    <Text style={styles.tagText}>{post.tag}</Text>
+                  </View>
+                )}
               </View>
             </View>
-            {/* Display the tag that is associated with the post to the right of the user's information */}
-            <View style={styles.tagContainer}>
-              {post.tag && (
-                <View>
-                  <Text style={styles.tagText}>{post.tag}</Text>
-                </View>
-              )}
+
+            <View style={styles.titleTimestampContainer}>
+              {/* Display the title of the post */}
+              <Text style={styles.title}>{post.title}</Text>
             </View>
+
+            {/* Display the content of the post */}
+            <Text style={styles.content}>{post.content}</Text>
+
+            {/* Display the timestamp of the post */}
+            <Text style={styles.timestamp}>
+              {post.timestamp &&
+                new Date(post.timestamp.toDate()).toLocaleString("en-US", {
+                  month: "long",
+                  day: "numeric",
+                  hour: "numeric",
+                  minute: "numeric",
+                })}
+            </Text>
           </View>
-
-          <View style={styles.titleTimestampContainer}>
-            {/* Display the title of the post */}
-            <Text style={styles.title}>{post.title}</Text>
-          </View>
-
-          {/* Display the content of the post */}
-          <Text style={styles.content}>{post.content}</Text>
-
-          {/* Display the timestamp of the post */}
-          <Text style={styles.timestamp}>
-            {post.timestamp &&
-              new Date(post.timestamp.toDate()).toLocaleString("en-US", {
-                month: "long",
-                day: "numeric",
-                hour: "numeric",
-                minute: "numeric",
-              })}
-          </Text>
-        </View>
-      )}
-    </TouchableOpacity>
+        )}
+      </TouchableOpacity>
+      <View style={styles.bottomPartContainer}>
+        {/* Display the like icon and like number */}
+        <TouchableOpacity
+          style={styles.postLikesContainer}
+          onPress={() => handleLikePress()}
+        >
+          <Image
+            style={styles.postLikesImg}
+            source={
+              likePressed
+                ? require("../assets/images/icons/filledHeart.png")
+                : require("../assets/images/icons/unfilledHeart.png")
+            }
+          />
+        </TouchableOpacity>
+        {/* Display the reply button */}
+        <TouchableOpacity
+          style={styles.replyPostContainer}
+          onPress={() => viewPostDetails(postId)}
+        >
+          <Image
+            style={styles.replyPostImg}
+            source={require("../assets/images/icons/reply.png")}
+          />
+        </TouchableOpacity>
+      </View>
+    </>
   );
 };
 
@@ -152,18 +172,18 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "500",
     marginBottom: 5,
-    fontFamily: 'Stolzl Regular',
+    fontFamily: "Stolzl Regular",
   },
   userIntro: {
     fontSize: 12,
     color: "#888888",
-    fontFamily: 'Stolzl Regular'
+    fontFamily: "Stolzl Regular",
   },
   title: {
     fontSize: 16,
     marginRight: 24,
     textAlign: "left",
-    fontFamily: 'Stolzl Medium',
+    fontFamily: "Stolzl Medium",
   },
   titleTimestampContainer: {
     flexDirection: "row",
@@ -175,13 +195,13 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: "gray",
     marginBottom: 20,
-    fontFamily: 'Stolzl Regular'
+    fontFamily: "Stolzl Regular",
   },
   content: {
     fontSize: 14,
     textAlign: "left",
     marginBottom: 10,
-    fontFamily: 'Stolzl Regular',
+    fontFamily: "Stolzl Regular",
     lineHeight: 20,
   },
   tagContainer: {
@@ -199,7 +219,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     alignSelf: "center",
     fontWeight: "400",
-    fontFamily: 'Stolzl Regular'
+    fontFamily: "Stolzl Regular",
   },
   interestsContainer: {
     alignItems: "center",
@@ -231,7 +251,7 @@ const styles = StyleSheet.create({
   bottomPartContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center",
+    height: 24,
   },
   postLikesContainer: {
     flexDirection: "row",

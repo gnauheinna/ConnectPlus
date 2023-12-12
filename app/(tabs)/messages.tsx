@@ -28,7 +28,17 @@ import {
 } from "firebase/firestore";
 import { useUser } from "../context/UserContext";
 import { useCurrentChat } from "../context/currentChatContext";
-
+const avatarImages: { [key: string]: any } = {
+  avatar1: require("../../assets/images/avatars/avatar1.png"),
+  avatar2: require("../../assets/images/avatars/avatar2.png"),
+  avatar3: require("../../assets/images/avatars/avatar3.png"),
+  avatar4: require("../../assets/images/avatars/avatar4.png"),
+  avatar5: require("../../assets/images/avatars/avatar5.png"),
+  avatar6: require("../../assets/images/avatars/avatar6.png"),
+  avatar7: require("../../assets/images/avatars/avatar7.png"),
+  avatar8: require("../../assets/images/avatars/avatar8.png"),
+  avatar9: require("../../assets/images/avatars/avatar9.png"),
+};
 type UserChat = {
   date: Timestamp;
   chatID: string;
@@ -36,6 +46,7 @@ type UserChat = {
   userInfo: {
     name: string;
     userID: string;
+    avatar: string;
   };
 };
 
@@ -52,9 +63,15 @@ export default function Message() {
     setCurrentChatName,
     currentChatUserID,
     setCurrentChatUserID,
+    setCurrentChatAvatar,
   } = useCurrentChat();
 
-  function directToChatBox(chatID: string, name: string, userID: string) {
+  function directToChatBox(
+    chatID: string,
+    name: string,
+    userID: string,
+    avatar: string
+  ) {
     // passes the state to CurrentChatContext
     // Save currentChatID to AsyncStorage
     AsyncStorage.setItem("currentChatID", chatID);
@@ -63,6 +80,7 @@ export default function Message() {
     setCurrentChatID(chatID);
     setCurrentChatName(name);
     setCurrentChatUserID(userID);
+    setCurrentChatAvatar(avatar);
     router.push("/chatbox");
   }
   useEffect(() => {
@@ -148,45 +166,46 @@ export default function Message() {
         style={styles.messagesContainer}
         showsVerticalScrollIndicator={false}
       > */}
-        <View style={styles.messagesMainContainer}>
-          {/* Message Box */}
-          <FlatList
-            data={allMessage}
-            style={styles.messagesContainer}
-            showsVerticalScrollIndicator={false}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item }) => (
-              <TouchableOpacity
-                style={styles.individualMessageContainer}
-                onPress={() =>
-                  directToChatBox(
-                    item.chatID,
-                    item.userInfo.name,
-                    item.userInfo.userID
-                  )
-                }
-              >
-                <View style={styles.individualMessageMainContainer}>
-                  <View style={styles.profilePicContainer}>
-                    <Image
-                      style={styles.profilePhoto}
-                      source={require("../../assets/images/avatars/avatar1.png")}
-                    />
-                  </View>
-                  <View style={styles.userInfoContainer}>
-                    <Text style={styles.userName}>{item.userInfo.name}</Text>
-                    <Text style={styles.lastMessage}>{item.lastMessage}</Text>
-                  </View>
-                  <View style={styles.timestampContainer}>
-                    <Text style={styles.messageTimestamp}>
-                      {item.date.toDate().toLocaleDateString()}
-                    </Text>
-                  </View>
+      <View style={styles.messagesMainContainer}>
+        {/* Message Box */}
+        <FlatList
+          data={allMessage}
+          style={styles.messagesContainer}
+          showsVerticalScrollIndicator={false}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              style={styles.individualMessageContainer}
+              onPress={() =>
+                directToChatBox(
+                  item.chatID,
+                  item.userInfo.name,
+                  item.userInfo.userID,
+                  item.userInfo.avatar
+                )
+              }
+            >
+              <View style={styles.individualMessageMainContainer}>
+                <View style={styles.profilePicContainer}>
+                  <Image
+                    style={styles.profilePhoto}
+                    source={avatarImages[item.userInfo.avatar]}
+                  />
                 </View>
-              </TouchableOpacity>
-            )}
-          />
-        </View>
+                <View style={styles.userInfoContainer}>
+                  <Text style={styles.userName}>{item.userInfo.name}</Text>
+                  <Text style={styles.lastMessage}>{item.lastMessage}</Text>
+                </View>
+                <View style={styles.timestampContainer}>
+                  <Text style={styles.messageTimestamp}>
+                    {item.date.toDate().toLocaleDateString()}
+                  </Text>
+                </View>
+              </View>
+            </TouchableOpacity>
+          )}
+        />
+      </View>
       {/* </ScrollView> */}
     </View>
   );
@@ -222,7 +241,7 @@ const styles = StyleSheet.create({
     fontSize: 42,
     color: "#453B4F",
     alignItems: "center",
-    fontFamily: 'Stolzl Bold',
+    fontFamily: "Stolzl Bold",
   },
   startAChatButton: {
     height: 24,
@@ -279,13 +298,13 @@ const styles = StyleSheet.create({
     color: "black",
     textAlign: "left",
     fontSize: 18,
-    fontFamily: 'Stolzl Medium',
+    fontFamily: "Stolzl Medium",
     marginBottom: 5,
   },
   lastMessage: {
     fontSize: 14,
     color: "grey",
-    fontFamily: 'Stolzl Regular',
+    fontFamily: "Stolzl Regular",
   },
   messageTextContainer: {
     flex: 1,
@@ -300,6 +319,6 @@ const styles = StyleSheet.create({
     color: "#777777",
     fontSize: 12,
     position: "absolute",
-    fontFamily: 'Stolzl Regular',
+    fontFamily: "Stolzl Regular",
   },
 });

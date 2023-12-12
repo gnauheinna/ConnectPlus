@@ -1,7 +1,27 @@
 import React, { useState, useEffect, useContext } from "react";
-import { StyleSheet, TextInput, FlatList, ScrollView, Image, ImageBackground } from "react-native";
+import {
+  StyleSheet,
+  TextInput,
+  FlatList,
+  ScrollView,
+  Image,
+  ImageBackground,
+} from "react-native";
 import { Text, View } from "../../components/Themed";
-import { getFirestore, collection, getDocs, Timestamp, doc, updateDoc, increment, addDoc, deleteDoc, query, where, getDoc, } from "firebase/firestore";
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  Timestamp,
+  doc,
+  updateDoc,
+  increment,
+  addDoc,
+  deleteDoc,
+  query,
+  where,
+  getDoc,
+} from "firebase/firestore";
 import { AuthErrorCodes } from "firebase/auth";
 import { FontAwesome5, Feather } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -21,6 +41,7 @@ export default function CommunityScreen() {
   if (getApps() == null) {
     const app = initializeApp(firebaseConfig);
   }
+
   const { posts, setPosts, loading, setLoading } = usePostContext();
   const router = useRouter();
   const db = getFirestore();
@@ -63,48 +84,6 @@ export default function CommunityScreen() {
 
   const [likedPostId, setLikedPostId] = useState<string | null>(null);
   const [likedPostLikesCount, setLikedPostLikesCount] = useState<number>(0);
-
-  const handleLikePress = async (postId: string) => {
-    console.log("Before pressing:", likePressed);
-    const postRef = doc(db, "posts", postId);
-    await updateDoc(postRef, {
-      likesCount: increment(likePressed ? -1 : 1),
-    });
-
-    setLikedPostId(postId);
-
-    // Get a reference to the "likes" subcollection of the post
-    const likesCollection = collection(postRef, "likes");
-
-    // Get the updated likesCount
-    const postSnapshot = await getDoc(postRef);
-    if (postSnapshot.exists()) {
-      setLikedPostLikesCount(postSnapshot.data().likesCount);
-    }
-
-    // Query to check if the user has already liked the post
-    const likesQuery = query(
-      likesCollection,
-      where("userId", "==", user.userID)
-    );
-    const querySnapshot = await getDocs(likesQuery);
-
-    // Add the current user's userId to the "likes" subcollection
-    if (querySnapshot.empty && !likePressed) {
-      await addDoc(likesCollection, { userId: user.userID, liked: true });
-    } else {
-      // If the user is unliking the post, remove their userId from the "likes" subcollection
-      querySnapshot.forEach((doc) => {
-        if (!likePressed) {
-          updateDoc(doc.ref, { liked: true });
-        } else {
-          updateDoc(doc.ref, { liked: false });
-        }
-      });
-    }
-    setlikePressed(!likePressed);
-    console.log("After pressing:", !likePressed);
-  };
 
   return (
     <View style={styles.outermostContainer}>
@@ -209,33 +188,6 @@ export default function CommunityScreen() {
             renderItem={({ item }) => (
               <View style={styles.postShadowContainer}>
                 <IndividualPost postId={item.postID} />
-                <View style={styles.bottomPartContainer}>
-                  {/* Display the like icon and like number */}
-                  <TouchableOpacity
-                    style={styles.postLikesContainer}
-                    onPress={() => handleLikePress(item.postID)}
-                  >
-                    <Image
-                      style={styles.postLikesImg}
-                      source={
-                        likePressed && likedPostId === item.postID
-                          ? require("../../assets/images/icons/filledHeart.png")
-                          : require("../../assets/images/icons/unfilledHeart.png")
-                      }
-                    />
-                
-                  </TouchableOpacity>
-                  {/* Display the reply button */}
-                  <TouchableOpacity
-                    style={styles.replyPostContainer}
-                    onPress={() => viewPostDetails(item.postID)}
-                  >
-                    <Image
-                      style={styles.replyPostImg}
-                      source={require("../../assets/images/icons/reply.png")}
-                    />
-                  </TouchableOpacity>
-                </View>
               </View>
             )}
           />
@@ -312,7 +264,7 @@ const styles = StyleSheet.create({
     fontSize: 42,
     color: "#453B4F",
     fontWeight: "bold",
-    fontFamily: 'Stolzl Bold'
+    fontFamily: "Stolzl Bold",
   },
   notificationIcon: {
     width: 32,
@@ -351,7 +303,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   categoryText: {
-    fontFamily: 'Stolzl Regular'
+    fontFamily: "Stolzl Regular",
   },
   postContainer: {
     backgroundColor: "#F9F6FF",
@@ -363,30 +315,7 @@ const styles = StyleSheet.create({
     marginRight: 8,
     marginLeft: 8,
   },
-  bottomPartContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    height: 24,
-  },
-  postLikesContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  postLikesImg: {
-    width: 20,
-    height: 20,
-    marginRight: 5,
-    resizeMode: "contain",
-  },
-  postLikesText: {
-    fontSize: 14,
-  },
-  replyPostContainer: {},
-  replyPostImg: {
-    maxWidth: 60,
-    maxHeight: 20,
-    resizeMode: "contain",
-  },
+
   postBtnContainer: {
     position: "absolute",
     backgroundColor: "transparent",

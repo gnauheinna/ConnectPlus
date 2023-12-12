@@ -42,12 +42,26 @@ export default function ChatBox() {
     setCurrentChatID,
     currentChatName,
     setCurrentChatName,
+    currentChatAvatar,
+    setCurrentChatAvatar,
     currentChatUserID,
     setCurrentChatUserID,
   } = useCurrentChat();
   const router = useRouter();
   const [chats, setChats] = useState<Chats[]>([]);
   const [inputText, setInputText] = useState("");
+
+  const avatarImages: { [key: string]: any } = {
+    avatar1: require("../assets/images/avatars/avatar1.png"),
+    avatar2: require("../assets/images/avatars/avatar2.png"),
+    avatar3: require("../assets/images/avatars/avatar3.png"),
+    avatar4: require("../assets/images/avatars/avatar4.png"),
+    avatar5: require("../assets/images/avatars/avatar5.png"),
+    avatar6: require("../assets/images/avatars/avatar6.png"),
+    avatar7: require("../assets/images/avatars/avatar7.png"),
+    avatar8: require("../assets/images/avatars/avatar8.png"),
+    avatar9: require("../assets/images/avatars/avatar9.png"),
+  };
 
   useEffect(() => {
     // set currentChatID from local storage when the page refreshes
@@ -163,7 +177,7 @@ export default function ChatBox() {
         <View style={styles.recipientContainer}>
           <Image
             style={styles.recipientImg}
-            source={require("../assets/images/avatars/avatar1.png")}
+            source={avatarImages[currentChatAvatar]}
           />
           <Text style={styles.recipient}>{currentChatName}</Text>
         </View>
@@ -199,8 +213,12 @@ export default function ChatBox() {
               )}
               keyExtractor={(item, index) => index.toString()}
               // The following 2 lines make sure that the FlatList is scrolled to the bottom
-              onLayout={() => flatListRef.current?.scrollToEnd({animated: true})}
-              onContentSizeChange={() => flatListRef.current?.scrollToEnd({animated: true})}
+              onLayout={() =>
+                flatListRef.current?.scrollToEnd({ animated: true })
+              }
+              onContentSizeChange={() =>
+                flatListRef.current?.scrollToEnd({ animated: true })
+              }
             />
           </View>
         )}
@@ -270,7 +288,7 @@ const styles = StyleSheet.create({
   recipient: {
     color: "black",
     fontSize: 24,
-    fontFamily: 'Stolzl Medium',
+    fontFamily: "Stolzl Medium",
     textAlign: "center",
   },
   recipientImg: {
@@ -295,7 +313,7 @@ const styles = StyleSheet.create({
     marginRight: 60,
     textAlign: "center",
     lineHeight: 25,
-    fontFamily: 'Stolzl Regular',
+    fontFamily: "Stolzl Regular",
   },
   chatsContainer: {
     height: 650,
@@ -321,7 +339,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     justifyContent: "center",
     alignItems: "center",
-    fontFamily: 'Stolzl Regular',
+    fontFamily: "Stolzl Regular",
   },
   receivedMessageContainer: {
     borderTopLeftRadius: 20,
@@ -361,7 +379,7 @@ const styles = StyleSheet.create({
     marginRight: 70,
     marginTop: 15,
     marginBottom: 15,
-    fontFamily: 'Stolzl Regular',
+    fontFamily: "Stolzl Regular",
   },
   sendIcon: {
     width: 42,
@@ -372,6 +390,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginLeft: 20,
     marginTop: 10,
-    fontFamily: 'Stolzl Regular',
+    fontFamily: "Stolzl Regular",
   },
 });
