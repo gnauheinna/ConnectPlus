@@ -223,11 +223,7 @@ export default function CommunityScreen() {
                           : require("../../assets/images/icons/unfilledHeart.png")
                       }
                     />
-                    <Text style={styles.postLikesText}>
-                      {likePressed && likedPostId === item.postID
-                        ? likedPostLikesCount
-                        : item.likesCount}
-                    </Text>
+                
                   </TouchableOpacity>
                   {/* Display the reply button */}
                   <TouchableOpacity
