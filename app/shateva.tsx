@@ -164,7 +164,7 @@ export default function MyJourneyPost() {
     <View style={styles.outterContainer}>
       <View style={styles.container}>
         <ImageBackground
-          source={require("../assets/images/journeyPostsGradients/shateva.png")}
+          source={require("../assets/images/journeyPostsGradients/shatevaFeatured.png")}
           resizeMode="cover"
           style={styles.gradientBackground}
         >

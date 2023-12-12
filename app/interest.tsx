@@ -205,7 +205,7 @@ const styles = StyleSheet.create({
   },
   subTitle: {
     fontSize: 16,
-    marginBottom: 32,
+    marginBottom: 48,
     color: "#453B4F",
     zIndex: 2,
     lineHeight: 20,

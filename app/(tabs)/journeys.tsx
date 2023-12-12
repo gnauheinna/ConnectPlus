@@ -77,7 +77,7 @@ export default function JourneyScreen() {
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
               {/* 1st Featured Journey */}
               <TouchableOpacity
-                onPress={() => directToMyJourneyPost("rachelFeatured")}
+                onPress={() => directToMyJourneyPost("nana")}
                 style={styles.featuredJourney}
               >
                 <Image

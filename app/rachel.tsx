@@ -165,7 +165,7 @@ export default function MyJourneyPost() {
     <View style={styles.outterContainer}>
       <View style={styles.container}>
         <ImageBackground
-          source={require("../assets/images/background.png")}
+          source={require("../assets/images/journeyPostsGradients/rachel.png")}
           resizeMode="cover"
           style={styles.gradientBackground}
         >
@@ -374,7 +374,7 @@ The Supplemental Nutrition Assistance Program (SNAP) gives people who are eligib
                 </Text>
                 <View style={styles.indentedContentContainer}>
                   <Text style={styles.regularContentText}>
-                    {"- "}
+                    {"• "}
                     <TouchableOpacity
                       onPress={() =>
                         Linking.openURL(
@@ -389,7 +389,7 @@ The Supplemental Nutrition Assistance Program (SNAP) gives people who are eligib
                     }
                   </Text>
                   <Text style={styles.regularContentText}>
-                    {"- "}
+                    {"• "}
                     <TouchableOpacity
                       onPress={() =>
                         Linking.openURL(
@@ -599,7 +599,7 @@ const styles = StyleSheet.create({
     lineHeight: 25,
     color: "#393939",
     marginBottom: 10,
-    fontWeight: "bold",
+    fontFamily: "Stolzl Medium",
   },
   indentedContentContainer: {
     marginBottom: 10,

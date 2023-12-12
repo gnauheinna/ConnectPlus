@@ -23,21 +23,22 @@ export default function MyJourneyPost() {
   const { user, setUser } = useUser();
   const currentUserID = user.userID;
   const db = getFirestore();
+
   const { savedJourneys, setSavedJourneys, setLoading, loading } =
     useSavedJourneyContext();
 
   // updates savebutton status according to saveJourney context
   useEffect(() => {
-    const isRachelSaved = savedJourneys.some(
+    const isShatevaSaved = savedJourneys.some(
       (journey) =>
-        journey.authorName === "Rachel Li" &&
-        journey.journeyTitle === "School Program - Alternative Service Break"
+        journey.authorName === "Nana Younge" &&
+        journey.journeyTitle === "I Got To Create My Own 4 Credit CS Course!"
     );
-    if (isRachelSaved) {
-      //Rachel's journey is saved
+    if (isShatevaSaved) {
+      // Shateva Long's journey is saved
       setIsSaved(true);
     } else {
-      // Rachel's journey is not saved
+      // Shateva Long's journey is not saved
       setIsSaved(false);
     }
   }, []);
@@ -45,8 +46,9 @@ export default function MyJourneyPost() {
   const unsaveJourney = async () => {
     const updatedSavedJourneys = savedJourneys.filter(
       (journey) =>
-        journey.authorName !== "Rachel Li" &&
-        journey.journeyTitle !== "School Program - Alternative Service Break"
+        journey.authorName !== "Nana Younge" &&
+        journey.journeyTitle !==
+          "I Got To Create My Own 4 Credit CS Course!"
     );
 
     // updates context
@@ -66,10 +68,10 @@ export default function MyJourneyPost() {
   const saveJourney = async () => {
     // If it doesn't exist, add a new entry
     const newJourney = {
-      journeyTitle: "School Program - Alternative Service Break",
-      authorName: "Rachel Li",
-      journeyID: "Q9heA4AhlceX6jxsBgbEezCsZV4mYk6f",
-      Intro: "Class of 2024, Data Science Major",
+      journeyTitle: "I Got To Create My Own 4 Credit CS Course!",
+      authorName: "Nana Younge",
+      journeyID: "XlT9K5adSYcud8VOybpKjQL0wHrR5og4",
+      Intro: "Alumni",
     };
     // Add the new entry to the savedJourneys array
     await savedJourneys.push(newJourney);
@@ -85,23 +87,20 @@ export default function MyJourneyPost() {
     });
   };
 
-  useEffect(() => {
-    console.log("changed: ", savedJourneys);
-  }, [savedJourneys]);
-
   // saves and unsaves the journey
   const handleClick = async () => {
     await setIsSaved(!isSaved);
-    // Check if there exists an entry with journeyTitle "School Program"
-    const isSchoolProgramExists = savedJourneys.some(
+    // Check if there exists an entry with journeyTitle "I Got To Create My Own 4 Credit Computer Science Course!"
+    const isPostExists = savedJourneys.some(
       (journey) =>
-        journey.journeyTitle === "School Program - Alternative Service Break"
+        journey.journeyTitle ===
+        "I Got To Create My Own 4 Credit CS Course!"
     );
-    if (isSaved && isSchoolProgramExists) {
+    if (isSaved && isPostExists) {
       // unsave the journey
       console.log("unsave!");
       unsaveJourney();
-    } else if (!isSaved && !isSchoolProgramExists) {
+    } else if (!isSaved && !isPostExists) {
       // saves journey
       console.log("save!");
 
@@ -110,7 +109,7 @@ export default function MyJourneyPost() {
   };
 
   function directToMyJourney() {
-    router.push(`/(tabs)/journeys`);
+    router.push("/journeys");
   }
   // For the Progress Bar
   const [verticalLine1, setVerticalLine1] = useState(true);
@@ -129,33 +128,19 @@ export default function MyJourneyPost() {
         setVerticalLine4(false);
         setVerticalLine5(false);
       }
-      if (scrollY >= 300) {
+      if (scrollY >= 400) {
         setVerticalLine2(true);
         setVerticalLine1(false);
         setVerticalLine3(false);
         setVerticalLine4(false);
         setVerticalLine5(false);
       }
-      if (scrollY >= 1050) {
+      if (scrollY >= 1200) {
         setVerticalLine3(true);
         setVerticalLine1(false);
         setVerticalLine2(false);
         setVerticalLine4(false);
         setVerticalLine5(false);
-      }
-      if (scrollY >= 1350) {
-        setVerticalLine4(true);
-        setVerticalLine1(false);
-        setVerticalLine2(false);
-        setVerticalLine3(false);
-        setVerticalLine5(false);
-      }
-      if (scrollY >= 1450) {
-        setVerticalLine5(true);
-        setVerticalLine1(false);
-        setVerticalLine2(false);
-        setVerticalLine3(false);
-        setVerticalLine4(false);
       }
     },
     []
@@ -165,7 +150,7 @@ export default function MyJourneyPost() {
     <View style={styles.outterContainer}>
       <View style={styles.container}>
         <ImageBackground
-          source={require("../assets/images/journeyPostsGradients/rachelFeatured.png")}
+          source={require("../assets/images/journeyPostsGradients/nana.png")}
           resizeMode="cover"
           style={styles.gradientBackground}
         >
@@ -197,7 +182,7 @@ export default function MyJourneyPost() {
             <View style={styles.postTitleContainer}>
               <View style={styles.timeAndSaveContainer}>
                 {/* Timestamp */}
-                <Text style={styles.postDate}>Nov 6th 2023</Text>
+                <Text style={styles.postDate}>Dec 4th 2023</Text>
                 {/* Save Button */}
                 <TouchableOpacity onPress={() => handleClick()}>
                   <Image
@@ -212,7 +197,7 @@ export default function MyJourneyPost() {
               </View>
               {/* Title */}
               <Text style={styles.postTitle}>
-                School Program - Alternative Service Break
+              Voice of a First-Gen Graduate, Entrepreneur, Faculty - Message to My Community 
               </Text>
             </View>
           </View>
@@ -220,12 +205,12 @@ export default function MyJourneyPost() {
           <View style={styles.authorInfoContainer}>
             <Image
               style={styles.profileImg}
-              source={require("../assets/images/mentorProfilePics/RachelLi.png")}
+              source={require("../assets/images/mentorProfilePics/nana.png")}
             />
             <View style={styles.userNameAndIntro}>
-              <Text style={styles.userName}>Rachel Li</Text>
+              <Text style={styles.userName}>Nana Younge</Text>
               <Text style={styles.userIntro}>
-                Class of 2024, Data Science Major
+                  Founder of Get Girls Going{"\n"}Program Director at Innovate@BU
               </Text>
             </View>
           </View>
@@ -235,186 +220,73 @@ export default function MyJourneyPost() {
           <View style={styles.postContentMainContainer}>
             {/* 1st Step */}
             <View style={styles.individualStep}>
-              {/* <View style={styles.subtitleContainer}>
-                <Text style={styles.subtitleText}>Theme</Text>
-              </View> */}
               <View style={styles.regularContentContainer}>
+                <Text style={styles.regularContentText}>Message for the readers:</Text>
                 <Text style={styles.regularContentText}>
-                  If you’re a student working part-time, don’t have a meal plan,
-                  and shop for groceries on your own, here’s a resource for you:
-                  The{" "}
-                  <Text style={styles.regularContentTextBolded}>
-                    Supplemental Nutrition Assistance Program (SNAP){" "}
-                  </Text>
-                  gives people who are eligible around $80-$100 monthly funds to
-                  buy food. Navigating this process has been a headache. I spent
-                  hours on the phone with customer service, figuring out the
-                  right document to submit. Here is a guide to applying for SNAP
-                  from my own experience so that you can have a much smoother
-                  process.
+                “You started a journey that is so important for your future generations, and know that you aren't the only one and that there is a big community that is experiencing the same thing. As much as possible, tap into your community and learn from them.”
                 </Text>
               </View>
             </View>
             {/* 2nd Step */}
             <View style={styles.individualStep}>
               <View style={styles.subtitleContainer}>
-                <Text style={styles.subtitleText}>Processes</Text>
+                <Text style={styles.subtitleText}>First-Gen College Experience</Text>
               </View>
               <View style={styles.regularContentContainer}>
+                <Text style={styles.regularContentTextBolded}>Q: What does first-gen mean to you?</Text>
+                <Text style={styles.regularContentText}>I first realized my first-gen identity when my high school teacher encouraged me to apply to Bottom Line and Upper Bound.</Text>
                 <Text style={styles.regularContentText}>
-                  {"1. Do a "}
-                  <TouchableOpacity
-                    onPress={() =>
-                      Linking.openURL(
-                        "https://dtaconnect.eohhs.mass.gov/screening?_gl=1*19vwokf*_ga*NDU5MDQyNTc0LjE2OTkzODAxNTk.*_ga_SW2TVH2WBY*MTY5OTM4MDE1OS4xLjAuMTY5OTM4MDE1OS4wLjAuMA.."
-                      )
-                    }
-                  >
-                    <Text style={styles.linkText}>quick check</Text>
-                  </TouchableOpacity>
-                  {" to see if you’re eligible."}
+                  <Text style={styles.underlinedText}>Being first-gen is powerful.{" "}</Text>It means you’re changing the future of your family and generations.
                 </Text>
                 <Text style={styles.regularContentText}>
-                  {"2. File the "}
-                  <TouchableOpacity
-                    onPress={() =>
-                      Linking.openURL(
-                        "https://dtaconnect.eohhs.mass.gov/?_gl=1*1qkcl0m*_ga*NDU5MDQyNTc0LjE2OTkzODAxNTk.*_ga_SW2TVH2WBY*MTY5OTM4MDE1OS4xLjEuMTY5OTM4MDUxMi4wLjAuMA.."
-                      )
-                    }
-                  >
-                    <Text style={styles.linkText}>initial application</Text>
-                  </TouchableOpacity>
-                  {"."}
+                  <Text style={styles.underlinedText}>Being first-generation makes me sad.{" "}</Text>When I was in college, I noticed my counterparts could call their families whenever they had problems related to college. My family couldn't help me in that space because I was the first to experience it.
                 </Text>
                 <Text style={styles.regularContentText}>
-                  3. The documents I submitted as a full-time student:{" "}
-                </Text>
-                <View style={styles.indentedContentContainer}>
-                  <Text style={styles.regularContentText}>
-                    - Financial aid proof
-                  </Text>
-                  <Text style={styles.regularContentText}>
-                    - Proof that you don’t have a meal plan on campus
-                  </Text>
-                  <Text style={styles.regularContentText}>
-                    - Proof of work-study
-                  </Text>
-                  <Text style={styles.regularContentText}>
-                    - Proof of other work you’re (or have been) participating in
-                  </Text>
-                </View>
-                <Text style={styles.regularContentText}>
-                  4. After the initial application, they require a phone
-                  interview asking you to verify the information.{" "}
-                </Text>
-                <Text
-                  style={[styles.regularContentTextBolded, { marginTop: 20, fontFamily: "Stolzl Medium" }]}
-                >
-                  Additional Info:
-                </Text>
-                <Text style={styles.regularContentText}>
-                  {"1. Reach out to BU Housing "}
-                  <TouchableOpacity
-                    onPress={() => Linking.openURL("housing@bu.edu")}
-                  >
-                    <Text style={styles.linkText}>housing@bu.edu</Text>
-                  </TouchableOpacity>
-                  {" to request a signed document."}
-                </Text>
-                <Text style={styles.regularContentText}>
-                  2. You need to be actively participating in the work-study in
-                  order to be qualified. The number of hours you work doesn't
-                  matter.
-                </Text>
-                <Text style={styles.regularContentText}>
-                  3. Go to studentlink work portal to see if you can find a
-                  printable version. If not, reach out to your supervisor.
-                </Text>
-                <Text style={styles.regularContentText}>
-                  4. The document needs to have a specific start and end date.
+                  <Text style={styles.underlinedText}>Being first-gen is full of responsibilities.{" "}</Text>I had a lot of stress when trying to balance school, work, and life. I believe that if I had those resources that other students had, it would have been a smoother experience.
                 </Text>
               </View>
+              
+              <View style={styles.regularContentContainer}>
+                <Text style={styles.regularContentTextBolded}>Q: How does your first gen identity make you who you are today?</Text>
+                <Text style={styles.regularContentText}>
+                  <Text style={styles.underlinedText}>Being first gen gives me a global perspective, a different point of view on the world and people.{" "}</Text>
+                  First-generation experience also gave me an open mind and a hopeful mindset. As a first gen, I would always tell myself to{" "}
+                  <Text style={styles.underlinedText}>“use the resources that you have and figure it out.”{" "}</Text>
+                </Text>
+              </View>
+
             </View>
             {/* 3rd Step */}
             <View style={styles.individualStep}>
               <View style={styles.subtitleContainer}>
-                <Text style={styles.subtitleText}>Challenges</Text>
+                <Text style={styles.subtitleText}>Tips and Advice </Text>
               </View>
               <View style={styles.regularContentContainer}>
-                <Text style={styles.regularContentText}>
-                  Trying to figure out what kind of document they need and being
-                  able to connect with a representative is the most daunting
-                  part.
+                <Text style={styles.regularContentTextBolded}>Q: What factors do you believe contributed most to your success?</Text>
+                <Text style={styles.regularContentText}>The{" "}
+                  <Text style={styles.underlinedText}>people{" "}</Text>around me and the{" "}
+                  <Text style={styles.underlinedText}>willingness to experience{" "}</Text>and fail.
                 </Text>
               </View>
-            </View>
-            {/* 4th Step */}
-            <View style={styles.individualStep}>
-              <View style={styles.subtitleContainer}>
-                <Text style={styles.subtitleText}>Takeaways</Text>
-              </View>
+
               <View style={styles.regularContentContainer}>
-                <Text style={styles.regularContentText}>
-                  - Try your best to not miss the scheduled phone call because
-                  it’s very hard to connect with a representative when you dial
-                  in yourself. The average wait time is around 30 min.
+                <Text style={styles.regularContentTextBolded}>Q: What are your top 3 pieces of advice for our students?</Text>
+                <Text style={styles.regularContentText}>1. First,{" "}
+                  <Text style={styles.underlinedText}>find a community{" "}</Text>with people that believe in you.
                 </Text>
-                <Text style={styles.regularContentText}>
-                  - Download DTA Connect App, it’s the place where you submit
-                  all the verification documents.
+                <Text style={styles.regularContentText}>2. Second, stay steady and{" "}
+                  <Text style={styles.underlinedText}>don't give up.{" "}</Text>
                 </Text>
-                <Text style={styles.regularContentText}>
-                  - Keep an eye on your mail. They will email letters to you
-                  with your case number (you need this number to sign into your
-                  DTA app account).
+                <Text style={styles.regularContentText}>3. Lastly,{" "}
+                  <Text style={styles.underlinedText}>care about others.{" "}</Text>
+                  When you care about other people, you’re creating a community of people who are also going to value you and pour into you.
                 </Text>
-              </View>
-            </View>
-            {/* 5th Step */}
-            <View style={styles.individualStep}>
-              <View style={styles.subtitleContainer}>
-                <Text style={styles.subtitleText}>Resources</Text>
-              </View>
-              <View style={styles.regularContentContainer}>
-                <Text style={styles.regularContentText}>
-                  Here are BU resources related to food:
-                </Text>
-                <View style={styles.indentedContentContainer}>
-                  <Text style={styles.regularContentText}>
-                    {"- "}
-                    <TouchableOpacity
-                      onPress={() =>
-                        Linking.openURL(
-                          "https://www.bu.edu/chapel/programming/community-dinner/"
-                        )
-                      }
-                    >
-                      <Text style={styles.linkText}>Marsh Chapel</Text>
-                    </TouchableOpacity>
-                    {
-                      " hosts a community dinner on Mondays from 5 p.m. to 6:30 p.m., you do not need to have any religious affiliation to participate."
-                    }
-                  </Text>
-                  <Text style={styles.regularContentText}>
-                    {"- "}
-                    <TouchableOpacity
-                      onPress={() =>
-                        Linking.openURL(
-                          "https://www.bu.edu/studentwellbeing/place-a-bu-food-pantry-order/"
-                        )
-                      }
-                    >
-                      <Text style={styles.linkText}>BU Food Pantry</Text>
-                    </TouchableOpacity>
-                  </Text>
-                </View>
               </View>
             </View>
           </View>
         </View>
       </ScrollView>
-      {/* )} */}
+
       <View style={styles.progressBarContainer}>
         <View
           style={
@@ -431,18 +303,7 @@ export default function MyJourneyPost() {
             verticalLine3 ? styles.verticalLine3Active : styles.verticalLine3
           }
         ></View>
-        <View
-          style={
-            verticalLine4 ? styles.verticalLine4Active : styles.verticalLine4
-          }
-        ></View>
-        <View
-          style={
-            verticalLine5 ? styles.verticalLine5Active : styles.verticalLine5
-          }
-        ></View>
       </View>
-      {/* </View>)} */}
     </View>
   );
 }
@@ -532,6 +393,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     paddingTop: 20,
     paddingBottom: 20,
+    paddingRight: 32,
   },
   profileImg: {
     width: 36,
@@ -585,12 +447,18 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontFamily: "Stolzl Medium",
   },
+  underlinedText: {
+    fontSize: 16,
+    lineHeight: 25,
+    fontFamily: "Stolzl Regular",
+    textDecorationLine: "underline",
+  },
   boldedContentContainer: {
     marginBottom: 10,
   },
   boldedContentText: {
     fontSize: 16,
-    fontWeight: "bold",
+    fontFamily: "Stolzl Medium",
   },
   regularContentContainer: {
     marginBottom: 10,

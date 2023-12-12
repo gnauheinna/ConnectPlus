@@ -155,7 +155,7 @@ export default function MyJourneyPost() {
     <View style={styles.outterContainer}>
       <View style={styles.container}>
         <ImageBackground
-          source={require("../assets/images/journeyPostsGradients/shateva.png")}
+          source={require("../assets/images/journeyPostsGradients/shatevaFeatured.png")}
           resizeMode="cover"
           style={styles.gradientBackground}
         >
@@ -246,11 +246,11 @@ export default function MyJourneyPost() {
                 <Text style={styles.underlinedText}>If you put genuine time and effort into your learning, it will shine through.</Text>
                 </Text>
                 <Text style={styles.regularContentText}>
-                As for the internship application process,{" "}
-                <Text style={styles.underlinedText}>the hardest part is getting through the first screening process.{" "}</Text>
-                The only way to really do this for an internship is by having a good resume. Yes,{" "}
-                <Text style={styles.underlinedText}>how your resume is written is important.{" "}</Text>
-                Using strong action verbs, role specific terminology, and having a clean layout are all valuable components. But the most important thing is your experience and what it says about you.
+                  As for the internship application process,{" "}
+                  <Text style={styles.underlinedText}>the hardest part is getting through the first screening process.{" "}</Text>
+                  The only way to really do this for an internship is by having a good resume. Yes,{" "}
+                  <Text style={styles.underlinedText}>how your resume is written is important.{" "}</Text>
+                  Using strong action verbs, role specific terminology, and having a clean layout are all valuable components. But the most important thing is your experience and what it says about you.
                 </Text>
 
                 <Text style={styles.regularContentTextBolded}>
@@ -502,7 +502,7 @@ const styles = StyleSheet.create({
     lineHeight: 25,
     color: "#393939",
     marginBottom: 10,
-    fontWeight: "bold",
+    fontFamily: "Stolzl Medium",
   },
   indentedContentContainer: {
     marginBottom: 10,
