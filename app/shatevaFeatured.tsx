@@ -45,8 +45,7 @@ export default function MyJourneyPost() {
     const updatedSavedJourneys = savedJourneys.filter(
       (journey) =>
         journey.authorName !== "Shateva Long" &&
-        journey.journeyTitle !==
-          "A First-Gen's Journey from BU to Microsoft"
+        journey.journeyTitle !== "A First-Gen's Journey from BU to Microsoft"
     );
 
     // updates context
@@ -68,7 +67,7 @@ export default function MyJourneyPost() {
     const newJourney = {
       journeyTitle: "A First-Gen's Journey from BU to Microsoft",
       authorName: "Shateva Long",
-      journeyID: "XlT9K5adSYcud8VOybpKjQL0wHrR5og4",
+      journeyID: "qwrr4XlT9K5adSasdasferqL0wHrR5og4",
       Intro: "Alumni",
     };
     // Add the new entry to the savedJourneys array
@@ -91,8 +90,7 @@ export default function MyJourneyPost() {
     // Check if there exists an entry with journeyTitle "I Got To Create My Own 4 Credit Computer Science Course!"
     const isPostExists = savedJourneys.some(
       (journey) =>
-        journey.journeyTitle ===
-        "A First-Gen's Journey from BU to Microsoft"
+        journey.journeyTitle === "A First-Gen's Journey from BU to Microsoft"
     );
     if (isSaved && isPostExists) {
       // unsave the journey
@@ -201,7 +199,9 @@ export default function MyJourneyPost() {
                 </TouchableOpacity>
               </View>
               {/* Title */}
-              <Text style={styles.postTitle}>A First-Gen's Journey from BU to Microsoft</Text>
+              <Text style={styles.postTitle}>
+                A First-Gen's Journey from BU to Microsoft
+              </Text>
             </View>
           </View>
           {/* Author's information */}
@@ -222,11 +222,26 @@ export default function MyJourneyPost() {
             {/* 1st Step */}
             <View style={styles.individualStep}>
               <View style={styles.regularContentContainer}>
-                <Text style={styles.regularContentTextBolded}>What are the three words for our students to quickly get to know you?</Text>
-                <Text style={styles.regularContentText}>Twenty-two, New-york-city, dynamic</Text>
-                <Text style={styles.regularContentTextBolded}>How do you understand your first-gen identity?</Text>
+                <Text style={styles.regularContentTextBolded}>
+                  What are the three words for our students to quickly get to
+                  know you?
+                </Text>
                 <Text style={styles.regularContentText}>
-                I first became aware of my first-gen identity when I was applying to FY101 sections my freshman year. I think being a first-gen college student is comparable to being late to a lecture. You had a rough morning, missed the bus, and it's raining, but you still showed up. Everyone else around you was there on time and some were of course extra early, so you’re a bit behind in the material. Catching up is challenging but by the end of the lecture, you were able to grasp the concepts and learn just as much as everyone else
+                  Twenty-two, New-york-city, dynamic
+                </Text>
+                <Text style={styles.regularContentTextBolded}>
+                  How do you understand your first-gen identity?
+                </Text>
+                <Text style={styles.regularContentText}>
+                  I first became aware of my first-gen identity when I was
+                  applying to FY101 sections my freshman year. I think being a
+                  first-gen college student is comparable to being late to a
+                  lecture. You had a rough morning, missed the bus, and it's
+                  raining, but you still showed up. Everyone else around you was
+                  there on time and some were of course extra early, so you’re a
+                  bit behind in the material. Catching up is challenging but by
+                  the end of the lecture, you were able to grasp the concepts
+                  and learn just as much as everyone else
                 </Text>
               </View>
             </View>
@@ -237,48 +252,100 @@ export default function MyJourneyPost() {
               </View>
               <View style={styles.regularContentContainer}>
                 <Text style={styles.regularContentTextBolded}>
-                Q: Could you share with us your journey to obtaining an internship at Microsoft?
+                  Q: Could you share with us your journey to obtaining an
+                  internship at Microsoft?
                 </Text>
                 <Text style={styles.regularContentText}>
-                I think what helped me the most was not focusing on getting an internship. Instead,{" "}
-                <Text style={styles.underlinedText}>I focused on taking on opportunities I was passionate about and spent my time bettering myself.{" "}</Text>
-                I started various personal projects, took on leadership roles, and worked as a project manager on campus. These were all experiences I cared deeply about and they also prepared me for a role in product management.{" "}
-                <Text style={styles.underlinedText}>If you put genuine time and effort into your learning, it will shine through.</Text>
+                  I think what helped me the most was not focusing on getting an
+                  internship. Instead,{" "}
+                  <Text style={styles.underlinedText}>
+                    I focused on taking on opportunities I was passionate about
+                    and spent my time bettering myself.{" "}
+                  </Text>
+                  I started various personal projects, took on leadership roles,
+                  and worked as a project manager on campus. These were all
+                  experiences I cared deeply about and they also prepared me for
+                  a role in product management.{" "}
+                  <Text style={styles.underlinedText}>
+                    If you put genuine time and effort into your learning, it
+                    will shine through.
+                  </Text>
                 </Text>
                 <Text style={styles.regularContentText}>
-                As for the internship application process,{" "}
-                <Text style={styles.underlinedText}>the hardest part is getting through the first screening process.{" "}</Text>
-                The only way to really do this for an internship is by having a good resume. Yes,{" "}
-                <Text style={styles.underlinedText}>how your resume is written is important.{" "}</Text>
-                Using strong action verbs, role specific terminology, and having a clean layout are all valuable components. But the most important thing is your experience and what it says about you.
+                  As for the internship application process,{" "}
+                  <Text style={styles.underlinedText}>
+                    the hardest part is getting through the first screening
+                    process.{" "}
+                  </Text>
+                  The only way to really do this for an internship is by having
+                  a good resume. Yes,{" "}
+                  <Text style={styles.underlinedText}>
+                    how your resume is written is important.{" "}
+                  </Text>
+                  Using strong action verbs, role specific terminology, and
+                  having a clean layout are all valuable components. But the
+                  most important thing is your experience and what it says about
+                  you.
                 </Text>
 
                 <Text style={styles.regularContentTextBolded}>
-                Q: What do you think recruiters at these big companies are looking for in a candidate?
+                  Q: What do you think recruiters at these big companies are
+                  looking for in a candidate?
                 </Text>
                 <Text style={styles.regularContentText}>
-                I think they look for different qualities at different stages. Initially, they probably are just looking for people who can do the job. Things are slightly different with internships because employers are aware of the limited opportunities to gain relevant experience. This means{" "}
-                <Text style={styles.underlinedText}>they are at least looking for any indicator of potential to successfully take on the role.{" "}</Text>
-                For the next stages, it seems like{" "}
-                <Text style={styles.underlinedText}>they start evaluating your thinking and problem solving patterns.{" "}</Text>
-                This is done through the more technical interviews which look different depending on the role. Lastly, I think{" "}
-                <Text style={styles.underlinedText}>they look for personality.{" "}</Text>
-                They want to see how you communicate with others and for a lack of better words, evaluate your “energy”. They want to see whether you’re trustworthy, likable, and would make a good fit at the company.
+                  I think they look for different qualities at different stages.
+                  Initially, they probably are just looking for people who can
+                  do the job. Things are slightly different with internships
+                  because employers are aware of the limited opportunities to
+                  gain relevant experience. This means{" "}
+                  <Text style={styles.underlinedText}>
+                    they are at least looking for any indicator of potential to
+                    successfully take on the role.{" "}
+                  </Text>
+                  For the next stages, it seems like{" "}
+                  <Text style={styles.underlinedText}>
+                    they start evaluating your thinking and problem solving
+                    patterns.{" "}
+                  </Text>
+                  This is done through the more technical interviews which look
+                  different depending on the role. Lastly, I think{" "}
+                  <Text style={styles.underlinedText}>
+                    they look for personality.{" "}
+                  </Text>
+                  They want to see how you communicate with others and for a
+                  lack of better words, evaluate your “energy”. They want to see
+                  whether you’re trustworthy, likable, and would make a good fit
+                  at the company.
                 </Text>
               </View>
             </View>
             {/* 3rd Step */}
             <View style={styles.individualStep}>
               <View style={styles.subtitleContainer}>
-                <Text style={styles.subtitleText}>Adulting & Professional Experience</Text>
+                <Text style={styles.subtitleText}>
+                  Adulting & Professional Experience
+                </Text>
               </View>
               <View style={styles.regularContentContainer}>
                 <Text style={styles.regularContentTextBolded}>
-                Q: Now as a young professional, what are some responsibilities or challenges you face that never crossed your mind as a student?
+                  Q: Now as a young professional, what are some responsibilities
+                  or challenges you face that never crossed your mind as a
+                  student?
                 </Text>
                 <Text style={styles.regularContentText}>
-                There are just so many more responsibilities to manage. Just to list a few — bills on bills, purchasing and upkeep of furniture/appliances, somehow fitting in dentist/doctors visits, making time to cook and grocery shopping, setting time aside for socializing and just time for myself, and then you have to do all of that on top of working for the majority of the day time. It’s a lot.{" "}
-                <Text style={styles.underlinedText}>For the first few months, it felt like my world was spinning. But once you plan everything on your calendar, you eventually get into a routine (and you set up auto payments) and it gets easier.{" "}</Text>
+                  There are just so many more responsibilities to manage. Just
+                  to list a few — bills on bills, purchasing and upkeep of
+                  furniture/appliances, somehow fitting in dentist/doctors
+                  visits, making time to cook and grocery shopping, setting time
+                  aside for socializing and just time for myself, and then you
+                  have to do all of that on top of working for the majority of
+                  the day time. It’s a lot.{" "}
+                  <Text style={styles.underlinedText}>
+                    For the first few months, it felt like my world was
+                    spinning. But once you plan everything on your calendar, you
+                    eventually get into a routine (and you set up auto payments)
+                    and it gets easier.{" "}
+                  </Text>
                 </Text>
               </View>
             </View>
@@ -289,20 +356,36 @@ export default function MyJourneyPost() {
               </View>
               <View style={styles.regularContentContainer}>
                 <Text style={styles.regularContentTextBolded}>
-                Q: For students who are just beginning their college journey, what is one piece of advice would you offer to them?
+                  Q: For students who are just beginning their college journey,
+                  what is one piece of advice would you offer to them?
                 </Text>
                 <Text style={styles.regularContentText}>
-                The mistakes you make freshman year do not define your next three years. If anything, if you acknowledge these mistakes and put in effort to change, they’ll make you an even better student.
+                  The mistakes you make freshman year do not define your next
+                  three years. If anything, if you acknowledge these mistakes
+                  and put in effort to change, they’ll make you an even better
+                  student.
                 </Text>
 
                 <Text style={styles.regularContentTextBolded}>
-                Q: What are your top 3 pieces of advice for navigating the professional world, adulting challenges, or life after college?
+                  Q: What are your top 3 pieces of advice for navigating the
+                  professional world, adulting challenges, or life after
+                  college?
                 </Text>
                 <Text style={styles.regularContentText}>
-                Have people you can talk to.{" "}
-                <Text style={styles.underlinedText}>My family, friends, and my mentors have been my rocks to keep me grounded. Also, be honest about how you feel and face these feelings head on.{" "}</Text>
-                If you’re feeling overwhelmed, you need to sit down and think about what small changes you can implement now to make things better. And if you don’t know what to do, you have those rocks or people in your life. And if you don’t have people in your life or if they aren’t helpful, you have Google and Reddit.{" "}
-                <Text style={styles.underlinedText}>There is not shame in asking the internet for advice.{" "}</Text>
+                  Have people you can talk to.{" "}
+                  <Text style={styles.underlinedText}>
+                    My family, friends, and my mentors have been my rocks to
+                    keep me grounded. Also, be honest about how you feel and
+                    face these feelings head on.{" "}
+                  </Text>
+                  If you’re feeling overwhelmed, you need to sit down and think
+                  about what small changes you can implement now to make things
+                  better. And if you don’t know what to do, you have those rocks
+                  or people in your life. And if you don’t have people in your
+                  life or if they aren’t helpful, you have Google and Reddit.{" "}
+                  <Text style={styles.underlinedText}>
+                    There is not shame in asking the internet for advice.{" "}
+                  </Text>
                 </Text>
               </View>
             </View>

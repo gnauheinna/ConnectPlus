@@ -17,6 +17,7 @@ import { Post, usePostContext } from "../context/postContext";
 import MJPostCard from "../../components/MJPostCard";
 import { useRouter } from "expo-router";
 import { useSavedJourneyContext } from "../context/savedJourneyContext";
+import { Title } from "react-native-paper";
 
 export default function App() {
   const router = useRouter();
@@ -54,18 +55,23 @@ export default function App() {
     }
   }, [user]);
 
-  function mentorName(authorName: string) {
-    switch (authorName) {
-      case "Rachel Li":
+  function mentorName(Title: string) {
+    switch (Title) {
+      case "The Ultimate SNAP Guide: Get $200 Monthly for Groceries":
         return "rachel";
         break;
-      case "Neri Ajiatas Arreaga":
+      case "School Program - Alternative Service Break":
+        return "rachelFeatured";
+        break;
+      case "Discovering BU: Campus Communities and Organizations":
         return "neri";
         break;
-      case "Shateva Long":
-        return "shateva";
+      case "A First-Gen's Journey from BU to Microsoft":
+        return "shatevaFeatured";
         break;
-      case "Julia Tran":
+      case "I Got To Create My Own 4 Credit CS Course!":
+        return "shateva";
+      case "Everything You Need to Know About On-Campus Jobs":
         return "julia";
 
       default:
@@ -232,7 +238,7 @@ export default function App() {
               <View style={styles.myJourneyContainer}>
                 <MJPostCard
                   onPress={() =>
-                    directToMyJourneyPost(mentorName(item.authorName))
+                    directToMyJourneyPost(mentorName(item.journeyTitle))
                   }
                   img={imgSource}
                   title={item.journeyTitle}
