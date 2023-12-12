@@ -5,6 +5,8 @@ import {
   FlatList,
   Image,
   TextInput,
+  KeyboardAvoidingView,
+  Platform,
 } from "react-native";
 import "react-native-get-random-values";
 import { Text, View } from "../components/Themed";
@@ -156,95 +158,100 @@ export default function ChatBox() {
   }, [chats]);
 
   return (
-    <View style={styles.outermostContainer}>
-      <View style={styles.topPortionContainer}>
-        {/*  Back Button */}
-        <View style={styles.backBtnContainer}>
-          <TouchableOpacity
-            style={styles.backBtn}
-            onPress={() => {
-              router.push("/messages");
-            }}
-          >
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={styles.outermostContainer}
+    >
+      <View style={styles.outermostContainer}>
+        <View style={styles.topPortionContainer}>
+          {/*  Back Button */}
+          <View style={styles.backBtnContainer}>
+            <TouchableOpacity
+              style={styles.backBtn}
+              onPress={() => {
+                router.push("/messages");
+              }}
+            >
+              <Image
+                style={styles.backBtnImg}
+                source={require("../assets/images/icons/blackBack.png")}
+              />
+            </TouchableOpacity>
+          </View>
+
+          {/*  Recipient Information */}
+          <View style={styles.recipientContainer}>
             <Image
-              style={styles.backBtnImg}
-              source={require("../assets/images/icons/blackBack.png")}
+              style={styles.recipientImg}
+              source={avatarImages[currentChatAvatar]}
+            />
+            <Text style={styles.recipient}>{currentChatName}</Text>
+          </View>
+        </View>
+
+        <View style={styles.greyDividerLine}></View>
+
+        <View style={styles.container}>
+          {chats.length === 0 ? (
+            <View style={styles.welcomeMessageContainer}>
+              <Text style={styles.welcomeMessage}>
+                Get to know your fellow First-Gen colleges, be the first to say
+                hi!
+              </Text>
+            </View>
+          ) : (
+            <View style={styles.chatsContainer}>
+              <FlatList
+                ref={flatListRef}
+                // initialScrollIndex={1}
+                showsVerticalScrollIndicator={false}
+                data={chats}
+                renderItem={({ item }) => (
+                  <View
+                    style={
+                      item.senderID == user.userID
+                        ? styles.sentMessageContainer
+                        : styles.receivedMessageContainer
+                    }
+                  >
+                    <Text style={styles.sentMessageText}>{item.text}</Text>
+                  </View>
+                )}
+                keyExtractor={(item, index) => index.toString()}
+                // The following 2 lines make sure that the FlatList is scrolled to the bottom
+                onLayout={() =>
+                  flatListRef.current?.scrollToEnd({ animated: true })
+                }
+                onContentSizeChange={() =>
+                  flatListRef.current?.scrollToEnd({ animated: true })
+                }
+              />
+            </View>
+          )}
+        </View>
+
+        <View style={styles.inputMessageContainer}>
+          {/* Box to type your message */}
+          <TouchableOpacity style={styles.inputMessageBox}>
+            <TextInput
+              style={styles.inputText}
+              placeholder="Type your message"
+              onChangeText={(text) => {
+                setInputText(text);
+              }}
+              value={inputText}
+            />
+          </TouchableOpacity>
+          {/* Send Icon */}
+          <TouchableOpacity onPress={handleSend}>
+            <Image
+              style={styles.sendIcon}
+              source={require("../assets/images/icons/sendMessage.png")}
             />
           </TouchableOpacity>
         </View>
-
-        {/*  Recipient Information */}
-        <View style={styles.recipientContainer}>
-          <Image
-            style={styles.recipientImg}
-            source={avatarImages[currentChatAvatar]}
-          />
-          <Text style={styles.recipient}>{currentChatName}</Text>
-        </View>
       </View>
-
-      <View style={styles.greyDividerLine}></View>
-
-      <View style={styles.container}>
-        {chats.length === 0 ? (
-          <View style={styles.welcomeMessageContainer}>
-            <Text style={styles.welcomeMessage}>
-              Get to know your fellow First-Gen colleges, be the first to say
-              hi!
-            </Text>
-          </View>
-        ) : (
-          <View style={styles.chatsContainer}>
-            <FlatList
-              ref={flatListRef}
-              // initialScrollIndex={1}
-              showsVerticalScrollIndicator={false}
-              data={chats}
-              renderItem={({ item }) => (
-                <View
-                  style={
-                    item.senderID == user.userID
-                      ? styles.sentMessageContainer
-                      : styles.receivedMessageContainer
-                  }
-                >
-                  <Text style={styles.sentMessageText}>{item.text}</Text>
-                </View>
-              )}
-              keyExtractor={(item, index) => index.toString()}
-              // The following 2 lines make sure that the FlatList is scrolled to the bottom
-              onLayout={() =>
-                flatListRef.current?.scrollToEnd({ animated: true })
-              }
-              onContentSizeChange={() =>
-                flatListRef.current?.scrollToEnd({ animated: true })
-              }
-            />
-          </View>
-        )}
-      </View>
-
-      <View style={styles.inputMessageContainer}>
-        {/* Box to type your message */}
-        <TouchableOpacity style={styles.inputMessageBox}>
-          <TextInput
-            style={styles.inputText}
-            placeholder="Type your message"
-            onChangeText={(text) => {
-              setInputText(text);
-            }}
-            value={inputText}
-          />
-        </TouchableOpacity>
-        {/* Send Icon */}
-        <TouchableOpacity onPress={handleSend}>
-          <Image
-            style={styles.sendIcon}
-            source={require("../assets/images/icons/sendMessage.png")}
-          />
-        </TouchableOpacity>
-      </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 
