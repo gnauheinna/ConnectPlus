@@ -86,9 +86,9 @@ export default function interestScreen() {
   </View>
   </ImageBackground>
 
-      <View style={styles.mainContainer}>
+      <View style={styles.container}>
         <Text style={[styles.title]}>Last Steps</Text>
-        <Text style={[styles.subTitle]}>Tell us more about you! What are your interests? Please select at least one.</Text>
+        <Text style={[styles.subTitle]}>Tell us more about you! Please select at least one interest.</Text>
         <View style={styles.interestBoxContainer}>
 
           {/* Academic Button */}
@@ -170,23 +170,11 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#F9F6FF",
   },
-  gradientBackground: {
-    width: "100%",
-    height: 130,
-    zIndex: 1,
-  },
   container: {
-    backgroundColor: "#F9F6FF",
-    flex: 1,
-  },
-  mainContainer: {
-    flex: 1,
     justifyContent: "flex-start",
     marginLeft: 40,
     marginRight: 40,
-  },
-  inputContainer: {
-    flexDirection: "row",
+    backgroundColor: "#F9F6FF",
   },
   backBtnContainer: {
     marginTop: 60,
@@ -203,19 +191,25 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
   },
+  gradientBackground: {
+    width: "100%",
+    height: 120,
+    zIndex: 1,
+  },
   title: {
     fontSize: 28,
-    fontWeight: "bold",
-    marginBottom: 20,
+    fontFamily: "Stolzl Medium",
+    marginBottom: 8,
     color: "#453B4F",
     zIndex: 2,
   },
   subTitle: {
     fontSize: 16,
-    marginBottom: 50,
+    marginBottom: 32,
     color: "#453B4F",
     zIndex: 2,
-    lineHeight: 24,
+    lineHeight: 20,
+    fontFamily: "Stolzl Regular",
   },
   interestBoxContainer: {
     flexDirection: "row",
@@ -266,6 +260,7 @@ const styles = StyleSheet.create({
     fontWeight: "400",
     justifyContent: "center",
     alignItems: "center",
+    fontFamily: "Stolzl Regular",
   },
   checkbox: {
     borderRadius: 30,
@@ -289,6 +284,7 @@ const styles = StyleSheet.create({
     color: "#9B9B9B",
     fontSize: 18,
     alignSelf: "center",
+    fontFamily: "Stolzl Regular",
   },
   doneButton: {
     backgroundColor: "#FFC940",
@@ -303,5 +299,6 @@ const styles = StyleSheet.create({
   doneButtonText: {
     fontSize: 18,
     alignSelf: "center",
+    fontFamily: "Stolzl Regular",
   },
 });

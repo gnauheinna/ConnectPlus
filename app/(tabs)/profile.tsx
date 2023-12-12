@@ -287,6 +287,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     marginBottom: 10,
+    // shadowColor: "#49006C",
+    // shadowOffset: {
+    //   width: -2,
+    //   height: 4,
+    // },
+    // shadowOpacity: 0.06,
+    // shadowRadius: 10,
   },
   profileImage: {
     width: 90,
