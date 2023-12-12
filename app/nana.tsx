@@ -32,7 +32,7 @@ export default function MyJourneyPost() {
     const isShatevaSaved = savedJourneys.some(
       (journey) =>
         journey.authorName === "Nana Younge" &&
-        journey.journeyTitle === "I Got To Create My Own 4 Credit CS Course!"
+        journey.journeyTitle === "Voice of a First-Gen Graduate, Entrepreneur, Faculty - Message to My Community"
     );
     if (isShatevaSaved) {
       // Shateva Long's journey is saved
@@ -48,7 +48,7 @@ export default function MyJourneyPost() {
       (journey) =>
         journey.authorName !== "Nana Younge" &&
         journey.journeyTitle !==
-          "I Got To Create My Own 4 Credit CS Course!"
+          "Voice of a First-Gen Graduate, Entrepreneur, Faculty - Message to My Community"
     );
 
     // updates context
@@ -68,10 +68,10 @@ export default function MyJourneyPost() {
   const saveJourney = async () => {
     // If it doesn't exist, add a new entry
     const newJourney = {
-      journeyTitle: "I Got To Create My Own 4 Credit CS Course!",
+      journeyTitle: "Voice of a First-Gen Graduate, Entrepreneur, Faculty - Message to My Community",
       authorName: "Nana Younge",
       journeyID: "XlT9K5adSYcud8VOybpKjQL0wHrR5og4",
-      Intro: "Alumni",
+      Intro: "Founder of Get Girls Going Program Director at Innovate@BU",
     };
     // Add the new entry to the savedJourneys array
     await savedJourneys.push(newJourney);
@@ -90,11 +90,11 @@ export default function MyJourneyPost() {
   // saves and unsaves the journey
   const handleClick = async () => {
     await setIsSaved(!isSaved);
-    // Check if there exists an entry with journeyTitle "I Got To Create My Own 4 Credit Computer Science Course!"
+    // Check if there exists an entry with journeyTitle "Voice of a First-Gen Graduate, Entrepreneur, Faculty - Message to My Community"
     const isPostExists = savedJourneys.some(
       (journey) =>
         journey.journeyTitle ===
-        "I Got To Create My Own 4 Credit CS Course!"
+        "Voice of a First-Gen Graduate, Entrepreneur, Faculty - Message to My Community"
     );
     if (isSaved && isPostExists) {
       // unsave the journey

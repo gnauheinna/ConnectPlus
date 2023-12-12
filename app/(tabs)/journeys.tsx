@@ -82,7 +82,7 @@ export default function JourneyScreen() {
               >
                 <Image
                   style={styles.featuredJourneyImg}
-                  source={require("../../assets/images/featuredMyJourneyPosts/rachel.png")}
+                  source={require("../../assets/images/featuredMyJourneyPosts/nana.png")}
                 />
               </TouchableOpacity>
 
