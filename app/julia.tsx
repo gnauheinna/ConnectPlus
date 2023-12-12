@@ -245,7 +245,7 @@ export default function MyJourneyPost() {
                 </Text>
                 <View style={styles.indentedContentContainer}>
                   <Text style={styles.regularContentText}>
-                    - {" "}
+                  •{" "}
                   <Text style={styles.regularContentTextBolded}>For international students:{" "}</Text>
                   For international students: You can only work on-campus
                     for your first year. After one full year of education,
@@ -253,7 +253,7 @@ export default function MyJourneyPost() {
                     a work visa.
                   </Text>
                   <Text style={styles.regularContentText}>
-                    - {" "}
+                  •{" "}
                     <Text style={styles.regularContentTextBolded}>For U.S. citizens:{" "}</Text>
                     You can already go off-campus as a
                     first-year. There is also a work-study award available if
@@ -267,7 +267,7 @@ export default function MyJourneyPost() {
                 </Text>
                 <View style={styles.indentedContentContainer}>
                   <Text style={styles.regularContentText}>
-                    - Utilize{" "}
+                  • Utilize{" "}
                     <Text style={styles.regularContentTextBolded}>Student Link{" "}</Text>
                     : You can find a list of
                     On/Off-campus Part-time positions or Quick Jobs (one-time
@@ -277,14 +277,14 @@ export default function MyJourneyPost() {
                     find interesting to ask for more information or apply!
                   </Text>
                   <Text style={styles.regularContentText}>
-                    - Keep up with the BU Student Employment page:{" "}
+                  • Keep up with the BU Student Employment page:{" "}
                     <Text style={styles.regularContentTextBolded}>BU’s Student Employment Office{" "}</Text>
                     has an official Instagram page. They post
                     very frequently about available positions and job-tips for
                     students on/off-campus.
                   </Text>
                   <Text style={styles.regularContentText}>
-                    - Ask around:{" "}
+                  • Ask around:{" "}
                     <Text style={styles.regularContentTextBolded}>Some jobs are referrals, so they are not officially posted{" "}</Text>
                     on any websites or advertised on poster
                     boards and bulletin boards. You can talk to the people you
@@ -299,12 +299,12 @@ export default function MyJourneyPost() {
                 </Text>
                 <View style={styles.indentedContentContainer}>
                   <Text style={styles.regularContentText}>
-                  - Resume, Cover letter, and Application form: Most Quick Jobs don’t require any of these, but Part-time Jobs usually require a Resume. Use the{" "}
+                  • Resume, Cover letter, and Application form: Most Quick Jobs don’t require any of these, but Part-time Jobs usually require a Resume. Use the{" "}
                   <Text style={styles.regularContentTextBolded}>Career Development Center (CDC){" "}</Text>
                   to help you polish your documents!
                   </Text>
                   <Text style={styles.regularContentText}>
-                    - Interview: Make sure you come prepared and be confident! I had a group interview with 2 other candidates and they were both Upperclassmen, it was nerve-wracking, but{" "}
+                  • Interview: Make sure you come prepared and be confident! I had a group interview with 2 other candidates and they were both Upperclassmen, it was nerve-wracking, but{" "}
                     <Text style={styles.regularContentTextBolded}>just be yourself, be sincere{" "}
                     , and the interviewer will notice that!
                   </Text>
@@ -316,11 +316,11 @@ export default function MyJourneyPost() {
                 </Text>
                 <View style={styles.indentedContentContainer}>
                   <Text style={styles.regularContentText}>
-                    -{" "}<Text style={styles.regularContentTextBolded}>Enter your hours on the Student Employment Portal{" "}</Text>
+                  •{" "}<Text style={styles.regularContentTextBolded}>Enter your hours on the Student Employment Portal{" "}</Text>
                     : Once you’re officially hired and working, you will be entering your hours yourself every week. The period ends on Thursday (so you will need to enter future hours that you will be working after Thursday that week) and your supervisor will review your hours after you have submitted them. 
                   </Text>
                   <Text style={styles.regularContentText}>
-                  - Direct Deposit: You can also{" "}<Text style={styles.regularContentTextBolded}>set up Direct Deposit{" "}</Text>
+                  • Direct Deposit: You can also{" "}<Text style={styles.regularContentTextBolded}>set up Direct Deposit{" "}</Text>
                   to have your paycheck directly deposited into your account without having to get a physical check every week! This would 
                   {" "}<Text style={styles.regularContentTextBolded}>require you to obtain a Social Security Card{" "}</Text>
                   that you can apply for once you are hired if you are employed for the first time in the U.S.!

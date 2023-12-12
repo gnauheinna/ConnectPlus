@@ -270,13 +270,13 @@ export default function MyJourneyPost() {
               </View>
               <View style={styles.regularContentContainer}>
                 <Text style={styles.regularContentText}>
-                  - I've felt that the multitude of clubs and organizations can
+                • I've felt that the multitude of clubs and organizations can
                   be overwhelming, and there's the discomfort of trying
                   something new without knowing anyone in the group you want to
                   join.
                 </Text>
                 <Text style={styles.regularContentText}>
-                  - I’ve learned that BU groups are very welcoming to all
+                • I’ve learned that BU groups are very welcoming to all
                   individuals of any background. So don’t feel alone, there will
                   always be someone that wants to talk and help you feel
                   comfortable.
@@ -290,13 +290,13 @@ export default function MyJourneyPost() {
               </View>
               <View style={styles.regularContentContainer}>
                 <Text style={styles.regularContentText}>
-                  - You have plenty of time to get involved with a community
+                • You have plenty of time to get involved with a community
                   outside of your classroom. Especially throughout the semester,
                   people are always having events and willing to welcome new
                   members :)
                 </Text>
                 <Text style={styles.regularContentText}>
-                  - You also never have to stick with the organization if you
+                • You also never have to stick with the organization if you
                   don’t like it. From personal experience, I’ve found it helpful
                   to try a lot of things and reflect on whether I like or don’t
                   like something.
