@@ -170,11 +170,12 @@ export default function PostDetails() {
               <Text style={styles.replyTitle}>Replies</Text>
             </View>
 
-            <ScrollView
+            {/* <ScrollView
               style={styles.commentsContainer}
-              showsHorizontalScrollIndicator={false}
-            >
+              showsVerticalScrollIndicator={false}
+            > */}
               <FlatList
+              style={styles.commentsContainer}
                 data={commentarr.sort(
                   (a, b) =>
                     new Date(b.date.toDate()).getTime() -
@@ -192,7 +193,7 @@ export default function PostDetails() {
                   />
                 )}
               />
-            </ScrollView>
+            {/* </ScrollView> */}
           </View>
         </View>
         <KeyboardAvoidingView

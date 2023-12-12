@@ -96,8 +96,8 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   profileImg: {
-    width: 60,
-    height: 60,
+    width: 48,
+    height: 48,
   },
   commentContainer: {
     flex: 1,
