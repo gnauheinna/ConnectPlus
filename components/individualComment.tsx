@@ -26,6 +26,7 @@ interface IndividualCommentProps {
   intro: string;
   timestamp: string;
   content: string;
+  avatar: string;
 }
 
 const IndividualComment: React.FC<IndividualCommentProps> = ({
@@ -33,16 +34,25 @@ const IndividualComment: React.FC<IndividualCommentProps> = ({
   intro,
   timestamp,
   content,
+  avatar,
 }) => {
+  const avatarImages: { [key: string]: any } = {
+    avatar1: require("../assets/images/avatars/avatar1.png"),
+    avatar2: require("../assets/images/avatars/avatar2.png"),
+    avatar3: require("../assets/images/avatars/avatar3.png"),
+    avatar4: require("../assets/images/avatars/avatar4.png"),
+    avatar5: require("../assets/images/avatars/avatar5.png"),
+    avatar6: require("../assets/images/avatars/avatar6.png"),
+    avatar7: require("../assets/images/avatars/avatar7.png"),
+    avatar8: require("../assets/images/avatars/avatar8.png"),
+    avatar9: require("../assets/images/avatars/avatar9.png"),
+  };
   return (
     <View style={styles.outermostContainer}>
       <View style={styles.mainContainer}>
         {/* Display the profile image */}
         <View style={styles.profileImgContainer}>
-          <Image
-            style={styles.profileImg}
-            source={require("../assets/images/avatars/avatar1.png")}
-          />
+          <Image style={styles.profileImg} source={avatarImages[avatar]} />
         </View>
         {/* Display the comment box */}
         <View style={styles.commentContainer}>
@@ -55,7 +65,7 @@ const IndividualComment: React.FC<IndividualCommentProps> = ({
             </View>
             {/* Display the timestamp */}
             <View style={styles.introContainer}>
-            <Text style={styles.userIntro}>{intro}</Text>
+              <Text style={styles.userIntro}>{intro}</Text>
             </View>
           </View>
           {/* Display the comment content */}
@@ -109,23 +119,23 @@ const styles = StyleSheet.create({
   userName: {
     fontSize: 14,
     fontWeight: "500",
-    fontFamily: 'Stolzl Medium',
+    fontFamily: "Stolzl Medium",
   },
   timestamp: {
     fontSize: 10,
     color: "gray",
-    fontFamily: 'Stolzl Regular',
+    fontFamily: "Stolzl Regular",
   },
   userIntro: {
     fontSize: 12,
     color: "#888888",
-    fontFamily: 'Stolzl Regular',
+    fontFamily: "Stolzl Regular",
   },
   introContainer: {},
   bottomPortionContainer: {},
   commentContent: {
     fontSize: 14,
     textAlign: "left",
-    fontFamily: 'Stolzl Regular',
+    fontFamily: "Stolzl Regular",
   },
 });

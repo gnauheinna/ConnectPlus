@@ -1,5 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
-import { ScrollView, StyleSheet, FlatList, Image, TextInput, KeyboardAvoidingView, Platform, Keyboard } from "react-native";
+import {
+  ScrollView,
+  StyleSheet,
+  FlatList,
+  Image,
+  TextInput,
+  KeyboardAvoidingView,
+  Platform,
+  Keyboard,
+} from "react-native";
 import { Text, View } from "../components/Themed";
 import {
   getFirestore,
@@ -22,6 +31,7 @@ import { Post, usePostContext } from "./context/postContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export type Comment = {
+  avatar: string;
   commentID: string;
   date: Timestamp;
   userIntro: string;
@@ -129,7 +139,6 @@ export default function PostDetails() {
     console.log(curPostID);
   }, [allPosts]);
 
-  
   return (
     <View style={styles.outermostContainer}>
       <View style={styles.tempContainer}>
@@ -185,25 +194,30 @@ export default function PostDetails() {
               showsHorizontalScrollIndicator={false}
             >
               <FlatList
-  data={commentarr.sort((a, b) => new Date(b.date.toDate()).getTime() - new Date(a.date.toDate()).getTime())}
-  showsVerticalScrollIndicator={false}
-  keyExtractor={(item, index) => index.toString()}
-  renderItem={({ item }) => (
-    <IndividualComment
-      username={item.userName}
-      intro={item.userIntro}
-      timestamp={item.date.toDate().toLocaleDateString()}
-      content={item.text}
-    />
-  )}
-/>
+                data={commentarr.sort(
+                  (a, b) =>
+                    new Date(b.date.toDate()).getTime() -
+                    new Date(a.date.toDate()).getTime()
+                )}
+                showsVerticalScrollIndicator={false}
+                keyExtractor={(item, index) => index.toString()}
+                renderItem={({ item }) => (
+                  <IndividualComment
+                    avatar={item.avatar}
+                    username={item.userName}
+                    intro={item.userIntro}
+                    timestamp={item.date.toDate().toLocaleDateString()}
+                    content={item.text}
+                  />
+                )}
+              />
             </ScrollView>
           </View>
         </View>
         <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : "height"}
           keyboardVerticalOffset={-10}
-          style={{ backgroundColor: 'white' }} 
+          style={{ backgroundColor: "white" }}
         >
           <View style={styles.inputMessageContainer}>
             {/* Box to type your message */}
@@ -223,7 +237,7 @@ export default function PostDetails() {
                 if (content.trim() !== "") {
                   comment();
                   Keyboard.dismiss();
-                  setContent(""); 
+                  setContent("");
                 }
               }}
             >
@@ -249,17 +263,17 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   backBtnContainer: {
-    top: 60, 
+    top: 60,
     left: 20,
     alignSelf: "flex-start",
-    justifyContent: 'center',
+    justifyContent: "center",
     marginBottom: 60,
     zIndex: 2,
   },
   backBtn: {
     padding: 5,
     resizeMode: "contain",
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   backBtnImg: {
     width: 20,
@@ -285,8 +299,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
   },
-  postContainer: {
-  },
+  postContainer: {},
   bottomPartContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -412,6 +425,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginLeft: 20,
     marginTop: 10,
-    fontFamily: 'Stolzl Regular',
+    fontFamily: "Stolzl Regular",
   },
 });
