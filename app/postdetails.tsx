@@ -162,25 +162,6 @@ export default function PostDetails() {
             <View style={styles.postContainer}>
               {/* Displays the post */}
               <IndividualPost postId={curPostID} />
-              <View style={styles.bottomPartContainer}>
-                {/* Display the like icon and like number */}
-                <TouchableOpacity style={styles.postLikesContainer}>
-                  <Image
-                    style={styles.postLikesImg}
-                    source={require("../assets/images/icons/filledHeart.png")}
-                  />
-                </TouchableOpacity>
-                {/* Display the reply button */}
-                <TouchableOpacity
-                  style={styles.replyPostContainer}
-                  onPress={openModal}
-                >
-                  <Image
-                    style={styles.replyPostImg}
-                    source={require("../assets/images/icons/reply.png")}
-                  />
-                </TouchableOpacity>
-              </View>
             </View>
             {/* Divider line */}
             <View style={styles.dividerLine} />

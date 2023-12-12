@@ -207,22 +207,6 @@ export default function App() {
             <View style={styles.postShadowContainer}>
               {/* Displays the post */}
               <IndividualPost postId={item.postID} />
-              <View style={styles.bottomPartContainer}>
-                {/* Display the like icon and like number */}
-                <TouchableOpacity style={styles.postLikesContainer}>
-                  <Image
-                    style={styles.postLikesImg}
-                    source={require("../../assets/images/icons/filledHeart.png")}
-                  />
-                </TouchableOpacity>
-                {/* Display the reply button */}
-                <TouchableOpacity style={styles.replyPostContainer}>
-                  <Image
-                    style={styles.replyPostImg}
-                    source={require("../../assets/images/icons/reply.png")}
-                  />
-                </TouchableOpacity>
-              </View>
             </View>
           )}
         />
