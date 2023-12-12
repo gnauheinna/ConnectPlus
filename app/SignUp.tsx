@@ -364,6 +364,7 @@ const styles = StyleSheet.create({
   nextButtonText: {
     fontSize: 18,
     alignSelf: "center",
+    fontFamily: "Stolzl Regular",
   },
 });
 

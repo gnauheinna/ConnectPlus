@@ -163,16 +163,23 @@ export default function Login() {
   
   return (
     <View style={styles.outterMostContainer}>
-      {/* <ImageBackground
+      <ImageBackground
             source={require("../assets/images/gradient/whiteGradientAskNShare.png")}
             resizeMode="cover"
-            style={styles.gradientBackground}></ImageBackground> */}
-      <View style={styles.container}>
-        {/* ConnectPlus Logo */}
+            style={styles.gradientBackground}>
+              <View style={styles.logoContainer}>
         <Image
           style={styles.connectPlusLogo}
+          source={require("../assets/images/connectPlusLogo.png")}/>
+          </View>
+      </ImageBackground>
+
+      <View style={styles.container}>
+        {/* ConnectPlus Logo */}
+        {/* <Image
+          style={styles.connectPlusLogo}
           source={require("../assets/images/connectPlusLogo.png")}
-        />
+        /> */}
 
         {/* Welcome Message */}
         <View style={styles.welcomeMessageContainer}>
@@ -255,7 +262,7 @@ const styles = StyleSheet.create({
   },
   gradientBackground: {
     width: "100%",
-    height: 120,
+    height: 220,
     zIndex: 1,
   },
   container: {
@@ -265,14 +272,17 @@ const styles = StyleSheet.create({
     backgroundColor: "#F9F6FF",
     zIndex: 2,
   },
+  logoContainer:{
+    zIndex: 2,
+    marginTop: 48,
+  },
   connectPlusLogo: {
     height: 120,
     width: 140,
     justifyContent: "center",
     alignSelf: "center",
-    marginTop: 90,
-    marginBottom: 40,
     resizeMode: "contain",
+    marginTop: 24,
   },
   welcomeMessageContainer: {
     marginBottom: 32,
@@ -325,7 +335,7 @@ const styles = StyleSheet.create({
   signInBtn: {
     backgroundColor: "#FFC940",
     marginTop: 48,
-    marginBottom: 64,
+    marginBottom: 48,
     width: 320,
     height: 48,
     borderRadius: 25,

@@ -63,13 +63,11 @@ const AddAvatar = () => {
        <View style={styles.topPortion}>
         <Text style={[styles.title]}>Add an Avatar</Text>
         <Text style={[styles.subTitle]}>
-          Lorem ipsum dolor sit amet consectetur. Quisque mi metus aliquam sed
-          neque.
+          Pick your profile picture.
         </Text>
       </View>
 
       <View style={styles.avatarsContainer}>
-
         <View>
           <TouchableOpacity onPress={() => avatarSelected("avatar1")}>
               <Image style={[styles.avatar]} source={selectedAvatar === "avatar1" ? require("../assets/images/avatars/avatar1Selected.png") : require("../assets/images/avatars/avatar1.png")}/>
@@ -132,13 +130,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#F9F6FF",
   },
   container: {
-    flex: 1,
+    justifyContent: "flex-start",
     marginLeft: 40,
     marginRight: 40,
     backgroundColor: "#F9F6FF",
   },
   backBtnContainer: {
-    marginTop: 40,
+    marginTop: 60,
     marginLeft: 40,
     alignSelf: "flex-start",
     justifyContent: "center",
@@ -154,22 +152,23 @@ const styles = StyleSheet.create({
   },
   gradientBackground: {
     width: "100%",
-    height: 90,
+    height: 120,
     zIndex: 1,
   },
   title: {
     fontSize: 28,
-    fontWeight: "bold",
+    fontFamily: "Stolzl Medium",
     marginBottom: 8,
     color: "#453B4F",
     zIndex: 2,
   },
   subTitle: {
     fontSize: 16,
-    marginBottom: 16,
+    marginBottom: 32,
     color: "#453B4F",
     zIndex: 2,
     lineHeight: 20,
+    fontFamily: "Stolzl Regular",
   },
   topPortion:{
     paddingBottom: 20,
@@ -181,9 +180,9 @@ const styles = StyleSheet.create({
     width: "100%"
   },
   avatar: {
-    width: 60,
-    height: 60,
-    margin: 10,
+    width: 88,
+    height: 88,
+    margin: 6,
   },
   nextButtonContainer: {
     marginLeft: 40,
@@ -201,6 +200,7 @@ const styles = StyleSheet.create({
   nextButtonText: {
     fontSize: 18,
     alignSelf: "center",
+    fontFamily: "Stolzl Regular",
   },
 });
 
