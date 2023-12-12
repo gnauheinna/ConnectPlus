@@ -41,6 +41,7 @@ export default function CommunityScreen() {
   if (getApps() == null) {
     const app = initializeApp(firebaseConfig);
   }
+
   const { posts, setPosts, loading, setLoading } = usePostContext();
   const router = useRouter();
   const db = getFirestore();

@@ -63,9 +63,15 @@ export default function Message() {
     setCurrentChatName,
     currentChatUserID,
     setCurrentChatUserID,
+    setCurrentChatAvatar,
   } = useCurrentChat();
 
-  function directToChatBox(chatID: string, name: string, userID: string) {
+  function directToChatBox(
+    chatID: string,
+    name: string,
+    userID: string,
+    avatar: string
+  ) {
     // passes the state to CurrentChatContext
     // Save currentChatID to AsyncStorage
     AsyncStorage.setItem("currentChatID", chatID);
@@ -74,6 +80,7 @@ export default function Message() {
     setCurrentChatID(chatID);
     setCurrentChatName(name);
     setCurrentChatUserID(userID);
+    setCurrentChatAvatar(avatar);
     router.push("/chatbox");
   }
   useEffect(() => {
@@ -173,7 +180,8 @@ export default function Message() {
                 directToChatBox(
                   item.chatID,
                   item.userInfo.name,
-                  item.userInfo.userID
+                  item.userInfo.userID,
+                  item.userInfo.avatar
                 )
               }
             >
