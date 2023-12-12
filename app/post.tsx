@@ -1,5 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Button, StyleSheet, TextInput } from "react-native";
+import {
+  Button,
+  StyleSheet,
+  TextInput,
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
 import EditScreenInfo from "../components/EditScreenInfo";
 import { Text, View } from "../components/Themed";
 import { getApps } from "firebase/app";
@@ -166,203 +172,216 @@ export default function postQuestions() {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.mainContainer}>
-        <View style={styles.backPostContainer}>
-          {/*  Back Button */}
-          <View style={styles.backBtnContainer}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={styles.outermostContainer}
+    >
+      <View style={styles.container}>
+        <View style={styles.mainContainer}>
+          <View style={styles.backPostContainer}>
+            {/*  Back Button */}
+            <View style={styles.backBtnContainer}>
+              <TouchableOpacity
+                style={styles.backBtn}
+                onPress={() => {
+                  router.push("/community");
+                }}
+              >
+                <Image
+                  style={styles.backBtnImg}
+                  source={require("../assets/images/icons/blackBack.png")}
+                />
+              </TouchableOpacity>
+            </View>
+            {/* Post Button */}
             <TouchableOpacity
-              style={styles.backBtn}
-              onPress={() => {
-                router.push("/community");
-              }}
+              style={[
+                styles.postBtn,
+                { backgroundColor: isPostCompleted ? "#E2B8E0" : "#E6E6E6" },
+              ]}
+              onPress={handlePost}
             >
-              <Image
-                style={styles.backBtnImg}
-                source={require("../assets/images/icons/blackBack.png")}
-              />
+              <Text
+                style={[
+                  styles.postText,
+                  { color: isPostCompleted ? "#3A3340" : "#9A969F" },
+                ]}
+              >
+                Post
+              </Text>
             </TouchableOpacity>
           </View>
-          {/* Post Button */}
-          <TouchableOpacity
-            style={[
-              styles.postBtn,
-              { backgroundColor: isPostCompleted ? "#E2B8E0" : "#E6E6E6" },
-            ]}
-            onPress={handlePost}
-          >
-            <Text
-              style={[
-                styles.postText,
-                { color: isPostCompleted ? "#3A3340" : "#9A969F" },
-              ]}
-            >
-              Post
-            </Text>
-          </TouchableOpacity>
-        </View>
 
-        {/* Enter the title of the post */}
-        <TextInput
-          style={[styles.inputTitle]}
-          placeholder="Title"
-          placeholderTextColor="#888888"
-          value={title}
-          onChangeText={(text) => setTitle(text)}
-        />
+          {/* Enter the title of the post */}
+          <TextInput
+            style={[styles.inputTitle]}
+            placeholder="Title"
+            placeholderTextColor="#888888"
+            value={title}
+            onChangeText={(text) => setTitle(text)}
+          />
 
-        {/* Enter the content of the post */}
-        <TextInput
-          style={[styles.inputContent]}
-          placeholder="What is your question?"
-          placeholderTextColor="#888888"
-          value={content}
-          onChangeText={(text) => setContent(text)}
-          multiline={true}
-          numberOfLines={10}
-        />
+          {/* Enter the content of the post */}
+          <TextInput
+            style={[styles.inputContent]}
+            placeholder="What is your question?"
+            placeholderTextColor="#888888"
+            value={content}
+            onChangeText={(text) => setContent(text)}
+            multiline={true}
+            numberOfLines={10}
+          />
 
-        {/* Add a tag for this post: Financial, Academics, Student Life, or Career */}
-        <Text style={styles.selectTagText}>Select a Tag</Text>
-        <View style={styles.addTagContainer}>
-          {AButtonVisible && (
-            <View style={CrossButtonVisible && styles.crossBtnContainer}>
-              <TouchableOpacity
-                style={
-                  CrossButtonVisible ? styles.addTagBtnActive : styles.addTagBtn
-                }
-                onPress={AIsSelected}
-              >
-                <Text
+          {/* Add a tag for this post: Financial, Academics, Student Life, or Career */}
+          <Text style={styles.selectTagText}>Select a Tag</Text>
+          <View style={styles.addTagContainer}>
+            {AButtonVisible && (
+              <View style={CrossButtonVisible && styles.crossBtnContainer}>
+                <TouchableOpacity
                   style={
                     CrossButtonVisible
-                      ? styles.addTagTextActive
-                      : styles.addTagText
+                      ? styles.addTagBtnActive
+                      : styles.addTagBtn
                   }
+                  onPress={AIsSelected}
                 >
-                  Academic
-                </Text>
-              </TouchableOpacity>
-              {CrossButtonVisible && (
-                <View style={styles.crossBtnSubContainer}>
-                  <TouchableOpacity
-                    style={styles.crossBtn}
-                    onPress={makeAllTagsAppear}
+                  <Text
+                    style={
+                      CrossButtonVisible
+                        ? styles.addTagTextActive
+                        : styles.addTagText
+                    }
                   >
-                    <Image
-                      style={styles.crossIcon}
-                      source={require("../assets/images/cross.png")}
-                    />
-                  </TouchableOpacity>
-                </View>
-              )}
-            </View>
-          )}
+                    Academic
+                  </Text>
+                </TouchableOpacity>
+                {CrossButtonVisible && (
+                  <View style={styles.crossBtnSubContainer}>
+                    <TouchableOpacity
+                      style={styles.crossBtn}
+                      onPress={makeAllTagsAppear}
+                    >
+                      <Image
+                        style={styles.crossIcon}
+                        source={require("../assets/images/cross.png")}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                )}
+              </View>
+            )}
 
-          {FButtonVisible && (
-            <View style={CrossButtonVisible && styles.crossBtnContainer}>
-              <TouchableOpacity
-                style={
-                  CrossButtonVisible ? styles.addTagBtnActive : styles.addTagBtn
-                }
-                onPress={FIsSelected}
-              >
-                <Text
+            {FButtonVisible && (
+              <View style={CrossButtonVisible && styles.crossBtnContainer}>
+                <TouchableOpacity
                   style={
                     CrossButtonVisible
-                      ? styles.addTagTextActive
-                      : styles.addTagText
+                      ? styles.addTagBtnActive
+                      : styles.addTagBtn
                   }
+                  onPress={FIsSelected}
                 >
-                  Financial
-                </Text>
-              </TouchableOpacity>
-              {CrossButtonVisible && (
-                <View style={styles.crossBtnSubContainer}>
-                  <TouchableOpacity
-                    style={styles.crossBtn}
-                    onPress={makeAllTagsAppear}
+                  <Text
+                    style={
+                      CrossButtonVisible
+                        ? styles.addTagTextActive
+                        : styles.addTagText
+                    }
                   >
-                    <Image
-                      style={styles.crossIcon}
-                      source={require("../assets/images/cross.png")}
-                    />
-                  </TouchableOpacity>
-                </View>
-              )}
-            </View>
-          )}
+                    Financial
+                  </Text>
+                </TouchableOpacity>
+                {CrossButtonVisible && (
+                  <View style={styles.crossBtnSubContainer}>
+                    <TouchableOpacity
+                      style={styles.crossBtn}
+                      onPress={makeAllTagsAppear}
+                    >
+                      <Image
+                        style={styles.crossIcon}
+                        source={require("../assets/images/cross.png")}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                )}
+              </View>
+            )}
 
-          {CButtonVisible && (
-            <View style={CrossButtonVisible && styles.crossBtnContainer}>
-              <TouchableOpacity
-                style={
-                  CrossButtonVisible ? styles.addTagBtnActive : styles.addTagBtn
-                }
-                onPress={CIsSelected}
-              >
-                <Text
+            {CButtonVisible && (
+              <View style={CrossButtonVisible && styles.crossBtnContainer}>
+                <TouchableOpacity
                   style={
                     CrossButtonVisible
-                      ? styles.addTagTextActive
-                      : styles.addTagText
+                      ? styles.addTagBtnActive
+                      : styles.addTagBtn
                   }
+                  onPress={CIsSelected}
                 >
-                  Career
-                </Text>
-              </TouchableOpacity>
-              {CrossButtonVisible && (
-                <View style={styles.crossBtnSubContainer}>
-                  <TouchableOpacity
-                    style={styles.crossBtn}
-                    onPress={makeAllTagsAppear}
+                  <Text
+                    style={
+                      CrossButtonVisible
+                        ? styles.addTagTextActive
+                        : styles.addTagText
+                    }
                   >
-                    <Image
-                      style={styles.crossIcon}
-                      source={require("../assets/images/cross.png")}
-                    />
-                  </TouchableOpacity>
-                </View>
-              )}
-            </View>
-          )}
+                    Career
+                  </Text>
+                </TouchableOpacity>
+                {CrossButtonVisible && (
+                  <View style={styles.crossBtnSubContainer}>
+                    <TouchableOpacity
+                      style={styles.crossBtn}
+                      onPress={makeAllTagsAppear}
+                    >
+                      <Image
+                        style={styles.crossIcon}
+                        source={require("../assets/images/cross.png")}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                )}
+              </View>
+            )}
 
-          {SButtonVisible && (
-            <View style={CrossButtonVisible && styles.crossBtnContainer}>
-              <TouchableOpacity
-                style={
-                  CrossButtonVisible ? styles.addTagBtnActive : styles.addTagBtn
-                }
-                onPress={StuLifeIsSelected}
-              >
-                <Text
+            {SButtonVisible && (
+              <View style={CrossButtonVisible && styles.crossBtnContainer}>
+                <TouchableOpacity
                   style={
                     CrossButtonVisible
-                      ? styles.addTagTextActive
-                      : styles.addTagText
+                      ? styles.addTagBtnActive
+                      : styles.addTagBtn
                   }
+                  onPress={StuLifeIsSelected}
                 >
-                  Student Life
-                </Text>
-              </TouchableOpacity>
-              {CrossButtonVisible && (
-                <View style={styles.crossBtnSubContainer}>
-                  <TouchableOpacity
-                    style={styles.crossBtn}
-                    onPress={makeAllTagsAppear}
+                  <Text
+                    style={
+                      CrossButtonVisible
+                        ? styles.addTagTextActive
+                        : styles.addTagText
+                    }
                   >
-                    <Image
-                      style={styles.crossIcon}
-                      source={require("../assets/images/cross.png")}
-                    />
-                  </TouchableOpacity>
-                </View>
-              )}
-            </View>
-          )}
+                    Student Life
+                  </Text>
+                </TouchableOpacity>
+                {CrossButtonVisible && (
+                  <View style={styles.crossBtnSubContainer}>
+                    <TouchableOpacity
+                      style={styles.crossBtn}
+                      onPress={makeAllTagsAppear}
+                    >
+                      <Image
+                        style={styles.crossIcon}
+                        source={require("../assets/images/cross.png")}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                )}
+              </View>
+            )}
+          </View>
         </View>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -370,6 +389,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "white",
+  },
+  outermostContainer: {
+    flex: 1,
   },
   mainContainer: {
     justifyContent: "flex-start",
@@ -399,14 +421,14 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    fontFamily: 'Stolzl Bold',
+    fontFamily: "Stolzl Bold",
   },
   inputTitle: {
     padding: 10,
     width: "80%",
     marginVertical: 10,
     fontSize: 32,
-    fontFamily: 'Stolzl Bold',
+    fontFamily: "Stolzl Bold",
     marginBottom: -10,
     outlineColor: "white",
   },
@@ -416,7 +438,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     outlineColor: "white",
     marginTop: 10,
-    fontFamily: 'Stolzl Regular',
+    fontFamily: "Stolzl Regular",
   },
   postBtn: {
     backgroundColor: "#E2B8E0",
@@ -434,7 +456,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     alignSelf: "center",
     color: "#9A969F",
-    fontFamily: 'Stolzl Regular',
+    fontFamily: "Stolzl Regular",
   },
   addTagContainer: {
     flexDirection: "row",
@@ -457,7 +479,7 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     marginBottom: 8,
     marginTop: 120,
-    fontFamily: 'Stolzl Medium',
+    fontFamily: "Stolzl Medium",
   },
   addTagBtn: {
     borderColor: "#FFC940",
@@ -481,14 +503,14 @@ const styles = StyleSheet.create({
     color: "#FFC940",
     alignSelf: "center",
     fontWeight: "500",
-    fontFamily: 'Stolzl Regular',
+    fontFamily: "Stolzl Regular",
   },
   addTagTextActive: {
     fontSize: 16,
     color: "#3A3340",
     alignSelf: "center",
     fontWeight: "500",
-    fontFamily: 'Stolzl Regular',
+    fontFamily: "Stolzl Regular",
   },
   crossBtn: {
     width: 36,
