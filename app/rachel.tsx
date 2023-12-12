@@ -218,7 +218,7 @@ export default function MyJourneyPost() {
           <View style={styles.authorInfoContainer}>
             <Image
               style={styles.profileImg}
-              source={require("../assets/images/mentorProfilePics/RachelLi.png")}
+              source={require("../assets/images/mentorProfilePics/rachel.png")}
             />
             <View style={styles.userNameAndIntro}>
               <Text style={styles.userName}>Rachel Li</Text>

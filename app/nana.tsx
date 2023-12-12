@@ -32,7 +32,7 @@ export default function MyJourneyPost() {
     const isShatevaSaved = savedJourneys.some(
       (journey) =>
         journey.authorName === "Nana Younge" &&
-        journey.journeyTitle === "Voice of a First-Gen Graduate, Entrepreneur, Faculty - Message to My Community"
+        journey.journeyTitle === "Voice of a First-Gen Graduate, Entrepreneur, Faculty"
     );
     if (isShatevaSaved) {
       // Shateva Long's journey is saved
@@ -48,7 +48,7 @@ export default function MyJourneyPost() {
       (journey) =>
         journey.authorName !== "Nana Younge" &&
         journey.journeyTitle !==
-          "Voice of a First-Gen Graduate, Entrepreneur, Faculty - Message to My Community"
+          "Voice of a First-Gen Graduate, Entrepreneur, Faculty"
     );
 
     // updates context
@@ -68,7 +68,7 @@ export default function MyJourneyPost() {
   const saveJourney = async () => {
     // If it doesn't exist, add a new entry
     const newJourney = {
-      journeyTitle: "Voice of a First-Gen Graduate, Entrepreneur, Faculty - Message to My Community",
+      journeyTitle: "Voice of a First-Gen Graduate, Entrepreneur, Faculty",
       authorName: "Nana Younge",
       journeyID: "XlT9K5adSYcud8VOybpKjQL0wHrR5og4",
       Intro: "Founder of Get Girls Going Program Director at Innovate@BU",
@@ -90,11 +90,11 @@ export default function MyJourneyPost() {
   // saves and unsaves the journey
   const handleClick = async () => {
     await setIsSaved(!isSaved);
-    // Check if there exists an entry with journeyTitle "Voice of a First-Gen Graduate, Entrepreneur, Faculty - Message to My Community"
+    // Check if there exists an entry with journeyTitle "Voice of a First-Gen Graduate, Entrepreneur, Faculty"
     const isPostExists = savedJourneys.some(
       (journey) =>
         journey.journeyTitle ===
-        "Voice of a First-Gen Graduate, Entrepreneur, Faculty - Message to My Community"
+        "Voice of a First-Gen Graduate, Entrepreneur, Faculty"
     );
     if (isSaved && isPostExists) {
       // unsave the journey
@@ -196,9 +196,7 @@ export default function MyJourneyPost() {
                 </TouchableOpacity>
               </View>
               {/* Title */}
-              <Text style={styles.postTitle}>
-              Voice of a First-Gen Graduate, Entrepreneur, Faculty - Message to My Community 
-              </Text>
+              <Text style={styles.postTitle}>Voice of a First-Gen Graduate, Entrepreneur, Faculty</Text>
             </View>
           </View>
           {/* Author's information */}
@@ -385,7 +383,7 @@ const styles = StyleSheet.create({
   },
   postTitle: {
     color: "#000000",
-    fontSize: 28,
+    fontSize: 24,
     width: "100%",
     fontFamily: "Stolzl Bold",
   },

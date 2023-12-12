@@ -2,7 +2,6 @@ import EditScreenInfo from "../components/EditScreenInfo";
 import { Text, View } from "../components/Themed";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { StyleSheet, ScrollView, Image, ImageBackground } from "react-native";
-import MyJourneyPost from "./myjourneypost";
 import { useRouter } from "expo-router";
 import React, { useState, useEffect } from "react";
 import MJPostCard from '../components/MJPostCard';

@@ -31,7 +31,7 @@ export default function MyJourneyPost() {
     const isRachelSaved = savedJourneys.some(
       (journey) =>
         journey.authorName === "Rachel Li" &&
-        journey.journeyTitle === "School Program - Alternative Service Break"
+        journey.journeyTitle === "Volunteering in Florida Natural Reserve - Alternative Service Break"
     );
     if (isRachelSaved) {
       //Rachel's journey is saved
@@ -46,7 +46,7 @@ export default function MyJourneyPost() {
     const updatedSavedJourneys = savedJourneys.filter(
       (journey) =>
         journey.authorName !== "Rachel Li" &&
-        journey.journeyTitle !== "School Program - Alternative Service Break"
+        journey.journeyTitle !== "Volunteering in Florida Natural Reserve - Alternative Service Break"
     );
 
     // updates context
@@ -66,7 +66,7 @@ export default function MyJourneyPost() {
   const saveJourney = async () => {
     // If it doesn't exist, add a new entry
     const newJourney = {
-      journeyTitle: "School Program - Alternative Service Break",
+      journeyTitle: "Volunteering in Florida Natural Reserve - Alternative Service Break",
       authorName: "Rachel Li",
       journeyID: "Q9heA4AhlceX6jxsBgbEezCsZV4mYk6f",
       Intro: "Class of 2024, Data Science Major",
@@ -95,7 +95,7 @@ export default function MyJourneyPost() {
     // Check if there exists an entry with journeyTitle "School Program"
     const isSchoolProgramExists = savedJourneys.some(
       (journey) =>
-        journey.journeyTitle === "School Program - Alternative Service Break"
+        journey.journeyTitle === "Volunteering in Florida Natural Reserve - Alternative Service Break"
     );
     if (isSaved && isSchoolProgramExists) {
       // unsave the journey
@@ -129,7 +129,7 @@ export default function MyJourneyPost() {
         setVerticalLine4(false);
         setVerticalLine5(false);
       }
-      if (scrollY >= 300) {
+      if (scrollY >= 600) {
         setVerticalLine2(true);
         setVerticalLine1(false);
         setVerticalLine3(false);
@@ -143,14 +143,14 @@ export default function MyJourneyPost() {
         setVerticalLine4(false);
         setVerticalLine5(false);
       }
-      if (scrollY >= 1350) {
+      if (scrollY >= 1220) {
         setVerticalLine4(true);
         setVerticalLine1(false);
         setVerticalLine2(false);
         setVerticalLine3(false);
         setVerticalLine5(false);
       }
-      if (scrollY >= 1450) {
+      if (scrollY >= 1320) {
         setVerticalLine5(true);
         setVerticalLine1(false);
         setVerticalLine2(false);
@@ -197,7 +197,7 @@ export default function MyJourneyPost() {
             <View style={styles.postTitleContainer}>
               <View style={styles.timeAndSaveContainer}>
                 {/* Timestamp */}
-                <Text style={styles.postDate}>Nov 6th 2023</Text>
+                <Text style={styles.postDate}>Dec 1st 2023</Text>
                 {/* Save Button */}
                 <TouchableOpacity onPress={() => handleClick()}>
                   <Image
@@ -212,7 +212,7 @@ export default function MyJourneyPost() {
               </View>
               {/* Title */}
               <Text style={styles.postTitle}>
-                School Program - Alternative Service Break
+              Volunteering in Florida Natural Reserve - Alternative Service Break
               </Text>
             </View>
           </View>
@@ -220,13 +220,11 @@ export default function MyJourneyPost() {
           <View style={styles.authorInfoContainer}>
             <Image
               style={styles.profileImg}
-              source={require("../assets/images/mentorProfilePics/RachelLi.png")}
+              source={require("../assets/images/mentorProfilePics/rachel.png")}
             />
             <View style={styles.userNameAndIntro}>
               <Text style={styles.userName}>Rachel Li</Text>
-              <Text style={styles.userIntro}>
-                Class of 2024, Data Science Major
-              </Text>
+              <Text style={styles.userIntro}>Class of 2024, Data Science Major</Text>
             </View>
           </View>
         </View>
@@ -235,139 +233,58 @@ export default function MyJourneyPost() {
           <View style={styles.postContentMainContainer}>
             {/* 1st Step */}
             <View style={styles.individualStep}>
-              {/* <View style={styles.subtitleContainer}>
-                <Text style={styles.subtitleText}>Theme</Text>
-              </View> */}
               <View style={styles.regularContentContainer}>
                 <Text style={styles.regularContentText}>
-                  If you’re a student working part-time, don’t have a meal plan,
-                  and shop for groceries on your own, here’s a resource for you:
-                  The{" "}
+                  This March, I had the incredible opportunity to participate in a week-long volunteering program, facilitated by the Center of Community Service at BU. Alongside 14 other students, I journeyed to Hobe Sound, Florida, with all expenses covered by the program.
+                </Text>
+                <Text style={styles.regularContentText}>
                   <Text style={styles.regularContentTextBolded}>
-                    Supplemental Nutrition Assistance Program (SNAP){" "}
+                  I came across this opportunity on Instagram{" "}
                   </Text>
-                  gives people who are eligible around $80-$100 monthly funds to
-                  buy food. Navigating this process has been a headache. I spent
-                  hours on the phone with customer service, figuring out the
-                  right document to submit. Here is a guide to applying for SNAP
-                  from my own experience so that you can have a much smoother
-                  process.
+                  during the winter break and I applied for it.{" "}
+                  <Text style={styles.regularContentTextBolded}>
+                  They offer scholarships for people who have financial needs.{" "}
+                  </Text>
+                  Last time there were five cities to choose from, each with different volunteering activities. In the application, there are two questions to answer: why do you want to participate, and describe your financial situation.
+About two weeks before our departure, we had a comprehensive briefing with the program coordinator and trip leads, which prepared us for the trip and outlined safety protocols.
+                </Text>
+              </View>
+            </View>
+            {/* 1st Step */}
+            <View style={styles.individualStep}>
+              <View style={styles.subtitleContainer}>
+                <Text style={styles.subtitleText}>Experience</Text>
+              </View>
+              <View style={styles.regularContentContainer}>
+                <Text style={styles.regularContentText}>
+                On the day of departure, the morning began early at 5 am as we gathered at GSU and boarded a bus bound for Logan Airport off to Florida!
+                </Text>
+              </View>
+              <View style={styles.regularContentContainer}>
+                <Text style={styles.regularContentText}>
+                For the first four days, we volunteered from 9 am to 4 pm with different activities throughout the day. We would go to the beach and explore the city every day after work. The last day was a fun day, we drove to Miami!
                 </Text>
               </View>
             </View>
             {/* 2nd Step */}
             <View style={styles.individualStep}>
               <View style={styles.subtitleContainer}>
-                <Text style={styles.subtitleText}>Processes</Text>
+                <Text style={styles.subtitleText}>Challenges</Text>
               </View>
               <View style={styles.regularContentContainer}>
                 <Text style={styles.regularContentText}>
-                  {"1. Do a "}
-                  <TouchableOpacity
-                    onPress={() =>
-                      Linking.openURL(
-                        "https://dtaconnect.eohhs.mass.gov/screening?_gl=1*19vwokf*_ga*NDU5MDQyNTc0LjE2OTkzODAxNTk.*_ga_SW2TVH2WBY*MTY5OTM4MDE1OS4xLjAuMTY5OTM4MDE1OS4wLjAuMA.."
-                      )
-                    }
-                  >
-                    <Text style={styles.linkText}>quick check</Text>
-                  </TouchableOpacity>
-                  {" to see if you’re eligible."}
-                </Text>
-                <Text style={styles.regularContentText}>
-                  {"2. File the "}
-                  <TouchableOpacity
-                    onPress={() =>
-                      Linking.openURL(
-                        "https://dtaconnect.eohhs.mass.gov/?_gl=1*1qkcl0m*_ga*NDU5MDQyNTc0LjE2OTkzODAxNTk.*_ga_SW2TVH2WBY*MTY5OTM4MDE1OS4xLjEuMTY5OTM4MDUxMi4wLjAuMA.."
-                      )
-                    }
-                  >
-                    <Text style={styles.linkText}>initial application</Text>
-                  </TouchableOpacity>
-                  {"."}
-                </Text>
-                <Text style={styles.regularContentText}>
-                  3. The documents I submitted as a full-time student:{" "}
-                </Text>
-                <View style={styles.indentedContentContainer}>
-                  <Text style={styles.regularContentText}>
-                    - Financial aid proof
-                  </Text>
-                  <Text style={styles.regularContentText}>
-                    - Proof that you don’t have a meal plan on campus
-                  </Text>
-                  <Text style={styles.regularContentText}>
-                    - Proof of work-study
-                  </Text>
-                  <Text style={styles.regularContentText}>
-                    - Proof of other work you’re (or have been) participating in
-                  </Text>
-                </View>
-                <Text style={styles.regularContentText}>
-                  4. After the initial application, they require a phone
-                  interview asking you to verify the information.{" "}
-                </Text>
-                <Text
-                  style={[styles.regularContentTextBolded, { marginTop: 20, fontFamily: "Stolzl Medium" }]}
-                >
-                  Additional Info:
-                </Text>
-                <Text style={styles.regularContentText}>
-                  {"1. Reach out to BU Housing "}
-                  <TouchableOpacity
-                    onPress={() => Linking.openURL("housing@bu.edu")}
-                  >
-                    <Text style={styles.linkText}>housing@bu.edu</Text>
-                  </TouchableOpacity>
-                  {" to request a signed document."}
-                </Text>
-                <Text style={styles.regularContentText}>
-                  2. You need to be actively participating in the work-study in
-                  order to be qualified. The number of hours you work doesn't
-                  matter.
-                </Text>
-                <Text style={styles.regularContentText}>
-                  3. Go to studentlink work portal to see if you can find a
-                  printable version. If not, reach out to your supervisor.
-                </Text>
-                <Text style={styles.regularContentText}>
-                  4. The document needs to have a specific start and end date.
+                One of the challenges I faced was adapting to the living conditions. We shared an apartment with around 10 other people, equipped with bunk beds and a single bathroom. Sometimes we waited in long lines, but those moments when we were cooking in the kitchen together, singing songs were what made everything worthwhile.
                 </Text>
               </View>
             </View>
             {/* 3rd Step */}
             <View style={styles.individualStep}>
               <View style={styles.subtitleContainer}>
-                <Text style={styles.subtitleText}>Challenges</Text>
-              </View>
-              <View style={styles.regularContentContainer}>
-                <Text style={styles.regularContentText}>
-                  Trying to figure out what kind of document they need and being
-                  able to connect with a representative is the most daunting
-                  part.
-                </Text>
-              </View>
-            </View>
-            {/* 4th Step */}
-            <View style={styles.individualStep}>
-              <View style={styles.subtitleContainer}>
                 <Text style={styles.subtitleText}>Takeaways</Text>
               </View>
               <View style={styles.regularContentContainer}>
                 <Text style={styles.regularContentText}>
-                  - Try your best to not miss the scheduled phone call because
-                  it’s very hard to connect with a representative when you dial
-                  in yourself. The average wait time is around 30 min.
-                </Text>
-                <Text style={styles.regularContentText}>
-                  - Download DTA Connect App, it’s the place where you submit
-                  all the verification documents.
-                </Text>
-                <Text style={styles.regularContentText}>
-                  - Keep an eye on your mail. They will email letters to you
-                  with your case number (you need this number to sign into your
-                  DTA app account).
+                This experience was eye-opening, fun, challenging, and meaningful. From being strangers at the outset to forging meaningful connections, I returned with 14 newfound friends. We learned teamwork, how to survive in a foreign place, how to take care of each other, and how to effectively communicate. 
                 </Text>
               </View>
             </View>
@@ -377,39 +294,29 @@ export default function MyJourneyPost() {
                 <Text style={styles.subtitleText}>Resources</Text>
               </View>
               <View style={styles.regularContentContainer}>
-                <Text style={styles.regularContentText}>
-                  Here are BU resources related to food:
-                </Text>
-                <View style={styles.indentedContentContainer}>
                   <Text style={styles.regularContentText}>
-                    {"- "}
                     <TouchableOpacity
                       onPress={() =>
                         Linking.openURL(
-                          "https://www.bu.edu/chapel/programming/community-dinner/"
+                          "https://www.bu.edu/articles/2023/photo-gallery-asb-terriers-volunteer-for-spring-break/"
                         )
                       }
                     >
-                      <Text style={styles.linkText}>Marsh Chapel</Text>
+                      <Text style={styles.linkText}>Our story on BU Today</Text>
                     </TouchableOpacity>
-                    {
-                      " hosts a community dinner on Mondays from 5 p.m. to 6:30 p.m., you do not need to have any religious affiliation to participate."
-                    }
                   </Text>
                   <Text style={styles.regularContentText}>
-                    {"- "}
                     <TouchableOpacity
                       onPress={() =>
                         Linking.openURL(
-                          "https://www.bu.edu/studentwellbeing/place-a-bu-food-pantry-order/"
+                          "https://www.bu.edu/csc/programs/asb/"
                         )
                       }
                     >
-                      <Text style={styles.linkText}>BU Food Pantry</Text>
+                      <Text style={styles.linkText}>Program Details</Text>
                     </TouchableOpacity>
                   </Text>
                 </View>
-              </View>
             </View>
           </View>
         </View>
