@@ -22,6 +22,19 @@ export {
   // Catch any errors thrown by the Layout component.
   ErrorBoundary,
 } from "expo-router";
+import { LogBox } from "react-native";
+
+// Ignore log notification by message
+LogBox.ignoreLogs([
+  // Exact message
+  "Warning: componentWillReceiveProps has been renamed",
+
+  // Substring or regex match
+  /GraphQL error: .*/,
+]);
+
+// Ignore all log notifications
+LogBox.ignoreAllLogs();
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
@@ -39,10 +52,10 @@ export default function RootLayout() {
 
   const [loaded, error] = useFonts({
     // SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
-    'Stolzl Bold': require('../assets/fonts/stolzlBold.ttf'),
-    'Stolzl Medium': require('../assets/fonts/stolzlMedium.otf'),
-    'Stolzl Regular': require('../assets/fonts/stolzlRegular.ttf'),
-    'Stolzl Light': require('../assets/fonts/stolzlLight.ttf'),
+    "Stolzl Bold": require("../assets/fonts/stolzlBold.ttf"),
+    "Stolzl Medium": require("../assets/fonts/stolzlMedium.otf"),
+    "Stolzl Regular": require("../assets/fonts/stolzlRegular.ttf"),
+    "Stolzl Light": require("../assets/fonts/stolzlLight.ttf"),
     ...FontAwesome.font,
   });
 

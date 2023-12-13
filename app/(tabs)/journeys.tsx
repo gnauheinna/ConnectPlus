@@ -50,7 +50,7 @@ export default function JourneyScreen() {
         setLoading(false);
       }
     };
-    if (currentUserID != "") {
+    if (currentUserID && currentUserID != "") {
       loadSavedJourneys();
     }
   }, [currentUserID]);
@@ -86,8 +86,8 @@ export default function JourneyScreen() {
                 />
               </TouchableOpacity>
 
-               {/* 2nd Featured Journey */}
-               <TouchableOpacity
+              {/* 2nd Featured Journey */}
+              <TouchableOpacity
                 onPress={() => directToMyJourneyPost("bailey")}
                 style={styles.featuredJourney}
               >
@@ -108,8 +108,8 @@ export default function JourneyScreen() {
                 />
               </TouchableOpacity>
 
-               {/* 4th Featured Journey */}
-               <TouchableOpacity
+              {/* 4th Featured Journey */}
+              <TouchableOpacity
                 onPress={() => directToMyJourneyPost("rachelFeatured")}
                 style={styles.featuredJourney}
               >
