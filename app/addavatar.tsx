@@ -56,7 +56,7 @@ const AddAvatar = () => {
       email: user.email,
       major: user.major,
       year: user.year,
-      userID: userId,
+      userID: user.userID,
       avatar: avatarName,
       academic: user.academic,
       career: user.career,

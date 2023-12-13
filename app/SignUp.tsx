@@ -112,6 +112,7 @@ const SignupForm = () => {
 
     setEmail("");
     setPassword("");
+
     setName("");
     setMajor("");
     setYear("");
