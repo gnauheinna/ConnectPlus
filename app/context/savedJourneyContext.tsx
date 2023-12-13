@@ -40,8 +40,6 @@ const SavedJourneyContext = createContext<SavedJourneyContextValue | undefined>(
 const SavedJourneyProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const { user, setUser } = useUser();
-  const currentUserID = user.userID;
   const db = getFirestore();
   if (getApps() == null) {
     const app = initializeApp();

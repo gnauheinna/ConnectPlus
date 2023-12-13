@@ -42,17 +42,12 @@ export default function App() {
     setName(user.name);
     setMajor(user.major);
     setYear(user.year);
-
     setAcademic(user.academic);
     setCareer(user.career);
     setFinancial(user.financial);
     setStudentLife(user.studentLife);
     console.log("user.avatar =");
-    if (user.avatar === undefined) {
-      setAvatar("avatar1");
-    } else {
-      setAvatar(user.avatar);
-    }
+    setAvatar(user.avatar);
   }, [user]);
 
   function mentorName(Title: string) {

@@ -50,7 +50,7 @@ export default function JourneyScreen() {
         setLoading(false);
       }
     };
-    if (currentUserID != "") {
+    if (currentUserID && currentUserID != "") {
       loadSavedJourneys();
     }
   }, [currentUserID]);
@@ -97,8 +97,8 @@ export default function JourneyScreen() {
                 />
               </TouchableOpacity>
 
-               {/* 3rd Featured Journey */}
-               <TouchableOpacity
+              {/* 3rd Featured Journey */}
+              <TouchableOpacity
                 onPress={() => directToMyJourneyPost("rachelFeatured")}
                 style={styles.featuredJourney}
               >

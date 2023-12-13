@@ -22,6 +22,7 @@ import {
 } from "firebase/firestore";
 import { LinearGradient } from "expo-linear-gradient";
 import { Image } from "react-native";
+import { useUser } from "./context/UserContext";
 
 const SignupForm = () => {
   const [name, setName] = useState("");
@@ -34,7 +35,7 @@ const SignupForm = () => {
   const [year, setYear] = useState("");
   const [userID, setUserID] = useState("");
   const [avatar, setAvatar] = useState("");
-  const [user, setUser] = useState<User | null>(null);
+  const { user, setUser } = useUser();
   const [academic, setAcademic] = useState(false);
   const [financial, setFinancial] = useState(false);
   const [studentLife, setStudentLife] = useState(false);
@@ -69,6 +70,7 @@ const SignupForm = () => {
           console.log("User:", user);
           console.log("User ID:", user.uid);
           setUserID(user.uid);
+          setUser(newUser);
           //console.log("userID state after set:", userID);
           console.log("signed up!");
           setSignupError(null);
