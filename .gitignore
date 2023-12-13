@@ -39,3 +39,4 @@ yarn-error.*
 
 expo-env.d.ts
 # @end expo-cli
+app/context/.savedJourneyContext.tsx.swp
