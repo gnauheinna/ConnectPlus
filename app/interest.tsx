@@ -1,5 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
-import { StyleSheet, View, Text, TextInput, ImageBackground } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  TextInput,
+  ImageBackground,
+} from "react-native";
 import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
 import { TouchableOpacity } from "react-native";
@@ -7,17 +13,18 @@ import { useRouter } from "expo-router";
 import { useUser } from "./context/UserContext";
 import { getFirestore, collection, doc, updateDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
+
 export default function interestScreen() {
   const [AIsChecked, setAIsChecked] = React.useState(false);
   const [CIsChecked, setCIsChecked] = React.useState(false);
   const [FIsChecked, setFIsChecked] = React.useState(false);
   const [SIsChecked, setSIsChecked] = React.useState(false);
-
+  const { user, setUser } = useUser();
   const router = useRouter();
   const db = getFirestore();
   const auth = getAuth();
-  const user = auth.currentUser;
-  const userId = user?.uid;
+  const user1 = auth.currentUser;
+  const userId = user.userID;
 
   function nextPage() {
     if (userId) {
@@ -36,6 +43,19 @@ export default function interestScreen() {
       }
     }
 
+    const newUser = {
+      name: user.name,
+      email: user.email,
+      major: user.major,
+      year: user.year,
+      userID: user.userID,
+      avatar: user.avatar,
+      academic: AIsChecked,
+      career: CIsChecked,
+      financial: FIsChecked,
+      studentLife: SIsChecked,
+    };
+    setUser(newUser);
     router.push("/profile");
   }
 
@@ -72,96 +92,153 @@ export default function interestScreen() {
   }
 
   return (
-<View style={styles.outterMostContainer}>
-
-<ImageBackground
-     source={require("../assets/images/gradient/whiteGradientAskNShare.png")}
-     resizeMode="cover"
-      style={styles.gradientBackground}>
-  {/* Back Button */}
-  <View style={styles.backBtnContainer}>
-            <TouchableOpacity style={styles.backBtn} onPress={directToAddAvatar}>
-              <Image style={styles.backBtnImg} source={require("../assets/images/icons/blackBack.png")}/>
-            </TouchableOpacity>
-  </View>
-  </ImageBackground>
+    <View style={styles.outterMostContainer}>
+      <ImageBackground
+        source={require("../assets/images/gradient/whiteGradientAskNShare.png")}
+        resizeMode="cover"
+        style={styles.gradientBackground}
+      >
+        {/* Back Button */}
+        <View style={styles.backBtnContainer}>
+          <TouchableOpacity style={styles.backBtn} onPress={directToAddAvatar}>
+            <Image
+              style={styles.backBtnImg}
+              source={require("../assets/images/icons/blackBack.png")}
+            />
+          </TouchableOpacity>
+        </View>
+      </ImageBackground>
 
       <View style={styles.container}>
         <Text style={[styles.title]}>Last Steps</Text>
-        <Text style={[styles.subTitle]}>Tell us more about you! Please select at least one interest.</Text>
+        <Text style={[styles.subTitle]}>
+          Tell us more about you! Please select at least one interest.
+        </Text>
         <View style={styles.interestBoxContainer}>
-
           {/* Academic Button */}
           {AIsChecked ? (
-          // Render this when AIsChecked is true
-          <TouchableOpacity style={styles.interestBoxSelected} onPress={AcademicChosen}>
-            <Image style={styles.interestIcons} source={require("../assets/images/interestIcons/academic.png")} />
-            <Text style={styles.interestText}>Academics</Text>
-          </TouchableOpacity>
-        ) : (
-          // Render this when AIsChecked is false
-          <TouchableOpacity style={styles.interestBox} onPress={AcademicChosen}>
-            <Image style={styles.interestIcons} source={require("../assets/images/interestIcons/academic.png")} />
-            <Text style={styles.interestText}>Academics</Text>
-          </TouchableOpacity>)}
+            // Render this when AIsChecked is true
+            <TouchableOpacity
+              style={styles.interestBoxSelected}
+              onPress={AcademicChosen}
+            >
+              <Image
+                style={styles.interestIcons}
+                source={require("../assets/images/interestIcons/academic.png")}
+              />
+              <Text style={styles.interestText}>Academics</Text>
+            </TouchableOpacity>
+          ) : (
+            // Render this when AIsChecked is false
+            <TouchableOpacity
+              style={styles.interestBox}
+              onPress={AcademicChosen}
+            >
+              <Image
+                style={styles.interestIcons}
+                source={require("../assets/images/interestIcons/academic.png")}
+              />
+              <Text style={styles.interestText}>Academics</Text>
+            </TouchableOpacity>
+          )}
 
           {/* Career Button */}
           {CIsChecked ? (
-          // Render this when CIsChecked is true
-          <TouchableOpacity style={styles.interestBoxSelected} onPress={CareerChosen}>
-            <Image style={styles.interestIcons} source={require("../assets/images/interestIcons/career.png")} />
-            <Text style={styles.interestText}>Career</Text>
-          </TouchableOpacity>
-        ) : (
-          // Render this when CIsChecked is false
-          <TouchableOpacity style={styles.interestBox} onPress={CareerChosen}>
-            <Image style={styles.interestIcons} source={require("../assets/images/interestIcons/career.png")} />
-            <Text style={styles.interestText}>Career</Text>
-          </TouchableOpacity>)}
+            // Render this when CIsChecked is true
+            <TouchableOpacity
+              style={styles.interestBoxSelected}
+              onPress={CareerChosen}
+            >
+              <Image
+                style={styles.interestIcons}
+                source={require("../assets/images/interestIcons/career.png")}
+              />
+              <Text style={styles.interestText}>Career</Text>
+            </TouchableOpacity>
+          ) : (
+            // Render this when CIsChecked is false
+            <TouchableOpacity style={styles.interestBox} onPress={CareerChosen}>
+              <Image
+                style={styles.interestIcons}
+                source={require("../assets/images/interestIcons/career.png")}
+              />
+              <Text style={styles.interestText}>Career</Text>
+            </TouchableOpacity>
+          )}
 
           {/* Financial Button */}
           {FIsChecked ? (
-          // Render this when FIsChecked is true
-          <TouchableOpacity style={styles.interestBoxSelected} onPress={FinancialChosen}>
-            <Image style={styles.interestIcons} source={require("../assets/images/interestIcons/financial.png")} />
-            <Text style={styles.interestText}>Financial</Text>
-          </TouchableOpacity>
-        ) : (
-          // Render this when FIsChecked is false
-          <TouchableOpacity style={styles.interestBox} onPress={FinancialChosen}>
-            <Image style={styles.interestIcons} source={require("../assets/images/interestIcons/financial.png")} />
-            <Text style={styles.interestText}>Financial</Text>
-          </TouchableOpacity>)}
+            // Render this when FIsChecked is true
+            <TouchableOpacity
+              style={styles.interestBoxSelected}
+              onPress={FinancialChosen}
+            >
+              <Image
+                style={styles.interestIcons}
+                source={require("../assets/images/interestIcons/financial.png")}
+              />
+              <Text style={styles.interestText}>Financial</Text>
+            </TouchableOpacity>
+          ) : (
+            // Render this when FIsChecked is false
+            <TouchableOpacity
+              style={styles.interestBox}
+              onPress={FinancialChosen}
+            >
+              <Image
+                style={styles.interestIcons}
+                source={require("../assets/images/interestIcons/financial.png")}
+              />
+              <Text style={styles.interestText}>Financial</Text>
+            </TouchableOpacity>
+          )}
 
           {/* Student Life Button */}
           {SIsChecked ? (
-          // Render this when SIsChecked is true
-          <TouchableOpacity style={styles.interestBoxSelected} onPress={StuLifeChosen}>
-            <Image style={styles.interestIcons} source={require("../assets/images/interestIcons/stulife.png")} />
-            <Text style={styles.interestText}>Student Life</Text>
-          </TouchableOpacity>
-        ) : (
-          // Render this when SIsChecked is false
-          <TouchableOpacity style={styles.interestBox} onPress={StuLifeChosen}>
-            <Image style={styles.interestIcons} source={require("../assets/images/interestIcons/stulife.png")} />
-            <Text style={styles.interestText}>Student Life</Text>
-          </TouchableOpacity>)}
+            // Render this when SIsChecked is true
+            <TouchableOpacity
+              style={styles.interestBoxSelected}
+              onPress={StuLifeChosen}
+            >
+              <Image
+                style={styles.interestIcons}
+                source={require("../assets/images/interestIcons/stulife.png")}
+              />
+              <Text style={styles.interestText}>Student Life</Text>
+            </TouchableOpacity>
+          ) : (
+            // Render this when SIsChecked is false
+            <TouchableOpacity
+              style={styles.interestBox}
+              onPress={StuLifeChosen}
+            >
+              <Image
+                style={styles.interestIcons}
+                source={require("../assets/images/interestIcons/stulife.png")}
+              />
+              <Text style={styles.interestText}>Student Life</Text>
+            </TouchableOpacity>
+          )}
         </View>
 
         {/* Done Button */}
         <View style={styles.doneButtonContainer}>
           {!AIsChecked && !FIsChecked && !SIsChecked && !CIsChecked ? (
             // Render this when none of the interests is selected
-            <TouchableOpacity style={styles.doneButtonDisabled} onPress={nextPage}>
+            <TouchableOpacity
+              style={styles.doneButtonDisabled}
+              onPress={nextPage}
+            >
               <Text style={styles.doneButtonTextDisabled}>Done</Text>
             </TouchableOpacity>
           ) : (
-          <TouchableOpacity style={styles.doneButton} onPress={nextPage}>
-            <Text style={styles.doneButtonText}>Done</Text>
-          </TouchableOpacity>)}
+            <TouchableOpacity style={styles.doneButton} onPress={nextPage}>
+              <Text style={styles.doneButtonText}>Done</Text>
+            </TouchableOpacity>
+          )}
+        </View>
       </View>
     </View>
-  </View>
   );
 }
 
@@ -222,8 +299,8 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     borderRadius: 10,
     backgroundColor: "#FFEAB0",
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     shadowColor: "#49006C",
     shadowOffset: {
       width: -2,
@@ -237,8 +314,8 @@ const styles = StyleSheet.create({
     height: 120,
     marginBottom: 20,
     borderRadius: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     backgroundColor: "white",
     shadowColor: "#49006C",
     shadowOffset: {
@@ -248,7 +325,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.06,
     shadowRadius: 10,
   },
-  interestIcons:{
+  interestIcons: {
     width: 70,
     height: 70,
     marginBottom: 10,
@@ -270,7 +347,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  doneButtonDisabled:{
+  doneButtonDisabled: {
     backgroundColor: "#DADADA",
     marginTop: 40,
     marginBottom: 40,
@@ -280,7 +357,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     alignSelf: "center",
   },
-  doneButtonTextDisabled:{
+  doneButtonTextDisabled: {
     color: "#9B9B9B",
     fontSize: 18,
     alignSelf: "center",
