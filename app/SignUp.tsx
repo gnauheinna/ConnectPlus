@@ -163,20 +163,20 @@ const SignupForm = () => {
         <Text style={[styles.subTitle]}>
           Begin your journey here at Connect+
         </Text>
-          <View style={[styles.inputContainer]}>
-            <Image
-              style={[styles.signUpIcons]}
-              source={require("../assets/images/signUpIcons/name.png")}
-            />
-              <TextInput
-                placeholder="Name"
-                style={styles.input}
-                value={name}
-                onChangeText={(name) => setName(name)}
-                placeholderTextColor="#A3A3A3"
-              />
-            </View>
-          {/* </View> */}
+        <View style={[styles.inputContainer]}>
+          <Image
+            style={[styles.signUpIcons]}
+            source={require("../assets/images/signUpIcons/name.png")}
+          />
+          <TextInput
+            placeholder="Name"
+            style={styles.input}
+            value={name}
+            onChangeText={(name) => setName(name)}
+            placeholderTextColor="#A3A3A3"
+          />
+        </View>
+        {/* </View> */}
 
         <View style={{ marginTop: 3 }}>
           <View style={[styles.inputContainer]}>

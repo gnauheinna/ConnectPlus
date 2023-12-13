@@ -1,11 +1,25 @@
 import React, { useState, useEffect, useContext } from "react";
-import { View, Text, StyleSheet, ImageBackground} from "react-native";
+import { View, Text, StyleSheet, ImageBackground } from "react-native";
 import { useRouter } from "expo-router";
 import { TouchableOpacity } from "react-native";
 import firebase from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, User, } from "firebase/auth";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+  User,
+} from "firebase/auth";
 import { getApps } from "firebase/app";
-import { getFirestore, doc, serverTimestamp, setDoc, collection, updateDoc } from "firebase/firestore";
+import {
+  getFirestore,
+  doc,
+  serverTimestamp,
+  setDoc,
+  collection,
+  updateDoc,
+} from "firebase/firestore";
 import { LinearGradient } from "expo-linear-gradient";
 import { Image } from "react-native";
 import { useUser } from "./context/UserContext";
@@ -13,8 +27,9 @@ import { useUser } from "./context/UserContext";
 const AddAvatar = () => {
   const [selectedAvatar, setSelectedAvatar] = useState("");
   const auth = getAuth();
-  const user = auth.currentUser;
-  const userId = user?.uid
+
+  const { user, setUser } = useUser();
+  const userId = auth.currentUser?.uid;
 
   const router = useRouter();
 
@@ -26,101 +41,188 @@ const AddAvatar = () => {
     const db = getFirestore();
     const userRef = doc(db, "users", userId);
     try {
-      await updateDoc(userRef, { avatar: avatarName,});
+      await updateDoc(userRef, { avatar: avatarName });
       console.log("Avatar added!");
     } catch (error) {
       console.error("Error adding avatar: ", error);
     }
     router.push("/interest");
-  }
+  };
 
   const avatarSelected = async (avatarName: string) => {
-    setSelectedAvatar(avatarName)
-  }
+    setSelectedAvatar(avatarName);
+    const newUser = {
+      name: user.name,
+      email: user.email,
+      major: user.major,
+      year: user.year,
+      userID: user.userID,
+      avatar: avatarName,
+      academic: user.academic,
+      career: user.career,
+      financial: user.financial,
+      studentLife: user.studentLife,
+    };
+    setUser(newUser);
+  };
 
   function directToSignUp() {
     router.push("/signup");
   }
 
-
   return (
-   // <LinearGradient locations={[0, 1]} colors={["#fff9e9", "#fff"]} style={styles.container}>
-   <View style={styles.outterMostContainer}>
+    // <LinearGradient locations={[0, 1]} colors={["#fff9e9", "#fff"]} style={styles.container}>
+    <View style={styles.outterMostContainer}>
+      <ImageBackground
+        source={require("../assets/images/gradient/whiteGradientAskNShare.png")}
+        resizeMode="cover"
+        style={styles.gradientBackground}
+      >
+        {/* Back Button */}
+        <View style={styles.backBtnContainer}>
+          <TouchableOpacity style={styles.backBtn} onPress={directToSignUp}>
+            <Image
+              style={styles.backBtnImg}
+              source={require("../assets/images/icons/blackBack.png")}
+            />
+          </TouchableOpacity>
+        </View>
+      </ImageBackground>
+      <View style={styles.container}>
+        <View style={styles.topPortion}>
+          <Text style={[styles.title]}>Add an Avatar</Text>
+          <Text style={[styles.subTitle]}>Pick your profile picture.</Text>
+        </View>
 
-  <ImageBackground
-            source={require("../assets/images/gradient/whiteGradientAskNShare.png")}
-            resizeMode="cover"
-            style={styles.gradientBackground}
-          >
-    {/* Back Button */}
-    <View style={styles.backBtnContainer}>
-            <TouchableOpacity style={styles.backBtn} onPress={directToSignUp}>
-              <Image style={styles.backBtnImg} source={require("../assets/images/icons/blackBack.png")}/>
+        <View style={styles.avatarsContainer}>
+          <View>
+            <TouchableOpacity onPress={() => avatarSelected("avatar1")}>
+              <Image
+                style={[styles.avatar]}
+                source={
+                  selectedAvatar === "avatar1"
+                    ? require("../assets/images/avatars/avatar1Selected.png")
+                    : require("../assets/images/avatars/avatar1.png")
+                }
+              />
             </TouchableOpacity>
+          </View>
+          <View>
+            <TouchableOpacity onPress={() => avatarSelected("avatar2")}>
+              <Image
+                style={[styles.avatar]}
+                source={
+                  selectedAvatar === "avatar2"
+                    ? require("../assets/images/avatars/avatar2Selected.png")
+                    : require("../assets/images/avatars/avatar2.png")
+                }
+              />
+            </TouchableOpacity>
+          </View>
+          <View>
+            <TouchableOpacity onPress={() => avatarSelected("avatar3")}>
+              <Image
+                style={[styles.avatar]}
+                source={
+                  selectedAvatar === "avatar3"
+                    ? require("../assets/images/avatars/avatar3Selected.png")
+                    : require("../assets/images/avatars/avatar3.png")
+                }
+              />
+            </TouchableOpacity>
+          </View>
+          <View>
+            <TouchableOpacity onPress={() => avatarSelected("avatar4")}>
+              <Image
+                style={[styles.avatar]}
+                source={
+                  selectedAvatar === "avatar4"
+                    ? require("../assets/images/avatars/avatar4Selected.png")
+                    : require("../assets/images/avatars/avatar4.png")
+                }
+              />
+            </TouchableOpacity>
+          </View>
+          <View>
+            <TouchableOpacity onPress={() => avatarSelected("avatar5")}>
+              <Image
+                style={[styles.avatar]}
+                source={
+                  selectedAvatar === "avatar5"
+                    ? require("../assets/images/avatars/avatar5Selected.png")
+                    : require("../assets/images/avatars/avatar5.png")
+                }
+              />
+            </TouchableOpacity>
+          </View>
+          <View>
+            <TouchableOpacity onPress={() => avatarSelected("avatar6")}>
+              <Image
+                style={[styles.avatar]}
+                source={
+                  selectedAvatar === "avatar6"
+                    ? require("../assets/images/avatars/avatar6Selected.png")
+                    : require("../assets/images/avatars/avatar6.png")
+                }
+              />
+            </TouchableOpacity>
+          </View>
+          <View>
+            <TouchableOpacity onPress={() => avatarSelected("avatar7")}>
+              <Image
+                style={[styles.avatar]}
+                source={
+                  selectedAvatar === "avatar7"
+                    ? require("../assets/images/avatars/avatar7Selected.png")
+                    : require("../assets/images/avatars/avatar7.png")
+                }
+              />
+            </TouchableOpacity>
+          </View>
+          <View>
+            <TouchableOpacity onPress={() => avatarSelected("avatar8")}>
+              <Image
+                style={[styles.avatar]}
+                source={
+                  selectedAvatar === "avatar8"
+                    ? require("../assets/images/avatars/avatar8Selected.png")
+                    : require("../assets/images/avatars/avatar8.png")
+                }
+              />
+            </TouchableOpacity>
+          </View>
+          <View>
+            <TouchableOpacity onPress={() => avatarSelected("avatar9")}>
+              <Image
+                style={[styles.avatar]}
+                source={
+                  selectedAvatar === "avatar9"
+                    ? require("../assets/images/avatars/avatar9Selected.png")
+                    : require("../assets/images/avatars/avatar9.png")
+                }
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        <TouchableOpacity
+          style={[
+            styles.nextButton,
+            { backgroundColor: selectedAvatar === "" ? "#E6E6E6" : "#FFC940" },
+          ]}
+          onPress={() => directToInterest(selectedAvatar)}
+        >
+          <Text
+            style={[
+              styles.nextButtonText,
+              { color: selectedAvatar === "" ? "#9A969F" : "#3A3340" },
+            ]}
+          >
+            Next
+          </Text>
+        </TouchableOpacity>
+      </View>
     </View>
-    </ImageBackground>
-<View style={styles.container}>
-       <View style={styles.topPortion}>
-        <Text style={[styles.title]}>Add an Avatar</Text>
-        <Text style={[styles.subTitle]}>
-          Pick your profile picture.
-        </Text>
-      </View>
-
-      <View style={styles.avatarsContainer}>
-        <View>
-          <TouchableOpacity onPress={() => avatarSelected("avatar1")}>
-              <Image style={[styles.avatar]} source={selectedAvatar === "avatar1" ? require("../assets/images/avatars/avatar1Selected.png") : require("../assets/images/avatars/avatar1.png")}/>
-          </TouchableOpacity>
-        </View>
-        <View>
-          <TouchableOpacity onPress={() => avatarSelected("avatar2")}>
-              <Image style={[styles.avatar]} source={selectedAvatar === "avatar2" ? require("../assets/images/avatars/avatar2Selected.png") : require("../assets/images/avatars/avatar2.png")}/>
-          </TouchableOpacity>
-        </View>
-        <View>
-          <TouchableOpacity onPress={() => avatarSelected("avatar3")}>
-              <Image style={[styles.avatar]} source={selectedAvatar === "avatar3" ? require("../assets/images/avatars/avatar3Selected.png") : require("../assets/images/avatars/avatar3.png")}/>
-          </TouchableOpacity>
-        </View>
-        <View>
-          <TouchableOpacity onPress={() => avatarSelected("avatar4")}>
-              <Image style={[styles.avatar]} source={selectedAvatar === "avatar4" ? require("../assets/images/avatars/avatar4Selected.png") : require("../assets/images/avatars/avatar4.png")}/>
-          </TouchableOpacity>
-        </View>
-        <View>
-          <TouchableOpacity onPress={() => avatarSelected("avatar5")}>
-              <Image style={[styles.avatar]} source={selectedAvatar === "avatar5" ? require("../assets/images/avatars/avatar5Selected.png") : require("../assets/images/avatars/avatar5.png")}/>
-          </TouchableOpacity>
-        </View>
-        <View>
-          <TouchableOpacity onPress={() => avatarSelected("avatar6")}>
-              <Image style={[styles.avatar]} source={selectedAvatar === "avatar6" ? require("../assets/images/avatars/avatar6Selected.png") : require("../assets/images/avatars/avatar6.png")}/>
-          </TouchableOpacity>
-        </View>
-        <View>
-          <TouchableOpacity onPress={() => avatarSelected("avatar7")}>
-              <Image style={[styles.avatar]} source={selectedAvatar === "avatar7" ? require("../assets/images/avatars/avatar7Selected.png") : require("../assets/images/avatars/avatar7.png")}/>
-          </TouchableOpacity>
-        </View>
-        <View>
-          <TouchableOpacity onPress={() => avatarSelected("avatar8")}>
-              <Image style={[styles.avatar]} source={selectedAvatar === "avatar8" ? require("../assets/images/avatars/avatar8Selected.png") : require("../assets/images/avatars/avatar8.png")}/>
-          </TouchableOpacity>
-        </View>
-        <View> 
-          <TouchableOpacity onPress={() => avatarSelected("avatar9")}>
-              <Image style={[styles.avatar]} source={selectedAvatar === "avatar9" ? require("../assets/images/avatars/avatar9Selected.png") : require("../assets/images/avatars/avatar9.png")}/>
-          </TouchableOpacity>
-        </View>
-      </View>
-
-
-      <TouchableOpacity style={[ styles.nextButton,{ backgroundColor: selectedAvatar === "" ? "#E6E6E6" : "#FFC940" } ]} onPress={() => directToInterest(selectedAvatar)}>
-              <Text style={[ styles.nextButtonText,{ color: selectedAvatar === "" ? "#9A969F" : "#3A3340",  } ]}>Next</Text>
-      </TouchableOpacity>
-      </View>
-      </View>
   );
 };
 
@@ -170,14 +272,14 @@ const styles = StyleSheet.create({
     lineHeight: 20,
     fontFamily: "Stolzl Regular",
   },
-  topPortion:{
+  topPortion: {
     paddingBottom: 20,
     justifyContent: "flex-start",
   },
   avatarsContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
-    width: "100%"
+    width: "100%",
   },
   avatar: {
     width: 88,
