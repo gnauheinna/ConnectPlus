@@ -105,6 +105,7 @@ function RootLayoutNav() {
         <Stack.Screen name="rachelFeatured" options={{ headerShown: false }} />
         <Stack.Screen name="rachel" options={{ headerShown: false }} />
         <Stack.Screen name="nana" options={{ headerShown: false }} />
+        <Stack.Screen name="bailey" options={{ headerShown: false }} />
         <Stack.Screen name="shateva" options={{ headerShown: false }} />
         <Stack.Screen name="shatevaFeatured" options={{ headerShown: false }} />
         <Stack.Screen name="seeAllJourneys" options={{ headerShown: false }} />

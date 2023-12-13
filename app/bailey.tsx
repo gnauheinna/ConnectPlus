@@ -31,8 +31,8 @@ export default function MyJourneyPost() {
   useEffect(() => {
     const isShatevaSaved = savedJourneys.some(
       (journey) =>
-        journey.authorName === "Shateva Long" &&
-        journey.journeyTitle === "I Got To Create My Own 4 Credit CS Course!"
+        journey.authorName === "Bailey Borden" &&
+        journey.journeyTitle === "The Most Important Career Lessons I’ve Learned"
     );
     if (isShatevaSaved) {
       // Shateva Long's journey is saved
@@ -46,9 +46,9 @@ export default function MyJourneyPost() {
   const unsaveJourney = async () => {
     const updatedSavedJourneys = savedJourneys.filter(
       (journey) =>
-        journey.authorName !== "Shateva Long" &&
+        journey.authorName !== "Bailey Borden" &&
         journey.journeyTitle !==
-          "I Got To Create My Own 4 Credit CS Course!"
+          "The Most Important Career Lessons I’ve Learned"
     );
 
     // updates context
@@ -68,10 +68,10 @@ export default function MyJourneyPost() {
   const saveJourney = async () => {
     // If it doesn't exist, add a new entry
     const newJourney = {
-      journeyTitle: "I Got To Create My Own 4 Credit CS Course!",
-      authorName: "Shateva Long",
+      journeyTitle: "The Most Important Career Lessons I’ve Learned",
+      authorName: "Bailey Borden",
       journeyID: "XlT9K5adSYcud8VOybpKjQL0wHrR5og4",
-      Intro: "BU Alumni Product Manager @Microsoft",
+      Intro: "BU Alumni Software Engineer @Capital One",
     };
     // Add the new entry to the savedJourneys array
     await savedJourneys.push(newJourney);
@@ -90,11 +90,11 @@ export default function MyJourneyPost() {
   // saves and unsaves the journey
   const handleClick = async () => {
     await setIsSaved(!isSaved);
-    // Check if there exists an entry with journeyTitle "I Got To Create My Own 4 Credit Computer Science Course!"
+    // Check if there exists an entry with journeyTitle "Voice of a First-Gen Graduate, Entrepreneur, Faculty"
     const isPostExists = savedJourneys.some(
       (journey) =>
         journey.journeyTitle ===
-        "I Got To Create My Own 4 Credit CS Course!"
+        "Voice of a First-Gen Graduate, Entrepreneur, Faculty"
     );
     if (isSaved && isPostExists) {
       // unsave the journey
@@ -128,33 +128,19 @@ export default function MyJourneyPost() {
         setVerticalLine4(false);
         setVerticalLine5(false);
       }
-      if (scrollY >= 400) {
+      if (scrollY >= 650) {
         setVerticalLine2(true);
         setVerticalLine1(false);
         setVerticalLine3(false);
         setVerticalLine4(false);
         setVerticalLine5(false);
       }
-      if (scrollY >= 650) {
+      if (scrollY >= 2200) {
         setVerticalLine3(true);
         setVerticalLine1(false);
         setVerticalLine2(false);
         setVerticalLine4(false);
         setVerticalLine5(false);
-      }
-      if (scrollY >= 1150) {
-        setVerticalLine4(true);
-        setVerticalLine1(false);
-        setVerticalLine2(false);
-        setVerticalLine3(false);
-        setVerticalLine5(false);
-      }
-      if (scrollY >= 1200) {
-        setVerticalLine5(true);
-        setVerticalLine1(false);
-        setVerticalLine2(false);
-        setVerticalLine3(false);
-        setVerticalLine4(false);
       }
     },
     []
@@ -164,7 +150,7 @@ export default function MyJourneyPost() {
     <View style={styles.outterContainer}>
       <View style={styles.container}>
         <ImageBackground
-          source={require("../assets/images/journeyPostsGradients/shatevaFeatured.png")}
+          source={require("../assets/images/journeyPostsGradients/rachel.png")}
           resizeMode="cover"
           style={styles.gradientBackground}
         >
@@ -196,7 +182,7 @@ export default function MyJourneyPost() {
             <View style={styles.postTitleContainer}>
               <View style={styles.timeAndSaveContainer}>
                 {/* Timestamp */}
-                <Text style={styles.postDate}>Nov 6th 2023</Text>
+                <Text style={styles.postDate}>Dec 10th 2023</Text>
                 {/* Save Button */}
                 <TouchableOpacity onPress={() => handleClick()}>
                   <Image
@@ -210,21 +196,19 @@ export default function MyJourneyPost() {
                 </TouchableOpacity>
               </View>
               {/* Title */}
-              <Text style={styles.postTitle}>
-                I Got To Create My Own 4 Credit Computer Science Course!
-              </Text>
+              <Text style={styles.postTitle}>The Most Important Career Lessons I’ve Learned</Text>
             </View>
           </View>
           {/* Author's information */}
           <View style={styles.authorInfoContainer}>
             <Image
               style={styles.profileImg}
-              source={require("../assets/images/mentorProfilePics/shateva.png")}
+              source={require("../assets/images/mentorProfilePics/bailey.png")}
             />
             <View style={styles.userNameAndIntro}>
-              <Text style={styles.userName}>Shateva Long</Text>
+              <Text style={styles.userName}>Bailey Borden</Text>
               <Text style={styles.userIntro}>
-              BU Alumni{"\n"}Product Manager @Microsoft
+              BU Alumni{"\n"}Software Engineer @Capital One
               </Text>
             </View>
           </View>
@@ -234,90 +218,91 @@ export default function MyJourneyPost() {
           <View style={styles.postContentMainContainer}>
             {/* 1st Step */}
             <View style={styles.individualStep}>
+              <View style={styles.subtitleContainer}>
+                <Text style={styles.subtitleText}>College Experience</Text>
+              </View>
               <View style={styles.regularContentContainer}>
+                <Text style={styles.regularContentTextBolded}>Q: When did you start to be aware of your first-gen identity? What does that mean to you?</Text>
                 <Text style={styles.regularContentText}>
-                  It was my last year in college and I still needed one more
-                  elective course to fulfill my Computer Science degree
-                  requirements. I had a poor lottery number, which left me with
-                  higher level 500+ courses that did not peak my interest. After
-                  lots of searching through our course site, I saw that as a
-                  senior computer science student, I was eligible for a directed
-                  study so that’s what I did!
+                  <Text style={styles.underlinedText}>My first-gen identity for me means independence.{" "}</Text>In high school I realized that there were a lot of steps I needed to take that other students had laid out in front of them.{" "}
+                  <Text style={styles.underlinedText}>First-gen identity taught me to actively pursue my opportunities though and appreciate the ones I found even more so.{" "}</Text>
+                </Text>
+              </View>
+              
+              <View style={styles.regularContentContainer}>
+                <Text style={styles.regularContentTextBolded}>Q: What were some of the challenges you encountered during your computer science studies, and how did you overcome them?</Text>
+                <Text style={styles.regularContentText}>
+                A lot of the curriculum can be extremely difficult but the biggest challenge I faced though was the more social aspect of going into each of my classes without a support network to help push me. Meeting new people can be incredibly terrifying but if you can push yourself to make those connections then going through a CS course with friends who are understanding and willing to help each other when they’re struggling makes the experience so much better.
                 </Text>
               </View>
             </View>
             {/* 2nd Step */}
             <View style={styles.individualStep}>
               <View style={styles.subtitleContainer}>
-                <Text style={styles.subtitleText}>Processes</Text>
+                <Text style={styles.subtitleText}>Professional Experience</Text>
               </View>
               <View style={styles.regularContentContainer}>
+                <Text style={styles.regularContentTextBolded}>Q: Could you share more about your career journey?</Text>
+                <Text style={styles.regularContentText}>My first full time role was with IBM as a Software Engineer in San Jose, which I had interned for the summer before. I transitioned to my full time role during Covid. One year into my role I realized how unhappy I was due to the limited social aspect and the nature of the role. That's when I joined Capital One in Boston. </Text>
                 <Text style={styles.regularContentText}>
-                  1. Figure out what to study! This can be anything related to
-                  your major.
-                </Text>
-                <Text style={styles.regularContentText}>
-                  2. Find a professor to work with.
-                </Text>
-                <Text style={styles.regularContentText}>
-                  3. Fill out your department’s directed study application. It
-                  will ask you questions about your project, what assignments
-                  you’ll be submitting, how many hours you’ll be working, etc.
-                </Text>
-                <Text style={styles.regularContentText}>
-                  4. Go through your “course” content with your professor and
-                  submit your application.
+                  <Text style={styles.underlinedText}>My transition was a little rough.{" "}</Text>It was a new department and we were low on staff at the time so I had to learn on the fly.{" "}
+                  <Text style={styles.underlinedText}>My organization had awesome people I could lean on for support and helped me keep my head above water{" "}</Text>until I could support myself and the rest of my team.
                 </Text>
               </View>
-            </View>
+
+              <View style={styles.regularContentContainer}>
+                <Text style={styles.regularContentTextBolded}>Q: Can you share your experience in searching for software engineering internships?</Text>
+                <Text style={styles.regularContentText}>
+                  <Text style={styles.underlinedText}>Be on the lookout for opportunities to connect with people with similar backgrounds or interests,{" "}</Text>like recruitment events catered for LGBT folks, women in STEM, video game developer conferences,etc.{" "}
+                  <Text style={styles.underlinedText}>In person networking events are an amazing way to stand out.{" "}</Text>Remember that a lot of recruiters aren’t looking for your technical skills or brainpower doing events, they already know that the interview process will take care of that.{" "}
+                  <Text style={styles.underlinedText}>Focus on showing them your enthusiasm and drive instead and you’ll make a much more lasting impression.{" "}</Text>It doesn’t even need to be job related, just find a way to steer the conversation to something you’ve been obsessing over or a long term passion you’ve always had and they’ll recognize that you can bring that energy into the office too.
+                </Text>
+              </View>
+
+              <View style={styles.regularContentContainer}>
+                <Text style={styles.regularContentTextBolded}>Q: Were there particular skills or experiences that helped you to navigate the workforce as a young professional?</Text>
+                <Text style={styles.regularContentText}>
+                   I fully believe that{" "}
+                  <Text style={styles.underlinedText}>the most crucial skill you can refine in any type of career is your listening ability{" "}</Text>Misunderstandings happen all the time and in a remote or hybrid workforce where avenues of communication are limited, making sure you’re actively processing the information thrown at you is critical to prevent major errors and missteps.
+                </Text>
+              </View>
+            
             {/* 3rd Step */}
             <View style={styles.individualStep}>
               <View style={styles.subtitleContainer}>
-                <Text style={styles.subtitleText}>Experience</Text>
+                <Text style={styles.subtitleText}>Tips and Advice</Text>
               </View>
               <View style={styles.regularContentContainer}>
+                <Text style={styles.regularContentTextBolded}>Q: What factors do you believe contributed most to your success?</Text>
                 <Text style={styles.regularContentText}>
-                  As my project, I analyzed data from a DEI climate survey I
-                  conducted and created an analysis report. I had so much fun.
-                  The professor I worked with was amazing. He was extremely
-                  helpful throughout the entire process and our work styles
-                  meshed well. The project itself was also{" "}<Text style={styles.regularContentTextBolded}>the perfect combination of challenging and interesting.{" "}</Text>
-                  I got to learn a new programming language and use it to build an interactive
-                  data report, and I enjoyed every minute of it. I got to
-                  utilize all of the skills I developed over the years and put
-                  my all into this project. It was genuinely the first time I’ve
-                  felt overall fulfillment with a course at BU.
+                It sounds corny but{" "}
+                  <Text style={styles.underlinedText}>a positive attitude takes you a super long way.{" "}</Text>Life gets rough, work gets rough, sometimes your team will have a super tight deadline or home life will compound with work stress, but trying to keep a positive perspective genuinely helps you and the people you work with get through those days.{" "}
+                  <Text style={styles.underlinedText}>You’ll always be remembered and appreciated for bringing that light to the people around you, and nothing feels better than helping someone else get through a hard day too.{" "}</Text>
                 </Text>
               </View>
+              
+              <View style={styles.regularContentContainer}>
+                <Text style={styles.regularContentTextBolded}>Q: How do you think students can benefit from peer-to-peer relationships?</Text>
+                <Text style={styles.regularContentText}>
+                  <Text style={styles.underlinedText}>Mutual Support and shared resources are both really important{" "}</Text>things I think Connect+ could provide for first-gen students. A lot of students just don’t know about all the amazing opportunities that Boston holds. Having a place to share information about those opportunities is super useful. Even having the ability to do something as simple as “Hey I found a cool AI conference that so-and-so is holding, would anyone want to go together?” can be really useful for a first-gen student who might be nervous about entering the professional world.
+                </Text>
+              </View>
+
+              <View style={styles.regularContentContainer}>
+                <Text style={styles.regularContentTextBolded}>Q: For students who are about to graduate and start their early careers, what are the top 3 advice you have for them?</Text>
+                <Text style={styles.regularContentText}>1.{" "}
+                  <Text style={styles.underlinedText}>Alway prioritize a job where you feel happy{" "}</Text>with your role rather than chasing a higher paycheck. Burnout is so real and happens even faster when you’re miserable in your job.
+                </Text>
+                <Text style={styles.regularContentText}>2.{" "}
+                  <Text style={styles.underlinedText}>Don’t feel ashamed of your knowledge gaps.{" "}</Text>No one is expecting you to know everything and a leader always appreciates questions and engagement more than zoom silence.
+                </Text>
+                <Text style={styles.regularContentText}>3.{" "}
+                  <Text style={styles.underlinedText}>Never compare your journey to someone else’s.{" "}</Text>You’re living a life, not checking a bunch of boxes on a list.{" "}
+                  <Text style={styles.underlinedText}>There’s no “right” way to be you.{" "}</Text>
+                </Text>
+              </View>
+
             </View>
-            {/* 4th Step */}
-            <View style={styles.individualStep}>
-              <View style={styles.subtitleContainer}>
-                <Text style={styles.subtitleText}>Challenges</Text>
-              </View>
-              <View style={styles.regularContentContainer}>
-                <Text style={styles.regularContentText}>
-                  The hardest part of the directed study was the initial
-                  application process. Finding a professor was not easy since
-                  many professors were busy or did not have the skills I needed
-                  for my project. Luckily, I was able to find a professor
-                  outside of my department who had the exact skills I needed.
-                  Everything else was great.
-                </Text>
-              </View>
-            </View>
-            {/* 5th Step */}
-            <View style={styles.individualStep}>
-              <View style={styles.subtitleContainer}>
-                <Text style={styles.subtitleText}>Takeaways</Text>
-              </View>
-              <View style={styles.regularContentContainer}>
-                <Text style={styles.regularContentText}>
-                  Doing a directed study is not for everyone. You have to
-                  essentially build your own course and keep yourself on track.
-                  {" "}<Text style={styles.regularContentTextBolded}>While it may be challenging, the experience was rewarding.{" "}</Text>
-                </Text>
-              </View>
             </View>
           </View>
         </View>
@@ -337,16 +322,6 @@ export default function MyJourneyPost() {
         <View
           style={
             verticalLine3 ? styles.verticalLine3Active : styles.verticalLine3
-          }
-        ></View>
-        <View
-          style={
-            verticalLine4 ? styles.verticalLine4Active : styles.verticalLine4
-          }
-        ></View>
-        <View
-          style={
-            verticalLine5 ? styles.verticalLine5Active : styles.verticalLine5
           }
         ></View>
       </View>
@@ -426,7 +401,7 @@ const styles = StyleSheet.create({
   postDate: {
     color: "#818181",
     fontSize: 16,
-    fontWeight: "600",
+    fontFamily: "Stolzl Medium",
     marginBottom: 5,
   },
   postTitle: {
@@ -439,6 +414,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     paddingTop: 20,
     paddingBottom: 20,
+    paddingRight: 32,
   },
   profileImg: {
     width: 36,
@@ -453,12 +429,13 @@ const styles = StyleSheet.create({
   },
   userName: {
     fontSize: 14,
-    fontWeight: "bold",
+    fontFamily: "Stolzl Medium",
     marginBottom: 5,
   },
   userIntro: {
     fontSize: 12,
     color: "#888888",
+    fontFamily: "Stolzl Regular",
   },
   postContentContainer: {
     flexDirection: "row",
@@ -487,8 +464,15 @@ const styles = StyleSheet.create({
   subtitleText: {
     color: "#AF6BAB",
     fontSize: 14,
-    fontFamily: "Stolzl Medium",
+    fontWeight: "bold",
     textAlign: "center",
+    fontFamily: "Stolzl Medium",
+  },
+  underlinedText: {
+    fontSize: 16,
+    lineHeight: 25,
+    fontFamily: "Stolzl Regular",
+    textDecorationLine: "underline",
   },
   boldedContentContainer: {
     marginBottom: 10,
@@ -533,7 +517,7 @@ const styles = StyleSheet.create({
     right: 20,
     top: 280,
     flexDirection: "column",
-    height: 360,
+    height: 450,
   },
   verticalLine1Active: {
     flex: 1,

@@ -86,7 +86,18 @@ export default function JourneyScreen() {
                 />
               </TouchableOpacity>
 
-              {/* 2nd Featured Journey */}
+               {/* 2nd Featured Journey */}
+               <TouchableOpacity
+                onPress={() => directToMyJourneyPost("bailey")}
+                style={styles.featuredJourney}
+              >
+                <Image
+                  style={styles.featuredJourneyImg}
+                  source={require("../../assets/images/featuredMyJourneyPosts/shateva.png")}
+                />
+              </TouchableOpacity>
+
+              {/* 3rd Featured Journey */}
               <TouchableOpacity
                 onPress={() => directToMyJourneyPost("shatevaFeatured")}
                 style={styles.featuredJourney}
@@ -97,7 +108,7 @@ export default function JourneyScreen() {
                 />
               </TouchableOpacity>
 
-               {/* 3rd Featured Journey */}
+               {/* 4th Featured Journey */}
                <TouchableOpacity
                 onPress={() => directToMyJourneyPost("rachelFeatured")}
                 style={styles.featuredJourney}

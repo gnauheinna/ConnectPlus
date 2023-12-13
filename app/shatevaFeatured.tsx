@@ -68,7 +68,7 @@ export default function MyJourneyPost() {
       journeyTitle: "A First-Gen's Journey from BU to Microsoft",
       authorName: "Shateva Long",
       journeyID: "qwrr4XlT9K5adSasdasferqL0wHrR5og4",
-      Intro: "Alumni",
+      Intro: "BU Alumni Product Manager @Microsoft",
     };
     // Add the new entry to the savedJourneys array
     await savedJourneys.push(newJourney);
@@ -212,7 +212,9 @@ export default function MyJourneyPost() {
             />
             <View style={styles.userNameAndIntro}>
               <Text style={styles.userName}>Shateva Long</Text>
-              <Text style={styles.userIntro}>Alumni</Text>
+              <Text style={styles.userIntro}>
+              BU Alumni{"\n"}Product Manager @Microsoft
+              </Text>
             </View>
           </View>
         </View>
