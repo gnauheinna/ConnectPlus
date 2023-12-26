@@ -1,77 +1,38 @@
 # Connect Plus
 A peer consultation platform for First-Generation college students to find our voices, our tribe, and our belongings.
+<img width="795" alt="Screenshot 2023-12-26 at 2 15 31 PM" src="https://github.com/gnauheinna/ConnectPlus/assets/116969903/936303ff-5bac-4628-a463-6030cefb0417">
+
+# Features
+<img width="798" alt="Screenshot 2023-12-26 at 2 19 29 PM" src="https://github.com/gnauheinna/ConnectPlus/assets/116969903/1b9d1c70-29d1-4f39-83b6-1f941546ffb5">
+
+### My Journey
+<img width="796" alt="Screenshot 2023-12-26 at 2 19 45 PM" src="https://github.com/gnauheinna/ConnectPlus/assets/116969903/a3731944-56da-4b4c-b674-5583750cc020">
+
+### Ask and Share
+<img width="797" alt="Screenshot 2023-12-26 at 2 20 02 PM" src="https://github.com/gnauheinna/ConnectPlus/assets/116969903/eb77eeb0-7583-4dbe-927b-83a68cffb523">
+
+### Chat
+<img width="798" alt="Screenshot 2023-12-26 at 2 20 19 PM" src="https://github.com/gnauheinna/ConnectPlus/assets/116969903/93ea8ad8-d83d-446d-b137-100b342cfc40">
+
 
 # Tech Stack
-
 - ReactNative
 - Firebase
 - TypeScript
 - html
 - css
 
-# Instructions
-
+# Install Instructions
 In the project directory, you can run:
-
 ### `npm start`
-
+1. Option 1 #Run it on a WebBrowser
 Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:19006) to view it in your browser.
+Open [http://localhost:8081](http://localhost:8081) to view it in your browser.
+2. Option 2 #Run it on Expo Go!
+- Download Expo Go on App store
+- Use your camera to scan the QRCode in the terminal
+- Open and Run app!
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
 
 
