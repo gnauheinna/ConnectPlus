@@ -1,5 +1,6 @@
 # Connect Plus
-A peer consultation platform for First-Generation college students to find our voices, our tribe, and our belongings.
+## A peer consultation platform for First-Generation college students to find our voices, our tribe, and our belongings.
+
 <img width="795" alt="Screenshot 2023-12-26 at 2 15 31 PM" src="https://github.com/gnauheinna/ConnectPlus/assets/116969903/936303ff-5bac-4628-a463-6030cefb0417">
 
 # Features
